@@ -1,0 +1,115 @@
+export function RunwayProtection() {
+  return (
+    <section id="runway-protection" className="py-12 sm:py-16 lg:py-20">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-10 sm:mb-12">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <h2 className="text-xl sm:text-2xl font-semibold">6-Month Runway Protection</h2>
+          </div>
+          <span className="px-3 py-1 text-[11px] font-mono text-accent-bright bg-accent-bright/10 rounded-full border border-accent-bright/20">
+            Backer Protection
+          </span>
+        </div>
+
+        <p className="text-center text-white/60 max-w-2xl mx-auto mb-10">
+          Built-in accountability for sustainable building. Funds release via tranches over 6 months with community challenge protection.
+        </p>
+
+        {/* Visual Timeline */}
+        <div className="mb-10 p-6 bg-white/[0.02] border border-white/[0.06] rounded-xl">
+          <h3 className="font-medium mb-6 text-center text-sm text-white/50">Fund Release Timeline</h3>
+
+          {/* Desktop timeline */}
+          <div className="hidden md:block max-w-3xl mx-auto">
+            <div className="relative">
+              {/* Timeline bar */}
+              <div className="h-6 bg-white/[0.05] rounded-full overflow-hidden flex">
+                <div className="w-[10%] bg-accent flex items-center justify-center text-[10px] font-bold text-black" title="Kickstart: 10%">10%</div>
+                <div className="w-[15%] bg-accent-bright border-l border-background flex items-center justify-center text-[10px] font-medium text-black" title="Month 1: 15%">15%</div>
+                <div className="w-[15%] bg-accent-bright border-l border-background flex items-center justify-center text-[10px] font-medium text-black" title="Month 2: 15%">15%</div>
+                <div className="w-[15%] bg-accent-bright border-l border-background flex items-center justify-center text-[10px] font-medium text-black" title="Month 3: 15%">15%</div>
+                <div className="w-[15%] bg-accent-bright border-l border-background flex items-center justify-center text-[10px] font-medium text-black" title="Month 4: 15%">15%</div>
+                <div className="w-[15%] bg-accent-bright border-l border-background flex items-center justify-center text-[10px] font-medium text-black" title="Month 5: 15%">15%</div>
+                <div className="w-[15%] bg-accent-bright border-l border-background flex items-center justify-center text-[10px] font-medium text-black" title="Month 6: 15%">15%</div>
+              </div>
+
+              {/* Labels */}
+              <div className="flex justify-between mt-3 text-xs text-white/40">
+                <span className="flex items-center gap-1">
+                  <svg className="w-3 h-3 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
+                  Kickstart
+                </span>
+                <span>M1</span>
+                <span>M2</span>
+                <span>M3</span>
+                <span>M4</span>
+                <span>M5</span>
+                <span>M6</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile timeline - simplified */}
+          <div className="md:hidden">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex-1 h-3 bg-accent rounded-l-full" style={{ flex: '10' }}></div>
+              <div className="flex-1 h-3 bg-accent-bright" style={{ flex: '90' }}></div>
+              <div className="h-3 w-3 bg-accent-bright rounded-r-full"></div>
+            </div>
+            <div className="flex justify-between text-xs text-white/40">
+              <span className="text-accent">10% Kickstart</span>
+              <span className="text-accent-bright">90% over 6 months</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-5 bg-white/[0.02] border border-accent/20 rounded-xl">
+            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+              <svg className="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </div>
+            <h3 className="font-semibold mb-2 text-white">Kickstart Tranche</h3>
+            <p className="text-sm text-white/60">
+              10% released immediately at finalization. Get momentum while the rest vests monthly.
+            </p>
+          </div>
+
+          <div className="p-5 bg-white/[0.02] border border-accent-bright/20 rounded-xl">
+            <div className="w-10 h-10 rounded-full bg-accent-bright/10 flex items-center justify-center mb-4">
+              <svg className="w-5 h-5 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
+              </svg>
+            </div>
+            <h3 className="font-semibold mb-2 text-white">72h Challenge Window</h3>
+            <p className="text-sm text-white/60">
+              Each payout opens a 72-hour window. Backers can challenge suspicious requests.
+            </p>
+          </div>
+
+          <div className="p-5 bg-white/[0.02] border border-purple-500/20 rounded-xl">
+            <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center mb-4">
+              <svg className="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <h3 className="font-semibold mb-2 text-white">LP Auto-Locked</h3>
+            <p className="text-sm text-white/60">
+              Liquidity pool tokens locked at raise finalization. No rug pulls.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
