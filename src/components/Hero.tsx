@@ -79,23 +79,23 @@ function HeroVisual() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl">
+    <div className="relative w-full max-w-[320px] sm:max-w-md lg:max-w-lg xl:max-w-xl">
       {/* Terminal window */}
       <div className="relative bg-[#0a0a0a] border border-white/[0.08] rounded-xl overflow-hidden">
         {/* Terminal header */}
-        <div className="flex items-center gap-2 px-4 py-3 bg-white/[0.02] border-b border-white/5">
+        <div className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-white/[0.02] border-b border-white/5">
           <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-            <div className="w-3 h-3 rounded-full bg-green-500/80" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500/80" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500/80" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500/80" />
           </div>
           <div className="flex-1 text-center">
-            <span className="text-[11px] font-mono text-white/40">claude — vibestarter</span>
+            <span className="text-[10px] sm:text-[11px] font-mono text-white/40">claude — vibestarter</span>
           </div>
         </div>
 
         {/* Terminal content */}
-        <div className="p-4 font-mono text-[13px] leading-relaxed space-y-3 min-h-[320px]">
+        <div className="p-3 sm:p-4 font-mono text-[11px] sm:text-[13px] leading-relaxed space-y-2 sm:space-y-3 min-h-[260px] sm:min-h-[320px]">
           {/* First prompt line */}
           <div className="flex items-start gap-2">
             <span className="text-accent-bright shrink-0">claude $</span>
@@ -226,7 +226,7 @@ export function Hero() {
             </div>
 
             {/* Right column - Visual */}
-            <div className="hidden lg:flex justify-center lg:justify-end">
+            <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
               <HeroVisual />
             </div>
           </div>
