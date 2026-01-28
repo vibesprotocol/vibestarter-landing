@@ -16,7 +16,7 @@ export function RunwayProtection() {
         </div>
 
         <p className="text-center text-white/60 max-w-2xl mx-auto mb-10">
-          Built-in accountability for sustainable building. Funds release via tranches over 6 months with community challenge protection.
+          Built-in accountability for sustainable building. Funds release automatically over 6 months—no milestones to verify, just time-locked tranches with 72-hour challenge windows.
         </p>
 
         {/* Visual Timeline */}

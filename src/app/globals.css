@@ -6,6 +6,7 @@
   * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
   }
 
   html {
@@ -15,6 +16,25 @@
   body {
     @apply bg-background text-white;
   }
+}
+
+/* Scrollbar - matches app */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
 }
 
 @layer components {
@@ -65,7 +85,7 @@
 
   /* Button styles */
   .btn-primary {
-    @apply bg-white text-black transition-all duration-200 font-medium;
+    @apply bg-white text-black transition-all duration-200 font-medium rounded-lg;
   }
 
   .btn-primary:hover {
@@ -73,7 +93,7 @@
   }
 
   .btn-secondary {
-    @apply border border-border transition-all duration-200;
+    @apply border border-border transition-all duration-200 rounded-lg;
   }
 
   .btn-secondary:hover {

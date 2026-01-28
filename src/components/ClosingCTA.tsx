@@ -9,14 +9,14 @@ export function ClosingCTA() {
             Ready to raise?
           </h2>
           <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 sm:mb-10">
-            Launch your Vibetoken and start raising in minutes — milestone-based, transparent, on-chain.
+            Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="https://app.vibestarter.xyz"
               className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
             >
-              Launch a Vibetoken
+              Launch Your Raise
             </Link>
             <Link
               href="https://app.vibestarter.xyz"

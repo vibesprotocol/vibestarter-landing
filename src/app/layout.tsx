@@ -4,7 +4,7 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Vibestarter — Fund your vibecoded app",
   description:
-    "Milestone-gated crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
+    "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
   keywords: [
     "vibecoins",
     "vibecoding",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vibestarter — Fund your vibecoded app",
     description:
-      "Milestone-gated crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
+      "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
     url: "https://vibestarter.xyz",
     siteName: "Vibestarter",
     type: "website",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Vibestarter — Fund your vibecoded app",
     description:
-      "Milestone-gated crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
+      "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
   },
 };
 

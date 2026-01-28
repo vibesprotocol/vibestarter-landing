@@ -19,8 +19,8 @@ const config: Config = {
         background: "#0A0A0A",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       animation: {
         "bounce-slow": "bounce 2s infinite",

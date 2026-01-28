@@ -179,7 +179,7 @@ export function MarketThesis() {
               Vibecoins unlock funding
             </h3>
             <p className="text-muted text-[14px] leading-relaxed">
-              Ideas can raise before building. Milestone-gated, escrow-backed.
+              Ideas can raise before building. Time-released, escrow-backed.
             </p>
 
             {/* Signal chip */}
@@ -203,7 +203,7 @@ export function MarketThesis() {
               The release of Claude Opus 4.5 marked an inflection point. For the first time, agents could reliably ship production-quality software from natural language prompts. This unlocked a new class of builder: the non-technical founder who directs AI to execute their vision.
             </p>
             <p>
-              But funding infrastructure hasn&apos;t caught up. Traditional investors want teams, traction, and technical co-founders. Vibestarter bridges this gap with milestone-based crowdfunding, letting ideas raise at the concept stage with verifiable provenance.
+              But funding infrastructure hasn&apos;t caught up. Traditional investors want teams, traction, and technical co-founders. Vibestarter bridges this gap with time-released crowdfunding, letting ideas raise at the concept stage with verifiable provenance.
             </p>
             <p>
               Every launch records who built it, which agent powered it, and proof of the build process. This creates accountability and discoverability in a market flooded with agent-generated projects.

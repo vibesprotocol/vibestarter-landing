@@ -57,7 +57,7 @@ export function FundingShift() {
                     <path d="M5 12l5 5L20 7" />
                   </svg>
                 </div>
-                <span className="text-white/80">Unlock capital as you hit milestones</span>
+                <span className="text-white/80">Unlock capital as monthly tranches release</span>
               </div>
             </div>
 
@@ -121,7 +121,7 @@ export function FundingShift() {
         {/* Bottom callout */}
         <div className="mt-8 sm:mt-12 text-center">
           <p className="text-muted text-[13px] sm:text-[14px]">
-            <span className="text-accent">Days, not months.</span> Provenance-verified, milestone-gated.
+            <span className="text-accent">Days, not months.</span> Provenance-verified, time-released.
           </p>
         </div>
       </div>

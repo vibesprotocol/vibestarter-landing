@@ -48,21 +48,28 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 sm:gap-12 mb-12 sm:mb-16">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4 sm:mb-6">
-              <svg className="w-6 h-6" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="white" />
+            <Link href="/" className="flex items-center gap-1 mb-4 sm:mb-6">
+              <svg className="w-5 h-5" viewBox="0 0 32 32" fill="none">
+                {/* Terminal prompt ">" */}
                 <path
-                  d="M10 16l4 4 8-8"
-                  stroke="black"
-                  strokeWidth="2.5"
+                  d="M4 8L14 16L4 24"
+                  stroke="#91D982"
+                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                />
+                {/* Cursor "_" */}
+                <path
+                  d="M16 24H28"
+                  stroke="#91D982"
+                  strokeWidth="3"
+                  strokeLinecap="round"
                 />
               </svg>
               <span className="font-semibold text-[15px]">Vibestarter</span>
             </Link>
             <p className="text-muted text-[13px] sm:text-[14px] max-w-xs mb-6">
-              Milestone-based fundraising for vibecoded apps. Built on Base.
+              Time-released crowdfunding for vibecoded apps. Built on Base.
             </p>
             {/* Social Icons */}
             <div className="flex items-center gap-3">
@@ -155,7 +162,7 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy
             </Link>
-            <span>© 2025 Vibestarter</span>
+            <span>© 2026 Vibestarter</span>
           </div>
         </div>
       </div>

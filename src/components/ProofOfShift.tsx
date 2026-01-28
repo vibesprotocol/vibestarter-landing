@@ -13,7 +13,7 @@ export function ProofOfShift() {
     {
       value: "—",
       label: "Raises created",
-      note: "Milestone-gated",
+      note: "Time-released",
     },
   ];
 

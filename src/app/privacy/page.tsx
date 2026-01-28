@@ -6,15 +6,22 @@ export default function PrivacyPage() {
       {/* Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 nav-blur bg-[#0A0A0A]/90 border-b border-border">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
-          <Link href="/" className="flex items-center gap-2 sm:gap-3">
-            <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 32 32" fill="none">
-              <rect width="32" height="32" rx="8" fill="white" />
+          <Link href="/" className="flex items-center gap-0.5 sm:gap-1">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 32 32" fill="none">
+              {/* Terminal prompt ">" */}
               <path
-                d="M10 16l4 4 8-8"
-                stroke="black"
-                strokeWidth="2.5"
+                d="M4 8L14 16L4 24"
+                stroke="#91D982"
+                strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+              />
+              {/* Cursor "_" */}
+              <path
+                d="M16 24H28"
+                stroke="#91D982"
+                strokeWidth="3"
+                strokeLinecap="round"
               />
             </svg>
             <span className="font-semibold text-sm sm:text-[15px] tracking-tight">
