@@ -6,8 +6,8 @@ const steps = [
   },
   {
     step: 2,
-    title: "Prove Your Build",
-    description: "Upload AI transcript → cryptographic proof stored on-chain",
+    title: "Prove Build",
+    description: "Vibecode attestation",
   },
   {
     step: 3,
@@ -17,7 +17,7 @@ const steps = [
   {
     step: 4,
     title: "Go Live",
-    description: "Your raise goes live → backers start funding",
+    description: "Start raise",
   },
   {
     step: 5,
@@ -27,7 +27,7 @@ const steps = [
   {
     step: 6,
     title: "Vibestart",
-    description: "10% instant funding when your raise finalizes",
+    description: "10% instant funding",
   },
   {
     step: 7,
@@ -37,7 +37,7 @@ const steps = [
   {
     step: 8,
     title: "Tranches",
-    description: "Claim 15% funding monthly over 6 months",
+    description: "Monthly funding claim",
     highlight: true,
   },
 ];
@@ -103,13 +103,13 @@ export function HowItWorks() {
 
   const stepData = [
     { title: "Verify", desc: "Wallet + socials" },
-    { title: "Prove Build", desc: "Upload transcript" },
+    { title: "Prove Build", desc: "Vibecode attestation" },
     { title: "Set Terms", desc: "Roadmap + tokens" },
-    { title: "Go Live", desc: "Start funding" },
+    { title: "Go Live", desc: "Start raise" },
     { title: "In Escrow", desc: "Funds secured" },
-    { title: "Vibestart", desc: "10% instant" },
+    { title: "Vibestart", desc: "10% instant funding" },
     { title: "Ship", desc: "Build & deliver" },
-    { title: "Tranches", desc: "15%/month" },
+    { title: "Tranches", desc: "Monthly funding claim" },
   ];
 
   return (
@@ -183,7 +183,7 @@ export function HowItWorks() {
             </g>
             <text x="195" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 2</text>
             <text x="195" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Prove Build</text>
-            <text x="195" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Upload transcript</text>
+            <text x="195" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Vibecode attestation</text>
 
             {/* Step 3 - Set Terms (top, center at 320,160) */}
             <g transform="translate(296, 136)">
@@ -203,7 +203,7 @@ export function HowItWorks() {
             </g>
             <text x="445" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 4</text>
             <text x="445" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Go Live</text>
-            <text x="445" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Start funding</text>
+            <text x="445" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Start raise</text>
 
             {/* Step 5 - In Escrow (top, center at 570,160) */}
             <g transform="translate(546, 136)">
@@ -224,7 +224,7 @@ export function HowItWorks() {
             </g>
             <text x="695" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 6</text>
             <text x="695" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Vibestart</text>
-            <text x="695" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">10% instant</text>
+            <text x="695" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">10% instant funding</text>
 
             {/* Step 7 - Ship (top, center at 820,160) */}
             <g transform="translate(796, 136)">
@@ -245,7 +245,7 @@ export function HowItWorks() {
             </g>
             <text x="945" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 8</text>
             <text x="945" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Tranches</text>
-            <text x="945" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">15%/month</text>
+            <text x="945" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Monthly funding claim</text>
           </svg>
         </div>
 
