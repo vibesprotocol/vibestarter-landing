@@ -70,9 +70,10 @@ interface InfoNodeProps {
   top: string;
   delay: number;
   highlight?: boolean;
+  isVisible?: boolean;
 }
 
-function InfoNode({ label, value, position, top, delay, highlight }: InfoNodeProps) {
+function InfoNode({ label, value, position, top, delay, highlight, isVisible = true }: InfoNodeProps) {
   const [isHovered, setIsHovered] = useState(false);
   const isActive = isHovered || highlight;
 
@@ -102,8 +103,7 @@ function InfoNode({ label, value, position, top, delay, highlight }: InfoNodePro
           {label}
         </p>
         <p
-          key={value}
-          className={`text-[10px] sm:text-xs md:text-sm font-mono transition-all duration-700 ease-out ${isActive ? "text-accent" : "text-white/80"}`}
+          className={`text-[10px] sm:text-xs md:text-sm font-mono transition-all duration-[600ms] ease-in-out ${isActive ? "text-accent" : "text-white/80"} ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
           {value}
         </p>
@@ -115,13 +115,21 @@ function InfoNode({ label, value, position, top, delay, highlight }: InfoNodePro
 function CapsuleInfographic() {
   const [activeRing, setActiveRing] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   const capsule = sampleCapsules[currentIndex];
 
-  // Cycle through capsules with smooth transition
+  // Cycle through capsules with slow crossfade
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % sampleCapsules.length);
+      // Start fade out
+      setIsVisible(false);
+
+      // After fade out completes, change data and fade back in
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % sampleCapsules.length);
+        setIsVisible(true);
+      }, 600); // Match the CSS transition duration
     }, 6000);
 
     return () => clearInterval(interval);
@@ -148,14 +156,12 @@ function CapsuleInfographic() {
             ERC-8004 Origin Capsule
           </p>
           <h3
-            key={`name-${currentIndex}`}
-            className="text-2xl md:text-3xl font-semibold tracking-tight text-white animate-fadeIn"
+            className={`text-2xl md:text-3xl font-semibold tracking-tight text-white transition-opacity duration-[600ms] ease-in-out ${isVisible ? "opacity-100" : "opacity-0"}`}
           >
             {capsule.projectName}
           </h3>
           <p
-            key={`handle-${currentIndex}`}
-            className="text-sm text-white/50 mt-2 font-mono animate-fadeIn"
+            className={`text-sm text-white/50 mt-2 font-mono transition-opacity duration-[600ms] ease-in-out ${isVisible ? "opacity-100" : "opacity-0"}`}
           >
             {capsule.founderHandle}
           </p>
@@ -207,6 +213,7 @@ function CapsuleInfographic() {
             top="12%"
             delay={0.1}
             highlight={activeRing === 0}
+            isVisible={isVisible}
           />
           <InfoNode
             label="ERC-8004 ID"
@@ -215,6 +222,7 @@ function CapsuleInfographic() {
             top="32%"
             delay={0.2}
             highlight={activeRing === 1}
+            isVisible={isVisible}
           />
           <InfoNode
             label="Model"
@@ -222,6 +230,7 @@ function CapsuleInfographic() {
             position="left"
             top="52%"
             delay={0.3}
+            isVisible={isVisible}
           />
           <InfoNode
             label="Proof Hash"
@@ -229,6 +238,7 @@ function CapsuleInfographic() {
             position="left"
             top="72%"
             delay={0.4}
+            isVisible={isVisible}
           />
 
           {/* Right side info nodes */}
@@ -238,6 +248,7 @@ function CapsuleInfographic() {
             position="right"
             top="12%"
             delay={0.15}
+            isVisible={isVisible}
           />
           <InfoNode
             label="Registry"
@@ -246,6 +257,7 @@ function CapsuleInfographic() {
             top="32%"
             delay={0.25}
             highlight={activeRing === 1}
+            isVisible={isVisible}
           />
           <InfoNode
             label="Chain"
@@ -253,6 +265,7 @@ function CapsuleInfographic() {
             position="right"
             top="52%"
             delay={0.35}
+            isVisible={isVisible}
           />
           <InfoNode
             label="Capsule Hash"
@@ -261,6 +274,7 @@ function CapsuleInfographic() {
             top="72%"
             delay={0.45}
             highlight={activeRing === 2}
+            isVisible={isVisible}
           />
         </div>
 
@@ -271,7 +285,7 @@ function CapsuleInfographic() {
             <span>Immutable Record</span>
           </div>
           <div className="hidden sm:block h-4 w-px bg-white/10" />
-          <span key={`date-${currentIndex}`} className="font-mono animate-fadeIn">
+          <span className={`font-mono transition-opacity duration-[600ms] ease-in-out ${isVisible ? "opacity-100" : "opacity-0"}`}>
             {new Date(capsule.timestamp).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -279,7 +293,7 @@ function CapsuleInfographic() {
             })}
           </span>
           <div className="hidden sm:block h-4 w-px bg-white/10" />
-          <span key={`proof-${currentIndex}`} className="animate-fadeIn">Proof: {capsule.proofType}</span>
+          <span className={`transition-opacity duration-[600ms] ease-in-out ${isVisible ? "opacity-100" : "opacity-0"}`}>Proof: {capsule.proofType}</span>
         </div>
 
         {/* Pagination */}
@@ -287,7 +301,14 @@ function CapsuleInfographic() {
           {sampleCapsules.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => {
+                // Trigger fade out, change, fade in for manual clicks too
+                setIsVisible(false);
+                setTimeout(() => {
+                  setCurrentIndex(index);
+                  setIsVisible(true);
+                }, 600);
+              }}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? "bg-accent w-6"
