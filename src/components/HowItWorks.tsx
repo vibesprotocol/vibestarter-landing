@@ -38,23 +38,23 @@ const iconPaths: Record<number, React.ReactNode> = {
   8: <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />,
 };
 
-// Calculate y position on wave given x (0-100)
+// Calculate y position on wave given x (0-100+)
+// Wave spans from x=5 (step 1) to x=92 (step 8), with 12.4 units between each step
+// Peaks at odd steps (y=35), valleys at even steps (y=65)
 function getWaveY(x: number): number {
-  const frequency = Math.PI / 12.5;
-  const phase = Math.PI / 2;
-  if (x > 100) {
-    const t = (x - 100) / 6;
-    const valleyY = 65;
-    const endY = 35;
-    return valleyY + (endY - valleyY) * t;
-  }
-  return 50 + 15 * Math.sin(frequency * x + phase);
+  // Period is 24.8 (two steps = one full wave cycle)
+  const frequency = (2 * Math.PI) / 24.8;
+  // Phase shift so x=5 is a peak (y=35)
+  const phase = -frequency * 5;
+  // Wave oscillates between 35 and 65 (amplitude 15, centered at 50)
+  return 50 + 15 * Math.cos(frequency * x + phase);
 }
 
 // Generate SVG path that matches the getWaveY function
+// Extends from -5 to 105 to show wave continuing beyond nodes
 function generateWavePath(): string {
   const points: { x: number; y: number }[] = [];
-  for (let x = -2; x <= 115; x += 0.5) {
+  for (let x = -5; x <= 105; x += 0.5) {
     points.push({ x, y: getWaveY(x) });
   }
 
@@ -77,6 +77,11 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
   useEffect(() => {
     if (!dotRef.current) return;
 
+    // Dot travels from x=-5 to x=105 (beyond visible nodes at 5-92)
+    const startX = -5;
+    const endX = 105;
+    const range = endX - startX;
+
     // Initialize position based on delay
     const initialProgress = (delay / 12) % 1;
     progressRef.current.value = initialProgress;
@@ -90,7 +95,7 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
       ease: "none",
       onUpdate: () => {
         if (!dotRef.current) return;
-        const x = -2 + progressRef.current.value * 104;
+        const x = startX + progressRef.current.value * range;
         const y = getWaveY(x);
         dotRef.current.style.left = `${x}%`;
         dotRef.current.style.top = `${y}%`;
@@ -105,7 +110,7 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
       startAt: { value: 0 },
       onUpdate: () => {
         if (!dotRef.current) return;
-        const x = -2 + progressRef.current.value * 104;
+        const x = startX + progressRef.current.value * range;
         const y = getWaveY(x);
         dotRef.current.style.left = `${x}%`;
         dotRef.current.style.top = `${y}%`;
@@ -143,15 +148,16 @@ export function HowItWorks() {
   const mobileListRef = useRef<HTMLDivElement>(null);
 
   // Node positions matching the wave peaks/valleys (x%, y%)
+  // Scaled to 5-92% to leave room for wave to extend on both ends
   const nodePositions = [
-    { x: 12.5, y: 35 },
-    { x: 25, y: 65 },
-    { x: 37.5, y: 35 },
-    { x: 50, y: 65 },
-    { x: 62.5, y: 35 },
-    { x: 75, y: 65 },
-    { x: 87.5, y: 35 },
-    { x: 100, y: 65 },
+    { x: 5, y: 35 },      // peak - step 1
+    { x: 17.4, y: 65 },   // valley - step 2
+    { x: 29.9, y: 35 },   // peak - step 3
+    { x: 42.3, y: 65 },   // valley - step 4
+    { x: 54.7, y: 35 },   // peak - step 5
+    { x: 67.1, y: 65 },   // valley - step 6
+    { x: 79.6, y: 35 },   // peak - step 7
+    { x: 92, y: 65 },     // valley - step 8
   ];
 
   useEffect(() => {
@@ -287,12 +293,13 @@ export function HowItWorks() {
 
         {/* Desktop: Main wave visualization */}
         <div ref={waveContainerRef} className="hidden lg:block relative h-[380px]">
-          {/* SVG Wave */}
+          {/* SVG Wave - extends past visible area for smooth continuation */}
           <svg
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full overflow-visible"
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
             fill="none"
+            style={{ overflow: 'visible' }}
           >
             <defs>
               <linearGradient
