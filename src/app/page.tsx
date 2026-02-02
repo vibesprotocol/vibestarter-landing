@@ -6,6 +6,7 @@ import {
   FundingShift,
   HowItWorks,
   RunwayProtection,
+  Standard,
   ProtocolStats,
   ClosingCTA,
   Footer,
@@ -27,6 +28,8 @@ export default function Home() {
       <HowItWorks />
       <Divider />
       <RunwayProtection />
+      <Divider />
+      <Standard />
       <Divider />
       <ProtocolStats />
       <ClosingCTA />
