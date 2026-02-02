@@ -117,6 +117,14 @@
   }
 }
 
+/* Subtle grid background pattern */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
 @layer utilities {
   /* Custom bounce animation for scroll indicator */
   @keyframes bounce-slow {
