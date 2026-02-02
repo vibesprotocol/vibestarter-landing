@@ -4,6 +4,7 @@ export { FounderCard } from "./FounderCard";
 export { Agents } from "./Positioning";
 export { Features } from "./Principles";
 export { Standard } from "./Stats";
+export { OriginCapsuleSection } from "./OriginCapsule";
 export { HowItWorks } from "./HowItWorks";
 export { RunwayProtection } from "./RunwayProtection";
 export { Unclaimed } from "./CodeExample";

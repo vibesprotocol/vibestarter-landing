@@ -6,7 +6,7 @@ import {
   FundingShift,
   HowItWorks,
   RunwayProtection,
-  Standard,
+  OriginCapsuleSection,
   ProtocolStats,
   ClosingCTA,
   Footer,
@@ -29,7 +29,7 @@ export default function Home() {
       <Divider />
       <RunwayProtection />
       <Divider />
-      <Standard />
+      <OriginCapsuleSection />
       <Divider />
       <ProtocolStats />
       <ClosingCTA />
