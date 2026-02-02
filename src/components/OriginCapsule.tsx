@@ -137,19 +137,7 @@ function CapsuleInfographic() {
 
   return (
     <div className="relative w-full">
-      {/* Grid background */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(145,217,130,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(145,217,130,0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      <div className="relative z-10 flex flex-col items-center py-8 md:py-12">
+      <div className="relative flex flex-col items-center py-8 md:py-12">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
           <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-accent mb-2 font-mono">
