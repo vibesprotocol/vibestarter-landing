@@ -1,252 +1,272 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 const steps = [
-  {
-    step: 1,
-    title: "Verify",
-    description: "Connect wallet + link social accounts",
-  },
-  {
-    step: 2,
-    title: "Prove Build",
-    description: "Vibecode attestation",
-  },
-  {
-    step: 3,
-    title: "Set Your Terms",
-    description: "Define your 6-month roadmap, token allocation, and funding goal",
-  },
-  {
-    step: 4,
-    title: "Go Live",
-    description: "Start raise",
-  },
-  {
-    step: 5,
-    title: "Funds in Escrow",
-    description: "All contributions held in smart contract escrow, not your wallet",
-  },
-  {
-    step: 6,
-    title: "Vibestart",
-    description: "10% instant funding",
-  },
-  {
-    step: 7,
-    title: "Ship",
-    description: "Build your product and hit your milestones",
-  },
-  {
-    step: 8,
-    title: "Tranches",
-    description: "Monthly funding claim",
-    highlight: true,
-  },
+  { num: 1, title: "Verify", desc: "Wallet + socials" },
+  { num: 2, title: "Prove Build", desc: "Vibecode attestation" },
+  { num: 3, title: "Set Terms", desc: "Roadmap + tokens" },
+  { num: 4, title: "Go Live", desc: "Start raise" },
+  { num: 5, title: "In Escrow", desc: "Funds secured" },
+  { num: 6, title: "Vibestart", desc: "10% instant funding" },
+  { num: 7, title: "Ship", desc: "Build & deliver" },
+  { num: 8, title: "Tranches", desc: "Monthly funding claim" },
 ];
 
-// Icons for each step - using accent colors
-const StepIcon = ({ step }: { step: number }) => {
-  const icons: Record<number, JSX.Element> = {
-    1: ( // Wallet/verify icon
-      <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4M4 6v12a2 2 0 0 0 2 2h14v-4M18 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
-    ),
-    2: ( // Code/build icon
-      <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
-    ),
-    3: ( // Settings/terms icon
-      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
-    ),
-    4: ( // Play/go live icon
-      <path d="M5 3l14 9-14 9V3z" />
-    ),
-    5: ( // Lock/escrow icon
-      <><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></>
-    ),
-    6: ( // Lightning/vibestart icon
-      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-    ),
-    7: ( // Rocket/ship icon
-      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2zM9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-    ),
-    8: ( // Clock/tranches icon
-      <><circle cx="12" cy="12" r="10" /><polyline points="12,6 12,12 16,14" /></>
-    ),
-  };
-
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="w-8 h-8 lg:w-10 lg:h-10"
-    >
-      {icons[step]}
-    </svg>
-  );
+const iconPaths: Record<number, React.ReactNode> = {
+  1: <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
+  2: <path d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />,
+  3: (
+    <>
+      <path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </>
+  ),
+  4: <path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />,
+  5: <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />,
+  6: <path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />,
+  7: (
+    <>
+      <path d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+    </>
+  ),
+  8: <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />,
 };
 
-export function HowItWorks() {
-  // Positions for 8 steps on a sine wave
-  // Top row: steps 1, 3, 5, 7 at y=140
-  // Bottom row: steps 2, 4, 6, 8 at y=280
-  const stepPositions = [
-    { x: 70, y: 140, labelY: 70 },    // Step 1 - top
-    { x: 195, y: 280, labelY: 350 },  // Step 2 - bottom
-    { x: 320, y: 140, labelY: 70 },   // Step 3 - top
-    { x: 445, y: 280, labelY: 350 },  // Step 4 - bottom
-    { x: 570, y: 140, labelY: 70 },   // Step 5 - top
-    { x: 695, y: 280, labelY: 350 },  // Step 6 - bottom
-    { x: 820, y: 140, labelY: 70 },   // Step 7 - top
-    { x: 945, y: 280, labelY: 350 },  // Step 8 - bottom
-  ];
+// Calculate y position on wave given x (0-100)
+// Peaks at x = 12.5, 37.5, 62.5, 87.5 (y=35)
+// Valleys at x = 0, 25, 50, 75, 100 (y=65)
+function getWaveY(x: number): number {
+  const frequency = Math.PI / 12.5;
+  const phase = Math.PI / 2; // Start at valley
+  // After step 8 (x=100), curve up toward peak level
+  if (x > 100) {
+    const t = (x - 100) / 6; // 0 to ~0.33 over the end segment
+    const valleyY = 65;
+    const endY = 35; // Curve up to peak level
+    return valleyY + (endY - valleyY) * t;
+  }
+  return 50 + 15 * Math.sin(frequency * x + phase);
+}
 
-  const stepData = [
-    { title: "Verify", desc: "Wallet + socials" },
-    { title: "Prove Build", desc: "Vibecode attestation" },
-    { title: "Set Terms", desc: "Roadmap + tokens" },
-    { title: "Go Live", desc: "Start raise" },
-    { title: "In Escrow", desc: "Funds secured" },
-    { title: "Vibestart", desc: "10% instant funding" },
-    { title: "Ship", desc: "Build & deliver" },
-    { title: "Tranches", desc: "Monthly funding claim" },
+// Generate SVG path that matches the getWaveY function
+function generateWavePath(): string {
+  const points: { x: number; y: number }[] = [];
+  // Extend further beyond step 8 to show the wave continuing
+  for (let x = -2; x <= 115; x += 0.5) {
+    points.push({ x, y: getWaveY(x) });
+  }
+
+  let path = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 1; i < points.length; i++) {
+    path += ` L ${points[i].x} ${points[i].y}`;
+  }
+  return path;
+}
+
+interface AnimatedDotProps {
+  delay: number;
+  color: string;
+}
+
+function AnimatedDot({ delay, color }: AnimatedDotProps) {
+  const [position, setPosition] = useState({ x: -2, y: 65 });
+
+  useEffect(() => {
+    const duration = 12000; // 12 seconds
+    const startTime = Date.now() - delay * 1000;
+
+    const animate = () => {
+      const elapsed = (Date.now() - startTime) % duration;
+      const progress = elapsed / duration;
+      const x = -2 + progress * 104; // -2 to 102
+      const y = getWaveY(x);
+      setPosition({ x, y });
+      requestAnimationFrame(animate);
+    };
+
+    const frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, [delay]);
+
+  return (
+    <div
+      className="absolute w-2.5 h-2.5 rounded-full pointer-events-none"
+      style={{
+        left: `${position.x}%`,
+        top: `${position.y}%`,
+        transform: "translate(-50%, -50%)",
+        background: color,
+        boxShadow: `0 0 8px ${color}`,
+      }}
+    />
+  );
+}
+
+export function HowItWorks() {
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+
+  // Node positions matching the wave peaks/valleys (x%, y%)
+  const nodePositions = [
+    { x: 12.5, y: 35 }, // peak
+    { x: 25, y: 65 }, // valley
+    { x: 37.5, y: 35 }, // peak
+    { x: 50, y: 65 }, // valley
+    { x: 62.5, y: 35 }, // peak
+    { x: 75, y: 65 }, // valley
+    { x: 87.5, y: 35 }, // peak
+    { x: 100, y: 65 }, // valley (step 8 at x=100)
   ];
 
   return (
-    <section id="how-vibestarter-works" className="py-12 sm:py-16 lg:py-20">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10 sm:mb-12">
+    <section id="how-vibestarter-works" className="relative w-full overflow-hidden py-12 sm:py-16 lg:py-20">
+      {/* Ambient glow */}
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accent-bright/5 rounded-full blur-[120px]" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-16 md:mb-24">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            <svg
+              className="w-5 h-5 text-accent"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
             </svg>
-            <h2 className="text-xl sm:text-2xl font-semibold">How Vibestarter Works</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-white">
+              How Vibestarter Works
+            </h2>
           </div>
-          <span className="px-3 py-1 text-[11px] font-mono text-accent bg-accent/10 rounded-full border border-accent/20">
+          <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent rounded">
             Time-Released
           </span>
         </div>
 
-        {/* Desktop: Sine wave flow diagram for 8 steps */}
-        <div className="hidden lg:block overflow-x-auto">
+        {/* Desktop: Main wave visualization */}
+        <div className="hidden lg:block relative h-[380px]">
+          {/* SVG Wave */}
           <svg
-            viewBox="0 0 1020 420"
-            className="w-full min-w-[900px] max-w-[1020px] mx-auto"
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
             fill="none"
           >
-            {/*
-              Icon positions (centers):
-              - Top row (y=160): x = 70, 320, 570, 820
-              - Bottom row (y=280): x = 195, 445, 695, 945
+            <defs>
+              <linearGradient
+                id="waveGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
+                <stop offset="0%" stopColor="#91D982" stopOpacity="0.6" />
+                <stop offset="50%" stopColor="#0D8BCA" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#91D982" stopOpacity="0.6" />
+              </linearGradient>
+            </defs>
 
-              Icon size is 48x48, so translate by (x-24, y-24) to center
-              Wave segments start/end 30px away from icon centers
-            */}
-
-            {/* Wave segment 1→2: from (70+30=100, 160) curving down to (195-30=165, 280) */}
-            <path d="M 100 160 Q 132 160, 132 220 Q 132 280, 165 280" stroke="#91D982" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-            {/* Wave segment 2→3: from (195+30=225, 280) curving up to (320-30=290, 160) */}
-            <path d="M 225 280 Q 257 280, 257 220 Q 257 160, 290 160" stroke="#0D8BCA" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-            {/* Wave segment 3→4: from (320+30=350, 160) curving down to (445-30=415, 280) */}
-            <path d="M 350 160 Q 382 160, 382 220 Q 382 280, 415 280" stroke="#91D982" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-            {/* Wave segment 4→5: from (445+30=475, 280) curving up to (570-30=540, 160) */}
-            <path d="M 475 280 Q 507 280, 507 220 Q 507 160, 540 160" stroke="#0D8BCA" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-            {/* Wave segment 5→6: from (570+30=600, 160) curving down to (695-30=665, 280) */}
-            <path d="M 600 160 Q 632 160, 632 220 Q 632 280, 665 280" stroke="#91D982" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-            {/* Wave segment 6→7: from (695+30=725, 280) curving up to (820-30=790, 160) */}
-            <path d="M 725 280 Q 757 280, 757 220 Q 757 160, 790 160" stroke="#0D8BCA" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-            {/* Wave segment 7→8: from (820+30=850, 160) curving down to (945-30=915, 280) */}
-            <path d="M 850 160 Q 882 160, 882 220 Q 882 280, 915 280" stroke="#91D982" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-
-            {/* Step 1 - Verify (top, center at 70,160) */}
-            <g transform="translate(46, 136)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#91D982" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4M4 6v12a2 2 0 0 0 2 2h14v-4M18 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
-              </svg>
-            </g>
-            <text x="70" y="80" textAnchor="middle" fill="#91D982" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 1</text>
-            <text x="70" y="96" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Verify</text>
-            <text x="70" y="110" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Wallet + socials</text>
-
-            {/* Step 2 - Prove Build (bottom, center at 195,280) */}
-            <g transform="translate(171, 256)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#0D8BCA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
-              </svg>
-            </g>
-            <text x="195" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 2</text>
-            <text x="195" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Prove Build</text>
-            <text x="195" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Vibecode attestation</text>
-
-            {/* Step 3 - Set Terms (top, center at 320,160) */}
-            <g transform="translate(296, 136)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#91D982" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
-              </svg>
-            </g>
-            <text x="320" y="80" textAnchor="middle" fill="#91D982" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 3</text>
-            <text x="320" y="96" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Set Terms</text>
-            <text x="320" y="110" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Roadmap + tokens</text>
-
-            {/* Step 4 - Go Live (bottom, center at 445,280) */}
-            <g transform="translate(421, 256)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#0D8BCA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 3l14 9-14 9V3z" />
-              </svg>
-            </g>
-            <text x="445" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 4</text>
-            <text x="445" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Go Live</text>
-            <text x="445" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Start raise</text>
-
-            {/* Step 5 - In Escrow (top, center at 570,160) */}
-            <g transform="translate(546, 136)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#91D982" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-            </g>
-            <text x="570" y="80" textAnchor="middle" fill="#91D982" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 5</text>
-            <text x="570" y="96" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">In Escrow</text>
-            <text x="570" y="110" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Funds secured</text>
-
-            {/* Step 6 - Vibestart (bottom, center at 695,280) */}
-            <g transform="translate(671, 256)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#0D8BCA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
-            </g>
-            <text x="695" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 6</text>
-            <text x="695" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Vibestart</text>
-            <text x="695" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">10% instant funding</text>
-
-            {/* Step 7 - Ship (top, center at 820,160) */}
-            <g transform="translate(796, 136)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#91D982" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-              </svg>
-            </g>
-            <text x="820" y="80" textAnchor="middle" fill="#91D982" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 7</text>
-            <text x="820" y="96" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Ship</text>
-            <text x="820" y="110" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Build & deliver</text>
-
-            {/* Step 8 - Tranches (bottom, center at 945,280) */}
-            <g transform="translate(921, 256)">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#0D8BCA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12,6 12,12 16,14" />
-              </svg>
-            </g>
-            <text x="945" y="330" textAnchor="middle" fill="#0D8BCA" fontSize="10" fontWeight="bold" letterSpacing="0.05em">STEP 8</text>
-            <text x="945" y="346" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Tranches</text>
-            <text x="945" y="360" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">Monthly funding claim</text>
+            {/* The wave path */}
+            <path
+              d={generateWavePath()}
+              stroke="url(#waveGradient)"
+              strokeWidth="0.4"
+              strokeLinecap="round"
+            />
           </svg>
+
+          {/* Animated dots traveling along the wave */}
+          <AnimatedDot delay={0} color="#91D982" />
+          <AnimatedDot delay={4} color="#0D8BCA" />
+          <AnimatedDot delay={8} color="#91D982" />
+
+          {/* Step nodes */}
+          {steps.map((step, index) => {
+            const pos = nodePositions[index];
+            const isTop = index % 2 === 0;
+            const isHovered = hoveredStep === step.num;
+            const isAccent = index % 2 === 0;
+            const accentColor = isAccent ? "#91D982" : "#0D8BCA";
+
+            return (
+              <div
+                key={step.num}
+                className="absolute"
+                style={{
+                  left: `${pos.x}%`,
+                  top: `${pos.y}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+                onMouseEnter={() => setHoveredStep(step.num)}
+                onMouseLeave={() => setHoveredStep(null)}
+              >
+                {/* Icon circle on the path */}
+                <div
+                  className={`relative w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${
+                    isHovered
+                      ? "scale-110"
+                      : "bg-background border-2"
+                  }`}
+                  style={{
+                    backgroundColor: isHovered ? accentColor : "#0A0A0A",
+                    borderColor: isHovered ? accentColor : `${accentColor}99`,
+                    color: isHovered ? "#0A0A0A" : accentColor,
+                  }}
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    viewBox="0 0 24 24"
+                  >
+                    {iconPaths[step.num]}
+                  </svg>
+
+                  {/* Pulse on hover */}
+                  {isHovered && (
+                    <span
+                      className="absolute inset-0 rounded-full border-2 animate-ping opacity-40"
+                      style={{ borderColor: accentColor }}
+                    />
+                  )}
+                </div>
+
+                {/* Text label - positioned above or below with extra spacing */}
+                <div
+                  className={`absolute left-1/2 -translate-x-1/2 text-center whitespace-nowrap transition-all duration-300 ${
+                    isTop ? "bottom-full mb-6" : "top-full mt-6"
+                  }`}
+                >
+                  <p
+                    className={`text-[10px] font-mono uppercase tracking-widest transition-colors duration-300`}
+                    style={{
+                      color: isHovered ? accentColor : "rgba(255,255,255,0.5)",
+                    }}
+                  >
+                    Step {step.num}
+                  </p>
+                  <p
+                    className={`text-sm md:text-base font-medium mt-1 transition-colors duration-300 ${
+                      isHovered ? "text-white" : "text-white/80"
+                    }`}
+                  >
+                    {step.title}
+                  </p>
+                  <p
+                    className={`text-xs mt-0.5 transition-all duration-300 ${
+                      isHovered
+                        ? "text-white/60 opacity-100"
+                        : "text-white/40 opacity-80"
+                    }`}
+                  >
+                    {step.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* Tablet: 2x4 grid */}
@@ -255,19 +275,23 @@ export function HowItWorks() {
             const isAccent = index % 2 === 0;
             return (
               <div
-                key={item.step}
-                className={`relative p-5 rounded-xl border bg-white/[0.02] ${isAccent ? 'border-accent/30' : 'border-accent-bright/30'}`}
+                key={item.num}
+                className={`relative p-5 rounded-xl border bg-white/[0.02] ${
+                  isAccent ? "border-accent/30" : "border-accent-bright/30"
+                }`}
               >
                 <div
-                  className={`absolute -top-3 left-5 px-3 py-1 rounded-full text-[11px] font-bold text-black ${isAccent ? 'bg-accent' : 'bg-accent-bright'}`}
+                  className={`absolute -top-3 left-5 px-3 py-1 rounded-full text-[11px] font-bold text-black ${
+                    isAccent ? "bg-accent" : "bg-accent-bright"
+                  }`}
                 >
-                  Step {item.step}
+                  Step {item.num}
                 </div>
                 <h3 className="font-semibold text-base mt-3 mb-2 text-white">
                   {item.title}
                 </h3>
                 <p className="text-[13px] text-white/60 leading-relaxed">
-                  {item.description}
+                  {item.desc}
                 </p>
               </div>
             );
@@ -279,13 +303,23 @@ export function HowItWorks() {
           {steps.map((item, index) => {
             const isAccent = index % 2 === 0;
             return (
-              <div key={item.step} className="flex gap-4">
+              <div key={item.num} className="flex gap-4">
                 {/* Step number column with line */}
                 <div className="flex flex-col items-center">
                   <div
-                    className={`w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 ${isAccent ? 'border-accent bg-accent/20' : 'border-accent-bright bg-accent-bright/20'}`}
+                    className={`w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                      isAccent
+                        ? "border-accent bg-accent/20"
+                        : "border-accent-bright bg-accent-bright/20"
+                    }`}
                   >
-                    <span className={`text-sm font-semibold ${isAccent ? 'text-accent' : 'text-accent-bright'}`}>{item.step}</span>
+                    <span
+                      className={`text-sm font-semibold ${
+                        isAccent ? "text-accent" : "text-accent-bright"
+                      }`}
+                    >
+                      {item.num}
+                    </span>
                   </div>
                   {/* Connector line (not on last item) */}
                   {index < steps.length - 1 && (
@@ -295,13 +329,15 @@ export function HowItWorks() {
 
                 {/* Content */}
                 <div
-                  className={`flex-1 p-4 rounded-xl border bg-white/[0.02] ${isAccent ? 'border-accent/20' : 'border-accent-bright/20'}`}
+                  className={`flex-1 p-4 rounded-xl border bg-white/[0.02] ${
+                    isAccent ? "border-accent/20" : "border-accent-bright/20"
+                  }`}
                 >
                   <h3 className="font-semibold text-base mb-1 text-white">
                     {item.title}
                   </h3>
                   <p className="text-[13px] text-white/60 leading-relaxed">
-                    {item.description}
+                    {item.desc}
                   </p>
                 </div>
               </div>
@@ -309,6 +345,21 @@ export function HowItWorks() {
           })}
         </div>
 
+        {/* Bottom tagline */}
+        <div className="mt-16 md:mt-20 flex items-center justify-center gap-6 text-xs text-white/50">
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+            Trustless
+          </span>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-bright" />
+            Time-based
+          </span>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+            On-chain
+          </span>
+        </div>
       </div>
     </section>
   );
