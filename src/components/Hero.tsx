@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, AnimatePresence } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Scenario = "founder" | "backer" | "agent";
 
@@ -20,7 +25,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
     command1: "attest --founder @yourhandle",
     command2: "launch --raise 10 ETH",
     response1: (
-      <div className="pl-0 space-y-2 text-white/70 animate-fadeIn">
+      <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
           <span className="text-accent">Attestation generated</span>
@@ -46,7 +51,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       </div>
     ),
     response2: (
-      <div className="space-y-1 animate-fadeIn">
+      <div className="space-y-1">
         <div className="text-white/50 text-[12px]">→ Creating Vibetoken...</div>
         <div className="text-white/50 text-[12px]">→ Setting up tranches...</div>
         <div className="flex items-center gap-2 text-[12px]">
@@ -63,7 +68,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
     command1: "discover --trending",
     command2: "back @vibeapp 2 ETH",
     response1: (
-      <div className="pl-0 space-y-2 text-white/70 animate-fadeIn">
+      <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
           <span className="text-accent">3 trending launches</span>
@@ -97,7 +102,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       </div>
     ),
     response2: (
-      <div className="space-y-1 animate-fadeIn">
+      <div className="space-y-1">
         <div className="text-white/50 text-[12px]">→ Verifying attestation...</div>
         <div className="text-white/50 text-[12px]">→ Locking in escrow...</div>
         <div className="flex items-center gap-2 text-[12px]">
@@ -114,7 +119,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
     command1: "verify --attestation 0x7f3a...e4b2",
     command2: "history --builder @yourhandle",
     response1: (
-      <div className="pl-0 space-y-2 text-white/70 animate-fadeIn">
+      <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
           <span className="text-green-400">Attestation valid</span>
@@ -140,7 +145,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       </div>
     ),
     response2: (
-      <div className="space-y-1 animate-fadeIn">
+      <div className="space-y-1">
         <div className="text-white/50 text-[12px]">→ Fetching build history...</div>
         <div className="bg-white/[0.03] rounded-lg p-2 border border-white/5 space-y-1 text-[11px] mt-2">
           <div className="flex items-center gap-2">
@@ -167,6 +172,7 @@ function HeroVisual() {
   const [typedCommand1, setTypedCommand1] = useState("");
   const [typedCommand2, setTypedCommand2] = useState("");
   const [animationKey, setAnimationKey] = useState(0);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   const config = scenarios[activeScenario];
 
@@ -179,6 +185,9 @@ function HeroVisual() {
 
   const handleTabChange = useCallback((scenario: Scenario) => {
     if (scenario === activeScenario) return;
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+    }
     setActiveScenario(scenario);
     resetAnimation();
   }, [activeScenario, resetAnimation]);
@@ -187,64 +196,51 @@ function HeroVisual() {
     const command1 = config.command1;
     const command2 = config.command2;
 
-    const delays = {
-      startTyping1: 500,
-      showResponse1: 2000,
-      startTyping2: 3500,
-      showResponse2: 5500,
-      showFinal: 7000,
-    };
+    // Kill any existing timeline
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+    }
 
-    // Type first command
-    const typeCommand1 = setTimeout(() => {
-      let i = 0;
-      const typing = setInterval(() => {
-        if (i <= command1.length) {
-          setTypedCommand1(command1.slice(0, i));
-          i++;
-        } else {
-          clearInterval(typing);
-        }
-      }, 40);
-      return () => clearInterval(typing);
-    }, delays.startTyping1);
+    // Create GSAP timeline for typing animation
+    const tl = gsap.timeline();
+    timelineRef.current = tl;
+
+    // Type first command character by character
+    const typeCommand1 = { index: 0 };
+    tl.to(typeCommand1, {
+      index: command1.length,
+      duration: command1.length * 0.04,
+      ease: "none",
+      onUpdate: () => {
+        setTypedCommand1(command1.slice(0, Math.floor(typeCommand1.index)));
+      },
+      delay: 0.5,
+    });
 
     // Show first response
-    const showResponse1 = setTimeout(() => {
-      setStage(1);
-    }, delays.showResponse1);
+    tl.call(() => setStage(1), [], "+=0.3");
 
     // Start typing second command
-    const startTyping2 = setTimeout(() => {
-      setStage(2);
-      let i = 0;
-      const typing = setInterval(() => {
-        if (i <= command2.length) {
-          setTypedCommand2(command2.slice(0, i));
-          i++;
-        } else {
-          clearInterval(typing);
-        }
-      }, 40);
-      return () => clearInterval(typing);
-    }, delays.startTyping2);
+    tl.call(() => setStage(2), [], "+=1.2");
+
+    const typeCommand2 = { index: 0 };
+    tl.to(typeCommand2, {
+      index: command2.length,
+      duration: command2.length * 0.04,
+      ease: "none",
+      onUpdate: () => {
+        setTypedCommand2(command2.slice(0, Math.floor(typeCommand2.index)));
+      },
+    });
 
     // Show second response
-    const showResponse2 = setTimeout(() => {
-      setStage(3);
-    }, delays.showResponse2);
+    tl.call(() => setStage(3), [], "+=0.3");
 
     // Show final cursor
-    const showFinal = setTimeout(() => {
-      setStage(4);
-    }, delays.showFinal);
+    tl.call(() => setStage(4), [], "+=1.5");
 
     return () => {
-      clearTimeout(typeCommand1);
-      clearTimeout(showResponse1);
-      clearTimeout(startTyping2);
-      clearTimeout(showResponse2);
-      clearTimeout(showFinal);
+      tl.kill();
     };
   }, [animationKey, config.command1, config.command2]);
 
@@ -291,32 +287,73 @@ function HeroVisual() {
             </span>
           </div>
 
-          {/* First agent response */}
-          {stage >= 1 && config.response1}
+          {/* First agent response with Framer Motion */}
+          <AnimatePresence mode="wait">
+            {stage >= 1 && (
+              <motion.div
+                key={`response1-${animationKey}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                {config.response1}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          {/* Second prompt */}
-          {stage >= 2 && (
-            <div className="flex items-start gap-2 animate-fadeIn">
-              <span className="text-accent-bright shrink-0">claude $</span>
-              <span className="text-white/80">
-                {typedCommand2}
-                {stage === 2 && typedCommand2.length < config.command2.length && (
-                  <span className="inline-block w-2 h-4 bg-white/60 animate-pulse ml-0.5 align-middle" />
-                )}
-              </span>
-            </div>
-          )}
+          {/* Second prompt with Framer Motion */}
+          <AnimatePresence mode="wait">
+            {stage >= 2 && (
+              <motion.div
+                key={`prompt2-${animationKey}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="flex items-start gap-2"
+              >
+                <span className="text-accent-bright shrink-0">claude $</span>
+                <span className="text-white/80">
+                  {typedCommand2}
+                  {stage === 2 && typedCommand2.length < config.command2.length && (
+                    <span className="inline-block w-2 h-4 bg-white/60 animate-pulse ml-0.5 align-middle" />
+                  )}
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          {/* Second response */}
-          {stage >= 3 && config.response2}
+          {/* Second response with Framer Motion */}
+          <AnimatePresence mode="wait">
+            {stage >= 3 && (
+              <motion.div
+                key={`response2-${animationKey}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                {config.response2}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          {/* Final blinking cursor */}
-          {stage >= 4 && (
-            <div className="flex items-center gap-2 animate-fadeIn">
-              <span className="text-accent-bright">claude $</span>
-              <span className="w-2 h-4 bg-white/60 animate-pulse" />
-            </div>
-          )}
+          {/* Final blinking cursor with Framer Motion */}
+          <AnimatePresence mode="wait">
+            {stage >= 4 && (
+              <motion.div
+                key={`final-${animationKey}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-2"
+              >
+                <span className="text-accent-bright">claude $</span>
+                <span className="w-2 h-4 bg-white/60 animate-pulse" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
@@ -327,13 +364,40 @@ function HeroVisual() {
 }
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current || !contentRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Parallax fade effect as user scrolls past hero
+      gsap.to(contentRef.current, {
+        y: -80,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="min-h-[85vh] pt-20 flex flex-col">
-      <div className="flex-1 flex items-center">
+    <section ref={sectionRef} className="min-h-[85vh] pt-20 flex flex-col relative">
+      <div ref={contentRef} className="flex-1 flex items-center">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16 lg:py-20">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left column - Text */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               {/* Headline */}
               <h1 className="text-[clamp(36px,6vw,64px)] font-semibold leading-[1.1] tracking-tight mb-6">
                 Fund your
@@ -366,23 +430,33 @@ export function Hero() {
               <p className="text-muted/60 text-[13px]">
                 Idea to funding in minutes. Escrow-backed, time-released over 6 months.
               </p>
-            </div>
+            </motion.div>
 
             {/* Right column - Visual */}
-            <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              className="flex justify-center lg:justify-end mt-8 lg:mt-0"
+            >
               <HeroVisual />
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="pb-8 sm:pb-12 text-center">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
+        className="pb-8 sm:pb-12 text-center"
+      >
         <div className="animate-bounce-slow inline-flex flex-col items-center gap-2 text-muted text-[12px]">
           <span>Scroll to explore</span>
           <ArrowDown size={16} />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

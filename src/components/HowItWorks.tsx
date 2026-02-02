@@ -1,6 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   { num: 1, title: "Verify", desc: "Wallet + socials" },
@@ -34,16 +39,13 @@ const iconPaths: Record<number, React.ReactNode> = {
 };
 
 // Calculate y position on wave given x (0-100)
-// Peaks at x = 12.5, 37.5, 62.5, 87.5 (y=35)
-// Valleys at x = 0, 25, 50, 75, 100 (y=65)
 function getWaveY(x: number): number {
   const frequency = Math.PI / 12.5;
-  const phase = Math.PI / 2; // Start at valley
-  // After step 8 (x=100), curve up toward peak level
+  const phase = Math.PI / 2;
   if (x > 100) {
-    const t = (x - 100) / 6; // 0 to ~0.33 over the end segment
+    const t = (x - 100) / 6;
     const valleyY = 65;
-    const endY = 35; // Curve up to peak level
+    const endY = 35;
     return valleyY + (endY - valleyY) * t;
   }
   return 50 + 15 * Math.sin(frequency * x + phase);
@@ -52,7 +54,6 @@ function getWaveY(x: number): number {
 // Generate SVG path that matches the getWaveY function
 function generateWavePath(): string {
   const points: { x: number; y: number }[] = [];
-  // Extend further beyond step 8 to show the wave continuing
   for (let x = -2; x <= 115; x += 0.5) {
     points.push({ x, y: getWaveY(x) });
   }
@@ -70,31 +71,60 @@ interface AnimatedDotProps {
 }
 
 function AnimatedDot({ delay, color }: AnimatedDotProps) {
-  const [position, setPosition] = useState({ x: -2, y: 65 });
+  const dotRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef({ value: 0 });
 
   useEffect(() => {
-    const duration = 12000; // 12 seconds
-    const startTime = Date.now() - delay * 1000;
+    if (!dotRef.current) return;
 
-    const animate = () => {
-      const elapsed = (Date.now() - startTime) % duration;
-      const progress = elapsed / duration;
-      const x = -2 + progress * 104; // -2 to 102
-      const y = getWaveY(x);
-      setPosition({ x, y });
-      requestAnimationFrame(animate);
+    // Initialize position based on delay
+    const initialProgress = (delay / 12) % 1;
+    progressRef.current.value = initialProgress;
+
+    // Create GSAP animation for smooth looping
+    const tl = gsap.timeline({ repeat: -1 });
+
+    tl.to(progressRef.current, {
+      value: 1,
+      duration: 12 - (delay % 12),
+      ease: "none",
+      onUpdate: () => {
+        if (!dotRef.current) return;
+        const x = -2 + progressRef.current.value * 104;
+        const y = getWaveY(x);
+        dotRef.current.style.left = `${x}%`;
+        dotRef.current.style.top = `${y}%`;
+      },
+    });
+
+    // After first cycle, loop from 0 to 1
+    tl.to(progressRef.current, {
+      value: 1,
+      duration: 12,
+      ease: "none",
+      startAt: { value: 0 },
+      onUpdate: () => {
+        if (!dotRef.current) return;
+        const x = -2 + progressRef.current.value * 104;
+        const y = getWaveY(x);
+        dotRef.current.style.left = `${x}%`;
+        dotRef.current.style.top = `${y}%`;
+      },
+      repeat: -1,
+    });
+
+    return () => {
+      tl.kill();
     };
-
-    const frameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frameId);
   }, [delay]);
 
   return (
     <div
+      ref={dotRef}
       className="absolute w-2.5 h-2.5 rounded-full pointer-events-none"
       style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
+        left: "-2%",
+        top: "65%",
         transform: "translate(-50%, -50%)",
         background: color,
         boxShadow: `0 0 8px ${color}`,
@@ -105,28 +135,139 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
 
 export function HowItWorks() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const waveContainerRef = useRef<HTMLDivElement>(null);
+  const nodesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const tabletGridRef = useRef<HTMLDivElement>(null);
+  const mobileListRef = useRef<HTMLDivElement>(null);
 
   // Node positions matching the wave peaks/valleys (x%, y%)
   const nodePositions = [
-    { x: 12.5, y: 35 }, // peak
-    { x: 25, y: 65 }, // valley
-    { x: 37.5, y: 35 }, // peak
-    { x: 50, y: 65 }, // valley
-    { x: 62.5, y: 35 }, // peak
-    { x: 75, y: 65 }, // valley
-    { x: 87.5, y: 35 }, // peak
-    { x: 100, y: 65 }, // valley (step 8 at x=100)
+    { x: 12.5, y: 35 },
+    { x: 25, y: 65 },
+    { x: 37.5, y: 35 },
+    { x: 50, y: 65 },
+    { x: 62.5, y: 35 },
+    { x: 75, y: 65 },
+    { x: 87.5, y: 35 },
+    { x: 100, y: 65 },
   ];
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Header slide in from left
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { x: -60, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Desktop wave nodes stagger in
+      const visibleNodes = nodesRef.current.filter(Boolean);
+      if (visibleNodes.length > 0) {
+        gsap.set(visibleNodes, { scale: 0, opacity: 0 });
+        gsap.to(visibleNodes, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: waveContainerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      // Tablet grid cards stagger in
+      if (tabletGridRef.current) {
+        const tabletCards = tabletGridRef.current.querySelectorAll(":scope > div");
+        if (tabletCards.length > 0) {
+          gsap.set(tabletCards, { y: 40, opacity: 0 });
+          gsap.to(tabletCards, {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: tabletGridRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+      }
+
+      // Mobile list items stagger in
+      if (mobileListRef.current) {
+        const mobileItems = mobileListRef.current.querySelectorAll(":scope > div");
+        if (mobileItems.length > 0) {
+          gsap.set(mobileItems, { x: -30, opacity: 0 });
+          gsap.to(mobileItems, {
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: mobileListRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="how-vibestarter-works" className="relative w-full overflow-hidden py-12 sm:py-16 lg:py-20">
-      {/* Ambient glow */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accent-bright/5 rounded-full blur-[120px]" />
+    <section
+      ref={sectionRef}
+      id="how-vibestarter-works"
+      className="relative w-full overflow-hidden py-12 sm:py-16 lg:py-20"
+    >
+      {/* Ambient glow with parallax */}
+      <motion.div
+        className="absolute top-1/3 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px]"
+        style={{ y: 0 }}
+        initial={{ y: 0 }}
+        whileInView={{ y: -20 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: false }}
+      />
+      <motion.div
+        className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accent-bright/5 rounded-full blur-[120px]"
+        initial={{ y: 0 }}
+        whileInView={{ y: 20 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: false }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-16 md:mb-24">
+        <div
+          ref={headerRef}
+          className="flex flex-wrap items-center justify-center gap-3 mb-16 md:mb-24"
+        >
           <div className="flex items-center gap-2">
             <svg
               className="w-5 h-5 text-accent"
@@ -145,7 +286,7 @@ export function HowItWorks() {
         </div>
 
         {/* Desktop: Main wave visualization */}
-        <div className="hidden lg:block relative h-[380px]">
+        <div ref={waveContainerRef} className="hidden lg:block relative h-[380px]">
           {/* SVG Wave */}
           <svg
             className="absolute inset-0 w-full h-full"
@@ -192,6 +333,7 @@ export function HowItWorks() {
             return (
               <div
                 key={step.num}
+                ref={(el) => { nodesRef.current[index] = el; }}
                 className="absolute"
                 style={{
                   left: `${pos.x}%`,
@@ -204,9 +346,7 @@ export function HowItWorks() {
                 {/* Icon circle on the path */}
                 <div
                   className={`relative w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${
-                    isHovered
-                      ? "scale-110"
-                      : "bg-background border-2"
+                    isHovered ? "scale-110" : "bg-background border-2"
                   }`}
                   style={{
                     backgroundColor: isHovered ? accentColor : "#0A0A0A",
@@ -233,14 +373,14 @@ export function HowItWorks() {
                   )}
                 </div>
 
-                {/* Text label - positioned above or below with extra spacing */}
+                {/* Text label */}
                 <div
                   className={`absolute left-1/2 -translate-x-1/2 text-center whitespace-nowrap transition-all duration-300 ${
                     isTop ? "bottom-full mb-6" : "top-full mt-6"
                   }`}
                 >
                   <p
-                    className={`text-[10px] font-mono uppercase tracking-widest transition-colors duration-300`}
+                    className="text-[10px] font-mono uppercase tracking-widest transition-colors duration-300"
                     style={{
                       color: isHovered ? accentColor : "rgba(255,255,255,0.5)",
                     }}
@@ -270,7 +410,10 @@ export function HowItWorks() {
         </div>
 
         {/* Tablet: 2x4 grid */}
-        <div className="hidden md:grid lg:hidden grid-cols-2 gap-4 max-w-2xl mx-auto">
+        <div
+          ref={tabletGridRef}
+          className="hidden md:grid lg:hidden grid-cols-2 gap-4 max-w-2xl mx-auto"
+        >
           {steps.map((item, index) => {
             const isAccent = index % 2 === 0;
             return (
@@ -299,7 +442,7 @@ export function HowItWorks() {
         </div>
 
         {/* Mobile vertical layout */}
-        <div className="md:hidden space-y-3">
+        <div ref={mobileListRef} className="md:hidden space-y-3">
           {steps.map((item, index) => {
             const isAccent = index % 2 === 0;
             return (
@@ -346,7 +489,13 @@ export function HowItWorks() {
         </div>
 
         {/* Bottom tagline */}
-        <div className="mt-16 md:mt-20 flex items-center justify-center gap-6 text-xs text-white/50">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-16 md:mt-20 flex items-center justify-center gap-6 text-xs text-white/50"
+        >
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" />
             Trustless
@@ -359,7 +508,7 @@ export function HowItWorks() {
             <span className="w-1.5 h-1.5 rounded-full bg-accent" />
             On-chain
           </span>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

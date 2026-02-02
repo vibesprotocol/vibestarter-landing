@@ -1,9 +1,69 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export function FundingShift() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Header fade up
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Cards stagger in
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll(":scope > div");
+        if (cards.length > 0) {
+          gsap.set(cards, { y: 50, opacity: 0 });
+          gsap.to(cards, {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="funding-changed" className="py-12 sm:py-16 lg:py-20">
+    <section ref={sectionRef} id="funding-changed" className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-10 sm:mb-12">
+        <div ref={headerRef} className="text-center mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-4">
             Funding changed
           </h2>
@@ -13,9 +73,9 @@ export function FundingShift() {
         </div>
 
         {/* Two-sided value proposition */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div ref={cardsRef} className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Founders Card */}
-          <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8">
+          <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8 group hover:border-accent-bright/30 transition-colors duration-300">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-11 h-11 rounded-xl bg-accent-bright/20 border border-accent-bright/30 flex items-center justify-center">
                 <svg className="w-5 h-5 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -66,7 +126,7 @@ export function FundingShift() {
           </div>
 
           {/* Backers Card */}
-          <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8">
+          <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8 group hover:border-accent/30 transition-colors duration-300">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-11 h-11 rounded-xl bg-accent/20 border border-accent/30 flex items-center justify-center">
                 <svg className="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -119,11 +179,17 @@ export function FundingShift() {
         </div>
 
         {/* Bottom callout */}
-        <div className="mt-8 sm:mt-12 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-8 sm:mt-12 text-center"
+        >
           <p className="text-muted text-[13px] sm:text-[14px]">
             <span className="text-accent">Days, not months.</span> Provenance-verified, time-released.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,17 +1,58 @@
+"use client";
+
 import Link from "next/link";
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function ClosingCTA() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current || !contentRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        contentRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-12 sm:py-16 lg:py-20">
+    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto">
+        <div ref={contentRef} className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-4">
             Ready to raise?
           </h2>
           <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 sm:mb-10">
             Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
+          >
             <Link
               href="https://app.vibestarter.xyz"
               className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
@@ -24,7 +65,7 @@ export function ClosingCTA() {
             >
               View Raises
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

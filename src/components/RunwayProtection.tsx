@@ -1,9 +1,89 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export function RunwayProtection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Header slide in from left
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { x: -50, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Timeline animate in
+      if (timelineRef.current) {
+        gsap.fromTo(
+          timelineRef.current,
+          { scale: 0.95, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: timelineRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Feature cards stagger in
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll(":scope > div");
+        if (cards.length > 0) {
+          gsap.set(cards, { y: 40, opacity: 0 });
+          gsap.to(cards, {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="runway-protection" className="py-12 sm:py-16 lg:py-20">
+    <section ref={sectionRef} id="runway-protection" className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10 sm:mb-12">
+        <div ref={headerRef} className="flex flex-wrap items-center justify-center gap-3 mb-10 sm:mb-12">
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -15,12 +95,18 @@ export function RunwayProtection() {
           </span>
         </div>
 
-        <p className="text-center text-white/60 max-w-2xl mx-auto mb-10">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center text-white/60 max-w-2xl mx-auto mb-10"
+        >
           Built-in accountability for sustainable building. Funds release automatically over 6 months—no milestones to verify, just time-locked tranches with 72-hour challenge windows.
-        </p>
+        </motion.p>
 
         {/* Visual Timeline */}
-        <div className="mb-10 p-6 bg-white/[0.02] border border-white/[0.06] rounded-xl">
+        <div ref={timelineRef} className="mb-10 p-6 bg-white/[0.02] border border-white/[0.06] rounded-xl">
           <h3 className="font-medium mb-6 text-center text-sm text-white/50">Fund Release Timeline</h3>
 
           {/* Desktop timeline */}
@@ -70,8 +156,8 @@ export function RunwayProtection() {
         </div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-5 bg-white/[0.02] border border-accent/20 rounded-xl">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-5 bg-white/[0.02] border border-accent/20 rounded-xl hover:border-accent/40 transition-colors duration-300">
             <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4">
               <svg className="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
@@ -83,7 +169,7 @@ export function RunwayProtection() {
             </p>
           </div>
 
-          <div className="p-5 bg-white/[0.02] border border-accent-bright/20 rounded-xl">
+          <div className="p-5 bg-white/[0.02] border border-accent-bright/20 rounded-xl hover:border-accent-bright/40 transition-colors duration-300">
             <div className="w-10 h-10 rounded-full bg-accent-bright/10 flex items-center justify-center mb-4">
               <svg className="w-5 h-5 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" />
@@ -96,7 +182,7 @@ export function RunwayProtection() {
             </p>
           </div>
 
-          <div className="p-5 bg-white/[0.02] border border-purple-500/20 rounded-xl">
+          <div className="p-5 bg-white/[0.02] border border-purple-500/20 rounded-xl hover:border-purple-500/40 transition-colors duration-300">
             <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center mb-4">
               <svg className="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
