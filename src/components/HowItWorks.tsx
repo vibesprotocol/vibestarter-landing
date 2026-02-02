@@ -272,23 +272,12 @@ export function HowItWorks() {
         {/* Header */}
         <div
           ref={headerRef}
-          className="flex flex-wrap items-center justify-center gap-3 mb-16 md:mb-24"
+          className="mb-16 md:mb-24"
         >
-          <div className="flex items-center gap-2">
-            <svg
-              className="w-5 h-5 text-accent"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-            </svg>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-white">
-              How Vibestarter Works
-            </h2>
-          </div>
-          <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent rounded">
-            Time-Released
-          </span>
+          <p className="section-label mb-4">01 / Process</p>
+          <h2 className="heading-display text-white">
+            HOW IT WORKS
+          </h2>
         </div>
 
         {/* Desktop: Main wave visualization */}
