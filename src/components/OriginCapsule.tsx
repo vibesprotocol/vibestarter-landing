@@ -102,7 +102,8 @@ function InfoNode({ label, value, position, top, delay, highlight }: InfoNodePro
           {label}
         </p>
         <p
-          className={`text-[10px] sm:text-xs md:text-sm font-mono transition-colors ${isActive ? "text-accent" : "text-white/80"}`}
+          key={value}
+          className={`text-[10px] sm:text-xs md:text-sm font-mono transition-all duration-700 ease-out ${isActive ? "text-accent" : "text-white/80"}`}
         >
           {value}
         </p>
@@ -114,25 +115,20 @@ function InfoNode({ label, value, position, top, delay, highlight }: InfoNodePro
 function CapsuleInfographic() {
   const [activeRing, setActiveRing] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const capsule = sampleCapsules[currentIndex];
 
-  // Cycle through capsules
+  // Cycle through capsules with smooth transition
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % sampleCapsules.length);
-        setIsTransitioning(false);
-      }, 400);
+      setCurrentIndex((prev) => (prev + 1) % sampleCapsules.length);
     }, 6000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className={`relative w-full transition-opacity duration-400 ${isTransitioning ? "opacity-0" : "opacity-100"}`}>
+    <div className="relative w-full">
       {/* Grid background */}
       <div
         className="absolute inset-0 opacity-30"
@@ -151,10 +147,16 @@ function CapsuleInfographic() {
           <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-accent mb-2 font-mono">
             ERC-8004 Origin Capsule
           </p>
-          <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
+          <h3
+            key={`name-${currentIndex}`}
+            className="text-2xl md:text-3xl font-semibold tracking-tight text-white animate-fadeIn"
+          >
             {capsule.projectName}
           </h3>
-          <p className="text-sm text-white/50 mt-2 font-mono">
+          <p
+            key={`handle-${currentIndex}`}
+            className="text-sm text-white/50 mt-2 font-mono animate-fadeIn"
+          >
             {capsule.founderHandle}
           </p>
         </div>
@@ -269,7 +271,7 @@ function CapsuleInfographic() {
             <span>Immutable Record</span>
           </div>
           <div className="hidden sm:block h-4 w-px bg-white/10" />
-          <span className="font-mono">
+          <span key={`date-${currentIndex}`} className="font-mono animate-fadeIn">
             {new Date(capsule.timestamp).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -277,7 +279,7 @@ function CapsuleInfographic() {
             })}
           </span>
           <div className="hidden sm:block h-4 w-px bg-white/10" />
-          <span>Proof: {capsule.proofType}</span>
+          <span key={`proof-${currentIndex}`} className="animate-fadeIn">Proof: {capsule.proofType}</span>
         </div>
 
         {/* Pagination */}
@@ -285,13 +287,7 @@ function CapsuleInfographic() {
           {sampleCapsules.map((_, index) => (
             <button
               key={index}
-              onClick={() => {
-                setIsTransitioning(true);
-                setTimeout(() => {
-                  setCurrentIndex(index);
-                  setIsTransitioning(false);
-                }, 400);
-              }}
+              onClick={() => setCurrentIndex(index)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? "bg-accent w-6"
