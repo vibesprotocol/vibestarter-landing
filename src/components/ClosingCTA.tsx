@@ -40,9 +40,8 @@ export function ClosingCTA() {
     <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={contentRef} className="text-center max-w-2xl mx-auto">
-          <p className="section-label mb-4">04 / Launch</p>
-          <h2 className="heading-display text-white mb-4">
-            READY TO RAISE?
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-4">
+            Ready to raise?
           </h2>
           <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 sm:mb-10">
             Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.

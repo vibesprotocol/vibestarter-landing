@@ -1,24 +1,16 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono, Bebas_Neue } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
-const ibmPlexSans = IBM_Plex_Sans({
-  weight: ["400", "500", "600", "700"],
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "500"],
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-});
-
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -62,9 +54,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${bebasNeue.variable}`}>
-      <body className="font-sans antialiased bg-[#0A0A0A] text-white grid-bg-subtle">
-        <div className="noise-overlay" aria-hidden="true" />
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="font-sans antialiased bg-[#0A0A0A] text-white">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

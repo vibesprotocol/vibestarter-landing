@@ -64,9 +64,8 @@ export function FundingShift() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div ref={headerRef} className="text-center mb-10 sm:mb-12">
-          <p className="section-label mb-4">02 / Opportunity</p>
-          <h2 className="heading-display text-white mb-4">
-            FUNDING CHANGED
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-4">
+            Funding changed
           </h2>
           <p className="text-muted text-base sm:text-lg max-w-lg mx-auto">
             Ideas that couldn&apos;t raise before can now ship and fund in days.
