@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 
 const standardItems = [
   "X-linked founder",
-  "AI agent + model metadata",
+  "ERC-8004 registered agent (34+ supported)",
   "Proof artifact hash (transcript / PRD / commit)",
   "Immutable origin capsule hash on Base",
 ];
