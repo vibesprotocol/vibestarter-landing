@@ -7,8 +7,10 @@ import { Menu, X } from "lucide-react";
 const navLinks = [
   { href: "#the-problem", label: "Why" },
   { href: "#the-shift", label: "Thesis" },
-  { href: "#funding-changed", label: "Solution" },
-  { href: "#how-vibestarter-works", label: "How It Works" },
+  { href: "#token-independence", label: "Token" },
+  { href: "#how-vibestarter-works", label: "Process" },
+  { href: "#runway-protection", label: "Protection" },
+  { href: "#capsule", label: "Provenance" },
 ];
 
 export function Navigation() {

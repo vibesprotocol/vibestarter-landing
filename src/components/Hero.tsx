@@ -28,7 +28,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          <span className="text-accent">Attestation generated</span>
+          <span className="text-accent font-sans">Attestation generated</span>
         </div>
         <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2">
           <p className="text-white/60 text-[12px]">
@@ -71,7 +71,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          <span className="text-accent">3 trending launches</span>
+          <span className="text-accent font-sans">3 trending launches</span>
         </div>
         <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2 text-[12px]">
           <div className="flex items-center justify-between">
@@ -122,7 +122,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-green-400">Attestation valid</span>
+          <span className="text-green-400 font-sans">Attestation valid</span>
         </div>
         <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2 text-[12px]">
           <div className="flex items-center justify-between">
@@ -262,7 +262,7 @@ function HeroVisual() {
               <button
                 key={scenario}
                 onClick={() => handleTabChange(scenario)}
-                className={`px-3 py-1 text-[10px] sm:text-[11px] font-mono rounded-md transition-all duration-200 ${
+                className={`px-3 py-1 text-[10px] sm:text-[11px] font-sans font-medium rounded-md transition-all duration-200 ${
                   activeScenario === scenario
                     ? "bg-accent/20 text-accent border border-accent/30"
                     : "text-white/40 hover:text-white/60 hover:bg-white/5"
@@ -399,14 +399,14 @@ export function Hero() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {/* Headline */}
-              <h1 className="text-[clamp(36px,6vw,64px)] font-semibold leading-[1.1] tracking-tight mb-6">
+              <h1 className="font-sans font-bold text-[clamp(40px,7vw,72px)] leading-[1.05] tracking-tight mb-6">
                 Fund your
                 <br />
                 <span className="text-accent-gradient">vibecoded app.</span>
               </h1>
 
               {/* Subheadline */}
-              <p className="text-muted text-base sm:text-lg max-w-xl mb-8 leading-relaxed">
+              <p className="text-muted text-base sm:text-lg max-w-xl mb-8 leading-relaxed font-sans">
                 Launch a Vibetoken. Raise from the community. Ship with escrow-backed, time-released funding and on-chain provenance.
               </p>
 
@@ -427,7 +427,7 @@ export function Hero() {
               </div>
 
               {/* Micro-copy */}
-              <p className="text-muted/60 text-[13px]">
+              <p className="text-muted/60 text-[13px] font-mono">
                 Idea to funding in minutes. Escrow-backed, time-released over 6 months.
               </p>
             </motion.div>
