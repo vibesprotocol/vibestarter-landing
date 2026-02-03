@@ -15,10 +15,10 @@ export function ProtocolStats() {
         <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-3xl mx-auto">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white mb-2">
+              <div className="text-4xl sm:text-5xl md:text-6xl font-sans font-bold text-white mb-2">
                 {stat.value ?? "—"}
               </div>
-              <div className="text-[13px] sm:text-sm text-white/50">
+              <div className="text-[13px] sm:text-sm text-white/50 font-mono">
                 {stat.label}
               </div>
             </div>

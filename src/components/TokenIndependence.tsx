@@ -54,7 +54,7 @@ function VibetokenIcon({ className }: { className?: string }) {
 
 // Simulation stages
 const stages = [
-  { id: 0, label: "Contribute", sublabel: "Back with ETH" },
+  { id: 0, label: "Contribute", sublabel: "Same price for all" },
   { id: 1, label: "Mint", sublabel: "Get Vibetoken" },
   { id: 2, label: "Pool", sublabel: "LP Created" },
   { id: 3, label: "Trade", sublabel: "Freely Tradeable" },
@@ -129,27 +129,27 @@ export function TokenIndependence() {
 
           <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans">
             Every Vibetoken is a standard ERC-20 paired with ETH on Aerodrome.
-            Back projects directly. Trade instantly. No platform token required.
+            All backers pay the same price. Trade instantly. No platform token required.
           </p>
         </div>
 
         {/* Live Simulation */}
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[200px_1fr] gap-6 lg:gap-8">
-            {/* Stage Selector (Tabs) */}
-            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+            {/* Stage Selector (Tabs) - 2x2 grid on mobile, row on tablet, column on desktop */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-1 gap-2 pb-2 lg:pb-0">
               {stages.map((stage, index) => (
                 <button
                   key={stage.id}
                   onClick={() => setActiveStage(index)}
-                  className={`relative flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
+                  className={`relative flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-left transition-all duration-300 ${
                     activeStage === index
                       ? "bg-white/[0.06] border border-accent-bright/30"
                       : "bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04]"
                   }`}
                 >
                   <div
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-mono font-bold transition-colors ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs sm:text-sm font-mono font-bold transition-colors flex-shrink-0 ${
                       activeStage === index
                         ? "bg-accent-bright text-black"
                         : "bg-white/10 text-white/50"
@@ -157,11 +157,11 @@ export function TokenIndependence() {
                   >
                     {index + 1}
                   </div>
-                  <div>
-                    <p className={`text-sm font-semibold transition-colors ${activeStage === index ? "text-white" : "text-white/70"}`}>
+                  <div className="min-w-0">
+                    <p className={`text-xs sm:text-sm font-semibold transition-colors truncate ${activeStage === index ? "text-white" : "text-white/70"}`}>
                       {stage.label}
                     </p>
-                    <p className="text-[11px] text-white/40 font-mono">{stage.sublabel}</p>
+                    <p className="text-[10px] sm:text-[11px] text-white/40 font-mono truncate">{stage.sublabel}</p>
                   </div>
                   {activeStage === index && (
                     <motion.div
@@ -178,7 +178,7 @@ export function TokenIndependence() {
             <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8 min-h-[320px] overflow-hidden">
 
               <AnimatePresence mode="wait">
-                {/* Stage 0: Contribute ETH */}
+                {/* Stage 0: Contribute ETH - Fair pricing visualization */}
                 {activeStage === 0 && (
                   <motion.div
                     key="stage0"
@@ -188,29 +188,84 @@ export function TokenIndependence() {
                     transition={{ duration: 0.3 }}
                     className="relative h-full flex flex-col items-center justify-center"
                   >
-                    {/* Wallet UI mockup */}
-                    <div className="bg-background/80 border border-white/10 rounded-xl p-5 w-full max-w-xs">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-mono text-white/50">Your Wallet</span>
-                        <span className="text-[10px] font-mono text-accent bg-accent/10 px-2 py-0.5 rounded">Connected</span>
+                    {/* Multiple backers visualization */}
+                    <div className="w-full max-w-sm">
+                      {/* Backers contributing different amounts */}
+                      <div className="flex justify-center gap-3 mb-4">
+                        {[
+                          { amount: "0.5", delay: 0 },
+                          { amount: "2.0", delay: 0.15 },
+                          { amount: "1.0", delay: 0.3 },
+                        ].map((backer, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: backer.delay, duration: 0.4 }}
+                            className="flex flex-col items-center"
+                          >
+                            <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-2">
+                              <svg className="w-6 h-6 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                              </svg>
+                            </div>
+                            <div className="flex items-center gap-1 text-xs">
+                              <EthIcon className="w-3 h-3 text-accent" />
+                              <span className="text-white/70 font-mono">{backer.amount}</span>
+                            </div>
+                          </motion.div>
+                        ))}
                       </div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <EthIcon className="w-10 h-10 text-accent" />
-                        <div>
-                          <p className="text-2xl font-bold text-white">2.5 ETH</p>
-                          <p className="text-xs text-white/40 font-mono">≈ $7,500</p>
-                        </div>
+
+                      {/* Animated lines converging to price */}
+                      <div className="relative h-8 mb-3">
+                        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 32" preserveAspectRatio="none">
+                          {[0, 1, 2].map((i) => (
+                            <motion.path
+                              key={i}
+                              d={`M ${75 + i * 75} 0 L 150 32`}
+                              stroke="url(#lineGradient)"
+                              strokeWidth="1"
+                              fill="none"
+                              initial={{ pathLength: 0, opacity: 0 }}
+                              animate={{ pathLength: 1, opacity: 0.5 }}
+                              transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
+                            />
+                          ))}
+                          <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                              <stop offset="0%" stopColor="#91D982" stopOpacity="0.3" />
+                              <stop offset="100%" stopColor="#91D982" stopOpacity="0.8" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
                       </div>
+
+                      {/* Price indicator - same for all */}
                       <motion.div
-                        initial={{ scale: 1 }}
-                        animate={{ scale: [1, 0.98, 1] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        className="w-full py-3 bg-accent text-black font-bold text-center rounded-lg text-sm"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                        className="bg-background/80 border border-accent/30 rounded-xl p-4 text-center"
                       >
-                        Back Project →
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <span className="text-[10px] font-mono text-accent uppercase tracking-wider">Price per token</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-2xl font-bold text-white">0.0001</span>
+                          <EthIcon className="w-5 h-5 text-accent" />
+                        </div>
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: "100%" }}
+                          transition={{ delay: 0.8, duration: 0.6 }}
+                          className="mt-3 h-1 bg-gradient-to-r from-accent/50 via-accent to-accent/50 rounded-full"
+                        />
+                        <p className="mt-2 text-[11px] text-white/50 font-mono">Flat price • No bonding curve</p>
                       </motion.div>
                     </div>
-                    <p className="mt-4 text-xs text-white/40 font-mono">Direct ETH contribution • No intermediaries</p>
+                    <p className="mt-4 text-xs text-white/40 font-mono">Same price for everyone • No early advantage</p>
                   </motion.div>
                 )}
 
@@ -315,7 +370,7 @@ export function TokenIndependence() {
                         LOCKED ∞
                       </div>
                     </motion.div>
-                    <p className="mt-4 text-xs text-white/40 font-mono">Liquidity paired with ETH • LP locked forever</p>
+                    <p className="mt-4 text-xs text-white/40 font-mono">LP protects all holders equally • Locked forever</p>
                   </motion.div>
                 )}
 
@@ -413,9 +468,9 @@ export function TokenIndependence() {
             </div>
             <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
               <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
-                <span className="text-lg sm:text-xl font-sans font-bold text-accent-bright">ETH</span>
+                <span className="text-2xl sm:text-3xl font-sans font-bold text-accent-bright">=</span>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono text-white/50">Direct Backing</div>
+              <div className="text-[10px] sm:text-xs font-mono text-white/50">Flat Price</div>
             </div>
             <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
               <div className="h-8 sm:h-10 flex items-center justify-center gap-1.5 mb-1">

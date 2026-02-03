@@ -129,20 +129,20 @@ export function MarketThesis() {
         {/* Interactive Tabbed Section */}
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[280px_1fr] gap-6 lg:gap-8">
-            {/* Tab List */}
-            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+            {/* Tab List - stacks vertically on mobile for better readability */}
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-2 pb-2 lg:pb-0">
               {thesisPoints.map((point, index) => (
                 <button
                   key={point.id}
                   onClick={() => setActiveTab(index)}
-                  className={`relative flex items-start gap-3 px-4 py-4 rounded-xl text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 ${
+                  className={`relative flex items-start gap-3 px-4 py-3 sm:py-4 rounded-xl text-left transition-all duration-300 flex-1 sm:flex-initial ${
                     activeTab === index
                       ? "bg-white/[0.06] border border-accent/30"
                       : "bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04]"
                   }`}
                 >
                   <div
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-mono font-bold transition-colors flex-shrink-0 ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs font-mono font-bold transition-colors flex-shrink-0 ${
                       activeTab === index
                         ? "bg-accent text-black"
                         : "bg-white/10 text-white/50"
@@ -150,8 +150,8 @@ export function MarketThesis() {
                   >
                     {point.num}
                   </div>
-                  <div className="min-w-0">
-                    <p className={`text-sm font-semibold transition-colors truncate lg:whitespace-normal ${activeTab === index ? "text-white" : "text-white/70"}`}>
+                  <div className="min-w-0 flex-1">
+                    <p className={`text-sm font-semibold transition-colors ${activeTab === index ? "text-white" : "text-white/70"}`}>
                       {point.title}
                     </p>
                     <p className="text-[11px] text-white/40 font-mono flex items-center gap-1.5 mt-0.5">
