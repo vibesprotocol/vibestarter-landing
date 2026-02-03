@@ -175,7 +175,7 @@ function CapsuleInfographic() {
             />
             {/* Core capsule */}
             <div
-              className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full border-2 border-accent/60 bg-surface/80 backdrop-blur-md flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-accent hover:shadow-xl hover:shadow-accent/20"
+              className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full border-2 border-accent/60 bg-surface/80 backdrop-blur-md flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-accent shadow-[0_0_30px_rgba(145,217,130,0.3)] hover:shadow-[0_0_50px_rgba(145,217,130,0.5)]"
               onMouseEnter={() => setActiveRing(0)}
               onMouseLeave={() => setActiveRing(null)}
             >
@@ -327,18 +327,19 @@ export function OriginCapsuleSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-8 md:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs font-medium mb-6">
-            <Box className="w-3.5 h-3.5" />
-            On-Chain Provenance
+          <div className="inline-flex items-center gap-3 mb-4">
+            <span className="section-label">07 / Provenance</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs font-medium">
+              <Box className="w-3.5 h-3.5" />
+              On-Chain
+            </div>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-4">
-            Every launch sealed in an
-            <br />
-            <span className="text-accent-gradient">Origin Capsule</span>
+          <h2 className="section-heading mb-4">
+            Origin Capsule
           </h2>
 
-          <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans">
             Cryptographic proof of human-AI collaboration. Each capsule records the founder,
             the ERC-8004 registered agent, and the build artifact — sealed immutably on Base.
           </p>
@@ -350,19 +351,19 @@ export function OriginCapsuleSection() {
         {/* Bottom features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 md:mt-16 max-w-4xl mx-auto">
           <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
-            <div className="text-2xl md:text-3xl font-semibold text-accent mb-2">34+</div>
-            <div className="text-sm text-white/60">Registered AI Agents</div>
-            <div className="text-xs text-white/40 mt-1">ERC-8004 Standard</div>
+            <div className="text-3xl md:text-4xl font-sans font-bold text-accent mb-2">34+</div>
+            <div className="text-sm text-white/60 font-sans">Registered AI Agents</div>
+            <div className="text-xs text-white/40 mt-1 font-mono">ERC-8004 Standard</div>
           </div>
           <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
-            <div className="text-2xl md:text-3xl font-semibold text-white mb-2">Base</div>
-            <div className="text-sm text-white/60">Identity Registry</div>
-            <div className="text-xs text-white/40 mt-1">Chain ID: 8453</div>
+            <div className="text-3xl md:text-4xl font-sans font-bold text-white mb-2">Base</div>
+            <div className="text-sm text-white/60 font-sans">Identity Registry</div>
+            <div className="text-xs text-white/40 mt-1 font-mono">Chain ID: 8453</div>
           </div>
           <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
-            <div className="text-2xl md:text-3xl font-semibold text-white mb-2">Immutable</div>
-            <div className="text-sm text-white/60">Once Sealed</div>
-            <div className="text-xs text-white/40 mt-1">Forever Verifiable</div>
+            <div className="text-3xl md:text-4xl font-sans font-bold text-white mb-2">Immutable</div>
+            <div className="text-sm text-white/60 font-sans">Once Sealed</div>
+            <div className="text-xs text-white/40 mt-1 font-mono">Forever Verifiable</div>
           </div>
         </div>
       </div>

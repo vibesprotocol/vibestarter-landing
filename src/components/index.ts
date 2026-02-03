@@ -17,3 +17,4 @@ export { ProofOfShift } from "./ProofOfShift";
 export { ProtocolStats } from "./ProtocolStats";
 export { SmoothScroll } from "./SmoothScroll";
 export { ScrollReveal, ScrollRevealGroup } from "./ScrollReveal";
+export { TokenIndependence } from "./TokenIndependence";

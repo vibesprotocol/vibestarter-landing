@@ -3,7 +3,7 @@ import {
   Hero,
   MarketThesis,
   Features,
-  FundingShift,
+  TokenIndependence,
   HowItWorks,
   RunwayProtection,
   OriginCapsuleSection,
@@ -23,7 +23,7 @@ export default function Home() {
       <Divider />
       <MarketThesis />
       <Divider />
-      <FundingShift />
+      <TokenIndependence />
       <Divider />
       <HowItWorks />
       <Divider />

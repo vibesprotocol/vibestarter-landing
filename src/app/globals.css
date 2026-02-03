@@ -38,6 +38,16 @@
 }
 
 @layer components {
+  /* Section label - Interface style: "01 / Section Name" */
+  .section-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.3em] text-accent;
+  }
+
+  /* Section heading - IBM Plex Sans Bold */
+  .section-heading {
+    @apply font-sans text-3xl md:text-4xl font-bold tracking-tight;
+  }
+
   /* Section indicator */
   .section-num {
     @apply font-mono text-xs text-neutral-600 tracking-widest;
@@ -159,5 +169,28 @@
 
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  /* Pulse ring animation for Vibetoken mint */
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-ring-delayed {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
   }
 }
