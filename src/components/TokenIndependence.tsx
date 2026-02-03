@@ -406,22 +406,28 @@ export function TokenIndependence() {
             className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-6"
           >
             <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
-              <div className="text-lg sm:text-xl font-sans font-bold text-accent mb-1">ERC-20</div>
+              <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
+                <span className="text-lg sm:text-xl font-sans font-bold text-accent">ERC-20</span>
+              </div>
               <div className="text-[10px] sm:text-xs font-mono text-white/50">Standard Token</div>
             </div>
             <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
-              <div className="text-lg sm:text-xl font-sans font-bold text-accent-bright mb-1">ETH</div>
+              <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
+                <span className="text-lg sm:text-xl font-sans font-bold text-accent-bright">ETH</span>
+              </div>
               <div className="text-[10px] sm:text-xs font-mono text-white/50">Direct Backing</div>
             </div>
             <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
-              <div className="flex items-center justify-center gap-1.5 mb-1">
+              <div className="h-8 sm:h-10 flex items-center justify-center gap-1.5 mb-1">
                 <AerodromeSymbol className="w-5 h-5 sm:w-6 sm:h-6" />
                 <span className="text-lg sm:text-xl font-sans font-bold text-white/50">LP</span>
               </div>
               <div className="text-[10px] sm:text-xs font-mono text-white/50">Aerodrome LP</div>
             </div>
             <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
-              <div className="text-2xl sm:text-3xl font-sans font-bold text-accent mb-1">∞</div>
+              <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
+                <span className="text-3xl sm:text-4xl font-sans font-bold text-accent leading-none">∞</span>
+              </div>
               <div className="text-[10px] sm:text-xs font-mono text-white/50">LP Locked Forever</div>
             </div>
           </motion.div>
