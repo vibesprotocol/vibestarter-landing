@@ -65,17 +65,44 @@ export function TokenIndependence() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [activeStage, setActiveStage] = useState(0);
   const [isInView, setIsInView] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
+  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-cycle through stages
+  // Handle manual tab clicks - pause auto-cycle longer
+  const handleStageClick = (index: number) => {
+    setActiveStage(index);
+    setUserInteracted(true);
+
+    // Clear any existing timeout
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+
+    // Resume auto-cycle after extended pause (12 seconds)
+    interactionTimeoutRef.current = setTimeout(() => {
+      setUserInteracted(false);
+    }, 12000);
+  };
+
+  // Cleanup timeout on unmount
   useEffect(() => {
-    if (!isInView) return;
+    return () => {
+      if (interactionTimeoutRef.current) {
+        clearTimeout(interactionTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Auto-cycle through stages when in view and user hasn't interacted
+  useEffect(() => {
+    if (!isInView || userInteracted) return;
 
     const interval = setInterval(() => {
       setActiveStage((prev) => (prev + 1) % 4);
     }, 4000); // 4 seconds per stage
 
     return () => clearInterval(interval);
-  }, [isInView]);
+  }, [isInView, userInteracted]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -120,7 +147,7 @@ export function TokenIndependence() {
         {/* Section header */}
         <div ref={headerRef} className="text-center mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">04 / Vibetokens</span>
+            <span className="section-label">Vibetokens</span>
           </div>
 
           <h2 className="section-heading mb-4">
@@ -130,6 +157,9 @@ export function TokenIndependence() {
           <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans">
             Every Vibetoken is a standard ERC-20 paired with ETH on Aerodrome.
             All backers pay the same price. Trade instantly. No platform token required.
+          </p>
+          <p className="text-white/50 text-sm max-w-xl mx-auto font-sans text-center mt-3">
+            No snipers. No insiders. No bonding curve games. Every backer pays the same price — first or last.
           </p>
         </div>
 
@@ -141,7 +171,7 @@ export function TokenIndependence() {
               {stages.map((stage, index) => (
                 <button
                   key={stage.id}
-                  onClick={() => setActiveStage(index)}
+                  onClick={() => handleStageClick(index)}
                   className={`relative flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-left transition-all duration-300 ${
                     activeStage === index
                       ? "bg-white/[0.06] border border-accent-bright/30"

@@ -41,7 +41,7 @@ export function Footer() {
         {/* Disclaimer */}
         <div className="bg-white/[0.02] border border-border rounded-lg p-4 sm:p-6 mb-12 sm:mb-16">
           <p className="text-muted/80 text-[13px] sm:text-[14px] leading-relaxed">
-            <span className="text-white/90 font-medium">Risk Disclosure:</span> Vibetokens are project-specific tokens created on the Base blockchain. Token purchases involve significant risk. The regulatory status of tokens may vary by jurisdiction. Nothing on this platform constitutes investment advice. Consult qualified legal and financial advisors before participating.
+            <span className="text-white/90 font-medium">Risk Disclosure:</span> Vibestarter facilitates crowdfunding for early-stage vibecoded projects. Contributions are speculative and carry significant risk of total loss. Vibetokens are not securities and have no guaranteed value or liquidity. This platform does not provide investment, financial, or legal advice. Only participate with funds you can afford to lose entirely. Past performance of any project is not indicative of future results.
           </p>
         </div>
 
@@ -154,6 +154,7 @@ export function Footer() {
               <rect width="100" height="100" rx="20" fill="#0052FF"/>
             </svg>
             <span className="text-[#0052FF] font-medium">Base</span>
+            <span className="text-[11px] text-muted ml-1">— The on-chain home of AI agents.</span>
           </div>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-[12px] sm:text-[13px] text-muted">
             <Link href="/terms" className="hover:text-white transition-colors">

@@ -11,12 +11,12 @@ export function Features() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-0">
             {/* Left side - Text content */}
             <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
-              <span className="section-label mb-4">01 / The Problem</span>
+              <span className="section-label mb-4">The Problem</span>
               <h2 className="section-heading mb-4">
-                Ideas die without early capital
+                You shipped an app last weekend. Now what?
               </h2>
               <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 font-sans">
-                Agents have removed the technical barrier — anyone can build an MVP now. But even great ideas with working products need funding for marketing, infrastructure, and growth to gain traction.
+                Agents removed the technical barrier. You can go from idea to working product in a weekend. But a working product isn&apos;t a business. You still need users, infrastructure, and marketing budget.
               </p>
 
               {/* The gap */}
@@ -28,7 +28,7 @@ export function Features() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-white/60 font-sans">VCs want traction before they invest</span>
+                    <span className="text-white/60 font-sans">VCs won&apos;t touch you without traction</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -38,7 +38,7 @@ export function Features() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-white/60 font-sans">Traction requires capital to acquire users</span>
+                    <span className="text-white/60 font-sans">Traction requires capital you don&apos;t have</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -48,7 +48,7 @@ export function Features() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-white/60 font-sans">Bootstrapping alone takes years</span>
+                    <span className="text-white/60 font-sans">The memecoin casino will eat your project alive</span>
                   </div>
                 </div>
               </div>
@@ -62,7 +62,7 @@ export function Features() {
                     </svg>
                   </div>
                   <p className="text-white font-sans font-medium">
-                    Vibestarter bridges this gap with community-backed funding
+                    Vibestarter gives vibecoding founders a real funding path: community-backed, escrow-protected, and designed for builders, not degens.
                   </p>
                 </div>
               </div>

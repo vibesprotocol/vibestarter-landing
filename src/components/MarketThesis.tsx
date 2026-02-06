@@ -36,17 +36,44 @@ export function MarketThesis() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState(0);
   const [isInView, setIsInView] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
+  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-cycle tabs when in view
+  // Handle manual tab clicks - pause auto-cycle longer
+  const handleTabClick = (index: number) => {
+    setActiveTab(index);
+    setUserInteracted(true);
+
+    // Clear any existing timeout
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+
+    // Resume auto-cycle after extended pause (12 seconds)
+    interactionTimeoutRef.current = setTimeout(() => {
+      setUserInteracted(false);
+    }, 12000);
+  };
+
+  // Cleanup timeout on unmount
   useEffect(() => {
-    if (!isInView) return;
+    return () => {
+      if (interactionTimeoutRef.current) {
+        clearTimeout(interactionTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Auto-cycle tabs when in view and user hasn't interacted
+  useEffect(() => {
+    if (!isInView || userInteracted) return;
 
     const interval = setInterval(() => {
       setActiveTab((prev) => (prev + 1) % 3);
     }, 6000); // 6 seconds per tab
 
     return () => clearInterval(interval);
-  }, [isInView]);
+  }, [isInView, userInteracted]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -113,9 +140,9 @@ export function MarketThesis() {
         {/* Section header */}
         <div ref={headerRef} className="text-center mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 mb-4">
-            <span className="section-label">02 / Market Thesis</span>
+            <span className="section-label">Market Thesis</span>
             <span className="px-2 py-0.5 text-[10px] font-mono text-accent/80 bg-accent/10 rounded-full border border-accent/20">
-              Post-Opus 4.5 era
+              The Agent Era
             </span>
           </div>
           <h2 className="section-heading mb-4">
@@ -134,7 +161,7 @@ export function MarketThesis() {
               {thesisPoints.map((point, index) => (
                 <button
                   key={point.id}
-                  onClick={() => setActiveTab(index)}
+                  onClick={() => handleTabClick(index)}
                   className={`relative flex items-start gap-3 px-4 py-3 sm:py-4 rounded-xl text-left transition-all duration-300 flex-1 sm:flex-initial ${
                     activeTab === index
                       ? "bg-white/[0.06] border border-accent/30"
@@ -460,26 +487,18 @@ export function MarketThesis() {
           </div>
         </div>
 
-        {/* Expandable deep read */}
-        <details className="mt-8 sm:mt-12 group max-w-3xl mx-auto">
-          <summary className="flex items-center justify-center gap-2 cursor-pointer text-muted hover:text-white transition-colors">
-            <span className="text-[13px] font-mono">Read the full thesis</span>
-            <svg className="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </summary>
-          <div className="mt-6 text-muted text-[14px] leading-relaxed space-y-4 px-4 font-sans">
-            <p>
-              The release of Claude Opus 4.5 marked an inflection point. For the first time, agents could reliably ship production-quality software from natural language prompts. This unlocked a new class of builder: the non-technical founder who directs AI to execute their vision.
-            </p>
-            <p>
-              But funding infrastructure hasn&apos;t caught up. Traditional investors want teams, traction, and technical co-founders. Vibestarter bridges this gap with time-released crowdfunding, letting ideas raise at the concept stage with verifiable provenance.
-            </p>
-            <p>
-              Every launch records who built it, which agent powered it, and proof of the build process. This creates accountability and discoverability in a market flooded with agent-generated projects.
-            </p>
-          </div>
-        </details>
+        {/* Thesis summary + link */}
+        <div className="mt-8 sm:mt-12 max-w-3xl mx-auto text-center">
+          <p className="text-muted text-[14px] leading-relaxed font-sans mb-4">
+            Agents write code. Founders direct vision. Funding infrastructure needs to catch up.
+          </p>
+          <a
+            href="/thesis"
+            className="inline-flex items-center gap-2 text-accent hover:text-white transition-colors text-[13px] font-mono"
+          >
+            Read the full thesis →
+          </a>
+        </div>
       </div>
     </section>
   );

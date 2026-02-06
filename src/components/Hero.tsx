@@ -28,11 +28,11 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          <span className="text-accent font-sans">Attestation generated</span>
+          <span className="text-accent font-sans">Agent registered on-chain</span>
         </div>
         <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2">
           <p className="text-white/60 text-[12px]">
-            <span className="text-accent-bright">// Agent attestation</span>
+            <span className="text-accent-bright">// ERC-8004 Agent Identity</span>
           </p>
           <p className="text-white/90">
             &quot;I built this MVP with <span className="text-white">@yourhandle</span>.
@@ -45,7 +45,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
           </p>
           <div className="pt-2 border-t border-white/5 flex items-center justify-between">
             <span className="text-[11px] text-white/40">— Claude Opus 4.5</span>
-            <span className="text-[10px] text-white/30 font-mono">0x7f3a...e4b2</span>
+            <span className="text-[10px] text-white/30 font-mono">agentId: 1</span>
           </div>
         </div>
       </div>
@@ -105,11 +105,12 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
       <div className="space-y-1">
         <div className="text-white/50 text-[12px]">→ Verifying attestation...</div>
         <div className="text-white/50 text-[12px]">→ Locking in escrow...</div>
+        <div className="text-white/50 text-[12px]">→ Fair token distribution...</div>
         <div className="flex items-center gap-2 text-[12px]">
           <span className="text-accent">✓</span>
           <span className="text-accent">Backed @vibeapp</span>
           <span className="text-white/30">|</span>
-          <span className="text-white/40">2 ETH in escrow</span>
+          <span className="text-white/40">2 ETH + tokens</span>
         </div>
       </div>
     ),
@@ -419,10 +420,10 @@ export function Hero() {
                   Launch Your Raise
                 </Link>
                 <Link
-                  href="https://app.vibestarter.xyz"
+                  href="#how-vibestarter-works"
                   className="btn-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
                 >
-                  Explore launches
+                  See How It Works ↓
                 </Link>
               </div>
 

@@ -108,13 +108,13 @@ export function RunwayProtection() {
         {/* Section header */}
         <div ref={headerRef} className="text-center mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">06 / Protection</span>
+            <span className="section-label">Protection</span>
             <span className="px-3 py-1 text-[11px] font-mono text-accent-bright bg-accent-bright/10 rounded-full border border-accent-bright/20">
               Backer Protection
             </span>
           </div>
           <h2 className="section-heading">
-            6-Month Runway Protection
+            How Backers Stay Protected
           </h2>
         </div>
 

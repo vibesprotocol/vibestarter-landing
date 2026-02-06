@@ -275,7 +275,7 @@ export function HowItWorks() {
           className="text-center mb-16 md:mb-24"
         >
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">05 / Process</span>
+            <span className="section-label">Process</span>
             <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent rounded">
               Time-Released
             </span>

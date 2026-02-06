@@ -7,9 +7,9 @@ import { Menu, X } from "lucide-react";
 const navLinks = [
   { href: "#the-problem", label: "Why" },
   { href: "#the-shift", label: "Thesis" },
-  { href: "#token-independence", label: "Token" },
+  { href: "#vibetokens", label: "Token" },
   { href: "#how-vibestarter-works", label: "Process" },
-  { href: "#runway-protection", label: "Protection" },
+  { href: "#runway-protection", label: "Backers" },
   { href: "#capsule", label: "Provenance" },
 ];
 

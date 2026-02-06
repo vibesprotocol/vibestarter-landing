@@ -40,7 +40,7 @@ export function ClosingCTA() {
     <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={contentRef} className="text-center max-w-2xl mx-auto">
-          <span className="section-label mb-4 block">08 / Launch</span>
+          <span className="section-label mb-4 block">Launch</span>
           <h2 className="section-heading mb-4">
             Ready to raise?
           </h2>
@@ -59,12 +59,6 @@ export function ClosingCTA() {
               className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
             >
               Launch Your Raise
-            </Link>
-            <Link
-              href="https://app.vibestarter.xyz"
-              className="btn-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
-            >
-              View Raises
             </Link>
           </motion.div>
         </div>

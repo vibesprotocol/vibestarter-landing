@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Box } from "lucide-react";
 
 interface CapsuleData {
@@ -116,11 +116,46 @@ function CapsuleInfographic() {
   const [activeRing, setActiveRing] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [userInteracted, setUserInteracted] = useState(false);
+  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const capsule = sampleCapsules[currentIndex];
 
-  // Cycle through capsules with slow crossfade
+  // Handle manual pagination clicks - pause auto-cycle longer
+  const handlePaginationClick = (index: number) => {
+    // Trigger fade out, change, fade in for manual clicks
+    setIsVisible(false);
+    setTimeout(() => {
+      setCurrentIndex(index);
+      setIsVisible(true);
+    }, 600);
+
+    setUserInteracted(true);
+
+    // Clear any existing timeout
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+
+    // Resume auto-cycle after extended pause (12 seconds)
+    interactionTimeoutRef.current = setTimeout(() => {
+      setUserInteracted(false);
+    }, 12000);
+  };
+
+  // Cleanup timeout on unmount
   useEffect(() => {
+    return () => {
+      if (interactionTimeoutRef.current) {
+        clearTimeout(interactionTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Cycle through capsules with slow crossfade (when user hasn't interacted)
+  useEffect(() => {
+    if (userInteracted) return;
+
     const interval = setInterval(() => {
       // Start fade out
       setIsVisible(false);
@@ -133,7 +168,7 @@ function CapsuleInfographic() {
     }, 6000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [userInteracted]);
 
   return (
     <div className="relative w-full">
@@ -289,14 +324,7 @@ function CapsuleInfographic() {
           {sampleCapsules.map((_, index) => (
             <button
               key={index}
-              onClick={() => {
-                // Trigger fade out, change, fade in for manual clicks too
-                setIsVisible(false);
-                setTimeout(() => {
-                  setCurrentIndex(index);
-                  setIsVisible(true);
-                }, 600);
-              }}
+              onClick={() => handlePaginationClick(index)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? "bg-accent w-6"
@@ -328,7 +356,7 @@ export function OriginCapsuleSection() {
         {/* Section header */}
         <div className="text-center mb-8 md:mb-12">
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">07 / Provenance</span>
+            <span className="section-label">Provenance</span>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs font-medium">
               <Box className="w-3.5 h-3.5" />
               On-Chain
