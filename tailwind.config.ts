@@ -24,7 +24,7 @@ const config: Config = {
         display: ["var(--font-display)", "sans-serif"],
       },
       animation: {
-        "bounce-slow": "bounce 2s infinite",
+        "bounce-slow": "bounce-slow 2s infinite",
         "pulse-slow": "pulse 3s infinite",
         "fadeIn": "fadeIn 0.8s ease-out",
       },

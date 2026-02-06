@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import { EthIcon, PersonIcon, EscrowIcon } from "./icons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,21 +62,8 @@ function BackerAvatar({ index, total }: { index: number; total: number }) {
         zIndex: total - index,
       }}
     >
-      <svg className="w-4 h-4" style={{ color }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
+      <PersonIcon className="w-4 h-4" />
     </motion.div>
-  );
-}
-
-// ETH icon
-function EthIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16 2L6 16L16 22L26 16L16 2Z" fill="currentColor" fillOpacity="0.6" />
-      <path d="M16 22L6 16L16 30L26 16L16 22Z" fill="currentColor" />
-    </svg>
   );
 }
 
@@ -271,10 +259,7 @@ export function FundingShift() {
                     {/* Animated ring */}
                     <div className="absolute inset-0 rounded-2xl border-2 border-accent/30 animate-pulse" />
                     <div className="text-center">
-                      <svg className="w-10 h-10 mx-auto text-accent-bright mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                        <rect x="3" y="11" width="18" height="11" rx="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
+                      <EscrowIcon className="w-10 h-10 mx-auto text-accent-bright mb-1" />
                       <span className="text-[10px] font-mono text-white/60">ESCROW</span>
                     </div>
                   </motion.div>
@@ -298,10 +283,7 @@ export function FundingShift() {
                     viewport={{ once: true }}
                     className="w-16 h-16 mx-auto rounded-full bg-accent-bright/20 border-2 border-accent-bright/40 flex items-center justify-center mb-4"
                   >
-                    <svg className="w-8 h-8 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
+                    <PersonIcon className="w-8 h-8 text-accent-bright" />
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -345,10 +327,7 @@ export function FundingShift() {
                 {/* Escrow */}
                 <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-accent/20 to-accent-bright/20 border border-white/10 flex items-center justify-center">
                   <div className="text-center">
-                    <svg className="w-8 h-8 mx-auto text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <rect x="3" y="11" width="18" height="11" rx="2" />
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
+                    <EscrowIcon className="w-8 h-8 mx-auto text-accent-bright" />
                     <span className="text-[9px] font-mono text-white/60">ESCROW</span>
                   </div>
                 </div>
@@ -363,10 +342,7 @@ export function FundingShift() {
                 {/* Founder */}
                 <div className="text-center">
                   <div className="w-14 h-14 mx-auto rounded-full bg-accent-bright/20 border-2 border-accent-bright/40 flex items-center justify-center mb-3">
-                    <svg className="w-7 h-7 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
+                    <PersonIcon className="w-7 h-7 text-accent-bright" />
                   </div>
                   <h3 className="font-sans font-bold text-base text-white">Founder receives tranches</h3>
                   <p className="text-xs text-white/50 font-mono mt-1">10% kickstart + 15% × 6 months</p>

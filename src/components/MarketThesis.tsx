@@ -117,7 +117,7 @@ export function MarketThesis() {
       {/* Subtle wave/timeline motif background */}
       <div className="absolute inset-0 pointer-events-none">
         <svg
-          className="absolute top-1/2 left-0 w-full h-64 -translate-y-1/2 opacity-[0.03]"
+          className="absolute top-1/2 left-0 w-full h-64 -translate-y-1/2 opacity-[0.06]"
           viewBox="0 0 1200 200"
           preserveAspectRatio="none"
         >

@@ -313,7 +313,7 @@ export function HowItWorks() {
             <path
               d={generateWavePath()}
               stroke="url(#waveGradient)"
-              strokeWidth="0.4"
+              strokeWidth="0.6"
               strokeLinecap="round"
             />
           </svg>

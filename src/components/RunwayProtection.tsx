@@ -50,13 +50,20 @@ export function RunwayProtection() {
         );
       }
 
-      // Trigger animation when timeline comes into view
+      // Trigger animation when timeline comes into view — replays on re-enter
       if (timelineRef.current) {
         ScrollTrigger.create({
           trigger: timelineRef.current,
           start: "top 80%",
-          onEnter: () => setIsInView(true),
-          onLeaveBack: () => setIsInView(false),
+          onEnter: () => {
+            setHasAnimated(false);
+            setIsInView(true);
+          },
+          onLeaveBack: () => {
+            setIsInView(false);
+            setActiveTrancheIndex(-1);
+            setProgress(0);
+          },
         });
       }
     }, sectionRef);
@@ -142,9 +149,9 @@ export function RunwayProtection() {
                 {/* Dots are at 0%, 16.67%, 33.33%, 50%, 66.67%, 83.33%, 100% with justify-between */}
                 <motion.div
                   className="absolute left-0 top-1/2 -translate-y-1/2 h-3 bg-gradient-to-r from-accent via-accent-bright to-accent-bright rounded-full"
-                  style={{
+                  animate={{
                     width: activeTrancheIndex >= 0
-                      ? `calc(${(activeTrancheIndex / 6) * 100}% + 8px)` // +8px to account for px-2 padding
+                      ? `calc(${(activeTrancheIndex / 6) * 100}% + 8px)`
                       : '0%'
                   }}
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}

@@ -197,14 +197,14 @@ function CapsuleInfographic() {
             {/* Outer ring */}
             <div
               className={`absolute -inset-16 sm:-inset-20 md:-inset-24 rounded-full border transition-all duration-500 ${activeRing === 2 ? "border-accent/60" : "border-white/5"}`}
-              style={{ animation: "pulse 4s ease-in-out infinite" }}
+              style={{ animation: "capsule-pulse 4s ease-in-out infinite" }}
               onMouseEnter={() => setActiveRing(2)}
               onMouseLeave={() => setActiveRing(null)}
             />
             {/* Middle ring */}
             <div
               className={`absolute -inset-10 sm:-inset-12 md:-inset-14 rounded-full border transition-all duration-500 ${activeRing === 1 ? "border-accent/80" : "border-white/10"}`}
-              style={{ animation: "pulse 3s ease-in-out infinite 0.5s" }}
+              style={{ animation: "capsule-pulse 3s ease-in-out infinite 0.5s" }}
               onMouseEnter={() => setActiveRing(1)}
               onMouseLeave={() => setActiveRing(null)}
             />
@@ -340,7 +340,7 @@ function CapsuleInfographic() {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes pulse {
+        @keyframes capsule-pulse {
           0%, 100% { opacity: 0.5; transform: scale(1); }
           50% { opacity: 0.8; transform: scale(1.02); }
         }

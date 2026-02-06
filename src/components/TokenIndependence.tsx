@@ -4,53 +4,9 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
+import { EthIcon, VibetokenIcon, AerodromeSymbol, AerodromeLogo } from "./icons";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// Aerodrome brand color
-const AERO_BLUE = "#0052FF";
-
-// Aerodrome symbol logo - using official PNG
-// Source: https://aerodrome.finance/brand-kit/AERO/symbol.png
-function AerodromeSymbol({ className }: { className?: string }) {
-  return (
-    <img
-      src="/aero-symbol.png"
-      alt="Aerodrome"
-      className={className}
-    />
-  );
-}
-
-// Aerodrome logo with text (for Trade section)
-function AerodromeLogo({ className }: { className?: string }) {
-  return (
-    <div className={`flex items-center gap-1.5 ${className || ''}`}>
-      <AerodromeSymbol className="w-4 h-5" />
-      <span className="text-[10px] font-mono text-white/50">Aerodrome</span>
-    </div>
-  );
-}
-
-// ETH icon component
-function EthIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16 2L6 16L16 22L26 16L16 2Z" fill="currentColor" fillOpacity="0.6" />
-      <path d="M16 22L6 16L16 30L26 16L16 22Z" fill="currentColor" />
-    </svg>
-  );
-}
-
-// Vibetoken icon (V in circle)
-function VibetokenIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2" />
-      <path d="M10 10L16 22L22 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 // Simulation stages
 const stages = [

@@ -122,8 +122,8 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
     response1: (
       <div className="pl-0 space-y-2 text-white/70">
         <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-green-400 font-sans">Attestation valid</span>
+          <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+          <span className="text-accent font-sans">Attestation valid</span>
         </div>
         <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2 text-[12px]">
           <div className="flex items-center justify-between">
@@ -193,6 +193,18 @@ function HeroVisual() {
     resetAnimation();
   }, [activeScenario, resetAnimation]);
 
+  const [userInteracted, setUserInteracted] = useState(false);
+  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoCycleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleTabChangeManual = useCallback((scenario: Scenario) => {
+    if (scenario === activeScenario) return;
+    setUserInteracted(true);
+    if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
+    interactionTimeoutRef.current = setTimeout(() => setUserInteracted(false), 15000);
+    handleTabChange(scenario);
+  }, [activeScenario, handleTabChange]);
+
   useEffect(() => {
     const command1 = config.command1;
     const command2 = config.command2;
@@ -200,6 +212,9 @@ function HeroVisual() {
     // Kill any existing timeline
     if (timelineRef.current) {
       timelineRef.current.kill();
+    }
+    if (autoCycleTimeoutRef.current) {
+      clearTimeout(autoCycleTimeoutRef.current);
     }
 
     // Create GSAP timeline for typing animation
@@ -237,18 +252,37 @@ function HeroVisual() {
     // Show second response
     tl.call(() => setStage(3), [], "+=0.3");
 
-    // Show final cursor
-    tl.call(() => setStage(4), [], "+=1.5");
+    // Show final cursor, then auto-cycle after a pause
+    tl.call(() => {
+      setStage(4);
+      if (!userInteracted) {
+        autoCycleTimeoutRef.current = setTimeout(() => {
+          const scenarioKeys = Object.keys(scenarios) as Scenario[];
+          const currentIdx = scenarioKeys.indexOf(activeScenario);
+          const nextScenario = scenarioKeys[(currentIdx + 1) % scenarioKeys.length];
+          handleTabChange(nextScenario);
+        }, 3000);
+      }
+    }, [], "+=1.5");
 
     return () => {
       tl.kill();
+      if (autoCycleTimeoutRef.current) clearTimeout(autoCycleTimeoutRef.current);
     };
-  }, [animationKey, config.command1, config.command2]);
+  }, [animationKey, config.command1, config.command2, userInteracted, activeScenario, handleTabChange]);
+
+  // Cleanup interaction timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
+      if (autoCycleTimeoutRef.current) clearTimeout(autoCycleTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <div className="relative w-full max-w-[320px] sm:max-w-md lg:max-w-lg xl:max-w-xl">
-      {/* Terminal window */}
-      <div className="relative bg-[#0a0a0a] border border-white/[0.08] rounded-xl overflow-hidden">
+      {/* Terminal window — elevated with layered depth shadows */}
+      <div className="relative bg-[#0a0a0a] border border-white/[0.08] rounded-xl overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.4),0_24px_48px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]">
         {/* Terminal header with tabs */}
         <div className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-white/[0.02] border-b border-white/5">
           <div className="flex gap-1.5">
@@ -262,7 +296,7 @@ function HeroVisual() {
             {(Object.keys(scenarios) as Scenario[]).map((scenario) => (
               <button
                 key={scenario}
-                onClick={() => handleTabChange(scenario)}
+                onClick={() => handleTabChangeManual(scenario)}
                 className={`px-3 py-1 text-[10px] sm:text-[11px] font-sans font-medium rounded-md transition-all duration-200 ${
                   activeScenario === scenario
                     ? "bg-accent/20 text-accent border border-accent/30"
@@ -358,8 +392,6 @@ function HeroVisual() {
         </div>
       </div>
 
-      {/* Subtle decorative element */}
-      <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-accent-bright/[0.03] rounded-full blur-3xl" />
     </div>
   );
 }

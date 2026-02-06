@@ -60,20 +60,32 @@ export function FundingGapAnimation() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d")!;
 
+    // Mutable dimensions that update on resize
+    const dims = { width: 0, height: 0, leftX: 0, rightX: 0, platformY: 0 };
+
     const updateSize = () => {
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dims.width = rect.width;
+      dims.height = rect.height;
+      dims.leftX = LEFT_PLATFORM * rect.width;
+      dims.rightX = RIGHT_PLATFORM * rect.width;
+      dims.platformY = PLATFORM_Y * rect.height;
     };
     updateSize();
 
-    const width = canvas.getBoundingClientRect().width;
-    const height = canvas.getBoundingClientRect().height;
-    const leftX = LEFT_PLATFORM * width;
-    const rightX = RIGHT_PLATFORM * width;
-    const platformY = PLATFORM_Y * height;
+    // Re-calculate on resize
+    const resizeObserver = new ResizeObserver(() => updateSize());
+    resizeObserver.observe(canvas);
+
+    const width = dims.width;
+    const height = dims.height;
+    const leftX = dims.leftX;
+    const rightX = dims.rightX;
+    const platformY = dims.platformY;
 
     // Colors
     const lineColor = "rgba(255, 255, 255, 0.15)";
@@ -595,6 +607,7 @@ export function FundingGapAnimation() {
 
     return () => {
       cancelAnimationFrame(animationRef.current);
+      resizeObserver.disconnect();
       shapesRef.current = [];
       voidParticlesRef.current = [];
     };
@@ -605,7 +618,7 @@ export function FundingGapAnimation() {
       ref={containerRef}
       className="relative w-full h-full min-h-[350px] bg-[#0a0a0a] overflow-hidden"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" aria-label="Animated visualization showing ideas crossing a funding gap bridge via Vibestarter" role="img" />
 
       {/* Ideas label */}
       <motion.div
