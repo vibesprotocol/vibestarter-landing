@@ -36,8 +36,8 @@ export function Footer() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            <Link href="/" className="inline-flex items-center gap-3">
-              <svg className="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 32 32" fill="none">
+            <Link href="/" className="inline-flex items-center gap-2 sm:gap-3 font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+              <svg className="h-[0.7em]" viewBox="2 6 28 20" fill="none">
                 <path
                   d="M4 8L14 16L4 24"
                   stroke="black"
@@ -52,11 +52,9 @@ export function Footer() {
                   strokeLinecap="round"
                 />
               </svg>
-              <span className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight">
-                VIBESTARTER
-              </span>
+              <span>Vibestarter</span>
             </Link>
-            <p className="mt-4 text-black/70 text-base sm:text-lg font-sans max-w-md">
+            <p className="mt-4 text-black/70 text-base sm:text-lg font-sans font-light max-w-md">
               Time-released crowdfunding for vibecoded apps. Built on Base.
             </p>
           </div>

@@ -15,7 +15,7 @@ export function Standard() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-4">
             The VibesCertified Standard
           </h2>
-          <p className="text-muted text-base sm:text-lg mb-10 sm:mb-12">
+          <p className="text-muted text-base sm:text-lg mb-10 sm:mb-12 font-light">
             A spec-level definition of what certified means.
           </p>
 

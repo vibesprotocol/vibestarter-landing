@@ -146,7 +146,7 @@ export function FundingShift() {
           <h2 className="section-heading mb-4">
             Funding changed
           </h2>
-          <p className="text-muted text-base sm:text-lg max-w-lg mx-auto font-sans">
+          <p className="text-muted text-base sm:text-lg max-w-lg mx-auto font-sans font-light">
             Ideas that couldn&apos;t raise before can now ship and fund in days.
           </p>
         </div>

@@ -343,7 +343,7 @@ export function FundingGapAnimation() {
       const labelX = (leftX + rightX) / 2;
       const labelY = platformY - 12;
 
-      ctx.font = "bold 9px monospace";
+      ctx.font = "bold 9px 'JetBrains Mono', monospace";
       ctx.textAlign = "center";
       ctx.fillStyle = "rgba(122, 201, 104, 0.9)";
       ctx.fillText("VIBESTARTER", labelX, labelY);
@@ -488,7 +488,7 @@ export function FundingGapAnimation() {
 
       // FUNDING GAP text - drawn on canvas for prominence, positioned lower in the void
       const gapCenterX = (leftX + rightX) / 2;
-      ctx.font = "bold 11px monospace";
+      ctx.font = "bold 11px 'JetBrains Mono', monospace";
       ctx.textAlign = "center";
       ctx.fillStyle = "rgba(255, 255, 255, 0.35)";
       ctx.fillText("FUNDING GAP", gapCenterX, platformY + 120);

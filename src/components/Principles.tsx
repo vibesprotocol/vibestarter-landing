@@ -17,7 +17,7 @@ export function Features() {
                 text="You shipped an app last weekend. Now what?"
                 className="section-heading mb-4"
               />
-              <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 font-sans">
+              <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 font-sans font-light">
                 Agents removed the technical barrier. You can go from idea to working product in a weekend. But a working product isn&apos;t a business. You still need users, infrastructure, and marketing budget.
               </p>
 
@@ -30,7 +30,7 @@ export function Features() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-white/60 font-sans">VCs won&apos;t touch you without traction</span>
+                    <span className="text-white/60 font-sans font-light">VCs won&apos;t touch you without traction</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -40,7 +40,7 @@ export function Features() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-white/60 font-sans">Traction requires capital you don&apos;t have</span>
+                    <span className="text-white/60 font-sans font-light">Traction requires capital you don&apos;t have</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -50,7 +50,7 @@ export function Features() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-white/60 font-sans">The memecoin casino will eat your project alive</span>
+                    <span className="text-white/60 font-sans font-light">The memecoin casino will eat your project alive</span>
                   </div>
                 </div>
               </div>

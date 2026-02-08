@@ -2,57 +2,96 @@
 
 import { useEffect, useState, useRef, useCallback } from "react";
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+const SCRAMBLE_CHARS = "@#$%&*!?><{}[]=/\\|~^0123456789";
+
+// How many frames of scrambling before each character resolves
+const SCRAMBLE_CYCLES = 2;
+// Ms between each cycle tick
+const CYCLE_SPEED = 30;
 
 interface UseTextScrambleOptions {
   duration?: number;
   trigger?: boolean;
 }
 
+export interface CharState {
+  char: string;
+  state: "hidden" | "scrambling" | "resolved";
+}
+
 export function useTextScramble(text: string, options: UseTextScrambleOptions = {}) {
-  const { duration = 800, trigger = false } = options;
-  const [displayText, setDisplayText] = useState(text);
+  const { trigger = false } = options;
+  const [chars, setChars] = useState<CharState[]>(() =>
+    text.split("").map((char) => ({
+      char,
+      state: char === " " ? "resolved" : "hidden",
+    }))
+  );
   const [resolved, setResolved] = useState(false);
   const hasAnimated = useRef(false);
-  const frameRef = useRef<number>(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const scramble = useCallback(() => {
     if (hasAnimated.current) return;
     hasAnimated.current = true;
 
-    const startTime = performance.now();
-    const chars = text.split("");
+    const textChars = text.split("");
+    let cursor = 0;
+    let cyclesLeft = SCRAMBLE_CYCLES;
 
-    const animate = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const resolvedCount = Math.floor(progress * chars.length);
+    const tick = () => {
+      // Skip spaces
+      while (cursor < textChars.length && textChars[cursor] === " ") {
+        cursor++;
+        cyclesLeft = SCRAMBLE_CYCLES;
+      }
 
-      const result = chars.map((char, i) => {
-        if (char === " ") return " ";
-        if (i < resolvedCount) return char;
-        return CHARS[Math.floor(Math.random() * CHARS.length)];
-      });
-
-      setDisplayText(result.join(""));
-
-      if (progress < 1) {
-        frameRef.current = requestAnimationFrame(animate);
-      } else {
-        setDisplayText(text);
+      if (cursor >= textChars.length) {
+        setChars(textChars.map((c) => ({ char: c, state: "resolved" })));
         setResolved(true);
+        return;
+      }
+
+      if (cyclesLeft > 0) {
+        // Show scramble char at cursor
+        const scrambleChar = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+        setChars(
+          textChars.map((c, i) => {
+            if (c === " ") return { char: c, state: "resolved" };
+            if (i < cursor) return { char: c, state: "resolved" };
+            if (i === cursor) return { char: scrambleChar, state: "scrambling" };
+            return { char: c, state: "hidden" };
+          })
+        );
+        cyclesLeft--;
+        timerRef.current = setTimeout(tick, CYCLE_SPEED);
+      } else {
+        // Lock in character and advance
+        cursor++;
+        cyclesLeft = SCRAMBLE_CYCLES;
+        setChars(
+          textChars.map((c, i) => {
+            if (c === " ") return { char: c, state: "resolved" };
+            if (i < cursor) return { char: c, state: "resolved" };
+            return { char: c, state: "hidden" };
+          })
+        );
+        timerRef.current = setTimeout(tick, CYCLE_SPEED);
       }
     };
 
-    frameRef.current = requestAnimationFrame(animate);
-  }, [text, duration]);
+    tick();
+  }, [text]);
 
   useEffect(() => {
     if (trigger && !hasAnimated.current) scramble();
     return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [trigger, scramble]);
 
-  return { displayText, resolved };
+  // Backward compat
+  const displayText = chars.map((c) => (c.state === "hidden" ? "" : c.char)).join("");
+
+  return { displayText, chars, resolved };
 }

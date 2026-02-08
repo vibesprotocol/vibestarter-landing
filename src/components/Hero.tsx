@@ -432,14 +432,14 @@ export function Hero() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {/* Headline */}
-              <h1 className="font-sans font-bold text-[clamp(40px,7vw,72px)] leading-[1.05] tracking-tight mb-6">
+              <h1 className="font-display font-bold text-[clamp(40px,7vw,72px)] leading-[1.05] tracking-tight mb-6">
                 Fund your
                 <br />
                 <span className="text-accent-gradient">vibecoded app.</span>
               </h1>
 
               {/* Subheadline */}
-              <p className="text-muted text-base sm:text-lg max-w-xl mb-8 leading-relaxed font-sans">
+              <p className="text-muted text-base sm:text-lg max-w-xl mb-8 leading-relaxed font-sans font-light">
                 Launch a Vibetoken. Raise from the community. Ship with escrow-backed, time-released funding and on-chain provenance.
               </p>
 

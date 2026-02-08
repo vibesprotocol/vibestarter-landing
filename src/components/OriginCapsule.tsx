@@ -369,7 +369,7 @@ export function OriginCapsuleSection() {
             className="section-heading mb-4"
           />
 
-          <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans">
+          <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans font-light">
             Cryptographic proof of human-AI collaboration. Each capsule records the founder,
             the ERC-8004 registered agent, and the build artifact — sealed immutably on Base.
           </p>
@@ -382,17 +382,17 @@ export function OriginCapsuleSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 md:mt-16 max-w-4xl mx-auto">
           <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
             <div className="text-3xl md:text-4xl font-sans font-bold text-accent mb-2">34+</div>
-            <div className="text-sm text-white/60 font-sans">Registered AI Agents</div>
+            <div className="text-sm text-white/60 font-sans font-light">Registered AI Agents</div>
             <div className="text-xs text-white/40 mt-1 font-mono">ERC-8004 Standard</div>
           </div>
           <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
             <div className="text-3xl md:text-4xl font-sans font-bold text-white mb-2">Base</div>
-            <div className="text-sm text-white/60 font-sans">Identity Registry</div>
+            <div className="text-sm text-white/60 font-sans font-light">Identity Registry</div>
             <div className="text-xs text-white/40 mt-1 font-mono">Chain ID: 8453</div>
           </div>
           <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
             <div className="text-3xl md:text-4xl font-sans font-bold text-white mb-2">Immutable</div>
-            <div className="text-sm text-white/60 font-sans">Once Sealed</div>
+            <div className="text-sm text-white/60 font-sans font-light">Once Sealed</div>
             <div className="text-xs text-white/40 mt-1 font-mono">Forever Verifiable</div>
           </div>
         </div>

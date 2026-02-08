@@ -43,9 +43,9 @@
     @apply font-mono text-[10px] uppercase tracking-[0.3em] text-accent;
   }
 
-  /* Section heading - IBM Plex Sans Bold */
+  /* Section heading - JetBrains Mono (display) */
   .section-heading {
-    @apply font-sans text-3xl md:text-4xl font-bold tracking-tight;
+    @apply font-display text-3xl md:text-4xl font-bold tracking-tight;
   }
 
   /* Section indicator */

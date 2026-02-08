@@ -150,7 +150,7 @@ export function MarketThesis() {
             text="The shift is already here"
             className="section-heading mb-4"
           />
-          <p className="text-muted text-base sm:text-lg max-w-xl mx-auto font-sans">
+          <p className="text-muted text-base sm:text-lg max-w-xl mx-auto font-sans font-light">
             Software is being written by agents. The rules for building and funding are changing.
           </p>
         </div>
@@ -302,7 +302,7 @@ export function MarketThesis() {
                     </div>
 
                     <div className="mt-6 text-center">
-                      <p className="text-white/60 text-sm font-sans">{thesisPoints[0].description}</p>
+                      <p className="text-white/60 text-sm font-sans font-light">{thesisPoints[0].description}</p>
                     </div>
                   </motion.div>
                 )}
@@ -372,7 +372,7 @@ export function MarketThesis() {
                       transition={{ delay: 0.5 }}
                       className="mt-6 text-center"
                     >
-                      <p className="text-white/60 text-sm font-sans">{thesisPoints[1].description}</p>
+                      <p className="text-white/60 text-sm font-sans font-light">{thesisPoints[1].description}</p>
                     </motion.div>
                   </motion.div>
                 )}
@@ -477,7 +477,7 @@ export function MarketThesis() {
                       transition={{ delay: 0.5 }}
                       className="mt-6 text-center"
                     >
-                      <p className="text-white/60 text-sm font-sans">{thesisPoints[2].description}</p>
+                      <p className="text-white/60 text-sm font-sans font-light">{thesisPoints[2].description}</p>
                     </motion.div>
                   </motion.div>
                 )}
@@ -491,7 +491,7 @@ export function MarketThesis() {
 
         {/* Thesis summary + link */}
         <div className="mt-8 sm:mt-12 max-w-3xl mx-auto text-center">
-          <p className="text-muted text-[14px] leading-relaxed font-sans mb-4">
+          <p className="text-muted text-[14px] leading-relaxed font-sans font-light mb-4">
             Agents write code. Founders direct vision. Funding infrastructure needs to catch up.
           </p>
           <a

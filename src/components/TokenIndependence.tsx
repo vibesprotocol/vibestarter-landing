@@ -112,11 +112,11 @@ export function TokenIndependence() {
             className="section-heading mb-4"
           />
 
-          <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans">
+          <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans font-light">
             Every Vibetoken is a standard ERC-20 paired with ETH on Aerodrome.
             All backers pay the same price. Trade instantly. No platform token required.
           </p>
-          <p className="text-white/50 text-sm max-w-xl mx-auto font-sans text-center mt-3">
+          <p className="text-white/50 text-sm max-w-xl mx-auto font-sans font-light text-center mt-3">
             No snipers. No insiders. No bonding curve games. Every backer pays the same price — first or last.
           </p>
         </div>

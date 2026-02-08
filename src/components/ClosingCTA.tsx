@@ -14,7 +14,7 @@ export function ClosingCTA() {
             text="Ready to raise?"
             className="section-heading mb-4"
           />
-          <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 font-sans">
+          <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 font-sans font-light">
             Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.
           </p>
           <motion.div

@@ -132,7 +132,7 @@ export function RunwayProtection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center text-white/60 max-w-2xl mx-auto mb-10 font-sans"
+          className="text-center text-white/60 max-w-2xl mx-auto mb-10 font-sans font-light"
         >
           Built-in accountability for sustainable building. Funds release automatically over 6 months—no milestones to verify, just time-locked tranches with 72-hour challenge windows.
         </motion.p>
@@ -337,7 +337,7 @@ export function RunwayProtection() {
                 <p className="text-[11px] font-mono text-accent">10% instant</p>
               </div>
             </div>
-            <p className="text-sm text-white/60 font-sans">
+            <p className="text-sm text-white/60 font-sans font-light">
               Immediate funding at finalization to build momentum.
             </p>
             <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-accent/10 rounded-full blur-2xl" />
@@ -362,7 +362,7 @@ export function RunwayProtection() {
                 <p className="text-[11px] font-mono text-accent-bright">15% × 6 months</p>
               </div>
             </div>
-            <p className="text-sm text-white/60 font-sans">
+            <p className="text-sm text-white/60 font-sans font-light">
               Remaining funds release in equal monthly tranches.
             </p>
             <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-accent-bright/10 rounded-full blur-2xl" />
@@ -386,7 +386,7 @@ export function RunwayProtection() {
                 <p className="text-[11px] font-mono text-purple-400">72 hours</p>
               </div>
             </div>
-            <p className="text-sm text-white/60 font-sans">
+            <p className="text-sm text-white/60 font-sans font-light">
               Backers can challenge suspicious releases before payout.
             </p>
             <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl" />

@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono, Bebas_Neue } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
-const ibmPlexSans = IBM_Plex_Sans({
-  weight: ["400", "500", "600", "700"],
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "500"],
+const jetbrainsMono = JetBrains_Mono({
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-display",
+});
+
+const jetbrainsMonoMono = JetBrains_Mono({
+  weight: ["100", "200", "300", "400", "500"],
   subsets: ["latin"],
   variable: "--font-mono",
 });
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-display",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vibestarter.xyz"),
@@ -65,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${bebasNeue.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${jetbrainsMonoMono.variable}`}>
       <body className="font-sans antialiased bg-[#0A0A0A] text-white grid-bg">
         <SmoothScroll>{children}</SmoothScroll>
       </body>

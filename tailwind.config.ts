@@ -21,7 +21,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
-        display: ["var(--font-display)", "sans-serif"],
+        display: ["var(--font-display)", "monospace"],
       },
       animation: {
         "bounce-slow": "bounce-slow 2s infinite",

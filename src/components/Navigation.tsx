@@ -65,7 +65,7 @@ export function Navigation() {
               strokeLinecap="round"
             />
           </svg>
-          <span className="font-semibold text-base sm:text-lg tracking-tight">Vibestarter</span>
+          <span className="font-display text-lg sm:text-xl tracking-tight">Vibestarter</span>
         </Link>
 
         {/* Desktop Nav Links */}

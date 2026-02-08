@@ -14,15 +14,24 @@ export function TextScramble({
   text,
   className = "",
   as: Tag = "h2",
-  duration = 800,
+  duration = 2000,
 }: TextScrambleProps) {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
-  const { displayText, resolved } = useTextScramble(text, { trigger: isVisible, duration });
+  const { chars } = useTextScramble(text, { trigger: isVisible, duration });
 
   return (
     <div ref={ref}>
       <Tag className={className}>
-        <span className={resolved ? "" : "font-mono"}>{displayText}</span>
+        {chars.map((c, i) => (
+          <span
+            key={i}
+            style={{
+              visibility: c.state === "hidden" ? "hidden" : "visible",
+            }}
+          >
+            {c.state === "hidden" ? text[i] : c.char}
+          </span>
+        ))}
       </Tag>
     </div>
   );

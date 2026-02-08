@@ -15,7 +15,7 @@ export function Agents() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-4">
             Agents become part of the token&apos;s origin story.
           </h2>
-          <p className="text-muted text-base sm:text-lg leading-relaxed mb-8">
+          <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 font-light">
             Track what builders ship with: {agents.join(", ")}, and more — with provenance attached at launch.
           </p>
           <Link
