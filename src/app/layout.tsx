@@ -22,6 +22,7 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vibestarter.xyz"),
   title: "Vibestarter — Fund your vibecoded app",
   description:
     "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
@@ -47,12 +48,14 @@ export const metadata: Metadata = {
     url: "https://vibestarter.xyz",
     siteName: "Vibestarter",
     type: "website",
+    images: [{ url: "/og", width: 1200, height: 630, alt: "Vibestarter" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Vibestarter — Fund your vibecoded app",
     description:
       "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
+    images: ["/og"],
   },
 };
 

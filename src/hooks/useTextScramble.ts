@@ -12,6 +12,7 @@ interface UseTextScrambleOptions {
 export function useTextScramble(text: string, options: UseTextScrambleOptions = {}) {
   const { duration = 800, trigger = false } = options;
   const [displayText, setDisplayText] = useState(text);
+  const [resolved, setResolved] = useState(false);
   const hasAnimated = useRef(false);
   const frameRef = useRef<number>(0);
 
@@ -25,14 +26,11 @@ export function useTextScramble(text: string, options: UseTextScrambleOptions = 
     const animate = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-
-      // Characters resolve left-to-right
-      const resolved = Math.floor(progress * chars.length);
+      const resolvedCount = Math.floor(progress * chars.length);
 
       const result = chars.map((char, i) => {
         if (char === " ") return " ";
-        if (i < resolved) return char;
-        // Still scrambling — random character
+        if (i < resolvedCount) return char;
         return CHARS[Math.floor(Math.random() * CHARS.length)];
       });
 
@@ -42,6 +40,7 @@ export function useTextScramble(text: string, options: UseTextScrambleOptions = 
         frameRef.current = requestAnimationFrame(animate);
       } else {
         setDisplayText(text);
+        setResolved(true);
       }
     };
 
@@ -49,13 +48,11 @@ export function useTextScramble(text: string, options: UseTextScrambleOptions = 
   }, [text, duration]);
 
   useEffect(() => {
-    if (trigger && !hasAnimated.current) {
-      scramble();
-    }
+    if (trigger && !hasAnimated.current) scramble();
     return () => {
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
   }, [trigger, scramble]);
 
-  return displayText;
+  return { displayText, resolved };
 }

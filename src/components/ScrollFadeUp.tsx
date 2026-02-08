@@ -6,7 +6,6 @@ interface ScrollFadeUpProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  as?: keyof HTMLElementTagNameMap;
 }
 
 export function ScrollFadeUp({
@@ -20,7 +19,7 @@ export function ScrollFadeUp({
     <div
       ref={ref}
       className={`scroll-reveal ${isVisible ? "visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
     </div>

@@ -17,12 +17,12 @@ export function TextScramble({
   duration = 800,
 }: TextScrambleProps) {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
-  const displayText = useTextScramble(text, { trigger: isVisible, duration });
+  const { displayText, resolved } = useTextScramble(text, { trigger: isVisible, duration });
 
   return (
     <div ref={ref}>
       <Tag className={className}>
-        <span className="font-mono">{displayText}</span>
+        <span className={resolved ? "" : "font-mono"}>{displayText}</span>
       </Tag>
     </div>
   );
