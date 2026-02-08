@@ -1,6 +1,7 @@
 "use client";
 
 import { FundingGapAnimation } from "./FundingGapAnimation";
+import { TextScramble } from "./TextScramble";
 
 export function Features() {
   return (
@@ -12,9 +13,10 @@ export function Features() {
             {/* Left side - Text content */}
             <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
               <span className="section-label mb-4">The Problem</span>
-              <h2 className="section-heading mb-4">
-                You shipped an app last weekend. Now what?
-              </h2>
+              <TextScramble
+                text="You shipped an app last weekend. Now what?"
+                className="section-heading mb-4"
+              />
               <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 font-sans">
                 Agents removed the technical barrier. You can go from idea to working product in a weekend. But a working product isn&apos;t a business. You still need users, infrastructure, and marketing budget.
               </p>

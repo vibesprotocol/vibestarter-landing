@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import { TextScramble } from "./TextScramble";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -280,9 +281,10 @@ export function HowItWorks() {
               Time-Released
             </span>
           </div>
-          <h2 className="section-heading">
-            How Vibestarter Works
-          </h2>
+          <TextScramble
+            text="How Vibestarter Works"
+            className="section-heading"
+          />
         </div>
 
         {/* Desktop: Main wave visualization */}

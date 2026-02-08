@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { EthIcon, VibetokenIcon, AerodromeSymbol, AerodromeLogo } from "./icons";
+import { TextScramble } from "./TextScramble";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -106,9 +107,10 @@ export function TokenIndependence() {
             <span className="section-label">Vibetokens</span>
           </div>
 
-          <h2 className="section-heading mb-4">
-            Freely Tradeable from Day 1
-          </h2>
+          <TextScramble
+            text="Freely Tradeable from Day 1"
+            className="section-heading mb-4"
+          />
 
           <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans">
             Every Vibetoken is a standard ERC-20 paired with ETH on Aerodrome.

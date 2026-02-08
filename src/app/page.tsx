@@ -11,6 +11,7 @@ import {
   ClosingCTA,
   Footer,
   Divider,
+  ScrollFadeUp,
 } from "@/components";
 
 export default function Home() {
@@ -19,20 +20,36 @@ export default function Home() {
       <Navigation />
       <Hero />
       <Divider />
-      <Features />
+      <ScrollFadeUp>
+        <Features />
+      </ScrollFadeUp>
       <Divider />
-      <MarketThesis />
+      <ScrollFadeUp>
+        <MarketThesis />
+      </ScrollFadeUp>
       <Divider />
-      <TokenIndependence />
+      <ScrollFadeUp>
+        <TokenIndependence />
+      </ScrollFadeUp>
       <Divider />
-      <HowItWorks />
+      <ScrollFadeUp>
+        <HowItWorks />
+      </ScrollFadeUp>
       <Divider />
-      <RunwayProtection />
+      <ScrollFadeUp>
+        <RunwayProtection />
+      </ScrollFadeUp>
       <Divider />
-      <OriginCapsuleSection />
+      <ScrollFadeUp>
+        <OriginCapsuleSection />
+      </ScrollFadeUp>
       <Divider />
-      <ProtocolStats />
-      <ClosingCTA />
+      <ScrollFadeUp>
+        <ProtocolStats />
+      </ScrollFadeUp>
+      <ScrollFadeUp>
+        <ClosingCTA />
+      </ScrollFadeUp>
       <Footer />
     </main>
   );

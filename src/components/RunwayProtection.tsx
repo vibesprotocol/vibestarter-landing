@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import { TextScramble } from "./TextScramble";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -120,9 +121,10 @@ export function RunwayProtection() {
               Backer Protection
             </span>
           </div>
-          <h2 className="section-heading">
-            How Backers Stay Protected
-          </h2>
+          <TextScramble
+            text="How Backers Stay Protected"
+            className="section-heading"
+          />
         </div>
 
         <motion.p

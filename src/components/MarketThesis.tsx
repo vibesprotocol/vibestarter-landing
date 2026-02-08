@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
+import { TextScramble } from "./TextScramble";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -145,9 +146,10 @@ export function MarketThesis() {
               The Agent Era
             </span>
           </div>
-          <h2 className="section-heading mb-4">
-            The shift is already here
-          </h2>
+          <TextScramble
+            text="The shift is already here"
+            className="section-heading mb-4"
+          />
           <p className="text-muted text-base sm:text-lg max-w-xl mx-auto font-sans">
             Software is being written by agents. The rules for building and funding are changing.
           </p>

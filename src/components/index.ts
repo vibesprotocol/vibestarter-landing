@@ -19,3 +19,5 @@ export { SmoothScroll } from "./SmoothScroll";
 export { ScrollReveal, ScrollRevealGroup } from "./ScrollReveal";
 export { TokenIndependence } from "./TokenIndependence";
 export { EthIcon, VibetokenIcon, PersonIcon, EscrowIcon, AerodromeSymbol, AerodromeLogo } from "./icons";
+export { ScrollFadeUp } from "./ScrollFadeUp";
+export { TextScramble } from "./TextScramble";

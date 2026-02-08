@@ -5,6 +5,7 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import { TextScramble } from "./TextScramble";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,9 +42,10 @@ export function ClosingCTA() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={contentRef} className="text-center max-w-2xl mx-auto">
           <span className="section-label mb-4 block">Launch</span>
-          <h2 className="section-heading mb-4">
-            Ready to raise?
-          </h2>
+          <TextScramble
+            text="Ready to raise?"
+            className="section-heading mb-4"
+          />
           <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 font-sans">
             Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.
           </p>

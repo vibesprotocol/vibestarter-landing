@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Box } from "lucide-react";
+import { TextScramble } from "./TextScramble";
 
 interface CapsuleData {
   projectName: string;
@@ -363,9 +364,10 @@ export function OriginCapsuleSection() {
             </div>
           </div>
 
-          <h2 className="section-heading mb-4">
-            Origin Capsule
-          </h2>
+          <TextScramble
+            text="Origin Capsule"
+            className="section-heading mb-4"
+          />
 
           <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans">
             Cryptographic proof of human-AI collaboration. Each capsule records the founder,

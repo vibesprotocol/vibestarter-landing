@@ -125,6 +125,20 @@
   .nav-blur {
     @apply backdrop-blur-xl;
   }
+
+  /* Scroll reveal — IntersectionObserver driven */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Subtle grid background pattern - fixed overlay */
