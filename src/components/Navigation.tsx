@@ -47,9 +47,8 @@ export function Navigation() {
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-0.5 sm:gap-1">
-          <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 32 32" fill="none">
-            {/* Terminal prompt ">" */}
+        <Link href="/" className="inline-flex items-center gap-1 sm:gap-1.5 font-display text-lg sm:text-xl tracking-tight">
+          <svg className="h-[0.7em] w-auto" viewBox="2 6 28 20" fill="none">
             <path
               d="M4 8L14 16L4 24"
               stroke="#91D982"
@@ -57,7 +56,6 @@ export function Navigation() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            {/* Cursor "_" */}
             <path
               d="M16 24H28"
               stroke="#91D982"
@@ -65,7 +63,7 @@ export function Navigation() {
               strokeLinecap="round"
             />
           </svg>
-          <span className="font-display text-lg sm:text-xl tracking-tight">Vibestarter</span>
+          <span>Vibestarter</span>
         </Link>
 
         {/* Desktop Nav Links */}
