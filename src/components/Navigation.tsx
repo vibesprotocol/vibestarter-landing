@@ -72,7 +72,7 @@ export function Navigation() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[15px] text-muted hover:text-white transition-colors hover-line"
+              className="text-xs font-mono uppercase tracking-wider text-muted hover:text-white transition-colors hover-line"
             >
               {link.label}
             </Link>
@@ -83,7 +83,7 @@ export function Navigation() {
         <div className="hidden md:block">
           <Link
             href="https://app.vibestarter.xyz"
-            className="btn-primary px-6 py-2.5 rounded-lg text-[15px]"
+            className="btn-mechanical px-6 py-2.5 text-[15px]"
           >
             Get started
           </Link>
@@ -108,7 +108,7 @@ export function Navigation() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-[15px] text-muted hover:text-white transition-colors py-2"
+                className="block text-xs font-mono uppercase tracking-wider text-muted hover:text-white transition-colors py-2"
               >
                 {link.label}
               </Link>
@@ -116,7 +116,7 @@ export function Navigation() {
             <div className="pt-4">
               <Link
                 href="https://app.vibestarter.xyz"
-                className="btn-primary block text-center px-5 py-3 rounded-lg text-[15px]"
+                className="btn-mechanical block text-center px-5 py-3 text-[15px]"
               >
                 Launch Your Raise
               </Link>

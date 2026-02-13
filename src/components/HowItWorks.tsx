@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import { TextScramble } from "./TextScramble";
+import { CornerBrackets } from "@/components/ui/corner-brackets";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -277,7 +278,7 @@ export function HowItWorks() {
         >
           <div className="inline-flex items-center gap-3 mb-4">
             <span className="section-label">Process</span>
-            <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent rounded">
+            <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent">
               Time-Released
             </span>
           </div>
@@ -420,26 +421,23 @@ export function HowItWorks() {
           {steps.map((item, index) => {
             const isAccent = index % 2 === 0;
             return (
-              <div
-                key={item.num}
-                className={`relative p-5 rounded-xl border bg-white/[0.02] ${
-                  isAccent ? "border-accent/30" : "border-accent-bright/30"
-                }`}
-              >
-                <div
-                  className={`absolute -top-3 left-5 px-3 py-1 rounded-full text-[11px] font-bold text-black ${
-                    isAccent ? "bg-accent" : "bg-accent-bright"
-                  }`}
-                >
-                  Step {item.num}
+              <CornerBrackets key={item.num}>
+                <div className="relative p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
+                  <div
+                    className={`absolute -top-3 left-5 px-3 py-1 text-[11px] font-bold text-black ${
+                      isAccent ? "bg-accent" : "bg-accent-bright"
+                    }`}
+                  >
+                    Step {item.num}
+                  </div>
+                  <h3 className="font-semibold text-base mt-3 mb-2 text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-[13px] text-white/60 leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="font-semibold text-base mt-3 mb-2 text-white">
-                  {item.title}
-                </h3>
-                <p className="text-[13px] text-white/60 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
+              </CornerBrackets>
             );
           })}
         </div>
@@ -453,7 +451,7 @@ export function HowItWorks() {
                 {/* Step number column with line */}
                 <div className="flex flex-col items-center">
                   <div
-                    className={`w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                    className={`w-10 h-10 rounded border-2 flex items-center justify-center shrink-0 ${
                       isAccent
                         ? "border-accent bg-accent/20"
                         : "border-accent-bright bg-accent-bright/20"
@@ -474,18 +472,16 @@ export function HowItWorks() {
                 </div>
 
                 {/* Content */}
-                <div
-                  className={`flex-1 p-4 rounded-xl border bg-white/[0.02] ${
-                    isAccent ? "border-accent/20" : "border-accent-bright/20"
-                  }`}
-                >
-                  <h3 className="font-semibold text-base mb-1 text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-[13px] text-white/60 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
+                <CornerBrackets>
+                  <div className="flex-1 p-4 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
+                    <h3 className="font-semibold text-base mb-1 text-white">
+                      {item.title}
+                    </h3>
+                    <p className="text-[13px] text-white/60 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </CornerBrackets>
               </div>
             );
           })}

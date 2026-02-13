@@ -5,6 +5,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import { TextScramble } from "./TextScramble";
+import { CornerBrackets } from "@/components/ui/corner-brackets";
+import { SegmentedProgress } from "@/components/ui/segmented-progress";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,7 +119,7 @@ export function RunwayProtection() {
         <div ref={headerRef} className="text-center mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-3 mb-4">
             <span className="section-label">Protection</span>
-            <span className="px-3 py-1 text-[11px] font-mono text-accent-bright bg-accent-bright/10 rounded-full border border-accent-bright/20">
+            <span className="px-3 py-1 text-[11px] font-mono text-accent-bright bg-accent-bright/10 border border-accent-bright/20">
               Backer Protection
             </span>
           </div>
@@ -141,16 +143,16 @@ export function RunwayProtection() {
         <div ref={timelineRef} className="mb-10 max-w-4xl mx-auto">
           {/* Desktop Timeline */}
           <div className="hidden md:block">
-            <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 pb-12">
+            <CornerBrackets><div className="relative bg-white/[0.02] hover:bg-white/[0.04] transition-colors p-8 pb-12">
               {/* Progress track */}
               <div className="relative h-16 mb-6 overflow-visible">
                 {/* Background track */}
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-3 bg-white/[0.05] rounded-full" />
+                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-3 bg-white/[0.05]" />
 
                 {/* Animated fill - synced to active tranche dot position */}
                 {/* Dots are at 0%, 16.67%, 33.33%, 50%, 66.67%, 83.33%, 100% with justify-between */}
                 <motion.div
-                  className="absolute left-0 top-1/2 -translate-y-1/2 h-3 bg-gradient-to-r from-accent via-accent-bright to-accent-bright rounded-full"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 h-3 bg-gradient-to-r from-accent via-accent-bright to-accent-bright"
                   animate={{
                     width: activeTrancheIndex >= 0
                       ? `calc(${(activeTrancheIndex / 6) * 100}% + 8px)`
@@ -217,7 +219,7 @@ export function RunwayProtection() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                           >
-                            <div className="flex items-center gap-1 px-2 py-1 bg-purple-500/20 border border-purple-500/30 rounded-lg whitespace-nowrap">
+                            <div className="flex items-center gap-1 px-2 py-1 bg-purple-500/20 border border-purple-500/30 whitespace-nowrap">
                               <motion.div
                                 className="w-1.5 h-1.5 rounded-full bg-purple-400"
                                 animate={{ opacity: [1, 0.3, 1] }}
@@ -241,7 +243,7 @@ export function RunwayProtection() {
                 viewport={{ once: true }}
               >
                 {activeTrancheIndex >= 0 && (
-                  <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/[0.03] border border-white/10 rounded-xl">
+                  <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/[0.03] border border-white/10">
                     <div className={`w-3 h-3 rounded-full ${activeTrancheIndex === 0 ? "bg-accent" : "bg-accent-bright"}`} />
                     <span className="text-sm text-white/70 font-sans">
                       <span className="font-bold text-white">
@@ -259,12 +261,12 @@ export function RunwayProtection() {
                   </div>
                 )}
               </motion.div>
-            </div>
+            </div></CornerBrackets>
           </div>
 
           {/* Mobile Timeline - Vertical */}
           <div className="md:hidden">
-            <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
+            <CornerBrackets><div className="relative bg-white/[0.02] hover:bg-white/[0.04] transition-colors p-6">
               <div className="space-y-4">
                 {tranches.map((tranche, index) => {
                   const isActive = index <= activeTrancheIndex;
@@ -313,7 +315,7 @@ export function RunwayProtection() {
                   );
                 })}
               </div>
-            </div>
+            </div></CornerBrackets>
           </div>
         </div>
 
@@ -324,23 +326,24 @@ export function RunwayProtection() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0 }}
             viewport={{ once: true }}
-            className="relative p-5 bg-white/[0.02] border border-accent/20 rounded-xl overflow-hidden group hover:border-accent/40 transition-colors"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
+            <CornerBrackets><div className="relative p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors overflow-hidden group">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-accent/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-base text-white">Kickstart</h3>
+                  <p className="text-[11px] font-mono text-accent">10% instant</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-base text-white">Kickstart</h3>
-                <p className="text-[11px] font-mono text-accent">10% instant</p>
-              </div>
-            </div>
-            <p className="text-sm text-white/60 font-sans font-light">
-              Immediate funding at finalization to build momentum.
-            </p>
-            <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-accent/10 rounded-full blur-2xl" />
+              <p className="text-sm text-white/60 font-sans font-light">
+                Immediate funding at finalization to build momentum.
+              </p>
+              <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-accent/10 rounded-full blur-2xl" />
+            </div></CornerBrackets>
           </motion.div>
 
           <motion.div
@@ -348,24 +351,25 @@ export function RunwayProtection() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
-            className="relative p-5 bg-white/[0.02] border border-accent-bright/20 rounded-xl overflow-hidden group hover:border-accent-bright/40 transition-colors"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-accent-bright/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12,6 12,12 16,14" />
-                </svg>
+            <CornerBrackets><div className="relative p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors overflow-hidden group">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-accent-bright/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12,6 12,12 16,14" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-base text-white">Monthly Vesting</h3>
+                  <p className="text-[11px] font-mono text-accent-bright">15% × 6 months</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-base text-white">Monthly Vesting</h3>
-                <p className="text-[11px] font-mono text-accent-bright">15% × 6 months</p>
-              </div>
-            </div>
-            <p className="text-sm text-white/60 font-sans font-light">
-              Remaining funds release in equal monthly tranches.
-            </p>
-            <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-accent-bright/10 rounded-full blur-2xl" />
+              <p className="text-sm text-white/60 font-sans font-light">
+                Remaining funds release in equal monthly tranches.
+              </p>
+              <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-accent-bright/10 rounded-full blur-2xl" />
+            </div></CornerBrackets>
           </motion.div>
 
           <motion.div
@@ -373,23 +377,24 @@ export function RunwayProtection() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
-            className="relative p-5 bg-white/[0.02] border border-purple-500/20 rounded-xl overflow-hidden group hover:border-purple-500/40 transition-colors"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
+            <CornerBrackets><div className="relative p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors overflow-hidden group">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-purple-500/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-base text-white">Challenge Window</h3>
+                  <p className="text-[11px] font-mono text-purple-400">72 hours</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-base text-white">Challenge Window</h3>
-                <p className="text-[11px] font-mono text-purple-400">72 hours</p>
-              </div>
-            </div>
-            <p className="text-sm text-white/60 font-sans font-light">
-              Backers can challenge suspicious releases before payout.
-            </p>
-            <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl" />
+              <p className="text-sm text-white/60 font-sans font-light">
+                Backers can challenge suspicious releases before payout.
+              </p>
+              <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl" />
+            </div></CornerBrackets>
           </motion.div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { EthIcon, VibetokenIcon, AerodromeSymbol, AerodromeLogo } from "./icons";
 import { TextScramble } from "./TextScramble";
+import { CornerBrackets } from "@/components/ui/corner-brackets";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -130,14 +131,14 @@ export function TokenIndependence() {
                 <button
                   key={stage.id}
                   onClick={() => handleStageClick(index)}
-                  className={`relative flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-left transition-all duration-300 ${
+                  className={`relative flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-left transition-all duration-300 ${
                     activeStage === index
                       ? "bg-white/[0.06] border border-accent-bright/30"
                       : "bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04]"
                   }`}
                 >
                   <div
-                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs sm:text-sm font-mono font-bold transition-colors flex-shrink-0 ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs sm:text-sm font-mono font-bold transition-colors flex-shrink-0 ${
                       activeStage === index
                         ? "bg-accent-bright text-black"
                         : "bg-white/10 text-white/50"
@@ -154,7 +155,7 @@ export function TokenIndependence() {
                   {activeStage === index && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 border-2 border-accent-bright/50 rounded-xl pointer-events-none"
+                      className="absolute inset-0 border-2 border-accent-bright/50 pointer-events-none"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -163,7 +164,7 @@ export function TokenIndependence() {
             </div>
 
             {/* Simulation Display */}
-            <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8 min-h-[320px] overflow-hidden">
+            <CornerBrackets><div className="relative bg-white/[0.02] border border-white/[0.06] p-6 sm:p-8 min-h-[320px] overflow-hidden">
 
               <AnimatePresence mode="wait">
                 {/* Stage 0: Contribute ETH - Fair pricing visualization */}
@@ -235,7 +236,7 @@ export function TokenIndependence() {
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="bg-background/80 border border-accent/30 rounded-xl p-4 text-center"
+                        className="bg-background/80 border border-accent/30 p-4 text-center"
                       >
                         <div className="flex items-center justify-center gap-2 mb-2">
                           <span className="text-[10px] font-mono text-accent uppercase tracking-wider">Price per token</span>
@@ -248,7 +249,7 @@ export function TokenIndependence() {
                           initial={{ width: 0 }}
                           animate={{ width: "100%" }}
                           transition={{ delay: 0.8, duration: 0.6 }}
-                          className="mt-3 h-1 bg-gradient-to-r from-accent/50 via-accent to-accent/50 rounded-full"
+                          className="mt-3 h-1 bg-gradient-to-r from-accent/50 via-accent to-accent/50"
                         />
                         <p className="mt-2 text-[11px] text-white/50 font-mono">Flat price • No bonding curve</p>
                       </motion.div>
@@ -347,14 +348,14 @@ export function TokenIndependence() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 }}
-                      className="mt-6 flex items-center gap-3 px-4 py-3 bg-background/80 border border-white/10 rounded-xl"
+                      className="mt-6 flex items-center gap-3 px-4 py-3 bg-background/80 border border-white/10"
                     >
                       <AerodromeSymbol className="w-8 h-8 text-[#0052FF]" />
                       <div>
                         <p className="text-sm font-bold text-white">Aerodrome LP</p>
                         <p className="text-[11px] text-white/50 font-mono">$VIBE / ETH</p>
                       </div>
-                      <div className="ml-4 px-2 py-1 bg-accent/10 rounded text-[10px] font-mono text-accent">
+                      <div className="ml-4 px-2 py-1 bg-accent/10 text-[10px] font-mono text-accent">
                         LOCKED ∞
                       </div>
                     </motion.div>
@@ -373,13 +374,13 @@ export function TokenIndependence() {
                     className="relative h-full flex flex-col items-center justify-center"
                   >
                     {/* Trading interface mockup */}
-                    <div className="bg-background/80 border border-white/10 rounded-xl p-4 w-full max-w-sm">
+                    <div className="bg-background/80 border border-white/10 p-4 w-full max-w-sm">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-xs font-mono text-white/50">Trade</span>
                         <AerodromeLogo />
                       </div>
                       {/* From */}
-                      <div className="bg-white/[0.03] border border-white/10 rounded-lg p-3 mb-2">
+                      <div className="bg-white/[0.03] border border-white/10 p-3 mb-2">
                         <div className="flex items-center justify-between">
                           <input
                             type="text"
@@ -387,7 +388,7 @@ export function TokenIndependence() {
                             readOnly
                             className="bg-transparent text-xl font-bold text-white w-28 outline-none"
                           />
-                          <div className="flex items-center gap-2 px-2 py-1 bg-accent-bright/10 rounded-lg">
+                          <div className="flex items-center gap-2 px-2 py-1 bg-accent-bright/10">
                             <VibetokenIcon className="w-5 h-5 text-accent-bright" />
                             <span className="text-sm font-mono text-accent-bright">$VIBE</span>
                           </div>
@@ -406,7 +407,7 @@ export function TokenIndependence() {
                         </motion.div>
                       </div>
                       {/* To */}
-                      <div className="bg-white/[0.03] border border-white/10 rounded-lg p-3 mt-2">
+                      <div className="bg-white/[0.03] border border-white/10 p-3 mt-2">
                         <div className="flex items-center justify-between">
                           <motion.span
                             key={activeStage}
@@ -416,7 +417,7 @@ export function TokenIndependence() {
                           >
                             0.42
                           </motion.span>
-                          <div className="flex items-center gap-2 px-2 py-1 bg-accent/10 rounded-lg">
+                          <div className="flex items-center gap-2 px-2 py-1 bg-accent/10">
                             <EthIcon className="w-5 h-5 text-accent" />
                             <span className="text-sm font-mono text-accent">ETH</span>
                           </div>
@@ -425,7 +426,7 @@ export function TokenIndependence() {
                       <motion.div
                         animate={{ scale: [1, 0.98, 1] }}
                         transition={{ repeat: Infinity, duration: 2 }}
-                        className="mt-3 w-full py-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-center rounded-full text-sm"
+                        className="mt-3 w-full py-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-center text-sm"
                       >
                         Swap
                       </motion.div>
@@ -437,7 +438,7 @@ export function TokenIndependence() {
 
               {/* Subtle background glow */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent-bright/[0.05] rounded-full blur-3xl pointer-events-none" />
-            </div>
+            </div></CornerBrackets>
           </div>
 
           {/* Key stats row */}
@@ -448,30 +449,30 @@ export function TokenIndependence() {
             viewport={{ once: true }}
             className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-6"
           >
-            <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
               <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
                 <span className="text-lg sm:text-xl font-sans font-bold text-accent">ERC-20</span>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono text-white/50">Standard Token</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">Standard Token</div>
             </div>
-            <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
               <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
                 <span className="text-2xl sm:text-3xl font-sans font-bold text-accent-bright">=</span>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono text-white/50">Flat Price</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">Flat Price</div>
             </div>
-            <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
               <div className="h-8 sm:h-10 flex items-center justify-center gap-1.5 mb-1">
                 <AerodromeSymbol className="w-5 h-5 sm:w-6 sm:h-6" />
                 <span className="text-lg sm:text-xl font-sans font-bold text-white/50">LP</span>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono text-white/50">Aerodrome LP</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">Aerodrome LP</div>
             </div>
-            <div className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
               <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
                 <span className="text-3xl sm:text-4xl font-sans font-bold text-accent leading-none">∞</span>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono text-white/50">LP Locked Forever</div>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">LP Locked Forever</div>
             </div>
           </motion.div>
         </div>

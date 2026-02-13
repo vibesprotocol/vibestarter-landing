@@ -26,7 +26,7 @@ export function ClosingCTA() {
           >
             <Link
               href="https://app.vibestarter.xyz"
-              className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
+              className="btn-mechanical px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
             >
               Launch Your Raise
             </Link>

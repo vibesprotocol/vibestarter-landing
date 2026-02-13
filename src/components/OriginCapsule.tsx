@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Box } from "lucide-react";
 import { TextScramble } from "./TextScramble";
+import { CornerBrackets } from "@/components/ui/corner-brackets";
 
 interface CapsuleData {
   projectName: string;
@@ -98,7 +99,7 @@ function InfoNode({ label, value, position, top, delay, highlight, isVisible = t
       />
       {/* Info card */}
       <div
-        className={`rounded-lg border bg-surface/80 backdrop-blur-sm px-2.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2.5 transition-all duration-300 ${isActive ? "border-accent/50 shadow-lg shadow-accent/10" : "border-white/10"}`}
+        className={`border bg-surface/80 backdrop-blur-sm px-2.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2.5 transition-all duration-300 ${isActive ? "border-accent/50 shadow-lg shadow-accent/10" : "border-white/10"}`}
       >
         <p className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-wider text-white/40 mb-0.5">
           {label}
@@ -216,7 +217,7 @@ function CapsuleInfographic() {
               onMouseLeave={() => setActiveRing(null)}
             >
               <div className="text-center p-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto mb-2 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto mb-2 bg-accent/10 border border-accent/30 flex items-center justify-center">
                   <Box className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-accent" />
                 </div>
                 <p className="text-[9px] sm:text-[10px] md:text-xs text-white/50 uppercase tracking-wider">
@@ -358,7 +359,7 @@ export function OriginCapsuleSection() {
         <div className="text-center mb-8 md:mb-12">
           <div className="inline-flex items-center gap-3 mb-4">
             <span className="section-label">Provenance</span>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs font-medium">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 text-accent text-xs font-medium">
               <Box className="w-3.5 h-3.5" />
               On-Chain
             </div>
@@ -380,21 +381,21 @@ export function OriginCapsuleSection() {
 
         {/* Bottom features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 md:mt-16 max-w-4xl mx-auto">
-          <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
+          <CornerBrackets><div className="text-center p-6 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
             <div className="text-3xl md:text-4xl font-sans font-bold text-accent mb-2">34+</div>
             <div className="text-sm text-white/60 font-sans font-light">Registered AI Agents</div>
             <div className="text-xs text-white/40 mt-1 font-mono">ERC-8004 Standard</div>
-          </div>
-          <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
+          </div></CornerBrackets>
+          <CornerBrackets><div className="text-center p-6 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
             <div className="text-3xl md:text-4xl font-sans font-bold text-white mb-2">Base</div>
             <div className="text-sm text-white/60 font-sans font-light">Identity Registry</div>
             <div className="text-xs text-white/40 mt-1 font-mono">Chain ID: 8453</div>
-          </div>
-          <div className="text-center p-6 rounded-xl border border-white/5 bg-white/[0.02]">
+          </div></CornerBrackets>
+          <CornerBrackets><div className="text-center p-6 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
             <div className="text-3xl md:text-4xl font-sans font-bold text-white mb-2">Immutable</div>
             <div className="text-sm text-white/60 font-sans font-light">Once Sealed</div>
             <div className="text-xs text-white/40 mt-1 font-mono">Forever Verifiable</div>
-          </div>
+          </div></CornerBrackets>
         </div>
       </div>
     </section>

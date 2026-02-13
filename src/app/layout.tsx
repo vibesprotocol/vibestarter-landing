@@ -68,6 +68,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${jetbrainsMonoMono.variable}`}>
       <body className="font-sans antialiased bg-[#0A0A0A] text-white grid-bg">
         <SmoothScroll>{children}</SmoothScroll>
+        <div className="noise-overlay" />
       </body>
     </html>
   );

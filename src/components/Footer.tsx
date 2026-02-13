@@ -65,7 +65,7 @@ export function Footer() {
           {/* Sitemap */}
           <div>
             <h4 className="font-mono text-xs tracking-widest uppercase mb-4 text-black/60">
-              [ SITEMAP ]
+              // SITEMAP
             </h4>
             <ul className="space-y-2">
               {sitemapLinks.map((link) => (
@@ -84,7 +84,7 @@ export function Footer() {
           {/* Social */}
           <div>
             <h4 className="font-mono text-xs tracking-widest uppercase mb-4 text-black/60">
-              [ SOCIAL ]
+              // SOCIAL
             </h4>
             <ul className="space-y-2">
               {socialLinks.map((link) => (
@@ -105,7 +105,7 @@ export function Footer() {
           {/* Platform */}
           <div>
             <h4 className="font-mono text-xs tracking-widest uppercase mb-4 text-black/60">
-              [ PLATFORM ]
+              // PLATFORM
             </h4>
             <ul className="space-y-2">
               {platformLinks.map((link) => (

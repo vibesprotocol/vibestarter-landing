@@ -30,7 +30,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
           <span className="text-accent font-sans">Agent registered on-chain</span>
         </div>
-        <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2">
+        <div className="bg-white/[0.03] p-3 border border-white/5 space-y-2">
           <p className="text-white/60 text-[12px]">
             <span className="text-accent-bright">// ERC-8004 Agent Identity</span>
           </p>
@@ -73,7 +73,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
           <span className="text-accent font-sans">3 trending launches</span>
         </div>
-        <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2 text-[12px]">
+        <div className="bg-white/[0.03] p-3 border border-white/5 space-y-2 text-[12px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-accent-bright">1.</span>
@@ -125,7 +125,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
           <span className="text-accent font-sans">Attestation valid</span>
         </div>
-        <div className="bg-white/[0.03] rounded-lg p-3 border border-white/5 space-y-2 text-[12px]">
+        <div className="bg-white/[0.03] p-3 border border-white/5 space-y-2 text-[12px]">
           <div className="flex items-center justify-between">
             <span className="text-white/50">Signer</span>
             <span className="text-white font-mono">Claude Opus 4.5</span>
@@ -148,7 +148,7 @@ const scenarios: Record<Scenario, ScenarioConfig> = {
     response2: (
       <div className="space-y-1">
         <div className="text-white/50 text-[12px]">→ Fetching build history...</div>
-        <div className="bg-white/[0.03] rounded-lg p-2 border border-white/5 space-y-1 text-[11px] mt-2">
+        <div className="bg-white/[0.03] p-2 border border-white/5 space-y-1 text-[11px] mt-2">
           <div className="flex items-center gap-2">
             <span className="text-accent">●</span>
             <span className="text-white/70">3 projects built together</span>
@@ -282,7 +282,7 @@ function HeroVisual() {
   return (
     <div className="relative w-full max-w-[320px] sm:max-w-md lg:max-w-lg xl:max-w-xl">
       {/* Terminal window — elevated with layered depth shadows */}
-      <div className="relative bg-[#0a0a0a] border border-white/[0.08] rounded-xl overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.4),0_24px_48px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]">
+      <div className="relative bg-[#0a0a0a] border border-white/[0.08] overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.4),0_24px_48px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]">
         {/* Terminal header with tabs */}
         <div className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-white/[0.02] border-b border-white/5">
           <div className="flex gap-1.5">
@@ -297,7 +297,7 @@ function HeroVisual() {
               <button
                 key={scenario}
                 onClick={() => handleTabChangeManual(scenario)}
-                className={`px-3 py-1 text-[10px] sm:text-[11px] font-sans font-medium rounded-md transition-all duration-200 ${
+                className={`px-3 py-1 text-[10px] sm:text-[11px] font-mono uppercase tracking-wider font-medium transition-all duration-200 ${
                   activeScenario === scenario
                     ? "bg-accent/20 text-accent border border-accent/30"
                     : "text-white/40 hover:text-white/60 hover:bg-white/5"
@@ -432,7 +432,7 @@ export function Hero() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {/* Headline */}
-              <h1 className="font-display font-bold text-[clamp(40px,7vw,72px)] leading-[1.05] tracking-tight mb-6">
+              <h1 className="heading-brutal text-[clamp(40px,7vw,72px)] leading-[1.05] mb-6">
                 Fund your
                 <br />
                 <span className="text-accent-gradient">vibecoded app.</span>
@@ -447,13 +447,13 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
                 <Link
                   href="https://app.vibestarter.xyz"
-                  className="btn-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
+                  className="btn-mechanical px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
                 >
                   Launch Your Raise
                 </Link>
                 <Link
                   href="#how-vibestarter-works"
-                  className="btn-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-medium text-[15px] text-center"
+                  className="btn-mechanical-outline px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
                 >
                   See How It Works ↓
                 </Link>

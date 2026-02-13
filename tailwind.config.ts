@@ -27,11 +27,21 @@ const config: Config = {
         "bounce-slow": "bounce-slow 2s infinite",
         "pulse-slow": "pulse 3s infinite",
         "fadeIn": "fadeIn 0.8s ease-out",
+        "terminal-blink": "terminal-blink 1s step-end infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0", transform: "translateY(4px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "terminal-blink": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.5" },
+          "50%": { opacity: "1" },
         },
       },
     },

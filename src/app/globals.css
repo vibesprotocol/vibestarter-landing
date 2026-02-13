@@ -37,15 +37,51 @@
   background: #404040;
 }
 
+/* ============================================
+   COSMIC INDUSTRIAL DESIGN SYSTEM
+   ============================================ */
+
+/* Noise Overlay — fixed grain texture */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/noise.svg');
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: overlay;
+}
+
+/* Brutalist Editorial Typography */
+.heading-brutal {
+  @apply font-display font-bold uppercase;
+  letter-spacing: -0.04em;
+}
+
+.heading-brutal-xl {
+  @apply heading-brutal text-5xl md:text-6xl lg:text-7xl;
+}
+
+.heading-brutal-lg {
+  @apply heading-brutal text-4xl md:text-5xl lg:text-6xl;
+}
+
+.heading-brutal-md {
+  @apply heading-brutal text-2xl md:text-3xl lg:text-4xl;
+}
+
 @layer components {
-  /* Section label - Interface style: "01 / Section Name" */
+  /* Section label - Interface style */
   .section-label {
     @apply font-mono text-[10px] uppercase tracking-[0.3em] text-accent;
   }
 
-  /* Section heading - JetBrains Mono (display) */
+  /* Section heading - JetBrains Mono (display), now brutalist */
   .section-heading {
-    @apply font-display text-3xl md:text-4xl font-bold tracking-tight;
+    @apply font-display text-3xl md:text-4xl font-bold tracking-tight uppercase;
+    letter-spacing: -0.04em;
   }
 
   /* Section indicator */
@@ -53,7 +89,7 @@
     @apply font-mono text-xs text-neutral-600 tracking-widest;
   }
 
-  /* Prefix notation like LayerZero */
+  /* Prefix notation */
   .prefix {
     @apply text-neutral-600 font-mono;
   }
@@ -84,16 +120,36 @@
     @apply w-full;
   }
 
-  /* Card hover */
-  .card-hover {
-    @apply transition-all duration-300 border border-transparent rounded-xl;
+  /* Mechanical Buttons — instant swap, physical depression */
+  .btn-mechanical {
+    @apply bg-white text-black font-medium font-mono text-sm uppercase tracking-wider px-6 py-3;
+    transition: transform 0.05s ease;
   }
 
-  .card-hover:hover {
-    @apply border-border bg-surface;
+  .btn-mechanical:hover {
+    background-color: #91D982;
+    color: #000;
   }
 
-  /* Button styles */
+  .btn-mechanical:active {
+    transform: translateY(2px);
+  }
+
+  .btn-mechanical-outline {
+    @apply border border-neutral-700 text-neutral-400 font-mono text-sm uppercase tracking-wider px-6 py-3 bg-transparent;
+    transition: transform 0.05s ease;
+  }
+
+  .btn-mechanical-outline:hover {
+    border-color: #91D982;
+    color: #91D982;
+  }
+
+  .btn-mechanical-outline:active {
+    transform: translateY(2px);
+  }
+
+  /* Legacy button styles — keep for footer green bg context */
   .btn-primary {
     @apply bg-white text-black transition-all duration-200 font-medium rounded-lg;
   }
@@ -139,6 +195,50 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Terminal-style blinking cursor */
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  background-color: #91D982;
+  vertical-align: text-bottom;
+  animation: terminal-blink 1s step-end infinite;
+}
+
+/* Segmented Progress Bar */
+.progress-segmented {
+  display: flex;
+  gap: 2px;
+  height: 20px;
+}
+
+.progress-segment {
+  flex: 1;
+  background-color: #1f1f1f;
+  transition: background-color 0.1s;
+}
+
+.progress-segment:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+.progress-segment:last-child {
+  border-radius: 0 2px 2px 0;
+}
+
+.progress-segment.filled {
+  background-color: #91D982;
+}
+
+.progress-segment.overflow {
+  background-color: #8b5cf6;
 }
 
 /* Subtle grid background pattern - fixed overlay */
