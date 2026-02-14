@@ -48,14 +48,21 @@ export const metadata: Metadata = {
     url: "https://vibestarter.xyz",
     siteName: "Vibestarter",
     type: "website",
-    images: [{ url: "/og", width: 1200, height: 630, alt: "Vibestarter" }],
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vibestarter — Time-released crowdfunding for vibecoded apps on Base",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Vibestarter — Fund your vibecoded app",
     description:
       "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
-    images: ["/og"],
+    images: ["/og-image.jpg"],
   },
 };
 
