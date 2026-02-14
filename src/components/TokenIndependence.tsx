@@ -69,12 +69,17 @@ export function TokenIndependence() {
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
-          { y: 40, opacity: 0 },
+          { opacity: 0, filter: "brightness(1)" },
           {
-            y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
+            filter: "brightness(1)",
+            duration: 0.3,
+            ease: "none",
+            keyframes: [
+              { opacity: 0, filter: "brightness(1)", duration: 0 },
+              { opacity: 1, filter: "brightness(1.8)", duration: 0.05 },
+              { opacity: 1, filter: "brightness(1)", duration: 0.25 },
+            ],
             scrollTrigger: {
               trigger: headerRef.current,
               start: "top 85%",

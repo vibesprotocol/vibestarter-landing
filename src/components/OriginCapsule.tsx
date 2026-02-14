@@ -194,19 +194,28 @@ function CapsuleInfographic() {
 
         {/* Orbital visualization */}
         <div className="relative w-full h-[420px] sm:h-[480px] md:h-[520px]">
+          {/* Scan line overlay */}
+          <div
+            className="absolute left-0 w-full h-px pointer-events-none z-10"
+            style={{
+              background: "linear-gradient(90deg, transparent, rgba(145,217,130,0.12) 20%, rgba(145,217,130,0.12) 80%, transparent)",
+              animation: "scan-line 3s linear infinite",
+            }}
+          />
+
           {/* Center core */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            {/* Outer ring */}
+            {/* Outer ring — heartbeat synced to block time */}
             <div
-              className={`absolute -inset-16 sm:-inset-20 md:-inset-24 rounded-full border transition-all duration-500 ${activeRing === 2 ? "border-accent/60" : "border-white/5"}`}
-              style={{ animation: "capsule-pulse 4s ease-in-out infinite" }}
+              className={`absolute -inset-16 sm:-inset-20 md:-inset-24 rounded-full border transition-colors duration-500 ${activeRing === 2 ? "border-accent/60" : ""}`}
+              style={{ animation: "capsule-heartbeat 2s ease-in-out infinite" }}
               onMouseEnter={() => setActiveRing(2)}
               onMouseLeave={() => setActiveRing(null)}
             />
-            {/* Middle ring */}
+            {/* Middle ring — heartbeat offset */}
             <div
-              className={`absolute -inset-10 sm:-inset-12 md:-inset-14 rounded-full border transition-all duration-500 ${activeRing === 1 ? "border-accent/80" : "border-white/10"}`}
-              style={{ animation: "capsule-pulse 3s ease-in-out infinite 0.5s" }}
+              className={`absolute -inset-10 sm:-inset-12 md:-inset-14 rounded-full border transition-colors duration-500 ${activeRing === 1 ? "border-accent/80" : ""}`}
+              style={{ animation: "capsule-heartbeat 2s ease-in-out infinite 0.3s" }}
               onMouseEnter={() => setActiveRing(1)}
               onMouseLeave={() => setActiveRing(null)}
             />
@@ -339,12 +348,9 @@ function CapsuleInfographic() {
 
       <style jsx>{`
         @keyframes fadeSlideIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes capsule-pulse {
-          0%, 100% { opacity: 0.5; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.02); }
+          0% { opacity: 0; }
+          15% { opacity: 1; filter: brightness(1.6); }
+          100% { opacity: 1; filter: brightness(1); }
         }
       `}</style>
     </div>

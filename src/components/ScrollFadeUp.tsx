@@ -19,7 +19,7 @@ export function ScrollFadeUp({
     <div
       ref={ref}
       className={`scroll-reveal ${isVisible ? "visible" : ""} ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={delay ? { animationDelay: `${delay}ms` } : undefined}
     >
       {children}
     </div>

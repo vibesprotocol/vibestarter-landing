@@ -41,17 +41,20 @@
    COSMIC INDUSTRIAL DESIGN SYSTEM
    ============================================ */
 
-/* Noise Overlay — fixed grain texture */
+/* Noise Overlay — animated film grain texture */
 .noise-overlay {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   background-image: url('/noise.svg');
-  opacity: 0.04;
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.05;
   pointer-events: none;
   z-index: 50;
   mix-blend-mode: overlay;
+  animation: noise-shift 0.15s steps(4) infinite;
 }
 
 /* Brutalist Editorial Typography */
@@ -182,18 +185,14 @@
     @apply backdrop-blur-xl;
   }
 
-  /* Scroll reveal — IntersectionObserver driven */
+  /* Scroll reveal — Industrial "hard cut" appearance */
   .scroll-reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+    will-change: opacity, filter;
   }
 
   .scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+    animation: hard-cut-in 0.3s ease-out forwards;
   }
 }
 
@@ -306,5 +305,91 @@
       transform: scale(1.8);
       opacity: 0;
     }
+  }
+}
+
+/* ============================================
+   INDUSTRIAL ANIMATION SYSTEM
+   ============================================ */
+
+/* Hard cut reveal — instant appearance with brief brightness flair */
+@keyframes hard-cut-in {
+  0% {
+    opacity: 0;
+    filter: brightness(1);
+  }
+  15% {
+    opacity: 1;
+    filter: brightness(1.8);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* Noise overlay — animated film grain stepping */
+@keyframes noise-shift {
+  0%   { background-position: 0 0; }
+  25%  { background-position: -50px -30px; }
+  50%  { background-position: 30px -60px; }
+  75%  { background-position: -70px 40px; }
+  100% { background-position: 50px 50px; }
+}
+
+/* Origin Capsule — heartbeat pulse synced to block time (2s) */
+@keyframes capsule-heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+    border-color: rgba(145, 217, 130, 0.15);
+  }
+  8% {
+    transform: scale(1.04);
+    opacity: 0.8;
+    border-color: rgba(145, 217, 130, 0.6);
+  }
+  16% {
+    transform: scale(1);
+    opacity: 0.4;
+    border-color: rgba(145, 217, 130, 0.2);
+  }
+  24% {
+    transform: scale(1.02);
+    opacity: 0.6;
+    border-color: rgba(145, 217, 130, 0.4);
+  }
+  32% {
+    transform: scale(1);
+    opacity: 0.3;
+    border-color: rgba(145, 217, 130, 0.15);
+  }
+}
+
+/* Origin Capsule — scan line effect */
+@keyframes scan-line {
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.12;
+  }
+  95% {
+    opacity: 0.12;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Pipeline flow — stroke dash animation */
+@keyframes pipeline-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -40;
   }
 }

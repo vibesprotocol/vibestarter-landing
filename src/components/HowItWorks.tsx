@@ -166,16 +166,21 @@ export function HowItWorks() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Header slide in from left
+      // Header — hard cut in (no slide)
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
-          { x: -60, opacity: 0 },
+          { opacity: 0, filter: "brightness(1)" },
           {
-            x: 0,
             opacity: 1,
-            duration: 1,
-            ease: "power3.out",
+            filter: "brightness(1)",
+            duration: 0.3,
+            ease: "none",
+            keyframes: [
+              { opacity: 0, filter: "brightness(1)", duration: 0 },
+              { opacity: 1, filter: "brightness(1.8)", duration: 0.05 },
+              { opacity: 1, filter: "brightness(1)", duration: 0.25 },
+            ],
             scrollTrigger: {
               trigger: headerRef.current,
               start: "top 85%",
@@ -185,16 +190,16 @@ export function HowItWorks() {
         );
       }
 
-      // Desktop wave nodes stagger in
+      // Desktop wave nodes — instant stagger with brightness flash
       const visibleNodes = nodesRef.current.filter(Boolean);
       if (visibleNodes.length > 0) {
-        gsap.set(visibleNodes, { scale: 0, opacity: 0 });
+        gsap.set(visibleNodes, { scale: 0.8, opacity: 0 });
         gsap.to(visibleNodes, {
           scale: 1,
           opacity: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "back.out(1.7)",
+          duration: 0.15,
+          stagger: 0.06,
+          ease: "none",
           scrollTrigger: {
             trigger: waveContainerRef.current,
             start: "top 80%",
@@ -203,17 +208,16 @@ export function HowItWorks() {
         });
       }
 
-      // Tablet grid cards stagger in
+      // Tablet grid cards — hard cut stagger
       if (tabletGridRef.current) {
         const tabletCards = tabletGridRef.current.querySelectorAll(":scope > div");
         if (tabletCards.length > 0) {
-          gsap.set(tabletCards, { y: 40, opacity: 0 });
+          gsap.set(tabletCards, { opacity: 0 });
           gsap.to(tabletCards, {
-            y: 0,
             opacity: 1,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: "power3.out",
+            duration: 0.15,
+            stagger: 0.06,
+            ease: "none",
             scrollTrigger: {
               trigger: tabletGridRef.current,
               start: "top 85%",
@@ -223,17 +227,16 @@ export function HowItWorks() {
         }
       }
 
-      // Mobile list items stagger in
+      // Mobile list items — hard cut stagger
       if (mobileListRef.current) {
         const mobileItems = mobileListRef.current.querySelectorAll(":scope > div");
         if (mobileItems.length > 0) {
-          gsap.set(mobileItems, { x: -30, opacity: 0 });
+          gsap.set(mobileItems, { opacity: 0 });
           gsap.to(mobileItems, {
-            x: 0,
             opacity: 1,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "power3.out",
+            duration: 0.15,
+            stagger: 0.06,
+            ease: "none",
             scrollTrigger: {
               trigger: mobileListRef.current,
               start: "top 85%",
@@ -312,12 +315,24 @@ export function HowItWorks() {
               </linearGradient>
             </defs>
 
-            {/* The wave path */}
+            {/* Static base wave path */}
+            <path
+              d={generateWavePath()}
+              stroke="url(#waveGradient)"
+              strokeWidth="0.4"
+              strokeLinecap="round"
+              strokeOpacity="0.3"
+            />
+            {/* Animated flowing energy overlay */}
             <path
               d={generateWavePath()}
               stroke="url(#waveGradient)"
               strokeWidth="0.6"
               strokeLinecap="round"
+              strokeDasharray="4 2"
+              style={{
+                animation: "pipeline-flow 1.5s linear infinite",
+              }}
             />
           </svg>
 

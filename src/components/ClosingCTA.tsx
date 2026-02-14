@@ -18,9 +18,9 @@ export function ClosingCTA() {
             Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.
           </p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            initial={{ opacity: 0, filter: "brightness(1)" }}
+            whileInView={{ opacity: 1, filter: "brightness(1)" }}
+            transition={{ duration: 0.15, delay: 0.2 }}
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
           >
