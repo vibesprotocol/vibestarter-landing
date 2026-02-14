@@ -69,21 +69,24 @@ export function TokenIndependence() {
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
-          { opacity: 0, filter: "brightness(1)" },
+          { opacity: 0 },
           {
             opacity: 1,
-            filter: "brightness(1)",
-            duration: 0.3,
+            duration: 0.05,
             ease: "none",
-            keyframes: [
-              { opacity: 0, filter: "brightness(1)", duration: 0 },
-              { opacity: 1, filter: "brightness(1.8)", duration: 0.05 },
-              { opacity: 1, filter: "brightness(1)", duration: 0.25 },
-            ],
             scrollTrigger: {
               trigger: headerRef.current,
               start: "top 85%",
               toggleActions: "play none none reverse",
+            },
+            onStart: () => {
+              if (!headerRef.current) return;
+              headerRef.current.style.textShadow = "0 0 30px rgba(145,217,130,0.6), 0 0 60px rgba(145,217,130,0.3)";
+              gsap.to(headerRef.current, {
+                textShadow: "0 0 0px rgba(145,217,130,0)",
+                duration: 0.6,
+                ease: "power2.out",
+              });
             },
           }
         );

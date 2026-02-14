@@ -49,12 +49,12 @@
   height: 100%;
   background-image: url('/noise.svg');
   background-repeat: repeat;
-  background-size: 256px 256px;
-  opacity: 0.05;
+  background-size: 200px 200px;
+  opacity: 0.08;
   pointer-events: none;
   z-index: 50;
-  mix-blend-mode: overlay;
-  animation: noise-shift 0.15s steps(4) infinite;
+  mix-blend-mode: soft-light;
+  animation: noise-shift 80ms steps(3) infinite;
 }
 
 /* Brutalist Editorial Typography */
@@ -185,14 +185,16 @@
     @apply backdrop-blur-xl;
   }
 
-  /* Scroll reveal — Industrial "hard cut" appearance */
+  /* Scroll reveal — Industrial "hard cut" appearance
+     No slide. No drift. Element snaps on instantly
+     with a brief green glow that fades out. */
   .scroll-reveal {
     opacity: 0;
-    will-change: opacity, filter;
+    will-change: opacity;
   }
 
   .scroll-reveal.visible {
-    animation: hard-cut-in 0.3s ease-out forwards;
+    animation: hard-cut-in 0.5s cubic-bezier(0, 0, 0.2, 1) forwards;
   }
 }
 
@@ -312,29 +314,31 @@
    INDUSTRIAL ANIMATION SYSTEM
    ============================================ */
 
-/* Hard cut reveal — instant appearance with brief brightness flair */
+/* Hard cut reveal — snap on with visible green glow that decays */
 @keyframes hard-cut-in {
   0% {
     opacity: 0;
-    filter: brightness(1);
+    text-shadow: none;
+    box-shadow: none;
   }
-  15% {
+  8% {
     opacity: 1;
-    filter: brightness(1.8);
+    text-shadow: 0 0 30px rgba(145, 217, 130, 0.6), 0 0 60px rgba(145, 217, 130, 0.3);
+    box-shadow: inset 0 0 30px rgba(145, 217, 130, 0.08), 0 0 40px rgba(145, 217, 130, 0.06);
   }
   100% {
     opacity: 1;
-    filter: brightness(1);
+    text-shadow: none;
+    box-shadow: none;
   }
 }
 
-/* Noise overlay — animated film grain stepping */
+/* Noise overlay — aggressive film grain stepping */
 @keyframes noise-shift {
   0%   { background-position: 0 0; }
-  25%  { background-position: -50px -30px; }
-  50%  { background-position: 30px -60px; }
-  75%  { background-position: -70px 40px; }
-  100% { background-position: 50px 50px; }
+  33%  { background-position: -117px -83px; }
+  66%  { background-position: 61px -137px; }
+  100% { background-position: -149px 71px; }
 }
 
 /* Origin Capsule — heartbeat pulse synced to block time (2s) */
