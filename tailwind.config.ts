@@ -17,6 +17,21 @@ const config: Config = {
         border: "#1f1f1f",
         surface: "#0a0a0a",
         background: "#0A0A0A",
+        // Persimmon palette (replaces purple for pro-rata)
+        // Base: #EC6800
+        persimmon: {
+          50: '#FFF7ED',
+          100: '#FFEDD4',
+          200: '#FED6A8',
+          300: '#FDB870',
+          400: '#F59337',
+          500: '#EC6800',
+          600: '#D45500',
+          700: '#B04200',
+          800: '#8C3500',
+          900: '#732E00',
+          950: '#3E1700',
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],

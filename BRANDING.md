@@ -174,12 +174,23 @@ ctx.font = "bold 11px 'JetBrains Mono', monospace";
 
 ## Colors
 
-### Core Palette
+### Primary Brand Colors
+
+Vibestarter uses three primary brand colors:
+
+| Color | Hex | Role |
+|-------|-----|------|
+| **Green** | `#91D982` | Primary accent. Logos, highlights, active states, CTAs |
+| **Blue** | `#0D8BCA` | Secondary accent. Links, gradients, secondary highlights |
+| **Persimmon** | `#EC6800` | Tertiary accent. Pro-rata features, overflow states, tranche visuals |
+
+### Full Palette
 
 | Token | Hex | Usage |
 |-------|-----|-------|
 | `accent` | `#91D982` | Primary green. Logos, highlights, active states |
 | `accent-bright` | `#0D8BCA` | Secondary blue. Links, secondary highlights |
+| `persimmon` | `#EC6800` | Persimmon orange. Pro-rata, overflow, tranche indicators |
 | `accent-light` | `#D9F1FC` | Light blue. Subtle accents |
 | `muted` | `#B8C4CE` | Muted text. Descriptions, secondary copy |
 | `background` | `#0A0A0A` | Page background |

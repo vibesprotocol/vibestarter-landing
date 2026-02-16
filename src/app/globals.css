@@ -174,7 +174,7 @@
     @apply bg-surface border border-border font-mono text-[13px] leading-relaxed;
   }
 
-  .code-keyword { @apply text-purple-400; }
+  .code-keyword { @apply text-persimmon-400; }
   .code-string { @apply text-cyan-300; }
   .code-comment { @apply text-neutral-600; }
   .code-function { @apply text-yellow-300; }

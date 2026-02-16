@@ -219,13 +219,13 @@ export function RunwayProtection() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                           >
-                            <div className="flex items-center gap-1 px-2 py-1 bg-purple-500/20 border border-purple-500/30 whitespace-nowrap">
+                            <div className="flex items-center gap-1 px-2 py-1 bg-persimmon-500/20 border border-persimmon-500/30 whitespace-nowrap">
                               <motion.div
-                                className="w-1.5 h-1.5 rounded-full bg-purple-400"
+                                className="w-1.5 h-1.5 rounded-full bg-persimmon-400"
                                 animate={{ opacity: [1, 0.3, 1] }}
                                 transition={{ repeat: Infinity, duration: 1.5 }}
                               />
-                              <span className="text-[9px] font-mono text-purple-400">72h window</span>
+                              <span className="text-[9px] font-mono text-persimmon-400">72h window</span>
                             </div>
                           </motion.div>
                         )}
@@ -380,20 +380,20 @@ export function RunwayProtection() {
           >
             <CornerBrackets><div className="relative p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors overflow-hidden group">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-purple-500/10 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <div className="w-10 h-10 bg-persimmon-500/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-persimmon-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                 </div>
                 <div>
                   <h3 className="font-sans font-bold text-base text-white">Challenge Window</h3>
-                  <p className="text-[11px] font-mono text-purple-400">72 hours</p>
+                  <p className="text-[11px] font-mono text-persimmon-400">72 hours</p>
                 </div>
               </div>
               <p className="text-sm text-white/60 font-sans font-light">
                 Backers can challenge suspicious releases before payout.
               </p>
-              <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl" />
+              <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-persimmon-500/10 rounded-full blur-2xl" />
             </div></CornerBrackets>
           </motion.div>
         </div>
