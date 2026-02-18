@@ -264,115 +264,87 @@ export function RunwayProtection() {
             </div></CornerBrackets>
           </div>
 
-          {/* Mobile Timeline - Metro Map Style */}
+          {/* Mobile Timeline - Server Status Readout (no container) */}
           <div className="md:hidden">
-            <div className="bg-[#080808] border border-[#1f1f1f] p-5">
-              {/* Running total */}
-              {activeTrancheIndex >= 0 && (
-                <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1f1f1f]">
-                  <div className="flex items-center gap-2">
-                    <div className={`w-2.5 h-2.5 rounded-full ${activeTrancheIndex === 0 ? "bg-accent" : "bg-accent-bright"}`} />
-                    <span className="text-xs text-white/60 font-mono">Released</span>
-                  </div>
-                  <span className="text-xl font-mono font-bold text-white">
-                    {tranches.slice(0, activeTrancheIndex + 1).reduce((sum, t) => sum + t.percent, 0)}%
-                  </span>
-                </div>
-              )}
+            {/* Running total header */}
+            {activeTrancheIndex >= 0 && (
+              <div className="flex items-baseline justify-between mb-5">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-white/40">Total Released</span>
+                <span className="text-2xl font-mono font-bold text-white">
+                  {tranches.slice(0, activeTrancheIndex + 1).reduce((sum, t) => sum + t.percent, 0)}%
+                </span>
+              </div>
+            )}
 
-              <div className="relative">
-                {/* Continuous vertical line */}
-                <div className="absolute left-[27px] top-2 bottom-2 w-px bg-[#1f1f1f]" />
-                {/* Animated fill line */}
-                <motion.div
-                  className="absolute left-[27px] top-2 w-px bg-gradient-to-b from-accent to-accent-bright"
-                  animate={{
-                    height: activeTrancheIndex >= 0
-                      ? `${((activeTrancheIndex + 1) / tranches.length) * 100}%`
-                      : "0%",
-                  }}
-                  transition={{ type: "spring", stiffness: 80, damping: 20 }}
-                />
+            <div className="space-y-0">
+              {tranches.map((tranche, index) => {
+                const isActive = index <= activeTrancheIndex;
+                const isCurrent = index === activeTrancheIndex;
+                const isKickstart = index === 0;
 
-                <div className="space-y-0">
-                  {tranches.map((tranche, index) => {
-                    const isActive = index <= activeTrancheIndex;
-                    const isCurrent = index === activeTrancheIndex;
-                    const isKickstart = index === 0;
-
-                    return (
-                      <motion.div
-                        key={tranche.month}
-                        className="flex items-center gap-3 py-2.5 relative"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: index * 0.04 }}
-                        viewport={{ once: true }}
-                      >
-                        {/* Percentage - left aligned as primary data */}
-                        <div
-                          className={`w-[34px] text-right font-mono font-bold transition-colors duration-300 ${
+                return (
+                  <motion.div
+                    key={tranche.month}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: index * 0.04 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="flex items-center justify-between py-3">
+                      {/* Left: percentage as primary data */}
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`w-[44px] font-mono font-bold text-right transition-colors duration-300 ${
                             isActive
                               ? isKickstart
-                                ? "text-accent text-lg"
-                                : "text-accent-bright text-lg"
-                              : "text-white/25 text-base"
+                                ? "text-accent text-xl"
+                                : "text-accent-bright text-xl"
+                              : "text-white/20 text-lg"
                           }`}
                         >
                           {tranche.percent}%
-                        </div>
+                        </span>
+                        <span className={`font-mono text-sm uppercase transition-colors duration-300 ${
+                          isActive ? "text-white" : "text-white/30"
+                        }`}>
+                          {tranche.month}
+                        </span>
+                      </div>
 
-                        {/* Dot on the line */}
-                        <div className="relative z-10">
+                      {/* Right: status */}
+                      {isKickstart && isActive && (
+                        <span className="text-[10px] font-mono text-accent uppercase tracking-wider">Paid</span>
+                      )}
+                      {isCurrent && !isKickstart && (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="flex items-center gap-1.5"
+                        >
                           <motion.div
-                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-                              isActive
-                                ? isKickstart
-                                  ? "bg-accent border-accent"
-                                  : "bg-accent-bright border-accent-bright"
-                                : "bg-[#080808] border-[#333]"
-                            }`}
-                            animate={isCurrent ? { scale: [1, 1.15, 1] } : {}}
-                            transition={{ repeat: isCurrent ? Infinity : 0, duration: 1.2 }}
-                          >
-                            {isActive && (
-                              <svg className="w-2.5 h-2.5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                                <path d="M5 12l5 5L20 7" />
-                              </svg>
-                            )}
-                          </motion.div>
-                        </div>
-
-                        {/* Label */}
-                        <div className={`flex-1 flex items-center justify-between transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-40"}`}>
-                          <span className={`font-mono text-sm ${isActive ? "text-white font-semibold" : "text-white/60"}`}>
-                            {tranche.month}
-                          </span>
-                          {isKickstart && (
-                            <span className="text-[9px] font-mono text-accent bg-accent/10 px-2 py-0.5 border border-accent/20">
-                              INSTANT
-                            </span>
-                          )}
-                          {isCurrent && !isKickstart && (
-                            <motion.div
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              className="flex items-center gap-1 px-2 py-0.5 bg-persimmon-500/20 border border-persimmon-500/30"
-                            >
-                              <motion.div
-                                className="w-1.5 h-1.5 rounded-full bg-persimmon-400"
-                                animate={{ opacity: [1, 0.3, 1] }}
-                                transition={{ repeat: Infinity, duration: 1.5 }}
-                              />
-                              <span className="text-[9px] font-mono text-persimmon-400">72h</span>
-                            </motion.div>
-                          )}
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
+                            className="w-1.5 h-1.5 rounded-full bg-persimmon-400"
+                            animate={{ opacity: [1, 0.3, 1] }}
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                          />
+                          <span className="text-[10px] font-mono text-persimmon-400 uppercase tracking-wider">72h window</span>
+                        </motion.div>
+                      )}
+                      {isActive && !isCurrent && !isKickstart && (
+                        <span className="text-[10px] font-mono text-accent-bright/60 uppercase tracking-wider">Released</span>
+                      )}
+                      {!isActive && (
+                        <span className="text-[10px] font-mono text-white/15 uppercase tracking-wider">Locked</span>
+                      )}
+                    </div>
+                    {/* Horizontal divider */}
+                    {index < tranches.length - 1 && (
+                      <div className={`h-px transition-colors duration-300 ${
+                        isActive ? "bg-white/[0.08]" : "bg-white/[0.04]"
+                      }`} />
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>

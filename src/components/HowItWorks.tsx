@@ -478,11 +478,11 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Mobile horizontal snap carousel */}
+        {/* Mobile horizontal snap carousel - IDE gutter style */}
         <div ref={mobileListRef} className="md:hidden">
           <div
             ref={mobileCarouselRef}
-            className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide"
+            className="flex gap-0 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {steps.map((item, index) => {
@@ -492,47 +492,46 @@ export function HowItWorks() {
                 <div
                   key={item.num}
                   className="flex-shrink-0 snap-start"
-                  style={{ width: "75%" }}
+                  style={{ width: "82%" }}
                 >
-                  <div
-                    className="bg-[#080808] border border-[#1f1f1f] p-5 h-full"
-                    style={{ borderTopColor: accentColor, borderTopWidth: "2px" }}
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div
-                        className="w-10 h-10 flex items-center justify-center"
-                        style={{
-                          backgroundColor: `${accentColor}20`,
-                          borderColor: `${accentColor}60`,
-                          borderWidth: "1px",
-                          color: accentColor,
-                        }}
+                  <div className="flex h-full">
+                    {/* Line-number gutter */}
+                    <div
+                      className="w-10 flex-shrink-0 flex flex-col items-center pt-4 border-r"
+                      style={{ borderColor: `${accentColor}30` }}
+                    >
+                      <span
+                        className="text-xs font-mono font-bold"
+                        style={{ color: accentColor }}
                       >
+                        {String(item.num).padStart(2, "0")}
+                      </span>
+                      <div
+                        className="w-px flex-1 mt-2 opacity-20"
+                        style={{ backgroundColor: accentColor }}
+                      />
+                    </div>
+                    {/* Content (no box, just left-padded) */}
+                    <div className="flex-1 pl-4 pr-6 py-4">
+                      <div className="flex items-center gap-2.5 mb-2">
                         <svg
-                          className="w-5 h-5"
+                          className="w-4.5 h-4.5 flex-shrink-0"
                           fill="none"
-                          stroke="currentColor"
+                          stroke={accentColor}
                           strokeWidth={1.5}
                           viewBox="0 0 24 24"
+                          style={{ width: 18, height: 18 }}
                         >
                           {iconPaths[item.num]}
                         </svg>
-                      </div>
-                      <div>
-                        <p
-                          className="text-[10px] font-mono uppercase tracking-widest"
-                          style={{ color: accentColor }}
-                        >
-                          Step {item.num}
-                        </p>
-                        <h3 className="font-semibold text-base text-white">
+                        <h3 className="font-semibold text-base text-white leading-none">
                           {item.title}
                         </h3>
                       </div>
+                      <p className="text-[13px] text-white/50 leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
-                    <p className="text-[13px] text-white/60 leading-relaxed">
-                      {item.desc}
-                    </p>
                   </div>
                 </div>
               );
