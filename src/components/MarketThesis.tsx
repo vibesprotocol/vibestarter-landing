@@ -168,20 +168,54 @@ export function MarketThesis() {
         {/* Interactive Tabbed Section */}
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[280px_1fr] gap-6 lg:gap-8">
-            {/* Tab List - stacks vertically on mobile for better readability */}
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-2 pb-2 lg:pb-0">
+            {/* Tab List - git log flow on mobile, row on tablet, column on desktop */}
+            {/* Mobile: git log style */}
+            <div className="sm:hidden relative pl-8 border-l border-[#1f1f1f] ml-4 space-y-8 pb-2">
               {thesisPoints.map((point, index) => (
                 <button
                   key={point.id}
                   onClick={() => handleTabClick(index)}
-                  className={`relative flex items-start gap-3 px-4 py-3 sm:py-4 text-left transition-all duration-300 flex-1 sm:flex-initial ${
+                  className="relative block text-left w-full group"
+                >
+                  {/* Commit node on the line */}
+                  <span
+                    className={`absolute -left-[37px] top-0 flex items-center justify-center w-6 h-6 font-mono text-[10px] font-bold transition-colors duration-300 ${
+                      activeTab === index
+                        ? "bg-accent text-black border border-accent"
+                        : "bg-black text-white/40 border border-[#333]"
+                    }`}
+                  >
+                    {point.num}
+                  </span>
+                  <h4
+                    className={`text-[15px] font-semibold leading-none transition-colors duration-300 ${
+                      activeTab === index ? "text-white" : "text-white/50"
+                    }`}
+                  >
+                    {point.title}
+                  </h4>
+                  <p className={`text-[11px] font-mono mt-1.5 transition-colors duration-300 ${
+                    activeTab === index ? "text-accent" : "text-white/30"
+                  }`}>
+                    {point.tagline}
+                  </p>
+                </button>
+              ))}
+            </div>
+            {/* Tablet+: boxed tabs */}
+            <div className="hidden sm:flex sm:flex-row lg:flex-col gap-2 pb-2 lg:pb-0">
+              {thesisPoints.map((point, index) => (
+                <button
+                  key={point.id}
+                  onClick={() => handleTabClick(index)}
+                  className={`relative flex items-start gap-3 px-4 py-4 text-left transition-all duration-300 flex-1 sm:flex-initial ${
                     activeTab === index
                       ? "bg-white/[0.06] border border-accent/30"
                       : "bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04]"
                   }`}
                 >
                   <div
-                    className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold transition-colors flex-shrink-0 ${
+                    className={`w-8 h-8 flex items-center justify-center text-xs font-mono font-bold transition-colors flex-shrink-0 ${
                       activeTab === index
                         ? "bg-accent text-black"
                         : "bg-white/10 text-white/50"

@@ -449,38 +449,55 @@ export function TokenIndependence() {
             </div></CornerBrackets>
           </div>
 
-          {/* Key stats row */}
+          {/* Key stats - IDE code block on mobile, grid on sm+ */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-6"
+            className="mt-6"
           >
-            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
-              <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
-                <span className="text-lg sm:text-xl font-sans font-bold text-accent">ERC-20</span>
+            {/* Mobile: code-block readout */}
+            <div className="sm:hidden font-mono text-sm px-1 py-4">
+              <div className="text-accent text-[10px] uppercase tracking-[0.3em] mb-4">{"// Token_Specs"}</div>
+              <div className="grid grid-cols-[90px_1fr] gap-y-3.5">
+                <span className="text-white/30">TYPE</span>
+                <span className="text-white">ERC-20 Standard</span>
+                <span className="text-white/30">PRICING</span>
+                <span className="text-white">Flat <span className="text-white/30">{"// No curve"}</span></span>
+                <span className="text-white/30">POOL</span>
+                <span className="text-accent">Aerodrome LP</span>
+                <span className="text-white/30">LOCK</span>
+                <span className="text-accent">Permanent <span className="text-white/30">{"// ∞"}</span></span>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">Standard Token</div>
             </div>
-            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
-              <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
-                <span className="text-2xl sm:text-3xl font-sans font-bold text-accent-bright">=</span>
+            {/* Tablet+: grid boxes */}
+            <div className="hidden sm:grid grid-cols-4 gap-4">
+              <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
+                <div className="h-10 flex items-center justify-center mb-1">
+                  <span className="text-xl font-sans font-bold text-accent">ERC-20</span>
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-white/50">Standard Token</div>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">Flat Price</div>
-            </div>
-            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
-              <div className="h-8 sm:h-10 flex items-center justify-center gap-1.5 mb-1">
-                <AerodromeSymbol className="w-5 h-5 sm:w-6 sm:h-6" />
-                <span className="text-lg sm:text-xl font-sans font-bold text-white/50">LP</span>
+              <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
+                <div className="h-10 flex items-center justify-center mb-1">
+                  <span className="text-3xl font-sans font-bold text-accent-bright">=</span>
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-white/50">Flat Price</div>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">Aerodrome LP</div>
-            </div>
-            <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
-              <div className="h-8 sm:h-10 flex items-center justify-center mb-1">
-                <span className="text-3xl sm:text-4xl font-sans font-bold text-accent leading-none">∞</span>
+              <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
+                <div className="h-10 flex items-center justify-center gap-1.5 mb-1">
+                  <AerodromeSymbol className="w-6 h-6" />
+                  <span className="text-xl font-sans font-bold text-white/50">LP</span>
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-white/50">Aerodrome LP</div>
               </div>
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-white/50">LP Locked Forever</div>
+              <div className="text-center p-4 border border-white/5 bg-white/[0.02]">
+                <div className="h-10 flex items-center justify-center mb-1">
+                  <span className="text-4xl font-sans font-bold text-accent leading-none">∞</span>
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-white/50">LP Locked Forever</div>
+              </div>
             </div>
           </motion.div>
         </div>
