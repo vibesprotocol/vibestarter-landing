@@ -142,12 +142,30 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
 
 export function HowItWorks() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [mobileActiveCard, setMobileActiveCard] = useState(0);
+  const mobileCarouselRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const waveContainerRef = useRef<HTMLDivElement>(null);
   const nodesRef = useRef<(HTMLDivElement | null)[]>([]);
   const tabletGridRef = useRef<HTMLDivElement>(null);
   const mobileListRef = useRef<HTMLDivElement>(null);
+
+  // Track mobile carousel scroll position
+  useEffect(() => {
+    const carousel = mobileCarouselRef.current;
+    if (!carousel) return;
+
+    const handleScroll = () => {
+      const scrollLeft = carousel.scrollLeft;
+      const cardWidth = carousel.offsetWidth * 0.78; // ~78% width per card + gap
+      const index = Math.round(scrollLeft / cardWidth);
+      setMobileActiveCard(Math.min(index, steps.length - 1));
+    };
+
+    carousel.addEventListener("scroll", handleScroll, { passive: true });
+    return () => carousel.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Node positions matching the wave peaks/valleys (x%, y%)
   // Scaled to 5-92% to leave room for wave to extend on both ends
@@ -460,49 +478,87 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Mobile vertical layout */}
-        <div ref={mobileListRef} className="md:hidden space-y-3">
-          {steps.map((item, index) => {
-            const isAccent = index % 2 === 0;
-            return (
-              <div key={item.num} className="flex gap-4">
-                {/* Step number column with line */}
-                <div className="flex flex-col items-center">
+        {/* Mobile horizontal snap carousel */}
+        <div ref={mobileListRef} className="md:hidden">
+          <div
+            ref={mobileCarouselRef}
+            className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {steps.map((item, index) => {
+              const isAccent = index % 2 === 0;
+              const accentColor = isAccent ? "#91D982" : "#0D8BCA";
+              return (
+                <div
+                  key={item.num}
+                  className="flex-shrink-0 snap-start"
+                  style={{ width: "75%" }}
+                >
                   <div
-                    className={`w-10 h-10 rounded border-2 flex items-center justify-center shrink-0 ${
-                      isAccent
-                        ? "border-accent bg-accent/20"
-                        : "border-accent-bright bg-accent-bright/20"
-                    }`}
+                    className="bg-[#080808] border border-[#1f1f1f] p-5 h-full"
+                    style={{ borderTopColor: accentColor, borderTopWidth: "2px" }}
                   >
-                    <span
-                      className={`text-sm font-semibold ${
-                        isAccent ? "text-accent" : "text-accent-bright"
-                      }`}
-                    >
-                      {item.num}
-                    </span>
-                  </div>
-                  {/* Connector line (not on last item) */}
-                  {index < steps.length - 1 && (
-                    <div className="w-px flex-1 min-h-[16px] bg-white/[0.08]" />
-                  )}
-                </div>
-
-                {/* Content */}
-                <CornerBrackets>
-                  <div className="flex-1 p-4 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
-                    <h3 className="font-semibold text-base mb-1 text-white">
-                      {item.title}
-                    </h3>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div
+                        className="w-10 h-10 flex items-center justify-center"
+                        style={{
+                          backgroundColor: `${accentColor}20`,
+                          borderColor: `${accentColor}60`,
+                          borderWidth: "1px",
+                          color: accentColor,
+                        }}
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={1.5}
+                          viewBox="0 0 24 24"
+                        >
+                          {iconPaths[item.num]}
+                        </svg>
+                      </div>
+                      <div>
+                        <p
+                          className="text-[10px] font-mono uppercase tracking-widest"
+                          style={{ color: accentColor }}
+                        >
+                          Step {item.num}
+                        </p>
+                        <h3 className="font-semibold text-base text-white">
+                          {item.title}
+                        </h3>
+                      </div>
+                    </div>
                     <p className="text-[13px] text-white/60 leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
-                </CornerBrackets>
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Progress indicator */}
+          <div className="flex items-center justify-center gap-2 mt-3">
+            <span className="text-[11px] font-mono text-white/40">
+              {mobileActiveCard + 1}/{steps.length}
+            </span>
+            <div className="flex gap-1">
+              {steps.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    index === mobileActiveCard
+                      ? "bg-accent w-4"
+                      : index <= mobileActiveCard
+                        ? "bg-accent/40 w-1.5"
+                        : "bg-white/15 w-1.5"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
       </div>
