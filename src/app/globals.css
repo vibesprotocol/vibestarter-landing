@@ -242,6 +242,11 @@
   background-color: #8b5cf6;
 }
 
+/* Hide scrollbar for mobile carousels */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Subtle grid background pattern - fixed overlay */
 .grid-bg::before {
   content: '';

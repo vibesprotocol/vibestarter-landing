@@ -222,9 +222,10 @@ export function MarketThesis() {
                     transition={{ duration: 0.3 }}
                     className="relative h-full flex flex-col"
                   >
-                    {/* Animated agent chain */}
+                    {/* Animated agent chain - vertical on mobile, horizontal on sm+ */}
                     <div className="flex-1 flex items-center justify-center">
-                      <div className="flex items-center gap-4 sm:gap-6">
+                      {/* Mobile: vertical stack */}
+                      <div className="flex sm:hidden flex-col items-center gap-3">
                         {/* Claude/Agent */}
                         <motion.div
                           initial={{ scale: 0.8, opacity: 0 }}
@@ -232,8 +233,95 @@ export function MarketThesis() {
                           transition={{ delay: 0.1 }}
                           className="flex flex-col items-center"
                         >
-                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-accent-bright/20 border border-accent-bright/30 flex items-center justify-center">
-                            <svg className="w-8 h-8 sm:w-10 sm:h-10 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <div className="w-16 h-16 bg-accent-bright/20 border border-accent-bright/30 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                              <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <span className="text-[11px] font-mono text-white/50 mt-2">Claude</span>
+                        </motion.div>
+
+                        {/* Vertical connection */}
+                        <div className="flex flex-col items-center gap-1">
+                          {[0, 1, 2].map((i) => (
+                            <motion.div
+                              key={i}
+                              className="w-2 h-2 rounded-full bg-accent"
+                              animate={{
+                                scale: [1, 1.2, 1],
+                                opacity: [0.3, 1, 0.3],
+                              }}
+                              transition={{
+                                repeat: Infinity,
+                                duration: 1.5,
+                                delay: i * 0.2,
+                              }}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Code output */}
+                        <motion.div
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ delay: 0.3 }}
+                          className="w-40 bg-background/80 border border-white/10 p-3 font-mono text-[10px]"
+                        >
+                          <div className="flex items-center gap-1 mb-2">
+                            <div className="w-2 h-2 rounded-full bg-red-500/60" />
+                            <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
+                            <div className="w-2 h-2 rounded-full bg-green-500/60" />
+                          </div>
+                          <div className="text-accent/80">const</div>
+                          <div className="text-white/60">app = <span className="text-accent-bright">ship</span>()</div>
+                        </motion.div>
+
+                        {/* Vertical connection */}
+                        <div className="flex flex-col items-center gap-1">
+                          {[0, 1, 2].map((i) => (
+                            <motion.div
+                              key={i}
+                              className="w-2 h-2 rounded-full bg-accent"
+                              animate={{
+                                scale: [1, 1.2, 1],
+                                opacity: [0.3, 1, 0.3],
+                              }}
+                              transition={{
+                                repeat: Infinity,
+                                duration: 1.5,
+                                delay: i * 0.2 + 0.5,
+                              }}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Ship/Deploy */}
+                        <motion.div
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ delay: 0.5 }}
+                          className="flex flex-col items-center"
+                        >
+                          <div className="w-16 h-16 bg-accent/20 border border-accent/30 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                              <path d="M5 12l5 5L20 7" />
+                            </svg>
+                          </div>
+                          <span className="text-[11px] font-mono text-white/50 mt-2">Shipped</span>
+                        </motion.div>
+                      </div>
+
+                      {/* Desktop: horizontal chain */}
+                      <div className="hidden sm:flex items-center gap-6">
+                        {/* Claude/Agent */}
+                        <motion.div
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ delay: 0.1 }}
+                          className="flex flex-col items-center"
+                        >
+                          <div className="w-20 h-20 bg-accent-bright/20 border border-accent-bright/30 flex items-center justify-center">
+                            <svg className="w-10 h-10 text-accent-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                               <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                           </div>
@@ -264,7 +352,7 @@ export function MarketThesis() {
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           transition={{ delay: 0.3 }}
-                          className="w-32 sm:w-40 bg-background/80 border border-white/10 p-3 font-mono text-[10px] sm:text-xs"
+                          className="w-40 bg-background/80 border border-white/10 p-3 font-mono text-xs"
                         >
                           <div className="flex items-center gap-1 mb-2">
                             <div className="w-2 h-2 rounded-full bg-red-500/60" />
@@ -301,8 +389,8 @@ export function MarketThesis() {
                           transition={{ delay: 0.5 }}
                           className="flex flex-col items-center"
                         >
-                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-accent/20 border border-accent/30 flex items-center justify-center">
-                            <svg className="w-8 h-8 sm:w-10 sm:h-10 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <div className="w-20 h-20 bg-accent/20 border border-accent/30 flex items-center justify-center">
+                            <svg className="w-10 h-10 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                               <path d="M5 12l5 5L20 7" />
                             </svg>
                           </div>

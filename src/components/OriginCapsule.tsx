@@ -114,6 +114,88 @@ function InfoNode({ label, value, position, top, delay, highlight, isVisible = t
   );
 }
 
+function MobileCapsuleView({ capsule, isVisible }: { capsule: CapsuleData; isVisible: boolean }) {
+  return (
+    <div className="flex flex-col items-center gap-6 py-4 relative">
+      {/* Background grid */}
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,#1f1f1f_1px,transparent_1px)] bg-[length:20px_20px]" />
+
+      {/* 1. INPUTS (Top) - Agent & Founder side by side */}
+      <div className="flex gap-3 z-10 w-full px-2">
+        <div
+          className={`flex-1 bg-black border border-[#1f1f1f] border-t-2 border-t-accent p-4 text-center transition-opacity duration-[600ms] ${isVisible ? "opacity-100" : "opacity-0"}`}
+        >
+          <div className="text-[10px] text-white/40 mb-1 font-mono uppercase tracking-wider">Agent</div>
+          <div className="text-white font-mono font-bold text-sm">{capsule.agentName}</div>
+          <div className="text-[10px] text-white/30 font-mono mt-1">{capsule.modelVersion}</div>
+        </div>
+        <div
+          className={`flex-1 bg-black border border-[#1f1f1f] border-t-2 border-t-accent p-4 text-center transition-opacity duration-[600ms] ${isVisible ? "opacity-100" : "opacity-0"}`}
+        >
+          <div className="text-[10px] text-white/40 mb-1 font-mono uppercase tracking-wider">Founder</div>
+          <div className="text-white font-mono font-bold text-sm">{capsule.founderHandle}</div>
+          <div className="text-[10px] text-white/30 font-mono mt-1">{capsule.founderAddress}</div>
+        </div>
+      </div>
+
+      {/* Connector pipe down */}
+      <div className="h-8 w-px bg-gradient-to-b from-accent to-[#1f1f1f] z-10" />
+
+      {/* 2. THE CORE (Middle) */}
+      <div className="relative z-10">
+        <div
+          className="absolute -inset-6 rounded-full border border-accent/20"
+          style={{ animation: "capsule-heartbeat 2s ease-in-out infinite" }}
+        />
+        <div className="w-32 h-32 bg-black border-2 border-accent/60 rounded-full flex flex-col items-center justify-center shadow-[0_0_30px_rgba(145,217,130,0.2)]">
+          <div className="w-10 h-10 mx-auto mb-1.5 bg-accent/10 border border-accent/30 flex items-center justify-center">
+            <Box className="w-5 h-5 text-accent" />
+          </div>
+          <div className="text-white font-bold tracking-tight text-base">SEALED</div>
+          <div className="text-[10px] text-white/40 uppercase font-mono">On Base</div>
+        </div>
+      </div>
+
+      {/* Connector pipe down */}
+      <div className="h-8 w-px bg-gradient-to-b from-[#1f1f1f] to-accent/40 z-10" />
+
+      {/* 3. OUTPUT (Bottom) - Chain data */}
+      <div
+        className={`w-full px-2 z-10 transition-opacity duration-[600ms] ${isVisible ? "opacity-100" : "opacity-0"}`}
+      >
+        <div className="bg-black border border-[#1f1f1f] p-4 space-y-3">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="text-[10px] text-accent font-mono uppercase tracking-wider">Immutable Record</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <div className="text-[9px] text-white/40 uppercase tracking-wider font-mono">ERC-8004 ID</div>
+              <div className="text-xs font-mono text-white/80">#{capsule.agentId}</div>
+            </div>
+            <div>
+              <div className="text-[9px] text-white/40 uppercase tracking-wider font-mono">Chain</div>
+              <div className="text-xs font-mono text-white/80">Base ({capsule.chainId})</div>
+            </div>
+            <div>
+              <div className="text-[9px] text-white/40 uppercase tracking-wider font-mono">Proof</div>
+              <div className="text-xs font-mono text-white/80">{capsule.proofType}</div>
+            </div>
+            <div>
+              <div className="text-[9px] text-white/40 uppercase tracking-wider font-mono">Registry</div>
+              <div className="text-xs font-mono text-white/80 break-all">{capsule.registryAddress}</div>
+            </div>
+          </div>
+          <div className="pt-2 border-t border-[#1f1f1f]">
+            <div className="text-[9px] text-white/40 uppercase tracking-wider font-mono mb-1">Capsule Hash</div>
+            <div className="text-[11px] font-mono text-accent/70 break-all">{capsule.capsuleHash}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CapsuleInfographic() {
   const [activeRing, setActiveRing] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -176,7 +258,7 @@ function CapsuleInfographic() {
     <div className="relative w-full">
       <div className="relative flex flex-col items-center py-8 md:py-12">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-accent mb-2 font-mono">
             ERC-8004 Origin Capsule
           </p>
@@ -192,8 +274,13 @@ function CapsuleInfographic() {
           </p>
         </div>
 
-        {/* Orbital visualization */}
-        <div className="relative w-full h-[420px] sm:h-[480px] md:h-[520px]">
+        {/* Mobile: Vertical card layout */}
+        <div className="md:hidden w-full">
+          <MobileCapsuleView capsule={capsule} isVisible={isVisible} />
+        </div>
+
+        {/* Desktop: Orbital visualization */}
+        <div className="hidden md:block relative w-full h-[520px]">
           {/* Scan line overlay */}
           <div
             className="absolute left-0 w-full h-px pointer-events-none z-10"
@@ -207,32 +294,32 @@ function CapsuleInfographic() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             {/* Outer ring — heartbeat synced to block time */}
             <div
-              className={`absolute -inset-16 sm:-inset-20 md:-inset-24 rounded-full border transition-colors duration-500 ${activeRing === 2 ? "border-accent/60" : ""}`}
+              className={`absolute -inset-24 rounded-full border transition-colors duration-500 ${activeRing === 2 ? "border-accent/60" : ""}`}
               style={{ animation: "capsule-heartbeat 2s ease-in-out infinite" }}
               onMouseEnter={() => setActiveRing(2)}
               onMouseLeave={() => setActiveRing(null)}
             />
             {/* Middle ring — heartbeat offset */}
             <div
-              className={`absolute -inset-10 sm:-inset-12 md:-inset-14 rounded-full border transition-colors duration-500 ${activeRing === 1 ? "border-accent/80" : ""}`}
+              className={`absolute -inset-14 rounded-full border transition-colors duration-500 ${activeRing === 1 ? "border-accent/80" : ""}`}
               style={{ animation: "capsule-heartbeat 2s ease-in-out infinite 0.3s" }}
               onMouseEnter={() => setActiveRing(1)}
               onMouseLeave={() => setActiveRing(null)}
             />
             {/* Core capsule */}
             <div
-              className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full border-2 border-accent/60 bg-surface/80 backdrop-blur-md flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-accent shadow-[0_0_30px_rgba(145,217,130,0.3)] hover:shadow-[0_0_50px_rgba(145,217,130,0.5)]"
+              className="relative w-44 h-44 rounded-full border-2 border-accent/60 bg-surface/80 backdrop-blur-md flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-accent shadow-[0_0_30px_rgba(145,217,130,0.3)] hover:shadow-[0_0_50px_rgba(145,217,130,0.5)]"
               onMouseEnter={() => setActiveRing(0)}
               onMouseLeave={() => setActiveRing(null)}
             >
               <div className="text-center p-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto mb-2 bg-accent/10 border border-accent/30 flex items-center justify-center">
-                  <Box className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-accent" />
+                <div className="w-14 h-14 mx-auto mb-2 bg-accent/10 border border-accent/30 flex items-center justify-center">
+                  <Box className="w-7 h-7 text-accent" />
                 </div>
-                <p className="text-[9px] sm:text-[10px] md:text-xs text-white/50 uppercase tracking-wider">
+                <p className="text-xs text-white/50 uppercase tracking-wider">
                   Sealed
                 </p>
-                <p className="text-xs sm:text-sm md:text-base font-mono text-white mt-0.5">
+                <p className="text-base font-mono text-white mt-0.5">
                   On-Chain
                 </p>
               </div>
