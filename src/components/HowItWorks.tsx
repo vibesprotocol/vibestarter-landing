@@ -1,23 +1,23 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { TextScramble } from "./TextScramble";
 import { CornerBrackets } from "@/components/ui/corner-brackets";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
-  { num: 1, title: "Verify", desc: "Wallet + socials" },
-  { num: 2, title: "Prove Build", desc: "Vibecode attestation" },
-  { num: 3, title: "Set Terms", desc: "Roadmap + tokens" },
-  { num: 4, title: "Go Live", desc: "Start raise" },
-  { num: 5, title: "In Escrow", desc: "Funds secured" },
-  { num: 6, title: "Vibestart", desc: "10% instant funding" },
-  { num: 7, title: "Ship", desc: "Build & deliver" },
-  { num: 8, title: "Tranches", desc: "Monthly funding claim" },
+  { num: 1, title: "VERIFY_ID", desc: "Connect wallet and social accounts to establish builder provenance." },
+  { num: 2, title: "PROVE_BUILD", desc: "Submit vibecode attestation linking your agent to the project." },
+  { num: 3, title: "SET_TERMS", desc: "Define your roadmap, token supply, and raise parameters." },
+  { num: 4, title: "GO_LIVE", desc: "Launch your raise and open contributions to the community." },
+  { num: 5, title: "IN_ESCROW", desc: "All funds secured in smart contract escrow on Base." },
+  { num: 6, title: "VIBESTART", desc: "10% kickstart funding released instantly at finalization." },
+  { num: 7, title: "SHIP_IT", desc: "Build and deliver your product with monthly funding access." },
+  { num: 8, title: "TRANCHES", desc: "Remaining funds release monthly over 6 months with challenge windows." },
 ];
 
 const iconPaths: Record<number, React.ReactNode> = {
@@ -41,25 +41,17 @@ const iconPaths: Record<number, React.ReactNode> = {
 };
 
 // Calculate y position on wave given x (0-100+)
-// Wave spans from x=5 (step 1) to x=92 (step 8), with 12.4 units between each step
-// Peaks at odd steps (y=35), valleys at even steps (y=65)
 function getWaveY(x: number): number {
-  // Period is 24.8 (two steps = one full wave cycle)
   const frequency = (2 * Math.PI) / 24.8;
-  // Phase shift so x=5 is a peak (y=35)
   const phase = -frequency * 5;
-  // Wave oscillates between 35 and 65 (amplitude 15, centered at 50)
   return 50 + 15 * Math.cos(frequency * x + phase);
 }
 
-// Generate SVG path that matches the getWaveY function
-// Extends from -5 to 105 to show wave continuing beyond nodes
 function generateWavePath(): string {
   const points: { x: number; y: number }[] = [];
   for (let x = -5; x <= 105; x += 0.5) {
     points.push({ x, y: getWaveY(x) });
   }
-
   let path = `M ${points[0].x} ${points[0].y}`;
   for (let i = 1; i < points.length; i++) {
     path += ` L ${points[i].x} ${points[i].y}`;
@@ -78,19 +70,13 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
 
   useEffect(() => {
     if (!dotRef.current) return;
-
-    // Dot travels from x=-5 to x=105 (beyond visible nodes at 5-92)
     const startX = -5;
     const endX = 105;
     const range = endX - startX;
-
-    // Initialize position based on delay
     const initialProgress = (delay / 12) % 1;
     progressRef.current.value = initialProgress;
 
-    // Create GSAP animation for smooth looping
     const tl = gsap.timeline({ repeat: -1 });
-
     tl.to(progressRef.current, {
       value: 1,
       duration: 12 - (delay % 12),
@@ -103,8 +89,6 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
         dotRef.current.style.top = `${y}%`;
       },
     });
-
-    // After first cycle, loop from 0 to 1
     tl.to(progressRef.current, {
       value: 1,
       duration: 12,
@@ -120,9 +104,7 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
       repeat: -1,
     });
 
-    return () => {
-      tl.kill();
-    };
+    return () => { tl.kill(); };
   }, [delay]);
 
   return (
@@ -142,49 +124,41 @@ function AnimatedDot({ delay, color }: AnimatedDotProps) {
 
 export function HowItWorks() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
-  const [mobileActiveCard, setMobileActiveCard] = useState(0);
-  const mobileCarouselRef = useRef<HTMLDivElement>(null);
+  const [mobileActiveStep, setMobileActiveStep] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const waveContainerRef = useRef<HTMLDivElement>(null);
   const nodesRef = useRef<(HTMLDivElement | null)[]>([]);
   const tabletGridRef = useRef<HTMLDivElement>(null);
-  const mobileListRef = useRef<HTMLDivElement>(null);
 
-  // Track mobile carousel scroll position
-  useEffect(() => {
-    const carousel = mobileCarouselRef.current;
-    if (!carousel) return;
+  const step = steps[mobileActiveStep];
+  const isAccent = mobileActiveStep % 2 === 0;
+  const accentColor = isAccent ? "#91D982" : "#0D8BCA";
 
-    const handleScroll = () => {
-      const scrollLeft = carousel.scrollLeft;
-      const cardWidth = carousel.offsetWidth * 0.78; // ~78% width per card + gap
-      const index = Math.round(scrollLeft / cardWidth);
-      setMobileActiveCard(Math.min(index, steps.length - 1));
-    };
-
-    carousel.addEventListener("scroll", handleScroll, { passive: true });
-    return () => carousel.removeEventListener("scroll", handleScroll);
+  const goNext = useCallback(() => {
+    setMobileActiveStep((prev) => (prev + 1) % steps.length);
   }, []);
 
-  // Node positions matching the wave peaks/valleys (x%, y%)
-  // Scaled to 5-92% to leave room for wave to extend on both ends
+  const goPrev = useCallback(() => {
+    setMobileActiveStep((prev) => (prev - 1 + steps.length) % steps.length);
+  }, []);
+
+  // Node positions matching the wave peaks/valleys
   const nodePositions = [
-    { x: 5, y: 35 },      // peak - step 1
-    { x: 17.4, y: 65 },   // valley - step 2
-    { x: 29.9, y: 35 },   // peak - step 3
-    { x: 42.3, y: 65 },   // valley - step 4
-    { x: 54.7, y: 35 },   // peak - step 5
-    { x: 67.1, y: 65 },   // valley - step 6
-    { x: 79.6, y: 35 },   // peak - step 7
-    { x: 92, y: 65 },     // valley - step 8
+    { x: 5, y: 35 },
+    { x: 17.4, y: 65 },
+    { x: 29.9, y: 35 },
+    { x: 42.3, y: 65 },
+    { x: 54.7, y: 35 },
+    { x: 67.1, y: 65 },
+    { x: 79.6, y: 35 },
+    { x: 92, y: 65 },
   ];
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Header — snap on with green glow flash
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
@@ -211,7 +185,6 @@ export function HowItWorks() {
         );
       }
 
-      // Desktop wave nodes — instant stagger with brightness flash
       const visibleNodes = nodesRef.current.filter(Boolean);
       if (visibleNodes.length > 0) {
         gsap.set(visibleNodes, { scale: 0.8, opacity: 0 });
@@ -229,7 +202,6 @@ export function HowItWorks() {
         });
       }
 
-      // Tablet grid cards — hard cut stagger
       if (tabletGridRef.current) {
         const tabletCards = tabletGridRef.current.querySelectorAll(":scope > div");
         if (tabletCards.length > 0) {
@@ -241,25 +213,6 @@ export function HowItWorks() {
             ease: "none",
             scrollTrigger: {
               trigger: tabletGridRef.current,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          });
-        }
-      }
-
-      // Mobile list items — hard cut stagger
-      if (mobileListRef.current) {
-        const mobileItems = mobileListRef.current.querySelectorAll(":scope > div");
-        if (mobileItems.length > 0) {
-          gsap.set(mobileItems, { opacity: 0 });
-          gsap.to(mobileItems, {
-            opacity: 1,
-            duration: 0.15,
-            stagger: 0.06,
-            ease: "none",
-            scrollTrigger: {
-              trigger: mobileListRef.current,
               start: "top 85%",
               toggleActions: "play none none reverse",
             },
@@ -301,7 +254,7 @@ export function HowItWorks() {
           className="text-center mb-16 md:mb-24"
         >
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">Process</span>
+            <span className="section-label">&gt;_ Process</span>
             <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent">
               Time-Released
             </span>
@@ -314,7 +267,6 @@ export function HowItWorks() {
 
         {/* Desktop: Main wave visualization */}
         <div ref={waveContainerRef} className="hidden lg:block relative h-[380px]">
-          {/* SVG Wave - extends past visible area for smooth continuation */}
           <svg
             className="absolute inset-0 w-full h-full overflow-visible"
             viewBox="0 0 100 100"
@@ -323,56 +275,30 @@ export function HowItWorks() {
             style={{ overflow: 'visible' }}
           >
             <defs>
-              <linearGradient
-                id="waveGradient"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="0%"
-              >
+              <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#91D982" stopOpacity="0.6" />
                 <stop offset="50%" stopColor="#0D8BCA" stopOpacity="0.8" />
                 <stop offset="100%" stopColor="#91D982" stopOpacity="0.6" />
               </linearGradient>
             </defs>
-
-            {/* Static base wave path */}
-            <path
-              d={generateWavePath()}
-              stroke="url(#waveGradient)"
-              strokeWidth="0.4"
-              strokeLinecap="round"
-              strokeOpacity="0.3"
-            />
-            {/* Animated flowing energy overlay */}
-            <path
-              d={generateWavePath()}
-              stroke="url(#waveGradient)"
-              strokeWidth="0.6"
-              strokeLinecap="round"
-              strokeDasharray="4 2"
-              style={{
-                animation: "pipeline-flow 1.5s linear infinite",
-              }}
-            />
+            <path d={generateWavePath()} stroke="url(#waveGradient)" strokeWidth="0.4" strokeLinecap="round" strokeOpacity="0.3" />
+            <path d={generateWavePath()} stroke="url(#waveGradient)" strokeWidth="0.6" strokeLinecap="round" strokeDasharray="4 2" style={{ animation: "pipeline-flow 1.5s linear infinite" }} />
           </svg>
 
-          {/* Animated dots traveling along the wave */}
           <AnimatedDot delay={0} color="#91D982" />
           <AnimatedDot delay={4} color="#0D8BCA" />
           <AnimatedDot delay={8} color="#91D982" />
 
-          {/* Step nodes */}
-          {steps.map((step, index) => {
+          {steps.map((s, index) => {
             const pos = nodePositions[index];
             const isTop = index % 2 === 0;
-            const isHovered = hoveredStep === step.num;
-            const isAccent = index % 2 === 0;
-            const accentColor = isAccent ? "#91D982" : "#0D8BCA";
+            const isHovered = hoveredStep === s.num;
+            const isAccentNode = index % 2 === 0;
+            const nodeAccentColor = isAccentNode ? "#91D982" : "#0D8BCA";
 
             return (
               <div
-                key={step.num}
+                key={s.num}
                 ref={(el) => { nodesRef.current[index] = el; }}
                 className="absolute"
                 style={{
@@ -380,40 +306,30 @@ export function HowItWorks() {
                   top: `${pos.y}%`,
                   transform: "translate(-50%, -50%)",
                 }}
-                onMouseEnter={() => setHoveredStep(step.num)}
+                onMouseEnter={() => setHoveredStep(s.num)}
                 onMouseLeave={() => setHoveredStep(null)}
               >
-                {/* Icon circle on the path */}
                 <div
-                  className={`relative w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${
+                  className={`relative w-11 h-11 md:w-12 md:h-12 flex items-center justify-center cursor-pointer transition-all duration-300 ${
                     isHovered ? "scale-110" : "bg-background border-2"
                   }`}
                   style={{
-                    backgroundColor: isHovered ? accentColor : "#0A0A0A",
-                    borderColor: isHovered ? accentColor : `${accentColor}99`,
-                    color: isHovered ? "#0A0A0A" : accentColor,
+                    backgroundColor: isHovered ? nodeAccentColor : "#0A0A0A",
+                    borderColor: isHovered ? nodeAccentColor : `${nodeAccentColor}99`,
+                    color: isHovered ? "#0A0A0A" : nodeAccentColor,
                   }}
                 >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                    viewBox="0 0 24 24"
-                  >
-                    {iconPaths[step.num]}
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    {iconPaths[s.num]}
                   </svg>
-
-                  {/* Pulse on hover */}
                   {isHovered && (
                     <span
-                      className="absolute inset-0 rounded-full border-2 animate-ping opacity-40"
-                      style={{ borderColor: accentColor }}
+                      className="absolute inset-0 border-2 animate-ping opacity-40"
+                      style={{ borderColor: nodeAccentColor }}
                     />
                   )}
                 </div>
 
-                {/* Text label */}
                 <div
                   className={`absolute left-1/2 -translate-x-1/2 text-center whitespace-nowrap transition-all duration-300 ${
                     isTop ? "bottom-full mb-6" : "top-full mt-6"
@@ -421,27 +337,15 @@ export function HowItWorks() {
                 >
                   <p
                     className="text-[10px] font-mono uppercase tracking-widest transition-colors duration-300"
-                    style={{
-                      color: isHovered ? accentColor : "rgba(255,255,255,0.5)",
-                    }}
+                    style={{ color: isHovered ? nodeAccentColor : "rgba(255,255,255,0.5)" }}
                   >
-                    Step {step.num}
+                    Step {s.num}
                   </p>
-                  <p
-                    className={`text-sm md:text-base font-medium mt-1 transition-colors duration-300 ${
-                      isHovered ? "text-white" : "text-white/80"
-                    }`}
-                  >
-                    {step.title}
+                  <p className={`text-sm md:text-base font-medium mt-1 transition-colors duration-300 ${isHovered ? "text-white" : "text-white/80"}`}>
+                    {s.title.replace("_", " ")}
                   </p>
-                  <p
-                    className={`text-xs mt-0.5 transition-all duration-300 ${
-                      isHovered
-                        ? "text-white/60 opacity-100"
-                        : "text-white/40 opacity-80"
-                    }`}
-                  >
-                    {step.desc}
+                  <p className={`text-xs mt-0.5 transition-all duration-300 ${isHovered ? "text-white/60 opacity-100" : "text-white/40 opacity-80"}`}>
+                    {steps[index].desc.split(".")[0]}
                   </p>
                 </div>
               </div>
@@ -455,18 +359,18 @@ export function HowItWorks() {
           className="hidden md:grid lg:hidden grid-cols-2 gap-4 max-w-2xl mx-auto"
         >
           {steps.map((item, index) => {
-            const isAccent = index % 2 === 0;
+            const isAccentTab = index % 2 === 0;
             return (
               <CornerBrackets key={item.num}>
                 <div className="relative p-5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
                   <div
                     className={`absolute -top-3 left-5 px-3 py-1 text-[11px] font-bold text-black ${
-                      isAccent ? "bg-accent" : "bg-accent-bright"
+                      isAccentTab ? "bg-accent" : "bg-accent-bright"
                     }`}
                   >
                     Step {item.num}
                   </div>
-                  <h3 className="font-semibold text-base mt-3 mb-2 text-white">
+                  <h3 className="font-mono font-bold text-base mt-3 mb-2 text-white uppercase tracking-tight">
                     {item.title}
                   </h3>
                   <p className="text-[13px] text-white/60 leading-relaxed">
@@ -478,88 +382,107 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Mobile horizontal snap carousel - IDE gutter style */}
-        <div ref={mobileListRef} className="md:hidden">
-          <div
-            ref={mobileCarouselRef}
-            className="flex gap-0 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {steps.map((item, index) => {
-              const isAccent = index % 2 === 0;
-              const accentColor = isAccent ? "#91D982" : "#0D8BCA";
-              return (
-                <div
-                  key={item.num}
-                  className="flex-shrink-0 snap-start"
-                  style={{ width: "82%" }}
-                >
-                  <div className="flex h-full">
-                    {/* Line-number gutter */}
-                    <div
-                      className="w-10 flex-shrink-0 flex flex-col items-center pt-4 border-r"
-                      style={{ borderColor: `${accentColor}30` }}
-                    >
-                      <span
-                        className="text-xs font-mono font-bold"
-                        style={{ color: accentColor }}
-                      >
-                        {String(item.num).padStart(2, "0")}
-                      </span>
-                      <div
-                        className="w-px flex-1 mt-2 opacity-20"
-                        style={{ backgroundColor: accentColor }}
-                      />
-                    </div>
-                    {/* Content (no box, just left-padded) */}
-                    <div className="flex-1 pl-4 pr-6 py-4">
-                      <div className="flex items-center gap-2.5 mb-2">
-                        <svg
-                          className="w-4.5 h-4.5 flex-shrink-0"
-                          fill="none"
-                          stroke={accentColor}
-                          strokeWidth={1.5}
-                          viewBox="0 0 24 24"
-                          style={{ width: 18, height: 18 }}
-                        >
-                          {iconPaths[item.num]}
-                        </svg>
-                        <h3 className="font-semibold text-base text-white leading-none">
-                          {item.title}
-                        </h3>
-                      </div>
-                      <p className="text-[13px] text-white/50 leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+        {/* Mobile: Holographic Pipeline — centered icon, floating in void */}
+        <div className="md:hidden relative w-full flex flex-col items-center justify-center">
+          {/* Background crosshairs */}
+          <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
+            <div className="w-full h-px bg-[#1f1f1f] absolute" />
+            <div className="h-full w-px bg-[#1f1f1f] absolute" />
+            <div className="w-64 h-64 border border-[#333] rounded-full border-dashed absolute" />
           </div>
 
-          {/* Progress indicator */}
-          <div className="flex items-center justify-center gap-2 mt-3">
-            <span className="text-[11px] font-mono text-white/40">
-              {mobileActiveCard + 1}/{steps.length}
-            </span>
-            <div className="flex gap-1">
-              {steps.map((_, index) => (
+          {/* Main display */}
+          <div className="relative z-10 text-center w-full max-w-sm px-6 py-8">
+            {/* Step indicator */}
+            <div className="font-mono text-[10px] text-white/30 mb-8 tracking-[0.3em] uppercase">
+              Step <span style={{ color: accentColor }}>{String(step.num).padStart(2, "0")}</span> / {String(steps.length).padStart(2, "0")}
+            </div>
+
+            {/* Hero icon floating in void */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={mobileActiveStep}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.25 }}
+                className="h-40 flex items-center justify-center mb-8 relative"
+              >
+                {/* Glow */}
                 <div
+                  className="absolute w-24 h-24 blur-[80px] opacity-20"
+                  style={{ backgroundColor: accentColor }}
+                />
+                <svg
+                  className="w-24 h-24 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                  fill="none"
+                  stroke="white"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  strokeLinecap="square"
+                  strokeLinejoin="miter"
+                >
+                  {iconPaths[step.num]}
+                </svg>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Title + description */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={mobileActiveStep}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-3"
+              >
+                <h3 className="text-3xl font-black font-mono text-white tracking-tighter uppercase">
+                  {step.title}
+                </h3>
+                <div className="w-8 h-1 mx-auto" style={{ backgroundColor: accentColor }} />
+                <p className="text-sm text-white/40 font-mono leading-relaxed max-w-[250px] mx-auto">
+                  {step.desc}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation — tactical controls */}
+          <div className="mt-4 flex items-center gap-8 z-20">
+            <button
+              onClick={goPrev}
+              className="text-white/30 hover:text-accent active:text-accent transition font-mono text-sm p-4"
+            >
+              [ PREV ]
+            </button>
+
+            {/* Progress dots (square) */}
+            <div className="flex gap-1.5">
+              {steps.map((_, index) => (
+                <button
                   key={index}
-                  className={`h-1 rounded-full transition-all duration-300 ${
-                    index === mobileActiveCard
-                      ? "bg-accent w-4"
-                      : index <= mobileActiveCard
-                        ? "bg-accent/40 w-1.5"
-                        : "bg-white/15 w-1.5"
-                  }`}
+                  onClick={() => setMobileActiveStep(index)}
+                  className="w-1.5 h-1.5 transition-all duration-300"
+                  style={{
+                    backgroundColor: index === mobileActiveStep
+                      ? accentColor
+                      : index <= mobileActiveStep
+                        ? `${accentColor}66`
+                        : "#333",
+                  }}
                 />
               ))}
             </div>
+
+            <button
+              onClick={goNext}
+              className="text-white/30 hover:text-accent active:text-accent transition font-mono text-sm p-4"
+            >
+              [ NEXT ]
+            </button>
           </div>
         </div>
-
       </div>
     </section>
   );

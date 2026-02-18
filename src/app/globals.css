@@ -154,7 +154,7 @@
 
   /* Legacy button styles — keep for footer green bg context */
   .btn-primary {
-    @apply bg-white text-black transition-all duration-200 font-medium rounded-lg;
+    @apply bg-white text-black transition-all duration-200 font-medium;
   }
 
   .btn-primary:hover {
@@ -162,7 +162,7 @@
   }
 
   .btn-secondary {
-    @apply border border-border transition-all duration-200 rounded-lg;
+    @apply border border-border transition-all duration-200;
   }
 
   .btn-secondary:hover {

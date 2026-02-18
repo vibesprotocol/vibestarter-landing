@@ -153,7 +153,7 @@ export function FundingShift() {
 
         {/* Animated Flow Visualization */}
         <div ref={flowRef} className="relative max-w-5xl mx-auto">
-          <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8 lg:p-10 overflow-hidden">
+          <div className="relative bg-white/[0.02] border border-white/[0.06] p-6 sm:p-8 lg:p-10 overflow-hidden">
 
             {/* Desktop Flow */}
             <div className="hidden lg:block">
@@ -240,7 +240,7 @@ export function FundingShift() {
                   >
                     <h3 className="font-sans font-bold text-lg text-white mb-1">Backers</h3>
                     <p className="text-xs text-white/50 font-mono mb-3">Contribute ETH</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-lg">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20">
                       <EthIcon className="w-4 h-4 text-accent" />
                       <span className="text-sm font-mono text-accent">ETH</span>
                     </div>
@@ -254,10 +254,10 @@ export function FundingShift() {
                     whileInView={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.6, ease: "backOut" }}
                     viewport={{ once: true }}
-                    className="relative mx-auto w-32 h-32 rounded-2xl bg-gradient-to-br from-accent/20 to-accent-bright/20 border border-white/10 flex items-center justify-center"
+                    className="relative mx-auto w-32 h-32 bg-gradient-to-br from-accent/20 to-accent-bright/20 border border-white/10 flex items-center justify-center"
                   >
                     {/* Animated ring */}
-                    <div className="absolute inset-0 rounded-2xl border-2 border-accent/30 animate-pulse" />
+                    <div className="absolute inset-0 border-2 border-accent/30 animate-pulse" />
                     <div className="text-center">
                       <EscrowIcon className="w-10 h-10 mx-auto text-accent-bright mb-1" />
                       <span className="text-[10px] font-mono text-white/60">ESCROW</span>
@@ -293,7 +293,7 @@ export function FundingShift() {
                   >
                     <h3 className="font-sans font-bold text-lg text-white mb-1">Founder</h3>
                     <p className="text-xs text-white/50 font-mono mb-3">Receives tranches</p>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent-bright/10 border border-accent-bright/20 rounded-lg">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent-bright/10 border border-accent-bright/20">
                       <span className="text-xs font-mono text-accent-bright">10%</span>
                       <span className="text-[10px] text-white/40">+</span>
                       <span className="text-xs font-mono text-accent-bright">15%</span>
@@ -325,7 +325,7 @@ export function FundingShift() {
                 </div>
 
                 {/* Escrow */}
-                <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-accent/20 to-accent-bright/20 border border-white/10 flex items-center justify-center">
+                <div className="w-24 h-24 bg-gradient-to-br from-accent/20 to-accent-bright/20 border border-white/10 flex items-center justify-center">
                   <div className="text-center">
                     <EscrowIcon className="w-8 h-8 mx-auto text-accent-bright" />
                     <span className="text-[9px] font-mono text-white/60">ESCROW</span>
@@ -362,11 +362,11 @@ export function FundingShift() {
             viewport={{ once: true }}
             className="mt-6 grid grid-cols-2 gap-4 max-w-md mx-auto"
           >
-            <div className="text-center p-3 rounded-xl border border-accent/20 bg-accent/[0.05]">
+            <div className="text-center p-3 border border-accent/20 bg-accent/[0.05]">
               <p className="text-xs font-mono text-accent mb-0.5">For Founders</p>
               <p className="text-[11px] text-white/50">Launch & get funded in days</p>
             </div>
-            <div className="text-center p-3 rounded-xl border border-accent-bright/20 bg-accent-bright/[0.05]">
+            <div className="text-center p-3 border border-accent-bright/20 bg-accent-bright/[0.05]">
               <p className="text-xs font-mono text-accent-bright mb-0.5">For Backers</p>
               <p className="text-[11px] text-white/50">Discover & support early</p>
             </div>

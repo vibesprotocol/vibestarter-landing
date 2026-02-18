@@ -30,7 +30,7 @@ export function FounderCard({
   }[riskLevel];
 
   return (
-    <div className="code-block rounded-xl p-4 sm:p-6">
+    <div className="code-block p-4 sm:p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4 sm:mb-6">
         <div className="flex items-center gap-3">
@@ -56,7 +56,7 @@ export function FounderCard({
 
       {/* Scores */}
       <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
-        <div className="bg-white/[0.03] rounded-lg p-3 sm:p-4">
+        <div className="bg-white/[0.03] p-3 sm:p-4">
           <div className="text-[10px] sm:text-[11px] text-muted uppercase tracking-wider mb-1">
             Ethos Score
           </div>
@@ -65,7 +65,7 @@ export function FounderCard({
             <span className="text-muted text-xs sm:text-sm">/100</span>
           </div>
         </div>
-        <div className="bg-white/[0.03] rounded-lg p-3 sm:p-4">
+        <div className="bg-white/[0.03] p-3 sm:p-4">
           <div className="text-[10px] sm:text-[11px] text-muted uppercase tracking-wider mb-1">
             Risk Level
           </div>

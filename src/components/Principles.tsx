@@ -13,7 +13,7 @@ export function Features() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-0">
             {/* Left side - Text content */}
             <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
-              <span className="section-label mb-4">The Problem</span>
+              <span className="section-label mb-4">&gt;_ The Problem</span>
               <TextScramble
                 text="You shipped an app last weekend. Now what?"
                 className="section-heading mb-4"
