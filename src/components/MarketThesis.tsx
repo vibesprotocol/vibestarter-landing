@@ -151,7 +151,7 @@ export function MarketThesis() {
         {/* Section header */}
         <div ref={headerRef} className="text-center mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 mb-4">
-            <span className="section-label">&gt;_ Market Thesis</span>
+            <span className="section-label">// Market Thesis</span>
             <span className="px-2 py-0.5 text-[10px] font-mono text-accent/80 bg-accent/10 border border-accent/20">
               The Agent Era
             </span>

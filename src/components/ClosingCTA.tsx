@@ -9,7 +9,7 @@ export function ClosingCTA() {
     <section className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto">
-          <span className="section-label mb-4 block">&gt;_ Launch</span>
+          <span className="section-label mb-4 block">// Launch</span>
           <TextScramble
             text="Ready to raise?"
             className="section-heading mb-4"
