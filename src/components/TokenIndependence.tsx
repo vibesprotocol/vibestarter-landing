@@ -113,7 +113,7 @@ export function TokenIndependence() {
         {/* Section header */}
         <div ref={headerRef} className="text-center mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">Vibetokens</span>
+            <span className="section-label">&gt;_ Vibetokens</span>
           </div>
 
           <TextScramble

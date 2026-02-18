@@ -19,14 +19,14 @@ export function Standard() {
             A spec-level definition of what certified means.
           </p>
 
-          <div className="bg-white/[0.02] border border-border rounded-xl p-6 sm:p-8 mb-8">
+          <div className="bg-white/[0.02] border border-border p-6 sm:p-8 mb-8">
             <p className="text-muted text-sm uppercase tracking-wider mb-6 font-mono">
               VibesCertified launches include:
             </p>
             <div className="space-y-4">
               {standardItems.map((item, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-md bg-accent/20 flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 bg-accent/20 flex items-center justify-center shrink-0">
                     <Check size={14} className="text-accent" />
                   </div>
                   <span className="text-white/90 text-[15px] sm:text-base">{item}</span>
