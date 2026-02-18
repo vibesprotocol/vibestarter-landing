@@ -451,7 +451,7 @@ export function OriginCapsuleSection() {
         {/* Section header */}
         <div className="text-center mb-8 md:mb-12">
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">&gt;_ Provenance</span>
+            <span className="section-label">// Provenance</span>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 text-accent text-xs font-medium">
               <Box className="w-3.5 h-3.5" />
               On-Chain

@@ -254,7 +254,7 @@ export function HowItWorks() {
           className="text-center mb-16 md:mb-24"
         >
           <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">&gt;_ Process</span>
+            <span className="section-label">// Process</span>
             <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent">
               Time-Released
             </span>
@@ -382,50 +382,67 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Mobile: Holographic Pipeline — centered icon, floating in void */}
-        <div className="md:hidden relative w-full flex flex-col items-center justify-center">
-          {/* Background crosshairs */}
-          <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
-            <div className="w-full h-px bg-[#1f1f1f] absolute" />
-            <div className="h-full w-px bg-[#1f1f1f] absolute" />
-            <div className="w-64 h-64 border border-[#333] rounded-full border-dashed absolute" />
-          </div>
-
-          {/* Main display */}
+        {/* Mobile: Holographic Pipeline — swipeable, centered icon, floating in void */}
+        <div
+          className="md:hidden relative w-full flex flex-col items-center justify-center select-none touch-pan-y"
+          onTouchStart={(e) => {
+            const touch = e.touches[0];
+            (e.currentTarget as HTMLElement).dataset.touchStartX = String(touch.clientX);
+          }}
+          onTouchEnd={(e) => {
+            const startX = Number((e.currentTarget as HTMLElement).dataset.touchStartX || 0);
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 40) {
+              if (diff > 0) goNext();
+              else goPrev();
+            }
+          }}
+        >
+          {/* Main display — icon area is the reference for crosshairs */}
           <div className="relative z-10 text-center w-full max-w-sm px-6 py-8">
             {/* Step indicator */}
             <div className="font-mono text-[10px] text-white/30 mb-8 tracking-[0.3em] uppercase">
               Step <span style={{ color: accentColor }}>{String(step.num).padStart(2, "0")}</span> / {String(steps.length).padStart(2, "0")}
             </div>
 
-            {/* Hero icon floating in void */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={mobileActiveStep}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.25 }}
-                className="h-40 flex items-center justify-center mb-8 relative"
-              >
-                {/* Glow */}
-                <div
-                  className="absolute w-24 h-24 blur-[80px] opacity-20"
-                  style={{ backgroundColor: accentColor }}
-                />
-                <svg
-                  className="w-24 h-24 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
-                  fill="none"
-                  stroke="white"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  strokeLinecap="square"
-                  strokeLinejoin="miter"
+            {/* Hero icon floating in void with crosshairs */}
+            <div className="relative h-40 flex items-center justify-center mb-8">
+              {/* Crosshairs centered on the icon area */}
+              <div className="absolute inset-0 pointer-events-none opacity-20">
+                <div className="absolute top-1/2 left-0 w-full h-px bg-[#1f1f1f]" />
+                <div className="absolute top-0 left-1/2 h-full w-px bg-[#1f1f1f]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 border border-[#333] rounded-full border-dashed" />
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={mobileActiveStep}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.25 }}
+                  className="relative flex items-center justify-center"
                 >
-                  {iconPaths[step.num]}
-                </svg>
-              </motion.div>
-            </AnimatePresence>
+                  {/* Glow */}
+                  <div
+                    className="absolute w-24 h-24 blur-[80px] opacity-20"
+                    style={{ backgroundColor: accentColor }}
+                  />
+                  <svg
+                    className="w-24 h-24 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                    fill="none"
+                    stroke="white"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    strokeLinecap="square"
+                    strokeLinejoin="miter"
+                  >
+                    {iconPaths[step.num]}
+                  </svg>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
             {/* Title + description */}
             <AnimatePresence mode="wait">
