@@ -32,6 +32,8 @@ export function TextScramble({
             {c.state === "hidden" ? text[i] : c.char}
           </span>
         ))}
+        {/* Zero-width space prevents last character clipping from negative letter-spacing */}
+        <span aria-hidden="true">{"\u200B"}</span>
       </Tag>
     </div>
   );
