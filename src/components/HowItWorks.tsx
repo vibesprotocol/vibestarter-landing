@@ -331,20 +331,20 @@ export function HowItWorks() {
                 </div>
 
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 text-center whitespace-nowrap transition-all duration-300 ${
+                  className={`absolute left-1/2 -translate-x-1/2 text-center w-[130px] transition-all duration-300 ${
                     isTop ? "bottom-full mb-6" : "top-full mt-6"
                   }`}
                 >
                   <p
-                    className="text-[10px] font-mono uppercase tracking-widest transition-colors duration-300"
+                    className="text-[10px] font-mono uppercase tracking-widest whitespace-nowrap transition-colors duration-300"
                     style={{ color: isHovered ? nodeAccentColor : "rgba(255,255,255,0.5)" }}
                   >
                     Step {s.num}
                   </p>
-                  <p className={`text-sm md:text-base font-medium mt-1 transition-colors duration-300 ${isHovered ? "text-white" : "text-white/80"}`}>
+                  <p className={`text-sm md:text-base font-medium mt-1 whitespace-nowrap transition-colors duration-300 ${isHovered ? "text-white" : "text-white/80"}`}>
                     {s.title.replace("_", " ")}
                   </p>
-                  <p className={`text-xs mt-0.5 transition-all duration-300 ${isHovered ? "text-white/60 opacity-100" : "text-white/40 opacity-80"}`}>
+                  <p className={`text-xs mt-0.5 leading-snug transition-all duration-300 ${isHovered ? "text-white/60 opacity-100" : "text-white/40 opacity-80"}`}>
                     {steps[index].desc.split(".")[0]}
                   </p>
                 </div>

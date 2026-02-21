@@ -85,7 +85,6 @@
   .section-heading {
     @apply font-display text-3xl md:text-4xl font-bold tracking-tight uppercase;
     letter-spacing: -0.04em;
-    overflow: visible;
   }
 
   /* Section indicator */
