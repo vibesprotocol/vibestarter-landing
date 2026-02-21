@@ -228,24 +228,26 @@ export function HowItWorks() {
     <section
       ref={sectionRef}
       id="how-vibestarter-works"
-      className="relative w-full overflow-hidden py-12 sm:py-16 lg:py-20"
+      className="relative w-full py-12 sm:py-16 lg:py-20"
     >
-      {/* Ambient glow with parallax */}
-      <motion.div
-        className="absolute top-1/3 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px]"
-        style={{ y: 0 }}
-        initial={{ y: 0 }}
-        whileInView={{ y: -20 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: false }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accent-bright/5 rounded-full blur-[120px]"
-        initial={{ y: 0 }}
-        whileInView={{ y: 20 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: false }}
-      />
+      {/* Ambient glow with parallax — isolated overflow to prevent scrollbar */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/3 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px]"
+          style={{ y: 0 }}
+          initial={{ y: 0 }}
+          whileInView={{ y: -20 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: false }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accent-bright/5 rounded-full blur-[120px]"
+          initial={{ y: 0 }}
+          whileInView={{ y: 20 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: false }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -267,28 +269,32 @@ export function HowItWorks() {
 
         {/* Desktop: Main wave visualization */}
         <div ref={waveContainerRef} className="hidden lg:block relative h-[380px]">
-          <svg
-            className="absolute inset-0 w-full h-full overflow-visible"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            fill="none"
-            style={{ overflow: 'visible' }}
-          >
-            <defs>
-              <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#91D982" stopOpacity="0.6" />
-                <stop offset="50%" stopColor="#0D8BCA" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#91D982" stopOpacity="0.6" />
-              </linearGradient>
-            </defs>
-            <path d={generateWavePath()} stroke="url(#waveGradient)" strokeWidth="0.4" strokeLinecap="round" strokeOpacity="0.3" />
-            <path d={generateWavePath()} stroke="url(#waveGradient)" strokeWidth="0.6" strokeLinecap="round" strokeDasharray="4 2" style={{ animation: "pipeline-flow 1.5s linear infinite" }} />
-          </svg>
+          {/* Wave line and animated dots — clipped to prevent horizontal scrollbar */}
+          <div className="absolute inset-0 overflow-hidden">
+            <svg
+              className="absolute inset-0 w-full h-full overflow-visible"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              fill="none"
+              style={{ overflow: 'visible' }}
+            >
+              <defs>
+                <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#91D982" stopOpacity="0.6" />
+                  <stop offset="50%" stopColor="#0D8BCA" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#91D982" stopOpacity="0.6" />
+                </linearGradient>
+              </defs>
+              <path d={generateWavePath()} stroke="url(#waveGradient)" strokeWidth="0.4" strokeLinecap="round" strokeOpacity="0.3" />
+              <path d={generateWavePath()} stroke="url(#waveGradient)" strokeWidth="0.6" strokeLinecap="round" strokeDasharray="4 2" style={{ animation: "pipeline-flow 1.5s linear infinite" }} />
+            </svg>
 
-          <AnimatedDot delay={0} color="#91D982" />
-          <AnimatedDot delay={4} color="#0D8BCA" />
-          <AnimatedDot delay={8} color="#91D982" />
+            <AnimatedDot delay={0} color="#91D982" />
+            <AnimatedDot delay={4} color="#0D8BCA" />
+            <AnimatedDot delay={8} color="#91D982" />
+          </div>
 
+          {/* Node icons and labels — NOT clipped so descriptions can extend */}
           {steps.map((s, index) => {
             const pos = nodePositions[index];
             const isTop = index % 2 === 0;
@@ -343,6 +349,9 @@ export function HowItWorks() {
                   </p>
                   <p className={`text-sm md:text-base font-medium mt-1 transition-colors duration-300 ${isHovered ? "text-white" : "text-white/80"}`}>
                     {s.title.replace("_", " ")}
+                  </p>
+                  <p className={`text-xs mt-0.5 transition-all duration-300 ${isHovered ? "text-white/60 opacity-100" : "text-white/40 opacity-80"}`}>
+                    {steps[index].desc.split(".")[0]}
                   </p>
                 </div>
               </div>
