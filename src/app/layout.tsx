@@ -64,6 +64,9 @@ export const metadata: Metadata = {
       "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
     images: ["/og-image.jpg"],
   },
+  other: {
+    'base:app_id': '699cdd4c6b5b98f55322fb20',
+  },
 };
 
 export default function RootLayout({
