@@ -47,7 +47,7 @@ export function Navigation() {
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="inline-flex items-center gap-1 sm:gap-1.5 font-display text-lg sm:text-xl tracking-tight">
+        <Link href="/" className="inline-flex items-center gap-[0.14em] font-display text-lg sm:text-xl tracking-tight">
           <svg className="h-[0.7em] w-auto" viewBox="2 6 28 20" fill="none">
             <path
               d="M4 8L14 16L4 24"

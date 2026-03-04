@@ -26,7 +26,7 @@ export function Footer() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         {/* Large logo block */}
         <div className="mb-12 sm:mb-16">
-          <Link href="/" className="inline-flex items-center gap-2 sm:gap-3 font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+          <Link href="/" className="inline-flex items-center gap-[0.14em] font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight">
             <svg className="h-[0.7em]" viewBox="2 6 28 20" fill="none">
               <path
                 d="M4 8L14 16L4 24"

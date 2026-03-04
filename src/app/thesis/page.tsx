@@ -6,7 +6,7 @@ export default function ThesisPage() {
       {/* Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 nav-blur bg-[#0A0A0A]/90 border-b border-border">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
-          <Link href="/" className="flex items-center gap-0.5 sm:gap-1">
+          <Link href="/" className="flex items-center gap-[0.14em]">
             <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 32 32" fill="none">
               {/* Terminal prompt ">" */}
               <path
