@@ -13,15 +13,15 @@ export default function ThesisPage() {
                 d="M4 8L14 16L4 24"
                 stroke="#91D982"
                 strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                strokeLinecap="square"
+                strokeLinejoin="miter"
               />
               {/* Cursor "_" */}
               <path
                 d="M16 24H28"
                 stroke="#91D982"
                 strokeWidth="3"
-                strokeLinecap="round"
+                strokeLinecap="square"
               />
             </svg>
             <span className="font-semibold text-sm sm:text-[15px] tracking-tight">

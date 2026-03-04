@@ -12,8 +12,8 @@ The Vibestarter logo is a two-part lockup: a **terminal icon** (SVG) and the **w
 
 A stylized terminal prompt consisting of two strokes:
 
-- `>` chevron: `M4 8L14 16L4 24` (strokeWidth 3, round caps/joins)
-- `_` cursor: `M16 24H28` (strokeWidth 3, round cap)
+- `>` chevron: `M4 8L14 16L4 24` (strokeWidth 3, square caps, miter joins)
+- `_` cursor: `M16 24H28` (strokeWidth 3, square cap)
 
 ViewBox: `0 0 32 32`. Always rendered as an inline SVG, never as a raster image.
 
@@ -338,9 +338,9 @@ All wordmark logos use nested `<svg>` for the icon to preserve the cropped viewB
   <!-- Icon: nested SVG with cropped viewBox, sized to 0.7em -->
   <svg x="0" y="14.4" width="35.3" height="25.2" viewBox="2 6 28 20">
     <path d="M4 8L14 16L4 24" stroke="#91D982" stroke-width="3"
-          stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
     <path d="M16 24H28" stroke="#91D982" stroke-width="3"
-          stroke-linecap="round" fill="none"/>
+          stroke-linecap="square" fill="none"/>
   </svg>
   <!-- Wordmark: 5px gap after icon, JetBrains Mono -->
   <text x="40.3" y="40" font-family="'JetBrains Mono', monospace"

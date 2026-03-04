@@ -32,14 +32,14 @@ export function Footer() {
                 d="M4 8L14 16L4 24"
                 stroke="black"
                 strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                strokeLinecap="square"
+                strokeLinejoin="miter"
               />
               <path
                 d="M16 24H28"
                 stroke="black"
                 strokeWidth="3"
-                strokeLinecap="round"
+                strokeLinecap="square"
               />
             </svg>
             <span>Vibestarter</span>
