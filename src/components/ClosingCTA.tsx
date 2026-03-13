@@ -28,7 +28,7 @@ export function ClosingCTA() {
               href="https://testnet.vibestarter.xyz"
               className="btn-mechanical px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
             >
-              Launch Your Raise
+              Explore Testnet
             </Link>
           </motion.div>
         </div>

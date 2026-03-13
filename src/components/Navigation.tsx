@@ -118,7 +118,7 @@ export function Navigation() {
                 href="https://testnet.vibestarter.xyz"
                 className="btn-mechanical block text-center px-5 py-3 text-[15px]"
               >
-                Launch Your Raise
+                Explore Testnet
               </Link>
             </div>
           </div>
