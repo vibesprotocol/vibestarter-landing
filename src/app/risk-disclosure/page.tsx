@@ -204,8 +204,7 @@ export default function RiskDisclosurePage() {
               <p className="text-muted leading-relaxed">
                 If you stake $VIBES, be aware that no staking rewards accrue until the Luxembourg operating entity is formed.
                 Rewards activate forward-only at that time; rewards from raises that finalised during the pre-entity window
-                are not retroactively distributed. Staking involves a request-based 7-day unstake cooldown. See{" "}
-                <a href="https://github.com/vibesprotocol/vibes-protocol/blob/staging/docs/tokenomics.md" className="text-accent hover:underline">docs/tokenomics.md</a>.
+                are not retroactively distributed. Staking involves a request-based 7-day unstake cooldown.
               </p>
             </section>
 
