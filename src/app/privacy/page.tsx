@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Privacy Policy | Vibestarter",
+  description: "Privacy Policy for the Vibestarter platform",
+};
+
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-background">
@@ -8,7 +13,6 @@ export default function PrivacyPage() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
           <Link href="/" className="flex items-center gap-[0.14em]">
             <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 32 32" fill="none">
-              {/* Terminal prompt ">" */}
               <path
                 d="M4 8L14 16L4 24"
                 stroke="#91D982"
@@ -16,7 +20,6 @@ export default function PrivacyPage() {
                 strokeLinecap="square"
                 strokeLinejoin="miter"
               />
-              {/* Cursor "_" */}
               <path
                 d="M16 24H28"
                 stroke="#91D982"
@@ -34,209 +37,182 @@ export default function PrivacyPage() {
       {/* Content */}
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-semibold mb-8">Privacy Policy</h1>
-          <p className="text-muted mb-6">Last updated: January 2026</p>
+          <h1 className="text-3xl sm:text-4xl font-semibold mb-4">Privacy Policy</h1>
+          <p className="text-muted mb-8">Version 1 &mdash; Last updated: April 2026</p>
 
           <div className="prose prose-invert prose-gray max-w-none space-y-8">
             <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">1. Introduction</h2>
+              <h2 className="text-xl font-semibold mb-4 text-white">1. Data Controller</h2>
               <p className="text-muted leading-relaxed">
-                Vibestarter (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy.
-                This Privacy Policy explains how we collect, use, and safeguard information when you use
-                our crowdfunding platform for vibecoded applications on the Base blockchain. This includes
-                launching raises, contributing to projects, creating Origin Capsules, and using related features.
+                At the time of this Policy, Vibestarter does not yet have an incorporated operating entity. The data controller
+                is an individual founder resident in Luxembourg, acting as promoter for a Luxembourg operating entity to be
+                formed. Upon formation, the controller role will pass to that entity; you will be notified of any material
+                change to the identity of the controller.
               </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">2. Information We Collect</h2>
-
-              <h3 className="text-lg font-medium mb-3 text-white/90">2.1 Wallet Information</h3>
-              <p className="text-muted leading-relaxed mb-4">
-                When you connect your wallet, we collect your public wallet address. This is necessary to
-                process transactions, track contributions, manage token allocations, and release funds.
-                We do not have access to your private keys or seed phrases.
-              </p>
-
-              <h3 className="text-lg font-medium mb-3 text-white/90">2.2 Social Account Information</h3>
-              <p className="text-muted leading-relaxed mb-4">
-                Founders may link social accounts (such as X/Twitter or GitHub) for identity verification
-                and reputation display. We collect the public information associated with these linked accounts,
-                including usernames and profile information.
-              </p>
-
-              <h3 className="text-lg font-medium mb-3 text-white/90">2.3 On-Chain Data</h3>
-              <p className="text-muted leading-relaxed mb-4">
-                Information recorded on the Base blockchain is publicly visible and permanent. This includes:
-              </p>
-              <ul className="list-disc list-inside text-muted space-y-2 mb-4">
-                <li>Contribution amounts and wallet addresses</li>
-                <li>Token allocations and claims</li>
-                <li>Origin Capsule data (AI transcript hash, agent tool, model provider, founder identity, timestamps)</li>
-                <li>Raise parameters and tranche releases</li>
-                <li>Challenge submissions and resolutions</li>
-              </ul>
-
-              <h3 className="text-lg font-medium mb-3 text-white/90">2.4 Project Information</h3>
-              <p className="text-muted leading-relaxed mb-4">
-                Founders provide project details including: project name and description, roadmap and milestones,
-                token configuration, funding goals, and AI transcripts for Origin Capsule creation.
-              </p>
-
-              <h3 className="text-lg font-medium mb-3 text-white/90">2.5 Usage Information</h3>
-              <p className="text-muted leading-relaxed">
-                We may collect basic usage analytics to improve the Service, including pages visited,
-                features used, and general interaction patterns. This data is anonymized and aggregated.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">3. How We Use Information</h2>
-              <p className="text-muted leading-relaxed mb-4">
-                We use collected information to:
-              </p>
-              <ul className="list-disc list-inside text-muted space-y-2">
-                <li>Provide and maintain the crowdfunding platform</li>
-                <li>Process contributions and manage escrow funds</li>
-                <li>Calculate and distribute token allocations</li>
-                <li>Release tranches according to the time-based schedule</li>
-                <li>Record and display Origin Capsules on-chain</li>
-                <li>Process challenge submissions and resolutions</li>
-                <li>Display founder reputation scores (via Ethos Network integration)</li>
-                <li>Process refunds when applicable</li>
-                <li>Improve and optimize the user experience</li>
-                <li>Respond to user inquiries and support requests</li>
-                <li>Enforce our Terms of Service</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">4. Blockchain Data</h2>
-              <p className="text-muted leading-relaxed">
-                <strong className="text-white">Important:</strong> Data recorded on the Base blockchain is permanent,
-                public, and immutable. This includes contributions, token distributions, Origin Capsules, and all
-                transaction history. Once recorded, this information cannot be deleted, modified, or made private.
-                Please consider this carefully before submitting any information or making any transactions.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">5. Information Sharing</h2>
-              <p className="text-muted leading-relaxed mb-4">
-                We do not sell your personal information. We may share information in the following circumstances:
-              </p>
-              <ul className="list-disc list-inside text-muted space-y-2">
-                <li>On-chain data is inherently public and visible to anyone on the blockchain</li>
-                <li>Project information (name, description, roadmap) is displayed publicly on the platform</li>
-                <li>Founder social links and reputation scores are displayed on project pages</li>
-                <li>With service providers who assist in operating the Service (e.g., hosting, analytics)</li>
-                <li>With Ethos Network for reputation score integration</li>
-                <li>When required by law or to protect our legal rights</li>
-                <li>In connection with a merger, acquisition, or sale of assets</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">6. Third-Party Services</h2>
-              <p className="text-muted leading-relaxed mb-4">
-                The Service integrates with third-party services that have their own privacy policies:
-              </p>
-              <ul className="list-disc list-inside text-muted space-y-2">
-                <li>Wallet providers (MetaMask, Coinbase Wallet, Rainbow, etc.)</li>
-                <li>Base blockchain network</li>
-                <li>Aerodrome (decentralized exchange for liquidity pools)</li>
-                <li>Ethos Network (reputation scoring)</li>
-                <li>Social platforms for account linking (X/Twitter, GitHub)</li>
-              </ul>
               <p className="text-muted leading-relaxed mt-4">
-                We encourage you to review the privacy policies of these services.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">7. Data Security</h2>
-              <p className="text-muted leading-relaxed">
-                We implement reasonable security measures to protect information under our control.
-                However, no method of transmission over the Internet or electronic storage is 100% secure.
-                Your wallet security is your responsibility. We strongly recommend using hardware wallets
-                and following security best practices for cryptocurrency management.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">8. Cookies</h2>
-              <p className="text-muted leading-relaxed">
-                We may use essential cookies to maintain session state and wallet connections.
-                We do not use cookies for advertising or cross-site tracking purposes.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">9. Your Rights</h2>
-              <p className="text-muted leading-relaxed mb-4">
-                Depending on your jurisdiction, you may have rights regarding your personal data, including
-                the right to access, correct, or delete certain information.
-              </p>
-              <p className="text-muted leading-relaxed">
-                <strong className="text-white">Important limitation:</strong> On-chain data cannot be modified
-                or deleted due to the immutable nature of blockchain technology. This includes all transactions,
-                contributions, token distributions, and Origin Capsule data. Off-chain data (such as project
-                descriptions stored in our database) may be subject to modification or deletion requests
-                where technically feasible and legally required.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">10. Data Retention</h2>
-              <p className="text-muted leading-relaxed">
-                On-chain data is retained permanently on the Base blockchain. Off-chain data (such as
-                analytics and server logs) is retained for as long as necessary to provide the Service
-                and comply with legal obligations. Project information remains available as long as the
-                project exists on the platform.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">11. Children&apos;s Privacy</h2>
-              <p className="text-muted leading-relaxed">
-                The Service is not intended for users under 18 years of age. We do not knowingly collect
-                information from children. If we learn that we have collected information from a child
-                under 18, we will take steps to delete that information.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">12. International Users</h2>
-              <p className="text-muted leading-relaxed">
-                The Service operates on the Base blockchain and may be accessed globally. By using the
-                Service, you consent to the transfer and processing of your information as described
-                in this Privacy Policy. On-chain data is distributed across the blockchain network
-                and is not stored in any single jurisdiction.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">13. Changes to This Policy</h2>
-              <p className="text-muted leading-relaxed">
-                We may update this Privacy Policy from time to time. Changes will be posted on this page
-                with an updated revision date. Material changes will be announced through our official
-                channels. Your continued use of the Service after changes constitutes acceptance of the
-                updated Privacy Policy.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">14. Contact</h2>
-              <p className="text-muted leading-relaxed">
-                For questions about this Privacy Policy, please reach out via{" "}
+                For all data-subject-rights requests and privacy questions, contact:{" "}
                 <a
-                  href="https://x.com/vibestarterxyz"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="mailto:privacy@vibestarter.xyz"
                   className="text-accent hover:underline"
                 >
-                  X (Twitter)
+                  privacy@vibestarter.xyz
                 </a>.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">2. What Data We Process</h2>
+              <p className="text-muted leading-relaxed mb-4">
+                We process the following categories of personal data:
+              </p>
+              <ul className="list-disc list-inside text-muted space-y-2">
+                <li><strong className="text-white">Wallet addresses</strong> (primary identifier) and the on-chain activity associated with them on the Base network.</li>
+                <li><strong className="text-white">X (Twitter) handle, numeric ID, and signature-proof of ownership</strong> where you link an X account.</li>
+                <li><strong className="text-white">GitHub username, commit count, organisation memberships, and repository URL</strong> for founder applications.</li>
+                <li><strong className="text-white">Ethos reputation score</strong> cached from the public Ethos API.</li>
+                <li><strong className="text-white">Farcaster FID</strong> where you link a Farcaster account.</li>
+                <li><strong className="text-white">Contribution amounts, transaction hashes, and tokens allocated</strong> for raises you participate in.</li>
+                <li><strong className="text-white">Founder application content:</strong> project name, tagline, description, website URL, repository URL, funding range, AI tool used.</li>
+                <li><strong className="text-white">Legal acceptance records:</strong> wallet, agreement ID + version + hash, wallet signature, hashed IP, user-agent string.</li>
+                <li><strong className="text-white">Sanctions screening audit log:</strong> wallet, screening outcome (clear / sanctioned / skipped / error), source, oracle address, chain ID.</li>
+                <li><strong className="text-white">Starter Card data:</strong> composite score, level (1&ndash;5), referral code, quest completion state.</li>
+                <li><strong className="text-white">Session and authentication data</strong> via Privy (our authentication provider).</li>
+                <li><strong className="text-white">Request metadata</strong> captured by Vercel edge infrastructure (including IP address, user agent) for security and abuse prevention. IPs are not linked to user profiles in our database; where we store them for legal-acceptance audit purposes, they are hashed.</li>
+              </ul>
+              <p className="text-muted leading-relaxed mt-4">
+                <strong className="text-white">We do not collect:</strong> email addresses (except for the privacy contact above, which receives mail but does not feed into platform accounts), legal names, dates of birth, government ID documents, home addresses, or phone numbers.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">3. Lawful Bases</h2>
+              <ul className="list-disc list-inside text-muted space-y-2">
+                <li><strong className="text-white">Performance of a contract (GDPR Art. 6(1)(b)):</strong> wallet-level platform operations, legal-acceptance signatures, founder application processing.</li>
+                <li><strong className="text-white">Legitimate interests (Art. 6(1)(f)):</strong> security, abuse and Sybil prevention, sanctions screening, audit logging, reputation enrichment via Ethos.</li>
+                <li><strong className="text-white">Legal obligation (Art. 6(1)(c)):</strong> sanctions screening where required by applicable law; record-keeping for legal-acceptance events.</li>
+                <li><strong className="text-white">Consent (Art. 6(1)(a)):</strong> where we rely on your OAuth consent to fetch X or GitHub data.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">4. Sub-processors</h2>
+              <p className="text-muted leading-relaxed mb-4">
+                We use the following sub-processors to deliver the platform:
+              </p>
+              <ul className="list-disc list-inside text-muted space-y-2">
+                <li><strong className="text-white">Vercel, Inc.</strong> &mdash; hosting, edge runtime, CDN (United States).</li>
+                <li><strong className="text-white">Supabase, Inc.</strong> &mdash; managed PostgreSQL database (region may vary).</li>
+                <li><strong className="text-white">Privy</strong> &mdash; wallet authentication and session management.</li>
+                <li><strong className="text-white">Ethos</strong> &mdash; reputation scoring API (public data).</li>
+                <li><strong className="text-white">X (Twitter)</strong> &mdash; OAuth identity provider.</li>
+                <li><strong className="text-white">GitHub, Inc.</strong> &mdash; OAuth identity provider (founder applications).</li>
+                <li><strong className="text-white">Chainalysis</strong> &mdash; on-chain sanctions oracle (read-only contract call; no personal data transmitted off-chain).</li>
+                <li><strong className="text-white">DexScreener</strong> &mdash; on-chain price and liquidity data (no personal data transmitted).</li>
+                <li><strong className="text-white">RPC providers</strong> &mdash; PublicNode, Tenderly, or equivalent for Base RPC calls.</li>
+                <li><strong className="text-white">Base network</strong> &mdash; all on-chain activity is public and processed by the Base L2 and its node operators.</li>
+              </ul>
+              <p className="text-muted leading-relaxed mt-4">
+                Where sub-processors are located outside the EU, transfers rely on the applicable vendor&apos;s Standard
+                Contractual Clauses, adequacy decisions, or other appropriate safeguards under GDPR Chapter V.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">5. On-chain Data and the Right to Erasure</h2>
+              <p className="text-muted leading-relaxed">
+                Data written to the Base blockchain &mdash; wallet addresses, transaction hashes, token balances, contribution amounts
+                &mdash; is <strong className="text-white">immutable and cannot be erased</strong> by the operator or any other
+                party. This is a property of public blockchains. Where you exercise your right to erasure, we will erase
+                identifiable off-chain data (such as X / GitHub handles linked to your wallet in our database) to the extent we
+                can do so without breaking audit or legal obligations. The on-chain record will remain.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">6. Retention</h2>
+              <ul className="list-disc list-inside text-muted space-y-2">
+                <li>Legal acceptance records, sanctions screening logs, and moderation audit logs: 5 years (AML / audit baseline).</li>
+                <li>Founder application content: retained while the applicant&apos;s status is active; 1 year after rejection or withdrawal, unless required longer for audit purposes.</li>
+                <li>Enrichment caches (Ethos, GitHub, X): refreshed periodically; older snapshots retained up to 12 months.</li>
+                <li>Session data: durations set by Privy; see their policy.</li>
+                <li>On-chain data: not applicable (immutable).</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">7. Your Rights (GDPR)</h2>
+              <p className="text-muted leading-relaxed mb-4">
+                Where GDPR applies to processing of your personal data, you have the right to:
+              </p>
+              <ul className="list-disc list-inside text-muted space-y-2">
+                <li>Request access to your data (Art. 15).</li>
+                <li>Request rectification of inaccurate data (Art. 16).</li>
+                <li>Request erasure (Art. 17) &mdash; subject to the blockchain-immutability limitation described in &sect;5.</li>
+                <li>Restrict processing (Art. 18).</li>
+                <li>Data portability (Art. 20).</li>
+                <li>Object to processing based on legitimate interests (Art. 21).</li>
+                <li>Withdraw consent, where processing is based on consent, at any time.</li>
+                <li>Lodge a complaint with the Luxembourg data-protection authority{" "}
+                  <a href="https://cnpd.public.lu" target="_blank" rel="noopener noreferrer"
+                     className="text-accent hover:underline">
+                    (CNPD)
+                  </a>{" "}
+                  or the supervisory authority in your member state.
+                </li>
+              </ul>
+              <p className="text-muted leading-relaxed mt-4">
+                To exercise these rights, email{" "}
+                <a href="mailto:privacy@vibestarter.xyz" className="text-accent hover:underline">
+                  privacy@vibestarter.xyz
+                </a>
+                . We respond within 30 days.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">8. Cookies and Tracking</h2>
+              <p className="text-muted leading-relaxed">
+                The platform uses only strictly-necessary storage (session cookies for authentication, CSRF tokens, UI
+                preferences). We do not set marketing or analytics cookies, and we do not deploy third-party trackers (no
+                Google Analytics, no Meta Pixel, no advertising-network trackers). No cookie-consent banner is required because
+                no non-essential cookies are set.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">9. Security</h2>
+              <p className="text-muted leading-relaxed">
+                We take commercially reasonable measures to protect personal data, including transport-layer encryption (TLS),
+                access controls on the database, minimisation of the data we collect, hashing of IPs, signed legal acceptances
+                as evidence of authenticity, and separation of platform / operator / protocol-admin wallet roles. No system is
+                perfectly secure; we cannot guarantee absolute security of data in transit or at rest.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">10. Children</h2>
+              <p className="text-muted leading-relaxed">
+                The platform is not directed at children under 18. We do not knowingly process personal data of children.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">11. Automated Decision-making</h2>
+              <p className="text-muted leading-relaxed">
+                Sanctions screening returns a binary match result from the Chainalysis oracle and a positive match automatically
+                blocks platform actions. This is the only automated decision that produces legal effects on you. You have the
+                right to challenge such a decision and obtain human review by contacting{" "}
+                <a href="mailto:privacy@vibestarter.xyz" className="text-accent hover:underline">
+                  privacy@vibestarter.xyz
+                </a>.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-white">12. Changes</h2>
+              <p className="text-muted leading-relaxed">
+                We may update this Policy. Material changes will be versioned. Your continued use after a published update
+                constitutes acceptance, subject to your right to object or withdraw consent.
               </p>
             </section>
           </div>
