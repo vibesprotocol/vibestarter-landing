@@ -128,9 +128,8 @@ export default function RiskDisclosurePage() {
             <section>
               <h2 className="text-xl font-semibold mb-4 text-white">8. Operator Conflict of Interest</h2>
               <p className="text-muted leading-relaxed">
-                The operator launches its own raise on the platform. The operator moderates campaigns, adjudicates challenges,
-                and receives platform fees from all raises. Although the operator recuses from adjudicating challenges against
-                its own raise, inherent conflicts remain.
+                The operator moderates campaigns, adjudicates challenges, and receives platform fees from all raises.
+                These roles create inherent conflicts of interest.
               </p>
             </section>
 
@@ -200,26 +199,7 @@ export default function RiskDisclosurePage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">16. $VIBES Staking</h2>
-              <p className="text-muted leading-relaxed">
-                If you stake $VIBES, be aware that no staking rewards accrue until the Luxembourg operating entity is formed.
-                Rewards activate forward-only at that time; rewards from raises that finalised during the pre-entity window
-                are not retroactively distributed. Staking involves a request-based 7-day unstake cooldown.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">17. Community Rewards Are Discretionary</h2>
-              <p className="text-muted leading-relaxed">
-                The 20% Community Rewards allocation of $VIBES is held in a 6-month timelock and, after cliff, distributed
-                entirely at operator discretion. Participation in the $VIBES raise does not entitle you to any specific share.
-                The operator may distribute these tokens via airdrops, hackathon prizes, grants, events, or other means, at
-                any time, in any proportion, to any recipients it chooses.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold mb-4 text-white">18. Changes</h2>
+              <h2 className="text-xl font-semibold mb-4 text-white">16. Changes</h2>
               <p className="text-muted leading-relaxed">
                 This Risk Disclosure may be updated. Material changes will be versioned and require re-acceptance.
               </p>
