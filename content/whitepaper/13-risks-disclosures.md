@@ -72,21 +72,21 @@ The challenge mechanism itself has failure modes:
 - **Successful challenge but slow refund.** After a campaign is frozen, the admin must publish a refund merkle root. This requires off-chain computation; the 24-hour `MERKLE_ROOT_DELAY` adds further latency. Holders wait at least a day for their refund path to open.
 - **Holder refunds rely on holders acting.** A holder who does not burn their tokens for refund does not receive their pro-rata share of the frozen escrow. The protocol does not push refunds.
 
-## 13.7 Reputation system risks
+## 13.7 Reputation display risks
 
-The Starter Card system (Section 8) has its own failure surfaces:
+The reputation surfaced on the platform (Section 8) has its own caveats:
 
-- **Sophisticated Sybil attacks.** A well-resourced adversary can construct credible high-level accounts. The reputation system raises the cost; it does not eliminate the possibility.
-- **Reputation-gated features being captured.** Priority allocation in oversubscribed raises is the highest-value reputation-gated feature. If captured by Sybils, the fairness of allocation degrades.
-- **False positives.** A real user mis-flagged as a Sybil may have their level downgraded. The override path is not automatic. Disputes are operator-mediated.
-- **Reputation system changes.** The scoring formula, level thresholds, and Sybil detection logic are operator-defined. Changes can affect users' levels without their action.
+- **Displayed reputation is not a guarantee of honesty.** A founder with a high Ethos score and a long on-chain history can still fail to deliver or act in bad faith. Reputation is a signal to inform judgment, not a substitute for it.
+- **Signals can be cultivated.** Ethos standing and on-chain history are expensive to fabricate at scale, but a determined actor can build a credible-looking profile over time. Treat reputation as one input among several.
+- **Third-party dependency.** Ethos and other reputation sources are external services that can change methodology, rate-limit, or become unavailable, which would degrade or interrupt the displayed signals.
+- **Reputation is not access.** Anyone can launch or back any raise regardless of reputation; the platform does not gate participation on these signals. Founder-configurable requirements may be offered in future but are not in place today.
 
 ## 13.8 LP-specific risks
 
 The permanent LP introduces specific dynamics:
 
 - **Impermanent loss is permanent.** A normal LP holder can withdraw their position when divergence has reverted. The permanent LP cannot — the position is locked in whatever state divergence has produced.
-- **Trading fees accrue to the dead address.** Aerodrome's fee structure routes some portion of trading fees to LP holders. For the permanent LP, those fees are unrecoverable.
+- **Trading fees go to the protocol, not to holders.** Aerodrome routes a portion of trading fees to the LP position. For the locked LP, the fee claimer captures those fees — the ETH side to the platform, the token side to the project treasury (or burned if there is no treasury) — so token holders do not receive them.
 - **No rebalancing.** A liquidity pool that becomes too imbalanced (e.g., one side fully drained) cannot be rebalanced. The pool may end up effectively non-functional even though it nominally exists.
 - **AMM contract risk.** The pool is on Aerodrome. Risks to the Aerodrome protocol — including its own contract risk, governance changes, or fee structure changes — affect the permanent LP.
 
@@ -95,7 +95,7 @@ The permanent LP introduces specific dynamics:
 Risks at the level of the platform rather than individual raises:
 
 - **Chain risk.** The protocol deploys on Base. Risks to Base (sequencer downtime, L2 finality issues, bridge security) affect all activity on the platform.
-- **External dependency risk.** Aerodrome (LP creation), Ethos and other reputation signals (Starter Card scoring), and third-party services (X for identity linkage) are dependencies that could change behavior or become unavailable.
+- **External dependency risk.** Aerodrome (LP creation), Ethos and other reputation signals (reputation display), and third-party services (X for identity linkage) are dependencies that could change behavior or become unavailable.
 - **Founder deposit erosion.** The founder deposit (0.05 ETH at baseline) is intended to deter spam launches. As ETH prices change, the real cost of the deposit varies. The deposit amount is operator-adjustable, but adjustments lag.
 - **Fee structure changes.** Platform fees are configurable by the master admin. The protocol does not commit to a maximum fee.
 

@@ -24,12 +24,9 @@
 
 **Holder refund.** The path by which a token holder claims a pro-rata share of frozen escrow ETH. Requires burning tokens to `0xdead` and submitting a merkle proof.
 
-**Indefinite LP lock.** The mechanism by which 15% of a raise is paired against tokens, deposited in an Aerodrome pool, and the LP receipt sent to `0xdead`. Permanent and irrecoverable by any party.
+**Indefinite LP lock.** The mechanism by which 15% of a raise is paired against tokens, deposited in an Aerodrome pool, and the LP receipt locked in a soulbound per-campaign fee claimer. Permanent and irrecoverable by any party; the claimer captures trading fees while the principal stays locked.
 
 **Kickstart (T0).** The first tranche, 10% of escrow, released immediately on finalization. The only tranche without a challenge window.
-
-**Level.** A user's tier in the Starter Card system, 1 through 5. Higher = better. Set by composite score.
-
 **Master admin.** The holder of the router's `owner` role. Expected to be a Gnosis Safe multi-sig. Can extract ETH above deposit reserves and alter infrastructure.
 
 **Operations admin.** A separately-held role appointed by the master admin. Adjudicates challenges, publishes refund roots, and operates per-campaign actions. Cannot extract user funds.
@@ -41,9 +38,6 @@
 **Raise.** A specific crowdfunding campaign on Vibestarter. The protocol uses *raise*, not *ICO* or *token sale*, because the term is descriptive and not a securities term.
 
 **Slash.** The 20% burn of a rejected challenger's staked tokens, sent to `0xdead`.
-
-**Starter Card.** The visible artifact of the reputation system. A 1200×630 image associated with a user's wallet, showing their level and clearance label.
-
 **Tranche.** A time-based release of capital from escrow to the founder. Seven tranches per raise: T0 (kickstart) plus T1 through T6 (monthly).
 
 **Treasury (`VibesTreasuryEscrow`).** The per-raise contract holding the project's treasury token allocation. Withdrawals are proposal-based and challengeable.

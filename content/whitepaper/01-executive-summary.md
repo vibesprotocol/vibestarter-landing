@@ -20,8 +20,8 @@ Each primitive maps to a design goal introduced in Section 4 and is specified in
 |-----------|-----------|---------|
 | **Time-released funding.** Capital releases on a fixed schedule. No milestones, no approvals on the success path. | 10% at finalization + 15% every 30 days × 6 tranches = 6 months total | §5 |
 | **Challenge windows.** Each tranche request opens a 72-hour window during which token holders can pause the schedule. | 72-hour window; graduated holder thresholds (0.25 / 0.50 / 1.00% of supply); 20% slash on rejected challenges; 7-day cooldown | §6 |
-| **Indefinite LP lock.** 15% of every raise creates an Aerodrome liquidity pool; the LP receipt is permanently sent to `0xdead`. | Permanent. No time-locked unlock event. | §7 |
-| **Reputation as a feature gate, not an access gate.** Anyone can launch or back any raise. Reputation gates priority allocation, referral rewards, and similar layered features. | Starter Cards, levels 1–5, composite scoring | §8 |
+| **Indefinite LP lock.** 15% of every raise creates an Aerodrome liquidity pool; the LP receipt is locked forever in a per-campaign fee claimer with no withdraw function. | Permanent. No unlock event. Trading fees are captured, not burned. | §7 |
+| **Reputation as a signal, not a gate.** Anyone can launch or back any raise. Vibestarter surfaces each founder's and backer's reputation so participants can judge for themselves. | Ethos scores + on-chain history | §8 |
 | **Two-tier admin separation.** Master admin (Gnosis Safe multi-sig) controls infrastructure and rescue. Operations admin adjudicates challenges and cannot extract user funds. | Master = multi-sig (2-of-3 minimum). Operations = revocable EOA or smaller multi-sig. | §11 |
 
 ## What the contract guarantees, and what it does not
@@ -30,7 +30,7 @@ The protocol's contract guarantees are:
 
 - The tranche schedule is encoded in `VibesTranchEscrow`. No party can accelerate, delay, or alter it.
 - The challenge slash percentage, window length, and cooldown are encoded. The operator cannot adjust them per-raise.
-- The LP receipt is sent to `0xdead` at finalization. The operator cannot recover it.
+- The LP receipt is locked in a soulbound per-campaign fee claimer at finalization. No party, including the operator, can recover it.
 - Refund paths (contributor refund, holder refund, excess refund) are encoded. The operator cannot redirect them.
 - The master admin's rescue capability is bounded by deposit reserves and active-claim checks. The operator cannot drain user escrow.
 
@@ -38,7 +38,7 @@ The protocol's centralized surfaces — surfaces that require continued operator
 
 - **Challenge adjudication.** The operations admin decides whether to uphold, reject, or let expire each challenge. The published challenge standards constrain how. (§6.6, §11, §12.2)
 - **Refund merkle root publication.** After a campaign is frozen, the admin publishes the snapshot root. The 24-hour commit-reveal delay lets holders verify the root before claims open. (§6.4, §11.3)
-- **Reputation scoring.** The Starter Card scoring weights, level thresholds, and Sybil detection logic are operator-defined. (§8.6)
+- **Reputation display.** Which reputation signals (Ethos, on-chain history) are surfaced for founders and backers is curated off-chain by the platform; the underlying scores are externally sourced and independently verifiable. (§8)
 - **Parameter and infrastructure changes.** Platform fee adjustments, escrow factory upgrades, and operations admin appointment require master admin action. (§11.1, §12.2)
 
 Section 12 covers the path on which the centralized surfaces decentralize.
@@ -49,7 +49,7 @@ The protocol does not claim:
 
 - That backers will profit. Tokens are exposed to standard market risk. (§13.3)
 - That fraud is impossible. A dishonest founder can claim early tranches before a challenge is upheld. The protocol minimizes this loss; it does not eliminate it. (§13.4)
-- That the reputation system prevents Sybil attacks. It raises the cost of farming; it does not eliminate the possibility. (§13.7)
+- That displayed reputation guarantees a founder is trustworthy. Ethos and on-chain signals inform judgment; they do not guarantee a founder will deliver. (§13.7)
 - That the audits guarantee bug-free contracts. Two audits have been completed and findings remediated. Unknown bugs may still exist. (§13.1)
 - That the LP lock guarantees value. The pool exists permanently. Whether anyone trades against it depends on what the founder builds. (§7.5)
 

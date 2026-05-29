@@ -19,7 +19,7 @@ VibesLaunchRouterV2  ──  main entry point
 │       ├── Tranches           (ETH out to founder, time-gated)
 │       ├── Challenges         (backer disputes per Section 6)
 │       └── Refunds            (ETH back to holders if frozen)
-├── VibesLPLocker              (creates and burns Aerodrome LP per Section 7)
+├── VibesLPLocker              (creates and permanently locks Aerodrome LP per Section 7)
 ├── VibesVesting               (per-raise founder vesting clone)
 ├── VibesTreasuryEscrow        (per-raise treasury with challengeable proposals)
 ├── VibesTokenDistributorV2    (merkle-based backer claim + ETH refund)
@@ -49,7 +49,7 @@ The escrow is the contract that most directly implements the design goals from S
 
 ### VibesLPLocker (256 lines)
 
-Creates the Aerodrome volatile-pair pool at finalization, transfers the resulting LP receipt to `0xdead`, and records the lock on-chain. Includes the `resolveRescuedFunds` / `recordManualLPLock` path (Section 7.4) for handling LP creation failures.
+Creates the Aerodrome volatile-pair pool at finalization, transfers the resulting LP receipt to a per-campaign `VibesLPFeeClaimer` (soulbound — it captures Aerodrome trading fees while the principal liquidity stays locked), and records the lock on-chain. Includes the `resolveRescuedFunds` / `recordManualLPLock` path (Section 7.4) for handling LP creation failures.
 
 ### VibesVesting (256 lines)
 
@@ -102,11 +102,11 @@ The contracts use a small, opinionated set of security primitives. The list is n
 - **Two-tier admin separation.** A master admin (multi-sig) controls infrastructure and rescue. An operations admin (EOA or smaller multi-sig) controls day-to-day operations and cannot extract user funds.
 - **Commit-reveal timelock** on refund merkle root publication (`MERKLE_ROOT_DELAY = 24 hours`). Holders can verify the committed root before claims open.
 - **Oracle time-drift guard.** Time oracle reads are bounded by `MAX_TIME_DRIFT = 1 hours` to prevent manipulated time from shortening challenge windows or accelerating tranche releases.
-- **Proof-based LP lock recording.** The LP locker's manual-resolution path requires on-chain proof (`IERC20(pool).balanceOf(0xdead) >= lpAmount`) before the rescued state is marked verified-locked.
+- **Proof-based LP lock recording.** The LP locker's manual-resolution path requires on-chain proof that the campaign's fee claimer (or `0xdead`, for a legacy burn) holds at least `lpAmount` of the pool token before the rescued state is marked verified-locked.
 - **Cross-contract finalization guards.** Token claims hard-require `finalizationPhase == FullyComplete`. Emergency refunds query the router's finalization state via try/catch. Prevents the token-plus-ETH double-dip that state drift could otherwise enable.
 - **EIP-1167 minimal proxies** for per-raise contracts to keep gas costs reasonable across many launches.
 - **Custom errors** instead of revert strings for gas-efficient reverts.
-- **Dead-address locking** for irrecoverable burns (LP receipts, slashed challenge stakes, malicious-treasury burns).
+- **Dead-address locking** for irrecoverable burns (slashed challenge stakes, malicious-treasury burns, holder-refund token burns). The primary LP lock instead uses a soulbound fee claimer (Section 7).
 
 This list has been shaped by the two audit cycles described in Section 11. Each of the named guards (commit-reveal delay, time-drift guard, proof-based recording, cross-contract finalization checks) corresponds to a specific finding from the audit history.
 

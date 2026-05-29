@@ -134,8 +134,9 @@ on secondary markets. The claim retains meaning in each of three outcomes:
 ### G5 — Liquidity is permanent, not promotional
 
 The liquidity pool created at finalization holds **15% of the raised capital
-paired against tokens** and is locked **indefinitely**. The LP receipt is sent
-to a burn address. It is not a marketing tool that can be pulled. This is a
+paired against tokens** and is locked **indefinitely**. The LP receipt is held
+in a soulbound per-campaign fee claimer with no withdraw function. It is not a
+marketing tool that can be pulled. This is a
 load-bearing choice for secondary-market integrity and is described in
 Section 7.
 

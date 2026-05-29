@@ -49,13 +49,13 @@ The exclusion array passed to `upholdChallenge()` and `freezeCampaign()` is an a
 
 **Constraints today:** Published in `docs/challenge-standards.md`. Visible on-chain in the transaction. Subject to multi-sig review.
 
-### Sybil detection and reputation scoring
+### Reputation display
 
-The Starter Card system (Section 8) is operator-defined. The scoring weights, the level thresholds, the Sybil detection logic, and the credibility-gate rules are all decisions Vibestarter Labs makes off-chain.
+The reputation surfaced for founders and backers (Section 8) — Ethos scores and on-chain history — is fetched and presented off-chain by the platform.
 
-**Why centralized:** Reputation systems require continuous adaptation as new attack patterns emerge. A fully on-chain reputation system locks in a specific scoring formula, which is brittle against actors who study and game the formula. Off-chain scoring with on-chain consequence enforcement is the standard compromise.
+**Why centralized:** The signals are sourced from third parties (Ethos) and from on-chain data that must be queried and rendered. Which signals are surfaced, and how they are presented in the interface, is a product decision.
 
-**Constraints today:** The scoring formula is published in `docs/features/starter-cards.md`. The signals are listed publicly. The level thresholds are visible. What is not published is the specific weighting of every signal in real-time — that creates the cat-and-mouse asymmetry that makes the system harder to farm.
+**Constraints today:** The underlying data is externally sourced and independently verifiable — anyone can check a wallet's Ethos score or its on-chain history directly, without the platform's involvement. Vibestarter curates the presentation; it does not control or custody the data.
 
 ### Infrastructure parameter changes
 

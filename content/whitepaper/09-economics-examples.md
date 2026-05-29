@@ -23,7 +23,7 @@ The 100 ETH raised splits immediately:
 
 | Slice | ETH | Notes |
 |-------|-----|-------|
-| LP (sent to Aerodrome, locked to `0xdead`) | 15 | Paired with 150,000,000 $LOOM (15% of supply) |
+| LP (paired into Aerodrome, receipt locked in fee claimer) | 15 | Paired with 150,000,000 $LOOM (15% of supply) |
 | Escrow (`VibesTranchEscrow`) | 85 | Released across seven tranches |
 
 The 1,000,000,000 $LOOM also distributes (assuming standard configuration with 5% founder, 15% treasury, 0% community rewards, 2.5% staker rewards):
@@ -31,7 +31,7 @@ The 1,000,000,000 $LOOM also distributes (assuming standard configuration with 5
 | Slice | Tokens | Destination |
 |-------|--------|-------------|
 | Backers | 650,000,000 | Token Distributor — claimed by backers pro-rata |
-| LP | 150,000,000 | Paired with 15 ETH, sent to `0xdead` |
+| LP | 150,000,000 | Paired with 15 ETH; LP receipt locked in the fee claimer |
 | Treasury | 150,000,000 | `VibesTreasuryEscrow` — quarterly releases via challengeable proposals |
 | Founder | 50,000,000 | `VibesVesting` — 6-month cliff + 12-month linear |
 | Staker rewards | 25,000,000 | `VibesStakerRewards` — distributed to $VIBES stakers |

@@ -12,7 +12,7 @@ At the moment a raise finalizes, the raised capital splits:
 
 | Slice | Destination | Released when |
 |------|------------|---------------|
-| **15%** | Liquidity pool — paired against tokens, LP tokens sent to `0xdead` | At finalization, permanent (Section 7) |
+| **15%** | Liquidity pool — paired against tokens, LP receipt locked in a per-campaign fee claimer | At finalization, permanent (Section 7) |
 | **85%** | Escrow — `VibesTranchEscrow` clone for this raise | In seven tranches over six months |
 
 The escrowed 85% releases on the following schedule:

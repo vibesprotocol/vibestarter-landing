@@ -108,7 +108,7 @@ Issued findings across multiple severity levels. The fixes that landed on 2026-0
 - **H-1: Testnet time-drift parity.** Testnet variant of escrow now enforces the same `MAX_TIME_DRIFT = 1 hours` as mainnet. Enforced in CI by `AuditTestnetParityGuard2026_04.t.sol`.
 - **H-2: Testnet merkle-root-delay parity.** Testnet `MERKLE_ROOT_DELAY = 24 hours` identical to mainnet.
 - **H-3: Cross-contract finalization guard.** Token claim path hard-requires `finalizationPhase == FullyComplete`. Emergency refund queries router finalization state via try/catch. Prevents token-plus-ETH double-dip.
-- **H-4: Proof-based LP lock recording.** `recordManualLPLock` requires on-chain proof that LP tokens were burned to `0xdead` before transitioning rescued state to verified-locked.
+- **H-4: Proof-based LP lock recording.** `recordManualLPLock` requires on-chain proof that the LP receipt is held by the campaign's fee claimer (or `0xdead`, for a legacy burn) before transitioning rescued state to verified-locked.
 - **H-06 (earlier): Oracle time-drift guard.** Time oracle reads bounded by `MAX_TIME_DRIFT = 1 hours`.
 - **L-1: Reentrancy guard on `resolveRescuedFunds`.** Added 2026-04-15.
 

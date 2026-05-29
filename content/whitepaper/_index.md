@@ -24,7 +24,7 @@
 | 5 | `05-time-released-funding.md` | Time-released funding | **Draft v1** |
 | 6 | `06-challenge-windows.md` | Challenge windows | **Draft v1** |
 | 7 | `07-liquidity-lp-lock.md` | Liquidity and the indefinite LP lock | **Draft v1** |
-| 8 | `08-reputation.md` | Reputation: Starter Cards, levels, referrals | **Draft v1** |
+| 8 | `08-reputation.md` | Reputation: Ethos and on-chain signals | **Draft v1** |
 | 9 | `09-economics-examples.md` | Economics: worked examples | **Draft v1** |
 | 10 | `10-contract-architecture.md` | Contract architecture overview | **Draft v1** |
 | 11 | `11-trust-safety.md` | Trust and safety | **Draft v1** |
