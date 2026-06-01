@@ -55,8 +55,8 @@ The protocol does not claim:
 
 ## Status
 
-- **Live on Base mainnet** (chain ID 8453). Production deployments at addresses in `docs/deployment.md`. Per-raise contract addresses are queryable from `VibesRegistry` events.
-- **Two audit cycles complete.** April 2026 and May 2026. Reports public in `audit-2026-04/` and `audit-2026-05/`.
+- **Live on Base mainnet** (chain ID 8453). Contract addresses are queryable on-chain from `VibesRegistry` events.
+- **Two audit cycles complete.** April 2026 and May 2026. Remediation summary at app.vibestarter.xyz/audit.
 - **Reference frontend** at app.vibestarter.xyz. Any client conforming to the on-chain interfaces can interact with the protocol.
 
 ## How to read the rest of this paper
@@ -73,4 +73,4 @@ The protocol does not claim:
 | What can go wrong | §13 |
 | Glossary, parameters, references | §14 |
 
-The whitepaper synthesizes; the referenced source documents (`docs/funding-mechanics.md`, `docs/smart-contracts.md`, `docs/privileged-roles.md`, `docs/challenge-standards.md`, `docs/features/starter-cards.md`) are authoritative for specific details.
+The whitepaper synthesizes the protocol's behavior; the deployed contracts are authoritative for specific implementation details.

@@ -20,7 +20,7 @@ What the mitigation does not address: a bug exploited *before* it is discovered 
 
 ## 13.2 Regulatory risk
 
-The protocol uses language and structures designed to position tokens issued via Vibestarter as **utility tokens**, not securities. The legal disclaimers required on raise pages (`docs/terminology.md`) make this position explicit.
+The protocol uses language and structures designed to position tokens issued via Vibestarter as **utility tokens**, not securities. The legal disclaimers shown on raise pages and at app.vibestarter.xyz/terms make this position explicit.
 
 The unmitigated residual: **regulatory bodies in specific jurisdictions may reach different conclusions**. Possible outcomes include:
 

@@ -1,6 +1,6 @@
 # 10. Contract Architecture
 
-> A short tour of the contract topology that implements the mechanism described in Sections 5 through 8. This is an overview, not a specification — the full technical reference lives in the project's `docs/smart-contracts.md`.
+> A short tour of the contract topology that implements the mechanism described in Sections 5 through 8. This is an overview, not a specification — the deployed contracts are the authoritative technical reference.
 
 The implementation comprises fourteen Solidity contracts deployed on Base (chain ID 8453), of which twelve are core protocol and infrastructure and two are testnet-only variants. All contracts target Solidity ^0.8.20 and use OpenZeppelin v5 primitives (ReentrancyGuard, SafeERC20, two-step Ownable patterns).
 
@@ -114,10 +114,10 @@ This list has been shaped by the two audit cycles described in Section 11. Each 
 
 This is a tour, not a specification. Specific details intentionally outside the scope of this section:
 
-- **Function signatures and parameter types.** See `contracts/src/` for the source.
+- **Function signatures and parameter types.** Verifiable on the deployed contracts via a Base block explorer.
 - **Storage layout.** Contracts that use upgradeable patterns or shared storage have specific layouts documented in their respective sources.
 - **Gas budgets and cost analysis.** See the deployment notes for gas profiles of representative operations.
-- **Test coverage matrix.** See `docs/test-coverage-analysis.md` and `contracts/test/` for the test inventory.
-- **Audit findings in detail.** See the audit reports in `audit-2026-04/` and `audit-2026-05/`.
+- **Test coverage.** The contracts ship with a comprehensive test suite covering the mechanism paths described above.
+- **Audit findings in detail.** See the remediation summary at app.vibestarter.xyz/audit.
 
 The intent of this section is to give a reader enough to understand *which contract enforces which design goal* and to provide the entry points for deeper investigation. The protocol's correctness claims live in the source and the audits, not in this paper.

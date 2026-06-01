@@ -7,7 +7,7 @@
 
 **Audience:** mixed. Layered structure — executive summary for skimmers, mechanism and economics sections for technical readers, appendices for spec-level detail.
 
-**Scope:** the funding primitive itself, treated as protocol design. Vibestarter is the reference implementation, but the design choices are presented as portable. Details of the protocol's own raise live in `docs/raise-manifesto.md` and `docs/tokenomics.md` — not here.
+**Scope:** the funding primitive itself, treated as protocol design. Vibestarter is the reference implementation, but the design choices are presented as portable. Per-raise parameters — token supply, targets, and allocation — are set by each individual raise and are out of scope here.
 
 **Language:** US-cautious throughout. "Backer," "contribution," "tranche release," "secondary liquidity" — not "investor," "yield," or "returns."
 
@@ -44,13 +44,6 @@ The paper is structured for both linear reading and section-by-section reference
 - **System / trust review:** §10 through §13.
 
 ---
-
-## Source-of-truth wiring
-
-- **Content lives here**, in `docs/whitepaper/`. One file per section.
-- **Landing render**: a `/whitepaper` route in the `vibestarter-landing` repo imports these markdown files at build time. Wiring happens after content stabilizes.
-- **PDF export**: Pandoc build script (planned for v2).
-- **Versioning**: this index is the canonical version pointer. Bump on each material revision.
 
 **Current version:** v1.0 draft (all 14 sections drafted)
 **Last updated:** 2026-05-24

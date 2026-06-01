@@ -6,7 +6,7 @@
 
 ## 14.1 Glossary
 
-**Backer.** A person who contributes ETH to a raise. The protocol uses *backer*, not *investor*, because contributions are not investments in the regulatory sense. See `docs/terminology.md`.
+**Backer.** A person who contributes ETH to a raise. The protocol uses *backer*, not *investor*, because contributions are not investments in the regulatory sense.
 
 **Challenge.** A formal on-chain action by a token holder, raised against a pending tranche request, that places the holder's staked tokens into escrow pending admin review.
 
@@ -86,7 +86,7 @@ The deployed contract set on Base mainnet (chain ID 8453) at v0.1 of this paper:
 
 | Contract | Address | Role |
 |----------|---------|------|
-| VibesLaunchRouterV2 | [TBD — see `docs/deployment.md`] | Main entry point |
+| VibesLaunchRouterV2 | [TBD] | Main entry point |
 | VibesTranchEscrowFactory | [TBD] | Escrow factory |
 | VibesTokenFactory | [TBD] | Token factory |
 | VibesLPLocker | [TBD] | LP creation and lock |
@@ -98,46 +98,19 @@ The deployed contract set on Base mainnet (chain ID 8453) at v0.1 of this paper:
 
 Per-raise contracts (`VibesTranchEscrow` clones, `VibesVesting` clones, `VibesTreasuryEscrow` instances, `VibesTokenDistributorV2` instances) have one deployment per raise. The full list is queryable from `VibesRegistry` events.
 
-Canonical address tables live in `docs/deployment.md` and are updated immediately after any deployment.
+Canonical addresses are queryable on-chain from `VibesRegistry` events and are recorded at each deployment.
 
 ---
 
 ## 14.4 Audit reports
 
-The contracts have been audited twice. The reports are public:
-
-- **April 2026 audit** — `audit-2026-04/` in the repository. Findings remediated 2026-04-15.
-- **May 2026 audit** — `audit-2026-05/` in the repository. Findings remediated and documented in `docs/security/`.
-
-Any future audits will be added to the repository in the same convention.
+The contracts have been audited twice (April 2026 and May 2026), with findings remediated and re-tested in both cycles. A remediation summary is published at app.vibestarter.xyz/audit.
 
 ---
 
-## 14.5 Source code
+## 14.5 Source and verification
 
-- Repository: `vibesprotocol/vibes-protocol` (the canonical source).
-- Contracts: `contracts/src/`
-- Web app: `apps/web/`
-- Indexer: `packages/indexer/src/`
-- Shared utilities: `packages/shared/src/`
-- Docs (this whitepaper and all referenced docs): `docs/`
-
----
-
-## 14.6 References within this paper
-
-| Section | Referenced docs |
-|---------|----------------|
-| §4 (design goals) | `docs/funding-mechanics.md`, `docs/terminology.md` |
-| §5 (time-released funding) | `docs/funding-mechanics.md`, `contracts/src/VibesTranchEscrow.sol` |
-| §6 (challenge windows) | `docs/funding-mechanics.md`, `docs/challenge-standards.md` |
-| §7 (LP lock) | `docs/funding-mechanics.md`, `contracts/src/VibesLPLocker.sol` |
-| §8 (reputation) | `docs/features/starter-cards.md` |
-| §9 (worked examples) | `docs/funding-mechanics.md`, `docs/tokenomics.md` |
-| §10 (contract architecture) | `docs/smart-contracts.md`, `docs/file-locations.md` |
-| §11 (trust and safety) | `docs/privileged-roles.md`, `docs/security-analysis.md`, `docs/incident-response.md` |
-| §12 (governance) | `docs/challenge-standards.md`, `docs/privileged-roles.md` |
-| §13 (risks) | `docs/terminology.md` (legal disclaimers) |
+The deployed contracts are verifiable on-chain on Base. Contract addresses are queryable from `VibesRegistry` events; the protocol token and per-raise contracts can be inspected on a Base block explorer.
 
 The whitepaper synthesizes; the referenced documents are authoritative for specific details.
 

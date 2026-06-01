@@ -31,7 +31,7 @@ The 72-hour challenge review (Section 6) is performed by the operations admin (t
 
 **Why centralized:** A contract cannot read the world. Determining whether a founder has actually abandoned a project, whether claimed progress is real, or whether a missed deadline reflects fraud or strategic pivot requires off-chain judgment. Until a decentralized adjudication mechanism (jury panels, prediction markets, community vote) has been built and stress-tested, the multi-sig is the practical answer.
 
-**Constraints today:** The admin can only choose between contract-defined outcomes (uphold, reject, expire). The admin cannot move funds to arbitrary destinations, cannot adjust slash percentages, and cannot skip the commit-reveal delay on refund roots. The published `docs/challenge-standards.md` defines the criteria the admin uses, and deviations are publicly auditable.
+**Constraints today:** The admin can only choose between contract-defined outcomes (uphold, reject, expire). The admin cannot move funds to arbitrary destinations, cannot adjust slash percentages, and cannot skip the commit-reveal delay on refund roots. The challenge standards (Section 6.6) define the criteria the admin uses, and deviations are publicly auditable.
 
 ### Refund merkle root publication
 
@@ -47,7 +47,7 @@ The exclusion array passed to `upholdChallenge()` and `freezeCampaign()` is an a
 
 **Why centralized:** The set of legitimately non-redeemable addresses (vesting contracts, treasuries, the burn address itself) varies per raise and is not derivable on-chain without additional infrastructure.
 
-**Constraints today:** Published in `docs/challenge-standards.md`. Visible on-chain in the transaction. Subject to multi-sig review.
+**Constraints today:** Governed by the challenge standards (Section 6.6). Visible on-chain in the transaction. Subject to multi-sig review.
 
 ### Reputation display
 
@@ -96,7 +96,7 @@ The operations admin role is held by M-3, a Safe multi-sig with 2-of-3 (or 3-of-
 
 ### Stage 2 — Challenge standards transparency
 
-The criteria the operations admin uses to adjudicate challenges are published in `docs/challenge-standards.md`. Deviations from published standards are publicly visible and grounds for community complaint.
+The criteria the operations admin uses to adjudicate challenges are published in this paper (Section 6.6). Deviations from published standards are publicly visible and grounds for community complaint.
 
 **Status:** in place.
 

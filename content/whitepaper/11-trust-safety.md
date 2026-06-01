@@ -91,7 +91,7 @@ The trust risk: a malicious admin could in principle exclude addresses they shou
 The mitigations:
 
 - **Publication and review.** The `_excludeAddresses` array is part of the on-chain transaction. Any holder can verify which addresses were excluded.
-- **Challenge standards document.** `docs/challenge-standards.md` defines the off-chain policy for which addresses are excluded under what circumstances. Deviations are publicly auditable.
+- **Challenge standards.** The challenge standards (Section 6.6) define the off-chain policy for which addresses are excluded under what circumstances. Deviations are publicly auditable.
 - **Multi-sig consent.** When M-3 is the operations admin, the exclusion array is part of the transaction the cosigners approve. The founder is recused from M-3 votes on the $VIBES raise's own challenges.
 - **24-hour `MERKLE_ROOT_DELAY`.** After the freeze, the admin must commit a refund merkle root and then wait 24 hours before claims open. Holders can verify the root during this window and surface complaints before any ETH moves.
 
@@ -101,7 +101,7 @@ This is one of the surfaces where the protocol relies on transparency and review
 
 The contracts have been through two formal audit cycles, both with findings remediated and re-tested.
 
-### April 2026 audit (`audit-2026-04/`)
+### April 2026 audit
 
 Issued findings across multiple severity levels. The fixes that landed on 2026-04-15 include:
 
@@ -112,15 +112,15 @@ Issued findings across multiple severity levels. The fixes that landed on 2026-0
 - **H-06 (earlier): Oracle time-drift guard.** Time oracle reads bounded by `MAX_TIME_DRIFT = 1 hours`.
 - **L-1: Reentrancy guard on `resolveRescuedFunds`.** Added 2026-04-15.
 
-### May 2026 audit (`audit-2026-05/`)
+### May 2026 audit
 
-Follow-up audit covering the staking and rewards contracts and the contracts modified post-April. Findings and remediations are documented in `docs/security/`.
+Follow-up audit covering the staking and rewards contracts and the contracts modified post-April. Findings and remediations are summarized at app.vibestarter.xyz/audit.
 
-The audit reports are public and committed to the repository. Their findings should be treated as the authoritative source for known issues — this paper does not substitute for them.
+The audit findings should be treated as the authoritative source for known issues — this paper does not substitute for them. A remediation summary is published at app.vibestarter.xyz/audit.
 
 ## 11.5 Incident response
 
-The platform maintains a documented incident response procedure (`docs/incident-response.md`). The key components:
+The platform maintains a documented incident response procedure. The key components:
 
 - **Pause as a first action.** The master admin can pause the router globally while an incident is triaged.
 - **Per-campaign pause.** The operations admin can pause a specific raise without halting the entire platform.
