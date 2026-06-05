@@ -15,8 +15,8 @@ const socialLinks = [
 ];
 
 const platformLinks = [
-  { label: "Launch App", href: "https://testnet.vibestarter.xyz" },
-  { label: "Documentation", href: "https://testnet.vibestarter.xyz/docs" },
+  { label: "Launch App", href: "https://app.vibestarter.xyz" },
+  { label: "Documentation", href: "https://app.vibestarter.xyz/docs" },
   { label: "Contracts", href: "https://github.com/vibesprotocol/vibestarter-contracts" },
 ];
 

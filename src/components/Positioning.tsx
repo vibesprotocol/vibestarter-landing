@@ -19,7 +19,7 @@ export function Agents() {
             Track what builders ship with: {agents.join(", ")}, and more — with provenance attached at launch.
           </p>
           <Link
-            href="https://testnet.vibestarter.xyz/docs/agents"
+            href="https://app.vibestarter.xyz/docs"
             className="inline-flex items-center gap-2 text-accent hover:text-white transition-colors text-[14px] font-medium"
           >
             Explore agent models
