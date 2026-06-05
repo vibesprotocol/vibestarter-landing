@@ -446,10 +446,10 @@ export function Hero() {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
                 <Link
-                  href="https://testnet.vibestarter.xyz"
+                  href="https://app.vibestarter.xyz/raises/vibes"
                   className="btn-mechanical px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
                 >
-                  Explore Testnet
+                  Back the $VIBES Raise
                 </Link>
                 <Link
                   href="#how-vibestarter-works"
