@@ -446,25 +446,32 @@ export function Hero() {
                 Launch a Vibetoken. Raise from the community. Ship with escrow-backed, time-released funding and on-chain provenance.
               </p>
 
-              {/* CTAs */}
+              {/* CTAs — primary speaks to founders (matches the headline),
+                  secondary surfaces the live raise for backers */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
                 <Link
-                  href="https://app.vibestarter.xyz/raises/vibes"
+                  href="https://app.vibestarter.xyz"
                   className="btn-mechanical px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
                 >
-                  Back the $VIBES Raise
+                  Start Your Raise
                 </Link>
                 <Link
-                  href="#how-vibestarter-works"
+                  href="https://app.vibestarter.xyz/raises/vibes"
                   className="btn-mechanical-outline px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
                 >
-                  See How It Works ↓
+                  Back the $VIBES Raise
                 </Link>
               </div>
 
               {/* Micro-copy */}
-              <p className="text-muted/60 text-[13px] font-mono">
-                Idea to funding in minutes. Escrow-backed, time-released over 6 months.
+              <p className="text-muted text-[13px] font-mono">
+                Idea to funding in minutes.{" "}
+                <Link
+                  href="#how-vibestarter-works"
+                  className="text-accent hover:text-white transition-colors"
+                >
+                  See how it works ↓
+                </Link>
               </p>
             </motion.div>
 
@@ -478,6 +485,46 @@ export function Hero() {
               <HeroVisual />
             </motion.div>
           </div>
+
+          {/* Runway strip — the escrow mechanic, glanceable without scrolling */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+            className="mt-12 lg:mt-16 border border-white/[0.08] bg-white/[0.02] px-5 sm:px-6 py-4 sm:py-5"
+          >
+            <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
+              <div className="shrink-0 lg:w-56">
+                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">
+                  How funds release
+                </p>
+                <p className="text-white/60 text-[13px] font-sans font-light mt-1">
+                  Escrowed on Base, released over 6 months.
+                </p>
+              </div>
+
+              {/* Tranche bar: 10% kickstart + 6 × 15% monthly */}
+              <div className="flex-1 min-w-0">
+                <div className="flex gap-1 h-2.5">
+                  <div className="bg-accent" style={{ flexGrow: 10 }} />
+                  {[1, 2, 3, 4, 5, 6].map((m) => (
+                    <div key={m} className="bg-accent-bright/60" style={{ flexGrow: 15 }} />
+                  ))}
+                </div>
+                <div className="flex justify-between mt-2 font-mono text-[10px] uppercase tracking-wider">
+                  <span className="text-accent">10% at launch</span>
+                  <span className="text-accent-bright/80">15% / month × 6</span>
+                </div>
+              </div>
+
+              <div className="shrink-0 inline-flex items-center gap-2 px-3 py-1.5 border border-persimmon-500/30 bg-persimmon-500/10 self-start lg:self-auto">
+                <span className="w-1.5 h-1.5 rounded-full bg-persimmon-400 animate-pulse" />
+                <span className="font-mono text-[10px] uppercase tracking-wider text-persimmon-400">
+                  72h challenge window per tranche
+                </span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 

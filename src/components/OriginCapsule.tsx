@@ -414,7 +414,7 @@ function CapsuleInfographic() {
         </div>
 
         {/* Footer info */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-xs text-white/40 mt-8">
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-xs text-white/60 mt-8">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span>Immutable Record</span>

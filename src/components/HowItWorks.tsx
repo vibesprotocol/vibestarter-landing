@@ -350,7 +350,7 @@ export function HowItWorks() {
                   <p className={`text-sm md:text-base font-medium mt-1 whitespace-nowrap transition-colors duration-300 ${isHovered ? "text-white" : "text-white/80"}`}>
                     {s.title.replace("_", " ")}
                   </p>
-                  <p className={`text-xs mt-0.5 leading-snug transition-all duration-300 ${isHovered ? "text-white/60 opacity-100" : "text-white/40 opacity-80"}`}>
+                  <p className={`text-xs mt-0.5 leading-snug transition-all duration-300 ${isHovered ? "text-white/80" : "text-white/55"}`}>
                     {steps[index].desc.split(".")[0]}
                   </p>
                 </div>
@@ -464,7 +464,7 @@ export function HowItWorks() {
                   {step.title}
                 </h3>
                 <div className="w-8 h-1 mx-auto" style={{ backgroundColor: accentColor }} />
-                <p className="text-sm text-white/40 font-mono leading-relaxed max-w-[250px] mx-auto">
+                <p className="text-sm text-white/60 font-mono leading-relaxed max-w-[250px] mx-auto">
                   {step.desc}
                 </p>
               </motion.div>

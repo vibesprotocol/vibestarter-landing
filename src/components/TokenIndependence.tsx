@@ -264,7 +264,7 @@ export function TokenIndependence() {
                         <p className="mt-2 text-[11px] text-white/50 font-mono">Flat price • No bonding curve</p>
                       </motion.div>
                     </div>
-                    <p className="mt-4 text-xs text-white/40 font-mono">Same price for everyone • No early advantage</p>
+                    <p className="mt-4 text-xs text-white/60 font-mono">Same price for everyone • No early advantage</p>
                   </motion.div>
                 )}
 
@@ -313,7 +313,7 @@ export function TokenIndependence() {
                       <p className="text-lg font-bold text-white">$VIBE Minted</p>
                       <p className="text-sm text-accent-bright font-mono">Standard ERC-20 Token</p>
                     </motion.div>
-                    <p className="mt-4 text-xs text-white/40 font-mono">Your tokens arrive instantly in your wallet</p>
+                    <p className="mt-4 text-xs text-white/60 font-mono">Your tokens arrive instantly in your wallet</p>
                   </motion.div>
                 )}
 
@@ -369,7 +369,7 @@ export function TokenIndependence() {
                         LOCKED ∞
                       </div>
                     </motion.div>
-                    <p className="mt-4 text-xs text-white/40 font-mono">LP protects all holders equally • Locked forever</p>
+                    <p className="mt-4 text-xs text-white/60 font-mono">LP protects all holders equally • Locked forever</p>
                   </motion.div>
                 )}
 
@@ -441,7 +441,7 @@ export function TokenIndependence() {
                         Swap
                       </motion.div>
                     </div>
-                    <p className="mt-4 text-xs text-white/40 font-mono">Trade on any DEX • No platform lock-in</p>
+                    <p className="mt-4 text-xs text-white/60 font-mono">Trade on any DEX • No platform lock-in</p>
                   </motion.div>
                 )}
               </AnimatePresence>
