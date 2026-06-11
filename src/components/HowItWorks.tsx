@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
-import { TextScramble } from "./TextScramble";
+import { SectionHeader } from "./SectionHeader";
 import { CornerBrackets } from "@/components/ui/corner-brackets";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -251,19 +251,12 @@ export function HowItWorks() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div
-          ref={headerRef}
-          className="text-center mb-16 md:mb-24"
-        >
-          <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">// Process</span>
-            <span className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider border border-accent/40 text-accent">
-              Time-Released
-            </span>
-          </div>
-          <TextScramble
-            text="How Vibestarter Works"
-            className="section-heading"
+        <div ref={headerRef} className="md:mb-10">
+          <SectionHeader
+            num="04"
+            label="Process"
+            badge="Time-Released"
+            title="How Vibestarter works"
           />
         </div>
 

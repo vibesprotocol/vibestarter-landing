@@ -9,9 +9,17 @@ import {
   OriginCapsuleSection,
   ClosingCTA,
   Footer,
-  Divider,
   ScrollFadeUp,
 } from "@/components";
+
+const sections = [
+  Features,
+  MarketThesis,
+  TokenIndependence,
+  HowItWorks,
+  RunwayProtection,
+  OriginCapsuleSection,
+];
 
 export default function Home() {
   return (
@@ -24,35 +32,18 @@ export default function Home() {
       </a>
       <Navigation />
       <main id="main-content" className="min-h-screen bg-background">
-        <Hero />
-        <Divider />
-        <ScrollFadeUp>
-          <Features />
-        </ScrollFadeUp>
-        <Divider />
-        <ScrollFadeUp>
-          <MarketThesis />
-        </ScrollFadeUp>
-        <Divider />
-        <ScrollFadeUp>
-          <TokenIndependence />
-        </ScrollFadeUp>
-        <Divider />
-        <ScrollFadeUp>
-          <HowItWorks />
-        </ScrollFadeUp>
-        <Divider />
-        <ScrollFadeUp>
-          <RunwayProtection />
-        </ScrollFadeUp>
-        <Divider />
-        <ScrollFadeUp>
-          <OriginCapsuleSection />
-        </ScrollFadeUp>
-        <Divider />
-        <ScrollFadeUp>
-          <ClosingCTA />
-        </ScrollFadeUp>
+        {/* Document frame: hairline rails, sections divided by rules */}
+        <div className="mx-auto max-w-[1400px] border-x border-white/[0.06]">
+          <Hero />
+          {sections.map((Section, i) => (
+            <div key={i} className="border-t border-white/[0.06]">
+              <ScrollFadeUp>
+                <Section />
+              </ScrollFadeUp>
+            </div>
+          ))}
+        </div>
+        <ClosingCTA />
       </main>
       <Footer />
     </>

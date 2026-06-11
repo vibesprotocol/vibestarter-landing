@@ -424,25 +424,46 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="min-h-[85vh] pt-20 flex flex-col relative">
-      <div ref={contentRef} className="flex-1 flex items-center">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section ref={sectionRef} className="pt-24 sm:pt-28 flex flex-col relative">
+      <div ref={contentRef} className="flex-1">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8 sm:pb-12">
+          {/* Protocol status bar */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap items-center gap-x-8 gap-y-2 border-b border-white/[0.06] pb-4 font-mono text-[10px] uppercase tracking-[0.25em] text-white/50"
+          >
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-accent animate-pulse" />
+              Escrow on Base
+            </span>
+            <span>ERC-8004 Provenance</span>
+            <span>LP Locked ∞</span>
+            <span className="text-accent">Launching Feb 2026</span>
+          </motion.div>
+
+          {/* Full-width editorial headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="heading-brutal text-[clamp(44px,9vw,150px)] leading-[0.92] mt-10 sm:mt-14"
+          >
+            Fund your
+            <br />
+            <span className="text-accent-gradient">vibecoded app.</span>
+          </motion.h1>
+
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start mt-10 sm:mt-14">
             {/* Left column - Text */}
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
             >
-              {/* Headline */}
-              <h1 className="heading-brutal text-[clamp(40px,7vw,72px)] leading-[1.05] mb-6">
-                Fund your
-                <br />
-                <span className="text-accent-gradient">vibecoded app.</span>
-              </h1>
-
               {/* Subheadline */}
-              <p className="text-muted text-base sm:text-lg max-w-xl mb-8 leading-relaxed font-sans font-light">
+              <p className="text-muted text-lg sm:text-xl max-w-xl mb-8 leading-relaxed font-sans font-light">
                 Launch a Vibetoken. Raise from the community. Ship with escrow-backed, time-released funding and on-chain provenance.
               </p>
 
@@ -477,10 +498,10 @@ export function Hero() {
 
             {/* Right column - Visual */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              className="flex justify-center lg:justify-end mt-8 lg:mt-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+              className="flex justify-center lg:justify-end"
             >
               <HeroVisual />
             </motion.div>

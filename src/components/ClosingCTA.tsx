@@ -1,47 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { TextScramble } from "./TextScramble";
 
 export function ClosingCTA() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="section-label">// Launch</span>
-            <span className="px-2 py-0.5 text-[10px] font-mono text-accent/80 bg-accent/10 border border-accent/20">
-              February 2026 · Base
-            </span>
-          </div>
-          <TextScramble
-            text="Ready to raise?"
-            className="section-heading mb-4"
-          />
-          <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 font-sans font-light">
-            Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.
-          </p>
-          <motion.div
-            initial={{ opacity: 0, filter: "brightness(1)" }}
-            whileInView={{ opacity: 1, filter: "brightness(1)" }}
-            transition={{ duration: 0.15, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
+    <section className="bg-accent text-black">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
+        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-black/60 mb-5">
+          // Launch — February 2026 · Base
+        </p>
+        <TextScramble
+          text="Ready to raise?"
+          className="font-display font-bold uppercase tracking-[-0.04em] leading-[0.95] text-[clamp(40px,8vw,110px)]"
+        />
+        <p className="text-black/70 text-lg sm:text-xl max-w-xl font-sans font-light leading-relaxed mt-6 mb-10">
+          Launch your Vibetoken and start raising in minutes — escrow-backed, time-released, on-chain.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <Link
+            href="https://app.vibestarter.xyz"
+            className="bg-black text-white font-mono font-medium text-sm uppercase tracking-wider px-8 py-4 text-center hover:bg-black/80 transition-colors"
           >
-            <Link
-              href="https://app.vibestarter.xyz"
-              className="btn-mechanical px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
-            >
-              Start Your Raise
-            </Link>
-            <Link
-              href="https://app.vibestarter.xyz/raises/vibes"
-              className="btn-mechanical-outline px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
-            >
-              Back the $VIBES Raise
-            </Link>
-          </motion.div>
+            Start Your Raise
+          </Link>
+          <Link
+            href="https://app.vibestarter.xyz/raises/vibes"
+            className="border border-black/40 text-black font-mono font-medium text-sm uppercase tracking-wider px-8 py-4 text-center hover:border-black hover:bg-black/5 transition-colors"
+          >
+            Back the $VIBES Raise
+          </Link>
         </div>
       </div>
     </section>

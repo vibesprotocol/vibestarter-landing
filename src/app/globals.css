@@ -97,6 +97,22 @@
     @apply font-mono text-[10px] uppercase tracking-[0.3em] text-accent;
   }
 
+  /* Editorial section heading — large, left-aligned, document style */
+  .heading-editorial {
+    @apply font-display font-bold uppercase text-4xl sm:text-5xl lg:text-6xl;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  /* Ghost section number — huge outlined numeral in the margin */
+  .ghost-num {
+    @apply font-mono font-bold select-none;
+    font-size: clamp(72px, 10vw, 150px);
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+  }
+
   /* Section heading - JetBrains Mono (display), now brutalist */
   .section-heading {
     @apply font-display text-3xl md:text-4xl font-bold tracking-tight uppercase;

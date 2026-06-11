@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Box } from "lucide-react";
-import { TextScramble } from "./TextScramble";
+import { SectionHeader } from "./SectionHeader";
 import { CornerBrackets } from "@/components/ui/corner-brackets";
 
 interface CapsuleData {
@@ -465,25 +465,13 @@ export function OriginCapsuleSection() {
     <section id="capsule" className="py-16 sm:py-20 lg:py-24 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-8 md:mb-12">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">// Provenance</span>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 text-accent text-xs font-medium">
-              <Box className="w-3.5 h-3.5" />
-              On-Chain
-            </div>
-          </div>
-
-          <TextScramble
-            text="Origin Capsule"
-            className="section-heading mb-4"
-          />
-
-          <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans font-light">
-            Cryptographic proof of human-AI collaboration. Each capsule records the founder,
-            the ERC-8004 registered agent, and the build artifact — sealed immutably on Base.
-          </p>
-        </div>
+        <SectionHeader
+          num="06"
+          label="Provenance"
+          badge="On-Chain"
+          title="Origin Capsule"
+          description="Cryptographic proof of human-AI collaboration. Each capsule records the founder, the ERC-8004 registered agent, and the build artifact — sealed immutably on Base."
+        />
 
         {/* Infographic */}
         <CapsuleInfographic />

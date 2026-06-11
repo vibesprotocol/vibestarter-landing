@@ -1,82 +1,58 @@
 "use client";
 
 import { FundingGapAnimation } from "./FundingGapAnimation";
-import { TextScramble } from "./TextScramble";
-import { CornerBrackets } from "@/components/ui/corner-brackets";
+import { SectionHeader } from "./SectionHeader";
+
+const blockers = [
+  { code: "ERR_01", text: "VCs won't touch you without traction" },
+  { code: "ERR_02", text: "Traction requires capital you don't have" },
+  { code: "ERR_03", text: "The memecoin casino will eat your project alive" },
+];
 
 export function Features() {
   return (
-    <section id="the-problem" className="py-12 sm:py-16 lg:py-20">
+    <section id="the-problem" className="py-16 sm:py-20 lg:py-24">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Single card layout */}
-        <CornerBrackets><div className="relative bg-white/[0.02] hover:bg-white/[0.04] transition-colors overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-0">
-            {/* Left side - Text content */}
-            <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
-              <span className="section-label mb-4">// The Problem</span>
-              <TextScramble
-                text="You shipped an app last weekend. Now what?"
-                className="section-heading mb-4"
-              />
-              <p className="text-muted text-base sm:text-lg leading-relaxed mb-8 font-sans font-light">
-                Agents removed the technical barrier. You can go from idea to working product in a weekend. But a working product isn&apos;t a business. You still need users, infrastructure, and marketing budget.
-              </p>
+        <SectionHeader
+          num="01"
+          label="The Problem"
+          title="You shipped an app last weekend. Now what?"
+          description="Agents removed the technical barrier. You can go from idea to working product in a weekend. But a working product isn't a business. You still need users, infrastructure, and marketing budget."
+        />
 
-              {/* The gap */}
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg className="w-3.5 h-3.5 text-white/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="text-white/60 font-sans font-light">VCs won&apos;t touch you without traction</span>
-                  </div>
+        <div className="grid lg:grid-cols-2 gap-px bg-white/[0.06] border border-white/[0.06]">
+          {/* Left: the funding gap as an error log */}
+          <div className="bg-background p-6 sm:p-10 lg:p-12 flex flex-col justify-center">
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 mb-4">
+              founder@weekend-app % fund --traditional
+            </p>
+            <div className="space-y-3">
+              {blockers.map((b) => (
+                <div
+                  key={b.code}
+                  className="flex items-baseline gap-4 border border-white/[0.06] bg-white/[0.02] px-4 py-3.5"
+                >
+                  <span className="font-mono text-[13px] text-persimmon-400 shrink-0">{b.code}</span>
+                  <span className="text-white/70 font-sans font-light text-[15px]">{b.text}</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg className="w-3.5 h-3.5 text-white/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="text-white/60 font-sans font-light">Traction requires capital you don&apos;t have</span>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg className="w-3.5 h-3.5 text-white/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="text-white/60 font-sans font-light">The memecoin casino will eat your project alive</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Arrow to solution */}
-              <div className="mt-8 pt-6 border-t border-white/[0.06]">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-accent/20 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                  <p className="text-white font-sans font-medium">
-                    Vibestarter gives vibecoding founders a real funding path: community-backed, escrow-protected, and designed for builders, not degens.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Right side - Animated Visual */}
-            <div className="relative min-h-[400px]">
-              <FundingGapAnimation />
+            {/* The exit from the loop */}
+            <div className="mt-6 flex items-start gap-3 border border-accent/25 bg-accent/[0.06] px-4 py-4">
+              <span className="font-mono text-accent shrink-0 text-[15px]">$</span>
+              <p className="text-white font-sans text-[15px] leading-relaxed">
+                Vibestarter gives vibecoding founders a real funding path: community-backed,
+                escrow-protected, and designed for builders, not degens.
+              </p>
             </div>
           </div>
-        </div></CornerBrackets>
+
+          {/* Right: animated funding gap visual */}
+          <div className="bg-background relative min-h-[400px]">
+            <FundingGapAnimation />
+          </div>
+        </div>
       </div>
     </section>
   );

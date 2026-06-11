@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
-import { TextScramble } from "./TextScramble";
+import { SectionHeader } from "./SectionHeader";
 import { CornerBrackets } from "@/components/ui/corner-brackets";
 import { SegmentedProgress } from "@/components/ui/segmented-progress";
 
@@ -116,28 +116,15 @@ export function RunwayProtection() {
     <section ref={sectionRef} id="runway-protection" className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div ref={headerRef} className="text-center mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <span className="section-label">// Protection</span>
-            <span className="px-3 py-1 text-[11px] font-mono text-accent-bright bg-accent-bright/10 border border-accent-bright/20">
-              Backer Protection
-            </span>
-          </div>
-          <TextScramble
-            text="How Backers Stay Protected"
-            className="section-heading"
+        <div ref={headerRef}>
+          <SectionHeader
+            num="05"
+            label="Protection"
+            badge="Backer Protection"
+            title="How backers stay protected"
+            description="Built-in accountability for sustainable building. Funds release automatically over 6 months — no milestones to verify, just time-locked tranches with 72-hour challenge windows."
           />
         </div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center text-white/60 max-w-2xl mx-auto mb-10 font-sans font-light"
-        >
-          Built-in accountability for sustainable building. Funds release automatically over 6 months—no milestones to verify, just time-locked tranches with 72-hour challenge windows.
-        </motion.p>
 
         {/* Animated Timeline Visualization */}
         <div ref={timelineRef} className="mb-10 max-w-4xl mx-auto">
