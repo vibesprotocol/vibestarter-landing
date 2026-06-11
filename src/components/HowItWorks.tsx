@@ -486,6 +486,8 @@ export function HowItWorks() {
                 <button
                   key={index}
                   onClick={() => setMobileActiveStep(index)}
+                  aria-label={`Go to step ${index + 1}`}
+                  aria-current={index === mobileActiveStep}
                   className="w-1.5 h-1.5 transition-all duration-300"
                   style={{
                     backgroundColor: index === mobileActiveStep

@@ -5,8 +5,10 @@ import Link from "next/link";
 const sitemapLinks = [
   { label: "Home", href: "/" },
   { label: "Thesis", href: "/thesis" },
+  { label: "Whitepaper", href: "/whitepaper" },
   { label: "Terms", href: "/terms" },
   { label: "Privacy", href: "/privacy" },
+  { label: "Risk Disclosure", href: "/risk-disclosure" },
 ];
 
 const socialLinks = [

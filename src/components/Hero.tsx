@@ -255,7 +255,8 @@ function HeroVisual() {
     // Show final cursor, then auto-cycle after a pause
     tl.call(() => {
       setStage(4);
-      if (!userInteracted) {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!userInteracted && !reduceMotion) {
         autoCycleTimeoutRef.current = setTimeout(() => {
           const scenarioKeys = Object.keys(scenarios) as Scenario[];
           const currentIdx = scenarioKeys.indexOf(activeScenario);
@@ -297,6 +298,8 @@ function HeroVisual() {
               <button
                 key={scenario}
                 onClick={() => handleTabChangeManual(scenario)}
+                aria-pressed={activeScenario === scenario}
+                aria-label={`Show ${scenarios[scenario].label.toLowerCase()} scenario`}
                 className={`px-3 py-1 text-[10px] sm:text-[11px] font-mono uppercase tracking-wider font-medium transition-all duration-200 ${
                   activeScenario === scenario
                     ? "bg-accent/20 text-accent border border-accent/30"

@@ -201,9 +201,22 @@ function CapsuleInfographic() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [userInteracted, setUserInteracted] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const capsule = sampleCapsules[currentIndex];
+
+  // Only auto-cycle while the infographic is actually on screen
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.2 }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Handle manual pagination clicks - pause auto-cycle longer
   const handlePaginationClick = (index: number) => {
@@ -238,7 +251,8 @@ function CapsuleInfographic() {
 
   // Cycle through capsules with slow crossfade (when user hasn't interacted)
   useEffect(() => {
-    if (userInteracted) return;
+    if (userInteracted || !isInView) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = setInterval(() => {
       // Start fade out
@@ -252,10 +266,10 @@ function CapsuleInfographic() {
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [userInteracted]);
+  }, [userInteracted, isInView]);
 
   return (
-    <div className="relative w-full">
+    <div ref={containerRef} className="relative w-full">
       <div className="relative flex flex-col items-center py-8 md:py-12">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
@@ -423,6 +437,8 @@ function CapsuleInfographic() {
             <button
               key={index}
               onClick={() => handlePaginationClick(index)}
+              aria-label={`Show capsule for ${sampleCapsules[index].projectName}`}
+              aria-current={index === currentIndex}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? "bg-accent w-6"

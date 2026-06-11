@@ -70,6 +70,7 @@ export function MarketThesis() {
   // Auto-cycle tabs when in view and user hasn't interacted
   useEffect(() => {
     if (!isInView || userInteracted) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = setInterval(() => {
       setActiveTab((prev) => (prev + 1) % 3);
@@ -175,6 +176,7 @@ export function MarketThesis() {
                 <button
                   key={point.id}
                   onClick={() => handleTabClick(index)}
+                  aria-pressed={activeTab === index}
                   className="relative block text-left w-full group"
                 >
                   {/* Commit node on the line */}
@@ -208,6 +210,7 @@ export function MarketThesis() {
                 <button
                   key={point.id}
                   onClick={() => handleTabClick(index)}
+                  aria-pressed={activeTab === index}
                   className={`relative flex items-start gap-3 px-4 py-4 text-left transition-all duration-300 flex-1 sm:flex-initial ${
                     activeTab === index
                       ? "bg-white/[0.06] border border-accent/30"

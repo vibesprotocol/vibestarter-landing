@@ -27,7 +27,7 @@ export function Navigation() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
+    <nav aria-label="Main" className="fixed top-0 left-0 right-0 z-50">
       {/* Background with blur - becomes more opaque on scroll */}
       <div
         className={`absolute inset-0 nav-blur transition-all duration-300 ${
@@ -94,6 +94,7 @@ export function Navigation() {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-2 text-muted hover:text-white transition-colors"
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

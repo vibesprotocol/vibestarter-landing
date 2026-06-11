@@ -16,6 +16,22 @@
   body {
     @apply bg-background text-white;
   }
+
+  /* Anchor targets must clear the fixed 80px nav */
+  section[id],
+  [id="the-problem"],
+  [id="capsule"] {
+    scroll-margin-top: 6rem;
+  }
+
+  /* Visible keyboard focus across all interactive elements */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #91d982;
+    outline-offset: 2px;
+  }
 }
 
 /* Scrollbar - matches app */
@@ -400,5 +416,43 @@
   }
   100% {
     stroke-dashoffset: -40;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   Users who opt out of motion get a calm page:
+   no film grain flicker, no scroll-triggered
+   reveals, no looping decorative animation.
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .noise-overlay {
+    animation: none;
+  }
+
+  .scroll-reveal {
+    opacity: 1;
+  }
+
+  .scroll-reveal.visible {
+    animation: none;
+  }
+
+  .terminal-cursor,
+  .animate-bounce-slow,
+  .animate-fadeIn {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -7,7 +7,6 @@ import {
   HowItWorks,
   RunwayProtection,
   OriginCapsuleSection,
-  ProtocolStats,
   ClosingCTA,
   Footer,
   Divider,
@@ -16,41 +15,46 @@ import {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-accent focus:text-black focus:px-4 focus:py-2 focus:font-mono focus:text-sm"
+      >
+        Skip to content
+      </a>
       <Navigation />
-      <Hero />
-      <Divider />
-      <ScrollFadeUp>
-        <Features />
-      </ScrollFadeUp>
-      <Divider />
-      <ScrollFadeUp>
-        <MarketThesis />
-      </ScrollFadeUp>
-      <Divider />
-      <ScrollFadeUp>
-        <TokenIndependence />
-      </ScrollFadeUp>
-      <Divider />
-      <ScrollFadeUp>
-        <HowItWorks />
-      </ScrollFadeUp>
-      <Divider />
-      <ScrollFadeUp>
-        <RunwayProtection />
-      </ScrollFadeUp>
-      <Divider />
-      <ScrollFadeUp>
-        <OriginCapsuleSection />
-      </ScrollFadeUp>
-      <Divider />
-      <ScrollFadeUp>
-        <ProtocolStats />
-      </ScrollFadeUp>
-      <ScrollFadeUp>
-        <ClosingCTA />
-      </ScrollFadeUp>
+      <main id="main-content" className="min-h-screen bg-background">
+        <Hero />
+        <Divider />
+        <ScrollFadeUp>
+          <Features />
+        </ScrollFadeUp>
+        <Divider />
+        <ScrollFadeUp>
+          <MarketThesis />
+        </ScrollFadeUp>
+        <Divider />
+        <ScrollFadeUp>
+          <TokenIndependence />
+        </ScrollFadeUp>
+        <Divider />
+        <ScrollFadeUp>
+          <HowItWorks />
+        </ScrollFadeUp>
+        <Divider />
+        <ScrollFadeUp>
+          <RunwayProtection />
+        </ScrollFadeUp>
+        <Divider />
+        <ScrollFadeUp>
+          <OriginCapsuleSection />
+        </ScrollFadeUp>
+        <Divider />
+        <ScrollFadeUp>
+          <ClosingCTA />
+        </ScrollFadeUp>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

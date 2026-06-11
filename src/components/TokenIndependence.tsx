@@ -54,6 +54,7 @@ export function TokenIndependence() {
   // Auto-cycle through stages when in view and user hasn't interacted
   useEffect(() => {
     if (!isInView || userInteracted) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = setInterval(() => {
       setActiveStage((prev) => (prev + 1) % 4);
@@ -123,7 +124,7 @@ export function TokenIndependence() {
 
           <p className="text-muted text-base sm:text-lg max-w-2xl mx-auto font-sans font-light">
             Every Vibetoken is a standard ERC-20 paired with ETH on Aerodrome.
-            All backers pay the same price. Trade instantly. No platform token required.
+            Trade instantly from day one — no platform token required.
           </p>
           <p className="text-white/50 text-sm max-w-xl mx-auto font-sans font-light text-center mt-3">
             No snipers. No insiders. No bonding curve games. Every backer pays the same price — first or last.
@@ -139,6 +140,7 @@ export function TokenIndependence() {
                 <button
                   key={stage.id}
                   onClick={() => handleStageClick(index)}
+                  aria-pressed={activeStage === index}
                   className={`relative flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-left transition-all duration-300 ${
                     activeStage === index
                       ? "bg-white/[0.06] border border-accent-bright/30"
