@@ -34,25 +34,6 @@ export function RunwayProtection() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Header slide in from left
-      if (headerRef.current) {
-        gsap.fromTo(
-          headerRef.current,
-          { x: -50, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: headerRef.current,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-
       // Trigger animation when timeline comes into view — replays on re-enter
       if (timelineRef.current) {
         ScrollTrigger.create({
