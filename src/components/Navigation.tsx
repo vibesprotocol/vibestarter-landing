@@ -82,10 +82,10 @@ export function Navigation() {
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <Link
-            href="https://app.vibestarter.xyz/raises/vibes"
+            href="https://app.vibestarter.xyz/launch"
             className="btn-mechanical px-6 py-2.5 text-[15px]"
           >
-            Back the $VIBES Raise
+            Fund your app
           </Link>
         </div>
 
@@ -115,10 +115,10 @@ export function Navigation() {
             ))}
             <div className="pt-4">
               <Link
-                href="https://app.vibestarter.xyz/raises/vibes"
+                href="https://app.vibestarter.xyz/launch"
                 className="btn-mechanical block text-center px-5 py-3 text-[15px]"
               >
-                Back the $VIBES Raise
+                Fund your app
               </Link>
             </div>
           </div>
