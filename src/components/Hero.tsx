@@ -446,7 +446,7 @@ export function Hero() {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
                 <Link
-                  href="https://app.vibestarter.xyz/launch"
+                  href="https://app.vibestarter.xyz"
                   className="btn-mechanical px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] text-center"
                 >
                   Fund your app

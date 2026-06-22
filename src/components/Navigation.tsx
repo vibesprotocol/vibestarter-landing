@@ -82,7 +82,7 @@ export function Navigation() {
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <Link
-            href="https://app.vibestarter.xyz/launch"
+            href="https://app.vibestarter.xyz"
             className="btn-mechanical px-6 py-2.5 text-[15px]"
           >
             Fund your app
@@ -115,7 +115,7 @@ export function Navigation() {
             ))}
             <div className="pt-4">
               <Link
-                href="https://app.vibestarter.xyz/launch"
+                href="https://app.vibestarter.xyz"
                 className="btn-mechanical block text-center px-5 py-3 text-[15px]"
               >
                 Fund your app
