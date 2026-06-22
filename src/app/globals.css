@@ -402,3 +402,145 @@
     stroke-dashoffset: -40;
   }
 }
+
+/* ============================================
+   FOLLOW THE MONEY — experience layer
+   ============================================ */
+
+/* transform-heavy experience: clip horizontal bleed from rotated stamps,
+   nowrap tooltips and off-screen formations */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* custom cursor active: hide the native one */
+html.x-has-cursor,
+html.x-has-cursor * {
+  cursor: none !important;
+}
+
+::selection {
+  background: #91d982;
+  color: #000;
+}
+
+/* primary button — fill wipes up, arrow nudges, label presses */
+.x-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
+  padding: 1.05rem 1.9rem;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #000;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: color 0.35s ease;
+  will-change: transform;
+}
+
+.x-btn__fill {
+  position: absolute;
+  inset: 0;
+  background: #91d982;
+  transform: translateY(101%);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.x-btn:hover .x-btn__fill {
+  transform: translateY(0);
+}
+
+.x-btn__label,
+.x-btn__arrow {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.x-btn:hover .x-btn__arrow {
+  transform: translateX(5px);
+}
+
+.x-btn:active .x-btn__label {
+  transform: scale(0.96);
+}
+
+.x-btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+.x-btn--ghost:hover {
+  color: #000;
+  border-color: #91d982;
+}
+
+/* act 5 outcome choice */
+.x-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  padding: 0.8rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(5, 5, 5, 0.72);
+  color: rgba(255, 255, 255, 0.55);
+  text-align: left;
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+  flex: 1;
+}
+
+.x-choice:hover {
+  border-color: rgba(145, 217, 130, 0.55);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.x-choice--on {
+  border-color: #91d982;
+  background: rgba(145, 217, 130, 0.08);
+  color: #91d982;
+}
+
+/* drip timeline markers */
+[data-state="done"] .x-marker {
+  background: #0d8bca;
+  border-color: #0d8bca;
+}
+
+[data-state="active"] .x-marker {
+  background: #ec6800;
+  border-color: #ec6800;
+  box-shadow: 0 0 12px rgba(236, 104, 0, 0.6);
+}
+
+[data-state="done"] .x-marker-id,
+[data-state="active"] .x-marker-id {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* hero scroll cue */
+@keyframes scroll-cue {
+  0% { transform: translateY(-12px); }
+  100% { transform: translateY(40px); }
+}
+
+.animate-scroll-cue {
+  animation: scroll-cue 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-cue,
+  .x-btn__fill,
+  .x-btn__arrow {
+    animation: none;
+    transition: none;
+  }
+}

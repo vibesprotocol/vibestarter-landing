@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./console.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
 const inter = Inter({
@@ -76,9 +77,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${jetbrainsMonoMono.variable}`}>
-      <body className="font-sans antialiased bg-[#0A0A0A] text-white grid-bg">
+      <body className="font-sans antialiased bg-[#0A0A0A] text-white">
         <SmoothScroll>{children}</SmoothScroll>
-        <div className="noise-overlay" />
       </body>
     </html>
   );
