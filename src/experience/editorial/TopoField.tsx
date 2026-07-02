@@ -83,10 +83,10 @@ const FRAG = /* glsl */ `
     // the mark — the Vibestarter chevron as a landform. A ridge of elevation
     // shaped like >_ rises out of the terrain; the contours wrap around it
     // and the glyph emerges from the medium itself.
-    // portrait: the claim sits at the top, so the landform owns the open
-    // ground low in the frame — sized to the width, optically centred
-    float gsc = aspect < 1.0 ? min(0.6 * aspect, 0.34) : 0.56;
-    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect + 0.0625 * gsc, 0.24) : vec2(0.72 * aspect, 0.52);
+    // portrait: the landform sits BEHIND the claim, watermark-height —
+    // width-fit, optically centred, mid-frame under the headline
+    float gsc = aspect < 1.0 ? min(0.5 * aspect, 0.28) : 0.56;
+    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect + 0.0625 * gsc, 0.58) : vec2(0.72 * aspect, 0.52);
     vec2 gq = (p - gc) / gsc;
     float d1 = sdSeg(gq, vec2(-0.8125, 0.5), vec2(-0.1875, 0.0));
     float d2 = sdSeg(gq, vec2(-0.1875, 0.0), vec2(-0.8125, -0.5));
@@ -243,9 +243,9 @@ export function TopoField({ className = "" }: { className?: string }) {
       const dy = py - mouse.y;
       const inf = Math.exp(-(dx * dx + dy * dy) * 6.5);
       const t = material.uniforms.uTime.value as number;
-      const gsc = aspect < 1 ? Math.min(0.6 * aspect, 0.34) : 0.56;
+      const gsc = aspect < 1 ? Math.min(0.5 * aspect, 0.28) : 0.56;
       const gcx = aspect < 1 ? 0.5 * aspect + 0.0625 * gsc : 0.72 * aspect;
-      const gcy = aspect < 1 ? 0.24 : 0.52;
+      const gcy = aspect < 1 ? 0.58 : 0.52;
       const gx = (px - gcx) / gsc;
       const gy = (py - gcy) / gsc;
       const dm = Math.min(

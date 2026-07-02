@@ -64,61 +64,134 @@ const OUTCOMES: Record<
 /* its own, in sequence; the tabs pin one.                               */
 /* ------------------------------------------------------------------ */
 
-const LINE_Y = 200;
-
-// the window = a real clock
-const WIN_CX = 430;
-const WIN_CY = LINE_Y;
-const WIN_R = 64; // tick ring radius
-const ARC_R = 76; // sweeping hand orbit
-const ARC_C = 2 * Math.PI * ARC_R;
 const TICKS = Array.from({ length: 36 }, (_, i) => i);
-
-// the conduit
-const START_X = 86;
-const JUNCTION_X = 620;
-const CONDUIT_D = `M ${START_X} ${LINE_Y} L ${JUNCTION_X} ${LINE_Y}`;
-const LEN_WINDOW = WIN_CX - START_X;
-const FIBRE_LIT = 70;
-
-// the gate — two weighted bars on a guide rail just after the window
-const GATE_X = 566;
-const GATE_HALF = 46; // each bar's length
-const GATE_OPEN = 30; // how far each bar retracts when open
 const GATE_REST = "rgba(236,104,0,0.6)";
-
-// the escrow stack the beam departs from
-const ESC_X = 34;
-const ESC_W = 40;
 const ESC_DASHES = [0, 1, 2, 3, 4];
-
-// the challenger's stake chip at the gate
-const STAKE_Y = 124;
 const STAKE_SEGS = [0, 1, 2, 3, 4];
 
 const BRANCH_IDS = ["pass", "reject", "uphold"] as const;
 type BranchId = (typeof BRANCH_IDS)[number];
 
-const BRANCH_D: Record<BranchId, string> = {
-  pass: "M 620 200 C 770 200, 860 96, 965 96",
-  reject: "M 620 200 L 965 200",
-  uphold: "M 620 200 C 770 200, 860 304, 965 304",
-};
-const BRANCH_END: Record<BranchId, { x: number; y: number }> = {
-  pass: { x: 965, y: 96 },
-  reject: { x: 965, y: 200 },
-  uphold: { x: 965, y: 304 },
-};
 const BRANCH_COLOR: Record<BranchId, string> = {
   pass: GREEN,
   reject: AMBER,
   uphold: BLUE,
 };
-const TRACK_D: Record<BranchId, string> = {
-  pass: `M ${START_X} ${LINE_Y} L ${JUNCTION_X} ${LINE_Y} C 770 200, 860 96, 965 96`,
-  reject: `M ${START_X} ${LINE_Y} L ${JUNCTION_X} ${LINE_Y} L 965 200`,
-  uphold: `M ${START_X} ${LINE_Y} L ${JUNCTION_X} ${LINE_Y} C 770 200, 860 304, 965 304`,
+
+/* The instrument exists at two scales: the full 1200-unit flow for ≥sm and
+   a compact 400-unit variant that fits a phone at ~1:1 (the countdown stays
+   ~16px). Same topology, same data attributes, same timeline — only the
+   geometry differs. */
+type FlowGeomBase = {
+  compact: boolean;
+  viewBox: string;
+  lineY: number;
+  winCx: number;
+  winR: number; // tick ring radius
+  arcR: number; // sweeping hand orbit
+  startX: number;
+  junctionX: number;
+  gateX: number;
+  gateHalf: number; // each bar's length
+  gateOpen: number; // how far each bar retracts when open
+  escX: number;
+  escW: number;
+  stakeY: number;
+  fibreLit: number;
+  stakeExit: number; // the dismissed stake's exit slide
+  burnDrop: number; // how far the burnt segment falls
+  rulerXs: number[];
+  branchTail: Record<BranchId, string>;
+  branchEnd: Record<BranchId, { x: number; y: number }>;
 };
+type FlowGeom = FlowGeomBase & {
+  winCy: number;
+  arcC: number;
+  conduitD: string;
+  lenWindow: number;
+  branchD: Record<BranchId, string>;
+  trackD: Record<BranchId, string>;
+};
+
+const makeGeom = (g: FlowGeomBase): FlowGeom => ({
+  ...g,
+  winCy: g.lineY,
+  arcC: 2 * Math.PI * g.arcR,
+  conduitD: `M ${g.startX} ${g.lineY} L ${g.junctionX} ${g.lineY}`,
+  lenWindow: g.winCx - g.startX,
+  branchD: {
+    pass: `M ${g.junctionX} ${g.lineY} ${g.branchTail.pass}`,
+    reject: `M ${g.junctionX} ${g.lineY} ${g.branchTail.reject}`,
+    uphold: `M ${g.junctionX} ${g.lineY} ${g.branchTail.uphold}`,
+  },
+  trackD: {
+    pass: `M ${g.startX} ${g.lineY} L ${g.junctionX} ${g.lineY} ${g.branchTail.pass}`,
+    reject: `M ${g.startX} ${g.lineY} L ${g.junctionX} ${g.lineY} ${g.branchTail.reject}`,
+    uphold: `M ${g.startX} ${g.lineY} L ${g.junctionX} ${g.lineY} ${g.branchTail.uphold}`,
+  },
+});
+
+const GEOM_DESKTOP = makeGeom({
+  compact: false,
+  viewBox: "0 0 1200 400",
+  lineY: 200,
+  winCx: 430,
+  winR: 64,
+  arcR: 76,
+  startX: 86,
+  junctionX: 620,
+  gateX: 566,
+  gateHalf: 46,
+  gateOpen: 30,
+  escX: 34,
+  escW: 40,
+  stakeY: 124,
+  fibreLit: 70,
+  stakeExit: -46,
+  burnDrop: 34,
+  rulerXs: Array.from({ length: 8 }, (_, i) => 130 + i * 60),
+  branchTail: {
+    pass: "C 770 200, 860 96, 965 96",
+    reject: "L 965 200",
+    uphold: "C 770 200, 860 304, 965 304",
+  },
+  branchEnd: {
+    pass: { x: 965, y: 96 },
+    reject: { x: 965, y: 200 },
+    uphold: { x: 965, y: 304 },
+  },
+});
+
+const GEOM_COMPACT = makeGeom({
+  compact: true,
+  viewBox: "0 0 400 288",
+  lineY: 168,
+  winCx: 190,
+  winR: 50,
+  arcR: 60,
+  startX: 64,
+  junctionX: 330,
+  gateX: 292,
+  gateHalf: 34,
+  gateOpen: 22,
+  escX: 12,
+  escW: 34,
+  stakeY: 100,
+  fibreLit: 40,
+  stakeExit: -32,
+  burnDrop: 24,
+  rulerXs: [104, 132, 260],
+  branchTail: {
+    pass: "C 352 168, 360 122, 386 118",
+    reject: "L 386 168",
+    uphold: "C 352 168, 360 214, 386 218",
+  },
+  branchEnd: {
+    pass: { x: 386, y: 118 },
+    reject: { x: 386, y: 168 },
+    uphold: { x: 386, y: 218 },
+  },
+});
 
 const fmtCountdown = (hours: number) => {
   const clamped = Math.max(0, hours);
@@ -132,11 +205,14 @@ function ChallengeFlow({
   outcome,
   cycleNonce,
   onCycleEnd,
+  compact = false,
 }: {
   outcome: Outcome;
   cycleNonce: number;
   onCycleEnd: () => void;
+  compact?: boolean;
 }) {
+  const G = compact ? GEOM_COMPACT : GEOM_DESKTOP;
   const rootRef = useRef<HTMLDivElement>(null);
   const onCycleEndRef = useRef(onCycleEnd);
   onCycleEndRef.current = onCycleEnd;
@@ -207,10 +283,10 @@ function ChallengeFlow({
     const total = (fibreCores[outcome] as SVGPathElement).getTotalLength();
     const dashes = escDashes as SVGRectElement[];
 
-    gsap.set(fActive, { strokeDasharray: `${FIBRE_LIT} ${total + 2 * FIBRE_LIT}` });
+    gsap.set(fActive, { strokeDasharray: `${G.fibreLit} ${total + 2 * G.fibreLit}` });
     const rideTo = (len: number) => {
       const L = Math.max(0, Math.min(len, total));
-      gsap.set(fActive, { strokeDashoffset: FIBRE_LIT / 2 - L });
+      gsap.set(fActive, { strokeDashoffset: G.fibreLit / 2 - L });
     };
     (fibreGroups as SVGGElement[]).forEach((g, i) => gsap.set(g, { opacity: i === outcome ? 1 : 0 }));
 
@@ -238,15 +314,15 @@ function ChallengeFlow({
       gsap.set(arcTrail, { opacity: 0 });
       gsap.set(fGroup, { opacity: outcome === 2 ? 0.45 : 1 });
       gsap.set(fGlow, { strokeWidth: 7, opacity: 0.55 });
-      rideTo(LEN_WINDOW);
+      rideTo(G.lenWindow);
       cnt.h = 0;
       writeCount();
       gsap.set(challenged, { opacity: outcome === 0 ? 0 : 0.9 });
       gsap.set(stake, { opacity: outcome === 0 ? 0 : 0.9 });
       if (outcome === 0) {
         gsap.set(ring, { stroke: AMBER, opacity: 1 });
-        gsap.set(gateT, { y: -GATE_OPEN });
-        gsap.set(gateB, { y: GATE_OPEN });
+        gsap.set(gateT, { y: -G.gateOpen });
+        gsap.set(gateB, { y: G.gateOpen });
         gsap.set([gateBarT, gateBarB], { stroke: GATE_REST, strokeWidth: 3, opacity: 0.5 });
       } else if (outcome === 1) {
         gsap.set(ring, { stroke: AMBER, opacity: 1 });
@@ -271,9 +347,9 @@ function ChallengeFlow({
     gsap.set(ring, { stroke: AMBER, opacity: 1 });
     // clear the previous cycle's clock immediately — never show a full trail
     // against a reset countdown, even for a frame
-    gsap.set(arcTrail, { opacity: 0, stroke: AMBER, strokeDasharray: `${ARC_C}`, strokeDashoffset: ARC_C });
-    gsap.set(arc, { opacity: 0, stroke: AMBER, strokeDasharray: `${ARC_C}`, strokeDashoffset: ARC_C });
-    gsap.set(arcHead, { opacity: 0, rotation: 0, svgOrigin: `${WIN_CX} ${WIN_CY}` });
+    gsap.set(arcTrail, { opacity: 0, stroke: AMBER, strokeDasharray: `${G.arcC}`, strokeDashoffset: G.arcC });
+    gsap.set(arc, { opacity: 0, stroke: AMBER, strokeDasharray: `${G.arcC}`, strokeDashoffset: G.arcC });
+    gsap.set(arcHead, { opacity: 0, rotation: 0, svgOrigin: `${G.winCx} ${G.winCy}` });
     gsap.set(endDots, { opacity: 0.25, r: 3.5 });
     gsap.set(dashes, { opacity: 0.8 });
     cnt.h = 72;
@@ -289,8 +365,8 @@ function ChallengeFlow({
     const flashTag = (at: number) =>
       tl.to(tags[outcome], { opacity: 0.3, duration: 0.16, repeat: 1, yoyo: true }, at);
     const openGate = (at: number) => {
-      tl.to(gateT, { y: -GATE_OPEN, duration: 0.5, ease: "power3.inOut" }, at);
-      tl.to(gateB, { y: GATE_OPEN, duration: 0.5, ease: "power3.inOut" }, at);
+      tl.to(gateT, { y: -G.gateOpen, duration: 0.5, ease: "power3.inOut" }, at);
+      tl.to(gateB, { y: G.gateOpen, duration: 0.5, ease: "power3.inOut" }, at);
       tl.to([gateBarT, gateBarB], { opacity: 0.45, duration: 0.5 }, at);
     };
 
@@ -301,9 +377,9 @@ function ChallengeFlow({
     tl.set(fGroup, { opacity: 1 }, 0);
     tl.set(fGlow, { strokeWidth: 7, opacity: 0.55 }, 0);
     tl.set(ring, { stroke: AMBER, opacity: 1 }, 0);
-    tl.set(arcTrail, { opacity: 0, strokeDasharray: `${ARC_C}`, strokeDashoffset: ARC_C }, 0);
-    tl.set(arc, { opacity: 0, stroke: AMBER, strokeDasharray: `${ARC_C}`, strokeDashoffset: ARC_C }, 0);
-    tl.set(arcHead, { opacity: 0, rotation: 0, svgOrigin: `${WIN_CX} ${WIN_CY}` }, 0);
+    tl.set(arcTrail, { opacity: 0, strokeDasharray: `${G.arcC}`, strokeDashoffset: G.arcC }, 0);
+    tl.set(arc, { opacity: 0, stroke: AMBER, strokeDasharray: `${G.arcC}`, strokeDashoffset: G.arcC }, 0);
+    tl.set(arcHead, { opacity: 0, rotation: 0, svgOrigin: `${G.winCx} ${G.winCy}` }, 0);
     paths.forEach((p) => tl.set(p, { opacity: 0.15 }, 0));
 
     const pos = { l: 0 };
@@ -313,7 +389,7 @@ function ChallengeFlow({
 
     /* ---- STAGE A (0–1.0s): the tranche leaves escrow ---- */
     tl.to(dashes[4], { opacity: 0.12, duration: 0.4, ease: "power1.in" }, 0.05);
-    tl.to(pos, { l: LEN_WINDOW, duration: 1.0, ease: "power2.inOut", onUpdate: onRide }, 0);
+    tl.to(pos, { l: G.lenWindow, duration: 1.0, ease: "power2.inOut", onUpdate: onRide }, 0);
 
     /* ---- STAGE B — THE 72H WINDOW (1.0–3.6s) = TIME ----
        The hand sweeps the ring, the countdown runs 72:00:00 → 00:00:00,
@@ -324,7 +400,7 @@ function ChallengeFlow({
     tl.set([arc, arcHead], { opacity: 0.95 }, WIN_START);
     tl.set(arcTrail, { opacity: 0.16 }, WIN_START);
     tl.to([arc, arcTrail], { strokeDashoffset: 0, duration: WIN_DUR, ease: "none" }, WIN_START);
-    tl.to(arcHead, { rotation: 360, duration: WIN_DUR, ease: "none", svgOrigin: `${WIN_CX} ${WIN_CY}` }, WIN_START);
+    tl.to(arcHead, { rotation: 360, duration: WIN_DUR, ease: "none", svgOrigin: `${G.winCx} ${G.winCy}` }, WIN_START);
     tl.to(cnt, { h: 0, duration: WIN_DUR, ease: "none", onUpdate: writeCountQuantized }, WIN_START);
     tl.to(fGlow, { strokeWidth: 11, opacity: 0.85, duration: 0.85, ease: "sine.inOut", yoyo: true, repeat: 1 }, WIN_START + 0.2);
     tl.fromTo(active, { opacity: 0.15 }, { opacity: 0.3, duration: WIN_DUR, ease: "none" }, WIN_START);
@@ -358,8 +434,8 @@ function ChallengeFlow({
       // rest returns, the gate opens, the beam still passes
       tl.to([gateBarT, gateBarB], { stroke: "rgba(255,255,255,0.9)", strokeWidth: 4, duration: 0.14, ease: "none" }, RES);
       tl.to(challenged, { opacity: 0, duration: 0.25, ease: "none" }, RES + 0.1);
-      tl.to(stakeBurn, { y: 34, opacity: 0, fill: AMBER, duration: 0.7, ease: "power2.in" }, RES + 0.15);
-      tl.to(stake, { x: -46, opacity: 0, duration: 0.6, ease: "power2.inOut" }, RES + 0.75);
+      tl.to(stakeBurn, { y: G.burnDrop, opacity: 0, fill: AMBER, duration: 0.7, ease: "power2.in" }, RES + 0.15);
+      tl.to(stake, { x: G.stakeExit, opacity: 0, duration: 0.6, ease: "power2.inOut" }, RES + 0.75);
       tl.to([gateBarT, gateBarB], { stroke: GATE_REST, strokeWidth: 3, duration: 0.35, ease: "none" }, RES + 0.2);
       openGate(RES + 0.7);
       tl.to(pos, { l: total, duration: 1.9, ease: "power1.inOut", onUpdate: onRide }, RES + 1.1);
@@ -373,7 +449,7 @@ function ChallengeFlow({
       // beam reverses into escrow (the dash relights — nothing released)
       tl.to([gateBarT, gateBarB], { stroke: BLUE, strokeWidth: 5, duration: 0.3, ease: "power1.in" }, RES + 0.05);
       tl.to(challenged, { opacity: 0, duration: 0.3, ease: "none" }, RES + 0.1);
-      tl.to(stake, { x: -46, opacity: 0, duration: 0.6, ease: "power2.inOut" }, RES + 0.5);
+      tl.to(stake, { x: G.stakeExit, opacity: 0, duration: 0.6, ease: "power2.inOut" }, RES + 0.5);
       tl.to(ring, { stroke: BLUE, duration: 0.45, ease: "power2.out" }, RES + 0.35);
       tl.to([arc, arcTrail], { stroke: BLUE, duration: 0.45, ease: "none" }, RES + 0.35);
       tl.to(pos, { l: 0, duration: 1.5, ease: "power2.inOut", onUpdate: onRide }, RES + 0.7);
@@ -396,7 +472,7 @@ function ChallengeFlow({
   return (
     <div ref={rootRef} className="relative">
       <svg
-        viewBox="0 0 1200 400"
+        viewBox={G.viewBox}
         className="w-full"
         role="img"
         aria-label="A beam of light leaves an escrow stack and pauses inside the 72-hour window — a clock with a tick ring, a sweeping hand, and a live countdown. A weighted two-bar gate sits just after the window. With no challenge, the gate opens the instant the countdown hits zero and the beam glides through to the founder. A challenge places the challenger's stake at the gate: rejected, twenty percent of the stake burns off, the rest returns, and the beam still passes; upheld, the gate fuses into a blue lock and the beam returns to escrow."
@@ -413,30 +489,30 @@ function ChallengeFlow({
             <rect
               key={i}
               data-cw-esc={i}
-              x={ESC_X}
-              y={LINE_Y - 18 + i * 8}
-              width={ESC_W}
+              x={G.escX}
+              y={G.lineY - 18 + i * 8}
+              width={G.escW}
               height="2.5"
               fill="rgba(255,255,255,0.6)"
               opacity="0.8"
             />
           ))}
-          <text x={ESC_X} y={LINE_Y - 34} className="font-mono" fontSize="12" letterSpacing="2" fill="rgba(255,255,255,0.7)">
+          <text x={G.escX} y={G.lineY - (G.compact ? 28 : 34)} className="font-mono" fontSize={G.compact ? 10 : 12} letterSpacing="2" fill="rgba(255,255,255,0.7)">
             ESCROW
           </text>
-          <text x={ESC_X} y={LINE_Y + 38} className="font-mono" fontSize="10" letterSpacing="1.5" fill="rgba(255,255,255,0.38)">
+          <text x={G.escX} y={G.lineY + (G.compact ? 32 : 38)} className="font-mono" fontSize={G.compact ? 8 : 10} letterSpacing="1.5" fill="rgba(255,255,255,0.38)">
             TRANCHE REQUESTED
           </text>
         </g>
 
         {/* the conduit + fine ruler ticks (instrumented ground) */}
-        <path data-cw-conduit d={CONDUIT_D} fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" />
+        <path data-cw-conduit d={G.conduitD} fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" />
         <g data-cw-fixed>
-          {Array.from({ length: 8 }, (_, i) => 130 + i * 60).map(
+          {G.rulerXs.map(
             (x) =>
-              Math.abs(x - WIN_CX) > WIN_R + 14 &&
-              Math.abs(x - GATE_X) > 12 && (
-                <line key={x} x1={x} y1={LINE_Y + 4} x2={x} y2={LINE_Y + 9} stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+              Math.abs(x - G.winCx) > G.winR + 14 &&
+              Math.abs(x - G.gateX) > 12 && (
+                <line key={x} x1={x} y1={G.lineY + 4} x2={x} y2={G.lineY + 9} stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
               )
           )}
         </g>
@@ -446,26 +522,26 @@ function ChallengeFlow({
           {TICKS.map((i) => {
             const major = i % 6 === 0;
             const a = (i / TICKS.length) * Math.PI * 2 - Math.PI / 2;
-            const r0 = WIN_R + 3;
-            const r1 = WIN_R + (major ? 9 : 6);
+            const r0 = G.winR + 3;
+            const r1 = G.winR + (major ? 9 : 6);
             return (
               <line
                 key={i}
-                x1={WIN_CX + Math.cos(a) * r0}
-                y1={WIN_CY + Math.sin(a) * r0}
-                x2={WIN_CX + Math.cos(a) * r1}
-                y2={WIN_CY + Math.sin(a) * r1}
+                x1={G.winCx + Math.cos(a) * r0}
+                y1={G.winCy + Math.sin(a) * r0}
+                x2={G.winCx + Math.cos(a) * r1}
+                y2={G.winCy + Math.sin(a) * r1}
                 stroke={major ? AMBER : "rgba(255,255,255,0.25)"}
                 strokeWidth={major ? 1.4 : 1}
                 opacity={major ? 0.8 : 0.6}
               />
             );
           })}
-          <circle data-cw-ring cx={WIN_CX} cy={WIN_CY} r={WIN_R} fill="none" stroke={AMBER} strokeWidth="1.25" opacity="0.85" />
+          <circle data-cw-ring cx={G.winCx} cy={G.winCy} r={G.winR} fill="none" stroke={AMBER} strokeWidth="1.25" opacity="0.85" />
           <text
             data-cw-count
-            x={WIN_CX}
-            y={WIN_CY - 8}
+            x={G.winCx}
+            y={G.winCy - 8}
             textAnchor="middle"
             className="font-mono font-bold"
             fontSize="17"
@@ -474,10 +550,10 @@ function ChallengeFlow({
           >
             72:00:00
           </text>
-          <text x={WIN_CX} y={WIN_CY + 14} textAnchor="middle" className="font-mono" fontSize="9" letterSpacing="2.6" fill={AMBER}>
+          <text x={G.winCx} y={G.winCy + 14} textAnchor="middle" className="font-mono" fontSize="9" letterSpacing="2.6" fill={AMBER}>
             THE WINDOW
           </text>
-          <text x={WIN_CX} y={WIN_CY + 30} textAnchor="middle" className="font-mono" fontSize="9" letterSpacing="2" fill="rgba(255,255,255,0.4)">
+          <text x={G.winCx} y={G.winCy + 30} textAnchor="middle" className="font-mono" fontSize="9" letterSpacing="2" fill="rgba(255,255,255,0.4)">
             72 HOURS
           </text>
         </g>
@@ -485,51 +561,51 @@ function ChallengeFlow({
         {/* elapsed trail + sweeping hand */}
         <circle
           data-cw-arc-trail
-          cx={WIN_CX}
-          cy={WIN_CY}
-          r={ARC_R}
+          cx={G.winCx}
+          cy={G.winCy}
+          r={G.arcR}
           fill="none"
           stroke={AMBER}
           strokeWidth="7"
           opacity="0"
-          transform={`rotate(-90 ${WIN_CX} ${WIN_CY})`}
+          transform={`rotate(-90 ${G.winCx} ${G.winCy})`}
         />
         <circle
           data-cw-arc
-          cx={WIN_CX}
-          cy={WIN_CY}
-          r={ARC_R}
+          cx={G.winCx}
+          cy={G.winCy}
+          r={G.arcR}
           fill="none"
           stroke={AMBER}
           strokeWidth="2"
           opacity="0"
-          transform={`rotate(-90 ${WIN_CX} ${WIN_CY})`}
+          transform={`rotate(-90 ${G.winCx} ${G.winCy})`}
         />
         <g data-cw-arc-head opacity="0">
-          <circle cx={WIN_CX} cy={WIN_CY - ARC_R} r="3.5" fill={AMBER} />
+          <circle cx={G.winCx} cy={G.winCy - G.arcR} r="3.5" fill={AMBER} />
         </g>
 
         {/* branches — faint until the beam rides one */}
         {BRANCH_IDS.map((id) => (
-          <path key={id} data-cw-branch={id} d={BRANCH_D[id]} fill="none" stroke={BRANCH_COLOR[id]} strokeWidth="2.25" opacity="0.15" />
+          <path key={id} data-cw-branch={id} d={G.branchD[id]} fill="none" stroke={BRANCH_COLOR[id]} strokeWidth="2.25" opacity="0.15" />
         ))}
         {/* terminal marks */}
         {BRANCH_IDS.map((id) => (
-          <circle key={`end-${id}`} data-cw-end={id} cx={BRANCH_END[id].x} cy={BRANCH_END[id].y} r="3.5" fill={BRANCH_COLOR[id]} opacity="0.25" />
+          <circle key={`end-${id}`} data-cw-end={id} cx={G.branchEnd[id].x} cy={G.branchEnd[id].y} r="3.5" fill={BRANCH_COLOR[id]} opacity="0.25" />
         ))}
 
         {/* THE GATE — two weighted bars on a guide rail */}
         <g data-cw-fixed>
-          <line x1={GATE_X} y1={LINE_Y - GATE_HALF - GATE_OPEN - 10} x2={GATE_X} y2={LINE_Y + GATE_HALF + GATE_OPEN + 10} stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="2 4" />
+          <line x1={G.gateX} y1={G.lineY - G.gateHalf - G.gateOpen - 10} x2={G.gateX} y2={G.lineY + G.gateHalf + G.gateOpen + 10} stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="2 4" />
           <g data-cw-gate="t">
-            <line data-cw-gatebar-t x1={GATE_X} y1={LINE_Y - GATE_HALF} x2={GATE_X} y2={LINE_Y - 4} stroke={GATE_REST} strokeWidth="3" />
-            <line x1={GATE_X - 4} y1={LINE_Y - GATE_HALF} x2={GATE_X + 4} y2={LINE_Y - GATE_HALF} stroke={GATE_REST} strokeWidth="2" />
+            <line data-cw-gatebar-t x1={G.gateX} y1={G.lineY - G.gateHalf} x2={G.gateX} y2={G.lineY - 4} stroke={GATE_REST} strokeWidth="3" />
+            <line x1={G.gateX - 4} y1={G.lineY - G.gateHalf} x2={G.gateX + 4} y2={G.lineY - G.gateHalf} stroke={GATE_REST} strokeWidth="2" />
           </g>
           <g data-cw-gate="b">
-            <line data-cw-gatebar-b x1={GATE_X} y1={LINE_Y + 4} x2={GATE_X} y2={LINE_Y + GATE_HALF} stroke={GATE_REST} strokeWidth="3" />
-            <line x1={GATE_X - 4} y1={LINE_Y + GATE_HALF} x2={GATE_X + 4} y2={LINE_Y + GATE_HALF} stroke={GATE_REST} strokeWidth="2" />
+            <line data-cw-gatebar-b x1={G.gateX} y1={G.lineY + 4} x2={G.gateX} y2={G.lineY + G.gateHalf} stroke={GATE_REST} strokeWidth="3" />
+            <line x1={G.gateX - 4} y1={G.lineY + G.gateHalf} x2={G.gateX + 4} y2={G.lineY + G.gateHalf} stroke={GATE_REST} strokeWidth="2" />
           </g>
-          <text x={GATE_X} y={LINE_Y + GATE_HALF + GATE_OPEN + 26} textAnchor="middle" className="font-mono" fontSize="10" letterSpacing="2" fill="rgba(255,255,255,0.4)">
+          <text x={G.gateX} y={G.lineY + G.gateHalf + G.gateOpen + (G.compact ? 22 : 26)} textAnchor="middle" className="font-mono" fontSize={G.compact ? 9 : 10} letterSpacing="2" fill="rgba(255,255,255,0.4)">
             HOLDER GATE
           </text>
         </g>
@@ -542,14 +618,14 @@ function ChallengeFlow({
               key={i}
               data-cw-stake-seg={i}
               {...(i === STAKE_SEGS.length - 1 ? { "data-cw-stake-burn": true } : {})}
-              x={GATE_X - 19 + i * 8}
-              y={STAKE_Y}
+              x={G.gateX - 19 + i * 8}
+              y={G.stakeY}
               width="6"
               height="12"
               fill="rgba(255,255,255,0.85)"
             />
           ))}
-          <text x={GATE_X} y={STAKE_Y - 8} textAnchor="middle" className="font-mono" fontSize="9" letterSpacing="2" fill="rgba(255,255,255,0.5)">
+          <text x={G.gateX} y={G.stakeY - 8} textAnchor="middle" className="font-mono" fontSize="9" letterSpacing="2" fill="rgba(255,255,255,0.5)">
             STAKE
           </text>
         </g>
@@ -557,8 +633,8 @@ function ChallengeFlow({
         {/* the challenge flag */}
         <text
           data-cw-challenged
-          x={GATE_X}
-          y={STAKE_Y - 26}
+          x={G.gateX}
+          y={G.stakeY - (G.compact ? 22 : 26)}
           textAnchor="middle"
           className="font-mono"
           fontSize="10"
@@ -572,37 +648,58 @@ function ChallengeFlow({
         {/* THE BEAM — the line itself conducts the light */}
         {BRANCH_IDS.map((id) => (
           <g key={`fibre-${id}`} data-cw-fibre={id} style={{ opacity: 0 }}>
-            <path data-cw-fibre-glow={id} d={TRACK_D[id]} fill="none" stroke="#91D982" strokeWidth="7" strokeLinecap="round" opacity="0.55" filter="url(#edcw-beam-blur)" />
-            <path data-cw-fibre-core={id} d={TRACK_D[id]} fill="none" stroke="#E8FBE2" strokeWidth="2" strokeLinecap="round" />
+            <path data-cw-fibre-glow={id} d={G.trackD[id]} fill="none" stroke="#91D982" strokeWidth="7" strokeLinecap="round" opacity="0.55" filter="url(#edcw-beam-blur)" />
+            <path data-cw-fibre-core={id} d={G.trackD[id]} fill="none" stroke="#E8FBE2" strokeWidth="2" strokeLinecap="round" />
           </g>
         ))}
       </svg>
 
-      {/* HTML outcome labels aligned to branch ends */}
-      <div
-        data-cw-label="pass"
-        className="absolute left-[84%] top-[calc(24%-9px)] w-[16%] font-mono text-[10px] lg:text-[11px] tracking-[0.14em] uppercase leading-relaxed"
-      >
-        <span className="inline-block bg-black/80 px-1 -ml-1 text-accent">No challenge</span>
-        <br />
-        <span className="text-white/55">97.5% → founder · schedule continues</span>
-      </div>
-      <div
-        data-cw-label="reject"
-        className="absolute left-[84%] top-[calc(50%-9px)] w-[16%] font-mono text-[10px] lg:text-[11px] tracking-[0.14em] uppercase leading-relaxed"
-      >
-        <span className="inline-block bg-black/80 px-1 -ml-1 text-persimmon-400">Rejected</span>
-        <br />
-        <span className="text-white/55">20% of stake burns · tranche releases</span>
-      </div>
-      <div
-        data-cw-label="uphold"
-        className="absolute left-[84%] top-[calc(76%-9px)] w-[16%] font-mono text-[10px] lg:text-[11px] tracking-[0.14em] uppercase leading-relaxed"
-      >
-        <span className="inline-block bg-black/80 px-1 -ml-1 text-accent-bright">Upheld — frozen</span>
-        <br />
-        <span className="text-white/55">Escrow reopens to holders pro-rata</span>
-      </div>
+      {G.compact ? (
+        /* compact: the outcomes read as a legend under the instrument — the
+           timeline still drives their opacity in lockstep with the machine */
+        <div className="mt-3 space-y-1.5">
+          <div data-cw-label="pass" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
+            <span className="text-accent">No challenge</span>
+            <span className="text-white/55"> — 97.5% → founder · schedule continues</span>
+          </div>
+          <div data-cw-label="reject" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
+            <span className="text-persimmon-400">Rejected</span>
+            <span className="text-white/55"> — 20% of stake burns · tranche releases</span>
+          </div>
+          <div data-cw-label="uphold" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
+            <span className="text-accent-bright">Upheld — frozen</span>
+            <span className="text-white/55"> — escrow reopens to holders pro-rata</span>
+          </div>
+        </div>
+      ) : (
+        /* ≥sm: HTML outcome labels aligned to branch ends */
+        <>
+          <div
+            data-cw-label="pass"
+            className="absolute left-[84%] top-[calc(24%-9px)] w-[16%] font-mono text-[10px] lg:text-[11px] tracking-[0.14em] uppercase leading-relaxed"
+          >
+            <span className="inline-block bg-black/80 px-1 -ml-1 text-accent">No challenge</span>
+            <br />
+            <span className="text-white/55">97.5% → founder · schedule continues</span>
+          </div>
+          <div
+            data-cw-label="reject"
+            className="absolute left-[84%] top-[calc(50%-9px)] w-[16%] font-mono text-[10px] lg:text-[11px] tracking-[0.14em] uppercase leading-relaxed"
+          >
+            <span className="inline-block bg-black/80 px-1 -ml-1 text-persimmon-400">Rejected</span>
+            <br />
+            <span className="text-white/55">20% of stake burns · tranche releases</span>
+          </div>
+          <div
+            data-cw-label="uphold"
+            className="absolute left-[84%] top-[calc(76%-9px)] w-[16%] font-mono text-[10px] lg:text-[11px] tracking-[0.14em] uppercase leading-relaxed"
+          >
+            <span className="inline-block bg-black/80 px-1 -ml-1 text-accent-bright">Upheld — frozen</span>
+            <br />
+            <span className="text-white/55">Escrow reopens to holders pro-rata</span>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -617,19 +714,18 @@ const PIN_MS = 14000;
 export function EdChallengeWindow() {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const flowBandRef = useRef<HTMLDivElement>(null);
   const [outcome, setOutcome] = useState<Outcome>(0);
   const [cycleNonce, setCycleNonce] = useState(0);
+  const [compact, setCompact] = useState(false);
   const pinnedUntilRef = useRef(0);
 
-  // phones open the pannable instrument centred on the 72h clock
+  // one instrument, two scales — phones get the compact 400-unit variant
   useEffect(() => {
-    const band = flowBandRef.current;
-    if (!band || window.innerWidth >= 640) return;
-    const inner = band.firstElementChild as HTMLElement | null;
-    if (!inner) return;
-    const clockX = (WIN_CX / 1200) * inner.offsetWidth;
-    band.scrollLeft = Math.max(0, clockX - band.clientWidth / 2);
+    const mq = window.matchMedia("(max-width: 639px)");
+    const apply = () => setCompact(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
   }, []);
 
   const handleCycleEnd = useCallback(() => {
@@ -743,18 +839,16 @@ export function EdChallengeWindow() {
           </p>
         </div>
 
-        {/* the living mechanism — phones pan the full-size instrument, opening
-            centred on the 72h clock; ≥sm it fits the page */}
+        {/* the living mechanism — the compact variant below sm, the full flow
+            above; the key remounts the instrument when the scale changes */}
         <div data-cw-in className="mt-10 sm:mt-14">
-          <div
-            ref={flowBandRef}
-            className="overflow-x-auto sm:overflow-visible -mx-5 px-5 sm:mx-0 sm:px-0"
-            style={{ scrollbarWidth: "none" }}
-          >
-            <div className="w-[900px] sm:w-auto">
-              <ChallengeFlow outcome={outcome} cycleNonce={cycleNonce} onCycleEnd={handleCycleEnd} />
-            </div>
-          </div>
+          <ChallengeFlow
+            key={compact ? "m" : "d"}
+            compact={compact}
+            outcome={outcome}
+            cycleNonce={cycleNonce}
+            onCycleEnd={handleCycleEnd}
+          />
         </div>
 
         {/* the rulebook — three columns, one reading line */}

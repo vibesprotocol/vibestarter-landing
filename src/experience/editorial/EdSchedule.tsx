@@ -116,17 +116,21 @@ export function EdSchedule() {
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       // complete final state: the whole line lit, every station served
-      gsap.utils.toArray<HTMLElement>("[data-tape-pct]", section).forEach((el) => {
+      gsap.utils.toArray<HTMLElement>("[data-tape-pct], [data-vpct]", section).forEach((el) => {
         el.style.color = "#91D982";
       });
-      gsap.set(gsap.utils.toArray<HTMLElement>("[data-rail-station]", section), {
+      gsap.set(gsap.utils.toArray<HTMLElement>("[data-rail-station], [data-vstation]", section), {
         backgroundColor: "#91D982",
         borderColor: "#91D982",
       });
       const railLive = section.querySelector<HTMLElement>("[data-rail-live]");
       if (railLive) gsap.set(railLive, { scaleX: 1 });
+      const vLive = section.querySelector<HTMLElement>("[data-vrail-live]");
+      if (vLive) gsap.set(vLive, { scaleY: 1 });
       const pulse = section.querySelector<HTMLElement>("[data-rail-pulse]");
       if (pulse) gsap.set(pulse, { opacity: 0 });
+      const vPulse = section.querySelector<HTMLElement>("[data-vrail-pulse]");
+      if (vPulse) gsap.set(vPulse, { opacity: 0 });
       return () => {
         disposed = true;
         window.removeEventListener("resize", handleResize);
@@ -134,6 +138,69 @@ export function EdSchedule() {
     }
 
     const ctx = gsap.context(() => {
+      // phones animate the vertical line instead — same release, same beats,
+      // rotated 90°: the pulse descends, stations light, the rail extends down
+      if (window.innerWidth < 640) {
+        const vbody = section.querySelector<HTMLElement>("[data-vrail-body]");
+        if (!vbody) return;
+        const vpcts = gsap.utils.toArray<HTMLElement>("[data-vpct]", vbody);
+        const vstations = gsap.utils.toArray<HTMLElement>("[data-vstation]", vbody);
+        const vlive = vbody.querySelector<HTMLElement>("[data-vrail-live]");
+        const vpulse = vbody.querySelector<HTMLElement>("[data-vrail-pulse]");
+        if (!vlive || !vpulse || vpcts.length === 0) return;
+        const ys = () => vstations.map((s) => s.offsetTop + s.offsetHeight / 2);
+        const bodyH = () => Math.max(1, vbody.clientHeight);
+
+        gsap.set(vlive, { scaleY: 0, transformOrigin: "top" });
+        gsap.set(vpulse, { y: -14 });
+
+        const vs = gsap.timeline({
+          repeat: -1,
+          repeatDelay: 2.4,
+          scrollTrigger: { trigger: vbody, start: "top 85%", toggleActions: "play pause resume pause" },
+        });
+        vpcts.forEach((el, i) => {
+          const at = i * 1.7;
+          const ignite = i === 0 ? 0.2 : at + 1.0;
+          if (i === 0) {
+            vs.fromTo(vpulse, { y: -14 }, { y: () => ys()[0] ?? 0, duration: 0.2, ease: "power1.inOut" }, 0);
+            vs.fromTo(vpulse, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, 0);
+          } else {
+            vs.to(vpulse, { y: () => ys()[i] ?? 0, duration: 1.45, ease: "power1.inOut" }, ignite - 1.45);
+            vs.to(
+              vpulse,
+              {
+                backgroundColor: "#EC6800",
+                boxShadow: "0 0 16px rgba(236,104,0,0.9)",
+                duration: 0.22,
+                repeat: 3,
+                yoyo: true,
+                ease: "none",
+              },
+              at
+            );
+          }
+          if (i > 0) {
+            vs.to(el, { color: "#EC6800", duration: 0.22, repeat: 3, yoyo: true, ease: "none" }, at);
+            vs.to(el, { color: "#91D982", duration: 0.45, ease: "power2.out" }, ignite);
+          } else {
+            vs.fromTo(el, { color: "#ffffff" }, { color: "#91D982", duration: 0.45, ease: "power2.out" }, ignite);
+          }
+          vs.to(vstations[i], { backgroundColor: "#91D982", borderColor: "#91D982", duration: 0.45, ease: "power2.out" }, ignite);
+          vs.to(vlive, { scaleY: () => (ys()[i] ?? 0) / bodyH(), duration: 0.45, ease: "power2.out" }, ignite);
+        });
+        const vLastIgnite = (TAPE.length - 1) * 1.7 + 1.0;
+        vs.to(vpulse, { y: () => bodyH() + 20, duration: 1.2, ease: "power1.in" }, vLastIgnite + 0.25);
+        vs.to(vpulse, { opacity: 0, duration: 0.4, ease: "none" }, vLastIgnite + 1.05);
+        vs.eventCallback("onRepeat", () => {
+          vpcts.forEach((el) => gsap.set(el, { color: "#ffffff" }));
+          gsap.set(vstations, { backgroundColor: "#000000", borderColor: "rgba(255,255,255,0.4)" });
+          gsap.set(vlive, { scaleY: 0 });
+          gsap.set(vpulse, { y: -14, opacity: 0, backgroundColor: "#91D982" });
+        });
+        return;
+      }
+
       // numerals roll in
       gsap.fromTo(
         "[data-tape-pct]",
@@ -269,15 +336,55 @@ export function EdSchedule() {
         </p>
       </div>
 
+      {/* phones: the same line rotated into a metro map — the release runs
+          DOWN the page, station to station, everything readable at 1:1 */}
+      <div className="sm:hidden px-5">
+        <div data-vrail-body className="relative border-y border-white/[0.16] py-8">
+          <span aria-hidden className="absolute left-[25px] top-0 bottom-0 w-px bg-white/[0.14]" />
+          <span
+            data-vrail-live
+            aria-hidden
+            className="absolute left-[24px] top-0 h-full w-[3px] bg-accent"
+            style={{ transform: "scaleY(0)", transformOrigin: "top" }}
+          />
+          <span
+            data-vrail-pulse
+            aria-hidden
+            className="absolute left-[25px] top-0 w-[10px] h-[10px] rounded-full bg-accent opacity-0"
+            style={{ marginLeft: -5, marginTop: -5, boxShadow: "0 0 16px rgba(145,217,130,0.9)" }}
+          />
+          <div className="pl-5">
+            {TAPE.map((t, i) => (
+              <div key={t.label}>
+                {i > 0 && (
+                  <div className="relative h-9" aria-hidden>
+                    <span className="absolute left-9 top-1/2 -translate-y-1/2 font-mono text-[10px] tracking-[0.2em] text-persimmon-400/90">
+                      72H
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-center gap-6">
+                  <span data-vstation className="block w-[10px] h-[10px] rotate-45 border border-white/40 bg-black shrink-0" />
+                  <div className="flex items-baseline gap-4 min-w-0">
+                    <span data-vpct className="font-display font-bold text-[44px] leading-[0.9] tracking-[-0.04em] text-white">
+                      {t.pct}
+                    </span>
+                    <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-white/40 leading-relaxed">
+                      {t.label} <span className="text-white/25">·</span>{" "}
+                      <span className="text-white/60">{t.eth}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* the rail line: the band itself is the rail — its borders are the twin
-          rails, the rail bed runs its bottom edge, tranches are stations on it.
-          Phones pan the full-size tape natively; ≥sm it is scaled to fit. */}
-      <div
-        ref={bandRef}
-        className="relative border-y border-white/[0.16] overflow-x-auto sm:overflow-visible"
-        style={{ scrollbarWidth: "none" }}
-      >
-        <div ref={railRef} className="relative min-w-max sm:min-w-0 py-10 sm:py-14">
+          rails, the rail bed runs its bottom edge, tranches are stations on it */}
+      <div ref={bandRef} className="relative border-y border-white/[0.16] hidden sm:block">
+        <div ref={railRef} className="relative py-10 sm:py-14">
         {/* upper rail bed — the band reads as one piece of rail infrastructure */}
         <div
           aria-hidden
