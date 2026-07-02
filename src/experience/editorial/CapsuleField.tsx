@@ -30,19 +30,27 @@ const ROW_LEN = 744;
 const ROWS = [
   { text: "FOUNDER: 0x7f3a99d2e4b2 · SIG VALID · NONCE 0441 · FOUNDER: 0x7f3a99d2e4b2 · SIG VALID", y: 164, size: 10.5, fill: "rgba(255,255,255,0.28)", speed: 30 },
   { text: "AGENT: CLAUDE CODE · ERC-8004 #1 · REGISTERED · VALIDATED · AGENT: CLAUDE CODE · ERC-8004 #1", y: 196, size: 11.5, fill: "rgba(145,217,130,0.42)", speed: 22 },
-  { text: "TRANSCRIPT SHA-256 · 0xd4c3b2a1f0e9d8c7 · 0x8a4f2e09c91d44ab · 0x3b7c9f4e8d21aa07 · TRANSCRIPT SHA-256", y: 232, size: 13, fill: "rgba(145,217,130,0.6)", speed: 16 },
+  { text: "TRANSCRIPT SHA-256 · 0xd4c3b2a1f0e9d8c7 · 0x8a4f2e09c91d44ab · 0x3b7c9f4e8d21aa07 · 0x5e1fc2b7a9d3e604", y: 232, size: 13, fill: "rgba(145,217,130,0.6)", speed: 16 },
   { text: "ARTIFACT: 0x4cd91a2e88f0 · 0x12aa34bc · 0x90ef · BUILD 2025-11-30T09:21:44Z · 0x4cd91a2e88f0", y: 268, size: 11.5, fill: "rgba(145,217,130,0.42)", speed: 23 },
   { text: "CHAIN: BASE · 8453 · APPEND-ONLY · IMMUTABLE · CHAIN: BASE · 8453 · APPEND-ONLY · IMMUTABLE", y: 300, size: 10.5, fill: "rgba(255,255,255,0.28)", speed: 29 },
 ] as const;
 
-const MERIDIANS = ["M360 130 Q346 230 360 330", "M550 130 Q564 230 550 330", "M740 130 Q754 230 740 330"] as const;
+const MERIDIANS = [
+  "M330 132 Q318 230 330 328",
+  "M440 128 Q430 230 440 332",
+  "M550 126 Q562 230 550 334",
+  "M660 128 Q672 230 660 332",
+  "M770 132 Q782 230 770 328",
+] as const;
 
 /** Inner content, rendered once per half and clipped to the full pill so the
  *  halves complete each other when shut. */
 function CapsuleContents() {
   return (
     <g clipPath="url(#edcap-pill)">
-      <rect x="230" y="120" width="640" height="220" fill="url(#edcap-dither)" mask="url(#edcap-shade)" opacity="0.62" />
+      {/* glass body: tinted vertical gradient + dense dither toward the limbs */}
+      <rect x="230" y="120" width="640" height="220" fill="url(#edcap-body)" />
+      <rect x="230" y="120" width="640" height="220" fill="url(#edcap-dither)" mask="url(#edcap-shade)" opacity="0.9" />
       <g mask="url(#edcap-wrap)">
         {ROWS.map((row, i) => (
           <g key={row.text} data-cap-row={i}>
@@ -54,11 +62,13 @@ function CapsuleContents() {
           </g>
         ))}
         {MERIDIANS.map((d, i) => (
-          <path key={d} data-cap-meridian={i} d={d} fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth="1" />
+          <path key={d} data-cap-meridian={i} d={d} fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1" />
         ))}
       </g>
-      <path d="M300 150 Q550 128 800 150" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" />
-      <path d="M420 140 Q550 126 680 140" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+      {/* specular highlights along the upper limb */}
+      <path d="M300 150 Q550 128 800 150" fill="none" stroke="rgba(255,255,255,0.30)" strokeWidth="1.5" />
+      <path d="M420 140 Q550 126 680 140" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+      <path d="M330 322 Q550 338 770 322" fill="none" stroke="rgba(145,217,130,0.18)" strokeWidth="1" />
     </g>
   );
 }
@@ -119,8 +129,8 @@ export function CapsuleField() {
       canvas.height = Math.round(H * dpr);
       c.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // the pill on screen: svg is w-[82%] max-w-860; pill ≈ 0.58× of that wide
-      svgW = Math.min(0.82 * W, 860);
+      // the pill on screen: svg is w-[90%] max-w-960; pill ≈ 0.58× of that wide
+      svgW = Math.min(0.9 * W, 960);
       cx = W * 0.5;
       cy = H * 0.5 - svgW * 0.027; // the pill sits slightly above the SVG box centre
       hl = svgW * 0.30; // exclusion half-length (pill + a small gap)
@@ -130,6 +140,10 @@ export function CapsuleField() {
 
       const N = reduced ? 90 : 170;
       nodes = [];
+      // keep-out under the pill where the signature caption sits
+      const sigY0 = H * 0.5 + svgW * 0.095;
+      const sigY1 = H * 0.5 + svgW * 0.165;
+      const sigHW = svgW * 0.3;
       let tries = 0;
       while (nodes.length < N && tries < N * 60) {
         tries++;
@@ -137,6 +151,7 @@ export function CapsuleField() {
         const y = cy + (Math.random() * 2 - 1) * (hh + reach * 1.1);
         const d = sdPill(x, y);
         if (d < gap || d > reach) continue;
+        if (Math.abs(x - cx) < sigHW && y > sigY0 && y < sigY1) continue;
         nodes.push({
           bx: x, by: y, x, y,
           ph: Math.random() * Math.PI * 2,
@@ -190,8 +205,8 @@ export function CapsuleField() {
         cand.sort((a, b) => a.t - b.t);
         const path: number[] = [];
         let lastT = -1;
-        for (const w of cand) { if (w.t - lastT > 0.16) { path.push(w.i); lastT = w.t; } }
-        return { cx: cp.x, cy: cp.y, tx, ty, path: path.slice(0, 5) };
+        for (const w of cand) { if (w.t - lastT > 0.3) { path.push(w.i); lastT = w.t; } }
+        return { cx: cp.x, cy: cp.y, tx, ty, path: path.slice(0, 2) };
       });
 
       pulses = [];
@@ -247,31 +262,31 @@ export function CapsuleField() {
         const a = nodes[e.a], b = nodes[e.b];
         const f = Math.min(fadeOf(a.d), fadeOf(b.d)) * Math.min(sf(a.x, a.y), sf(b.x, b.y));
         if (f <= 0.02) continue;
-        c.strokeStyle = `rgba(145,217,130,${(f * (0.16 + 0.12 * seal)).toFixed(3)})`;
+        c.strokeStyle = `rgba(145,217,130,${(f * (0.1 + 0.07 * seal)).toFixed(3)})`;
         c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
       }
 
-      // callout connectors — bright routes from each corner label through the mesh,
-      // landing ON the capsule border. Drawn distinct from the ambient mesh.
-      c.lineWidth = 1.5;
+      // callout connectors — quiet routes from each corner label, landing ON the
+      // capsule border. Present, never louder than the capsule itself.
+      c.lineWidth = 1;
       for (const conn of connectors) {
-        const ca = Math.min(0.5 + 0.45 * seal, 0.95);
+        const ca = Math.min(0.24 + 0.2 * seal, 0.46);
         c.strokeStyle = `rgba(214,247,205,${ca.toFixed(3)})`;
         c.beginPath();
         c.moveTo(conn.cx, conn.cy);
         for (const ni of conn.path) c.lineTo(nodes[ni].x, nodes[ni].y);
         c.lineTo(conn.tx, conn.ty);
         c.stroke();
-        c.fillStyle = `rgba(214,247,205,${ca.toFixed(3)})`;
-        c.beginPath(); c.arc(conn.cx, conn.cy, 2.4, 0, Math.PI * 2); c.fill();
-        c.beginPath(); c.arc(conn.tx, conn.ty, 3, 0, Math.PI * 2); c.fill();
+        c.fillStyle = `rgba(214,247,205,${Math.min(ca + 0.2, 0.6).toFixed(3)})`;
+        c.beginPath(); c.arc(conn.cx, conn.cy, 2, 0, Math.PI * 2); c.fill();
+        c.beginPath(); c.arc(conn.tx, conn.ty, 2.4, 0, Math.PI * 2); c.fill();
       }
 
       for (const n of nodes) {
         const f = fadeOf(n.d) * sf(n.x, n.y);
         if (f <= 0.02) continue;
         const near = Math.exp(-(((n.x - mx) ** 2 + (n.y - my) ** 2) / mr2));
-        const a = Math.min(f * (0.42 + 0.42 * seal + near * 0.5), 0.85);
+        const a = Math.min(f * (0.3 + 0.3 * seal + near * 0.5), 0.7);
         c.fillStyle = `rgba(${n.blue ? "13,139,202" : "145,217,130"},${a.toFixed(3)})`;
         c.beginPath(); c.arc(n.x, n.y, 1.6 + near * 1.3, 0, Math.PI * 2); c.fill();
       }
@@ -301,7 +316,7 @@ export function CapsuleField() {
       gsap.set('[data-cap-half="l"]', { x: -34 * (1 - v) });
       gsap.set('[data-cap-half="r"]', { x: 34 * (1 - v) });
       gsap.set("[data-cap-shell]", { opacity: 0.28 + 0.72 * v });
-      gsap.set("[data-cap-seam]", { opacity: 0.2 * v });
+      gsap.set("[data-cap-seam]", { opacity: 0.75 * v });
       gsap.set("[data-cap-engrave]", { opacity: v });
     };
 
@@ -331,18 +346,24 @@ export function CapsuleField() {
         turn.to(`[data-cap-row="${i}"]`, { x: -ROW_GAP, duration: row.speed, ease: "none", repeat: -1 }, 0);
       });
       MERIDIANS.forEach((_, i) => {
-        turn.fromTo(`[data-cap-meridian="${i}"]`, { x: 0 }, { x: 40, duration: 8, ease: "none", repeat: -1 }, i * 2.7);
+        // drift WITH the engraving (rows scroll left) so the surface rotates as one
+        turn.fromTo(`[data-cap-meridian="${i}"]`, { x: 26 }, { x: -26, duration: 9, ease: "none", repeat: -1 }, i * 1.9);
         turn.to(
           `[data-cap-meridian="${i}"]`,
-          { keyframes: [{ opacity: 1, duration: 1.6 }, { opacity: 1, duration: 4.8 }, { opacity: 0, duration: 1.6 }], repeat: -1, ease: "none" },
-          i * 2.7
+          { keyframes: [{ opacity: 1, duration: 1.8 }, { opacity: 1, duration: 5.4 }, { opacity: 0, duration: 1.8 }], repeat: -1, ease: "none" },
+          i * 1.9
         );
       });
 
+      // the seam breathes only as much as the capsule is sealed
+      const seamProxy = { v: 0.85 };
+      const writeSeam = () => {
+        gsap.set("[data-cap-seam]", { opacity: seamProxy.v * seal });
+      };
       const breathe = gsap.timeline({ repeat: -1 });
       breathe
-        .to("[data-cap-seam]", { opacity: 0.15, duration: 2.4, ease: "sine.inOut" })
-        .to("[data-cap-seam]", { opacity: 0.4, duration: 2.4, ease: "sine.inOut" });
+        .to(seamProxy, { v: 0.45, duration: 2.4, ease: "sine.inOut", onUpdate: writeSeam })
+        .to(seamProxy, { v: 0.85, duration: 2.4, ease: "sine.inOut", onUpdate: writeSeam });
 
       const scan = gsap.timeline({ repeat: -1, repeatDelay: 3.4 });
       scan.fromTo("[data-cap-scan]", { x: 0 }, { x: 760, duration: 1.6, ease: "power1.inOut" });
@@ -388,12 +409,19 @@ export function CapsuleField() {
       <div ref={netRef} aria-hidden className="absolute inset-0" />
       {/* the glass pill */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <svg ref={svgRef} viewBox="0 100 1100 320" className="w-[82%] max-w-[860px] block">
+        <svg ref={svgRef} viewBox="0 100 1100 320" className="w-[90%] max-w-[960px] block">
           <defs>
             <pattern id="edcap-dither" width="4" height="4" patternUnits="userSpaceOnUse">
-              <rect width="1.6" height="1.6" fill="#91D982" opacity="0.5" />
-              <rect x="2" y="2" width="1.6" height="1.6" fill="#91D982" opacity="0.28" />
+              <rect width="1.6" height="1.6" fill="#91D982" opacity="0.7" />
+              <rect x="2" y="2" width="1.6" height="1.6" fill="#91D982" opacity="0.4" />
             </pattern>
+            <linearGradient id="edcap-body" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#91D982" stopOpacity="0.13" />
+              <stop offset="0.3" stopColor="#91D982" stopOpacity="0.04" />
+              <stop offset="0.5" stopColor="#0a0f0b" stopOpacity="0.5" />
+              <stop offset="0.7" stopColor="#91D982" stopOpacity="0.04" />
+              <stop offset="1" stopColor="#91D982" stopOpacity="0.13" />
+            </linearGradient>
             <clipPath id="edcap-half-l"><rect x="0" y="0" width="550" height="460" /></clipPath>
             <clipPath id="edcap-half-r"><rect x="550" y="0" width="550" height="460" /></clipPath>
             <clipPath id="edcap-pill"><rect x="230" y="120" width="640" height="220" rx="110" /></clipPath>
@@ -407,8 +435,10 @@ export function CapsuleField() {
             <mask id="edcap-shade"><rect x="230" y="120" width="640" height="220" fill="url(#edcap-shade-grad)" /></mask>
             <linearGradient id="edcap-wrap-grad" gradientUnits="userSpaceOnUse" x1="230" y1="0" x2="870" y2="0">
               <stop offset="0" stopColor="#fff" stopOpacity="0" />
-              <stop offset="0.11" stopColor="#fff" stopOpacity="1" />
-              <stop offset="0.89" stopColor="#fff" stopOpacity="1" />
+              <stop offset="0.06" stopColor="#fff" stopOpacity="0" />
+              <stop offset="0.2" stopColor="#fff" stopOpacity="1" />
+              <stop offset="0.8" stopColor="#fff" stopOpacity="1" />
+              <stop offset="0.94" stopColor="#fff" stopOpacity="0" />
               <stop offset="1" stopColor="#fff" stopOpacity="0" />
             </linearGradient>
             <mask id="edcap-wrap"><rect x="230" y="120" width="640" height="220" fill="url(#edcap-wrap-grad)" /></mask>
@@ -420,13 +450,13 @@ export function CapsuleField() {
           </defs>
 
           <g data-cap-half="l" clipPath="url(#edcap-half-l)">
-            <rect data-cap-shell x="230" y="120" width="640" height="220" rx="110" fill="none" stroke="rgba(145,217,130,0.55)" strokeWidth="2" />
-            <rect x="240" y="130" width="620" height="200" rx="100" fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+            <rect data-cap-shell x="230" y="120" width="640" height="220" rx="110" fill="none" stroke="rgba(145,217,130,0.85)" strokeWidth="2" />
+            <rect x="240" y="130" width="620" height="200" rx="100" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1" />
             <CapsuleContents />
           </g>
           <g data-cap-half="r" clipPath="url(#edcap-half-r)">
-            <rect data-cap-shell x="230" y="120" width="640" height="220" rx="110" fill="none" stroke="rgba(145,217,130,0.55)" strokeWidth="2" />
-            <rect x="240" y="130" width="620" height="200" rx="100" fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+            <rect data-cap-shell x="230" y="120" width="640" height="220" rx="110" fill="none" stroke="rgba(145,217,130,0.85)" strokeWidth="2" />
+            <rect x="240" y="130" width="620" height="200" rx="100" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1" />
             <CapsuleContents />
           </g>
 
@@ -441,7 +471,7 @@ export function CapsuleField() {
               0x3b7c9f4e8d21aa07…a2e8
             </text>
             <text x="550" y="414" textAnchor="middle" className="font-mono" fontSize={11} letterSpacing="3" fill="rgba(255,255,255,0.5)">
-              ORIGIN CAPSULE · SEALED AT FINALIZATION · BASE 8453
+              ORIGIN CAPSULE · SEALED AT LAUNCH · BASE 8453
             </text>
           </g>
         </svg>

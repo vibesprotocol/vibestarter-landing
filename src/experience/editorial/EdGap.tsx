@@ -3,34 +3,34 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Gap3D } from "./Gap3D";
+import { GapChasm, CHASM } from "./GapChasm";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * 01 — THE GAP, as a 3D scatter (a Magic Quadrant grown a third axis).
+ * 01 — THE GAP: the section IS the chasm (see GapChasm).
  *
- * TIME × TRUST × TERMS, plotted in a real wireframe cube (see Gap3D). The section
- * is a thin shell: it reveals the copy, fades the plot in, and feeds the cube its
- * scroll progress so the view turns ~36° as you pass — resolving the depth axis
- * without a mouse or an auto-spin. VIBESTARTER is the lone point that wins on all
- * three axes: the gap. Reduced motion shows the static, readable frame.
+ * The copy stands on the left plateau, the payoff statement on the right,
+ * and the ground tears open between the two text columns. Vibecoded apps
+ * march out from under the words and fall; scroll draws the VIBESTARTER
+ * bridge across, and the funded ones park beneath the payoff line. This
+ * shell positions the type on the terrain, reveals it, and feeds the chasm
+ * its scroll progress. Reduced motion shows the resolved state.
  */
 export function EdGap() {
   const sectionRef = useRef<HTMLElement>(null);
-  const plotRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    const plot = plotRef.current;
-    if (!section || !plot) return;
+    const stage = stageRef.current;
+    if (!section || !stage) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (reduced) {
       gsap.set("[data-gap-in]", { opacity: 1, y: 0 });
-      gsap.set("[data-gap-bridge]", { opacity: 1, y: 0 });
-      gsap.set(plot, { opacity: 1 });
+      gsap.set("[data-gap-solution]", { opacity: 1 });
       return;
     }
 
@@ -47,40 +47,28 @@ export function EdGap() {
           scrollTrigger: { trigger: section, start: "top 72%", toggleActions: "play none none reverse" },
         }
       );
-      gsap.fromTo(
-        plot,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.9,
-          ease: "power2.out",
-          scrollTrigger: { trigger: section, start: "top 66%", toggleActions: "play none none reverse" },
-        }
-      );
 
-      // feed the cube its scroll progress → it turns to resolve the depth axis
-      const g3 = plot.querySelector("[data-g3-host]") as (HTMLElement & { __scroll?: (p: number) => void }) | null;
-      if (g3?.__scroll) {
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-          onUpdate: (self) => g3.__scroll?.(self.progress),
-        });
-      }
-
-      gsap.fromTo(
-        "[data-gap-bridge]",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: { trigger: "[data-gap-bridge]", start: "top 88%", toggleActions: "play none none reverse" },
-        }
-      );
+      // problem first, then the solution: the section is TALL and the stage
+      // is sticky — the scrub runs across the pinned distance so the story
+      // has time to play out. The payoff copy only exists once the bridge
+      // is materialising.
+      const chasm = stage.querySelector("[data-gap-chasm]") as (HTMLElement & { __scroll?: (p: number) => void }) | null;
+      const solution = section.querySelector<HTMLElement>("[data-gap-solution]");
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          chasm?.__scroll?.(self.progress);
+          if (solution) {
+            const fill = Math.min(1, Math.max(0, self.progress / 0.92));
+            const o = Math.min(1, Math.max(0, (fill - 0.48) / 0.22));
+            solution.style.opacity = String(o);
+            solution.style.transform = `translateY(${(1 - o) * 14}px)`;
+          }
+        },
+      });
     }, section);
 
     const refreshId = requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -92,41 +80,84 @@ export function EdGap() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
-      <div className="max-w-[1500px] mx-auto">
-        {/* focal */}
-        <p data-gap-in className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
+    // tall section + sticky stage: the visual holds while ~1.6 viewports of
+    // scroll play the story — problem, materialise, the one that crosses.
+    // On mobile the terrain is absent, so the section collapses to a simple
+    // editorial stack with no pin.
+    <section ref={sectionRef} className="relative border-t border-white/[0.08] sm:h-[260vh]">
+      {/* mobile: the story as copy */}
+      <div className="sm:hidden px-5 py-24">
+        <p data-gap-in className="font-mono text-[11px] tracking-[0.32em] uppercase">
           <span className="text-accent">01</span>
           <span className="text-white/40"> — The gap</span>
         </p>
-        <h2
-          data-gap-in
-          data-skew
-          className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white will-change-transform"
-        >
+        <h2 className="mt-8 font-display font-bold tracking-[-0.04em] leading-[0.98] text-[40px] text-white">
           THIS IS THE <span className="text-accent">gap.</span>
         </h2>
-        <p data-gap-in className="mt-6 max-w-[600px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
-          Every way to fund a solo builder forces a trade across three axes — how
-          fast the money comes, how much the founder stays accountable, and how
-          good the terms are. Win two and you lose the third. One corner is empty.
+        <p className="mt-5 text-muted font-sans font-light text-[15px] leading-relaxed">
+          Anyone can ship an MVP in a weekend now. But between a working
+          product and a funded company there is a chasm — and most solo
+          builders fall into it. Not for lack of execution. For lack of a
+          route across.
+        </p>
+        <p className="mt-10 font-display font-bold tracking-[-0.03em] leading-[1.12] text-[26px] text-white">
+          LAUNCHPAD SPEED<span className="text-white/35">.</span>{" "}
+          <span className="text-accent">CONTRACT-ENFORCED ACCOUNTABILITY</span>
+          <span className="text-white/35">.</span>
+        </p>
+        <p className="mt-4 font-mono text-[10px] tracking-[0.24em] uppercase text-white/40">
+          The third rail — built for vibecoding founders
+        </p>
+      </div>
+
+      <div className="hidden sm:block sticky top-0">
+        {/* the stage: terrain + type share one coordinate system */}
+        <div ref={stageRef} className="relative mx-auto max-w-[1500px] w-full h-[max(700px,92vh)]">
+        <GapChasm className="absolute inset-0" />
+
+        {/* kicker */}
+        <p data-gap-in className="absolute left-0 top-10 font-mono text-[11px] tracking-[0.32em] uppercase">
+          <span className="text-accent">01</span>
+          <span className="text-white/40"> — The gap</span>
         </p>
 
-        {/* THE 3D SCATTER — time × trust × terms in a wireframe cube */}
-        <div ref={plotRef} className="relative mt-12 sm:mt-14 w-full select-none" style={{ aspectRatio: "1000 / 700" }}>
-          <Gap3D className="absolute inset-0" />
+        {/* the copy stands on the LEFT PLATEAU */}
+        <div
+          data-gap-in
+          className="absolute left-0 px-1"
+          style={{ bottom: `calc(${(1 - CHASM.platformY) * 100}% + 74px)`, width: `${CHASM.leftEdge * 100 - 4}%` }}
+        >
+          <h2
+            data-skew
+            className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(30px,3.4vw,58px)] text-white will-change-transform"
+          >
+            THIS IS THE <span className="text-accent">gap.</span>
+          </h2>
+          <p className="mt-5 max-w-[480px] text-muted font-sans font-light text-[14px] sm:text-[15px] leading-relaxed">
+            Anyone can ship an MVP in a weekend now. But between a working
+            product and a funded company there is a chasm — and most solo
+            builders fall into it. Not for lack of execution. For lack of a
+            route across.
+          </p>
         </div>
 
-        {/* the pivot */}
-        <div data-gap-bridge className="mt-12 sm:mt-16 text-center">
-          <p className="font-display font-bold tracking-[-0.035em] leading-[1.12] text-[clamp(26px,3.8vw,54px)] text-white max-w-4xl mx-auto">
-            LAUNCHPAD SPEED<span className="text-white/35">.</span>{" "}
+        {/* the payoff stands on the RIGHT PLATEAU — it arrives WITH the bridge */}
+        <div
+          data-gap-solution
+          className="absolute right-0 text-right hidden sm:block"
+          style={{ bottom: `calc(${(1 - CHASM.platformY) * 100}% + 48px)`, width: `${(1 - CHASM.rightEdge) * 100 - 3}%`, opacity: 0 }}
+        >
+          <p className="font-display font-bold tracking-[-0.03em] leading-[1.1] text-[clamp(18px,1.9vw,30px)] text-white">
+            LAUNCHPAD SPEED<span className="text-white/35">.</span>
+            <br />
             <span className="text-accent">CONTRACT-ENFORCED ACCOUNTABILITY</span>
             <span className="text-white/35">.</span>
           </p>
-          <p className="mt-5 font-mono text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/40">
-            That&apos;s the third rail — built for vibecoding founders
+          <p className="mt-4 font-mono text-[9px] lg:text-[10px] tracking-[0.24em] uppercase text-white/40">
+            The third rail — for the builders no one else funds
           </p>
+        </div>
+
         </div>
       </div>
     </section>

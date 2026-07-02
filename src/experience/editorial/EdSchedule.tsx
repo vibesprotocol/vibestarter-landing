@@ -38,11 +38,31 @@ export function EdSchedule() {
     // the full tape always fits the viewport — the kickstart 10% and final
     // tranche must never crop off the edges
     const fit = () => {
-      gsap.set(tape, { scale: 1 });
+      gsap.set(tape, { scale: 1, x: 0 });
+      // the layout box ignores the absolutely-positioned station labels that
+      // hang past the ends — measure the true ensemble (every descendant),
+      // scale THAT to the viewport, then centre it exactly
+      const measure = () => {
+        let mn = Infinity;
+        let mx = -Infinity;
+        const tr = tape.getBoundingClientRect();
+        mn = Math.min(mn, tr.left);
+        mx = Math.max(mx, tr.right);
+        tape.querySelectorAll("*").forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) return;
+          mn = Math.min(mn, r.left);
+          mx = Math.max(mx, r.right);
+        });
+        return { mn, mx };
+      };
+      let { mn, mx } = measure();
       gsap.set(tape, {
-        scale: Math.min(1, (window.innerWidth * 0.96) / tape.scrollWidth),
+        scale: Math.min(1, (window.innerWidth * 0.94) / (mx - mn)),
         transformOrigin: "center bottom",
       });
+      ({ mn, mx } = measure());
+      gsap.set(tape, { x: window.innerWidth / 2 - (mn + mx) / 2 });
     };
 
     // stations live on the page-wide rail bed; align each one under its
@@ -323,7 +343,7 @@ export function EdSchedule() {
 
       <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/35">
-          Example 100 ETH raise · 2.5% platform fee per tranche · a 72h challenge window before each release
+          Example 100 ETH raise · 2.5% platform fee per tranche · a 72h challenge window before every release after the kickstart
         </p>
         <a href="/whitepaper" data-cursor="link" className="ed-link font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/55 hover:text-white transition-colors whitespace-nowrap">
           Read §5 of the whitepaper ↗

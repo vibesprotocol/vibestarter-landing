@@ -107,8 +107,8 @@ export function EdHero() {
             time, pausable by backers, proven on-chain.
           </p>
           <div data-fade className="mt-9 flex flex-col sm:flex-row gap-4">
-            <Link href="https://app.vibestarter.xyz/raises/vibes" data-cursor="link" className="btn-mechanical px-7 py-3.5 text-[13px] text-center">
-              Back the $VIBES Raise
+            <Link href="https://app.vibestarter.xyz/launch" data-cursor="link" className="btn-mechanical px-7 py-3.5 text-[13px] text-center">
+              Apply to Raise
             </Link>
             <Link href="#schedule" data-cursor="link" className="btn-mechanical-outline px-7 py-3.5 text-[13px] text-center">
               How it works ↓

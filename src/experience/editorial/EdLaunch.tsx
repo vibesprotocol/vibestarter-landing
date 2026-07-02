@@ -59,11 +59,11 @@ export function EdLaunch() {
         </h2>
 
         <div data-launch-fade className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="https://app.vibestarter.xyz" data-cursor="link" className="btn-mechanical px-8 py-4 text-[13px]">
-            Launch a Raise
+          <Link href="https://app.vibestarter.xyz/launch" data-cursor="link" className="btn-mechanical px-8 py-4 text-[13px]">
+            Apply to Raise
           </Link>
-          <Link href="https://app.vibestarter.xyz/raises/vibes" data-cursor="link" className="btn-mechanical-outline px-8 py-4 text-[13px]">
-            Back the $VIBES Raise
+          <Link href="https://app.vibestarter.xyz/raises" data-cursor="link" className="btn-mechanical-outline px-8 py-4 text-[13px]">
+            Explore Live Raises
           </Link>
         </div>
 

@@ -13,14 +13,16 @@ const LINK_GROUPS: { title: string; links: { label: string; href: string; extern
     title: "PLATFORM",
     links: [
       { label: "Launch App", href: "https://app.vibestarter.xyz", external: true },
-      { label: "Back $VIBES", href: "https://app.vibestarter.xyz/raises/vibes", external: true },
+      { label: "Explore Raises", href: "https://app.vibestarter.xyz/raises", external: true },
       { label: "Docs", href: "https://app.vibestarter.xyz/docs", external: true },
     ],
   },
   {
-    title: "ELSEWHERE",
+    title: "SOCIALS",
     links: [
       { label: "X / Twitter", href: "https://x.com/vibestarterxyz", external: true },
+      { label: "Discord", href: "https://discord.gg/Kfpj89bu82", external: true },
+      { label: "Telegram", href: "https://t.me/Vibestarter_xyz", external: true },
       { label: "GitHub", href: "https://github.com/vibesprotocol/vibestarter-contracts", external: true },
     ],
   },

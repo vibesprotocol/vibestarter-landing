@@ -28,6 +28,7 @@ const FRAG = /* glsl */ `
   uniform vec2 uRes;
   uniform vec2 uMouse;
   uniform float uTime;
+  uniform float uMark; // chevron-landform amplitude (1 = full; drives reveals)
   varying vec2 vUv;
 
   float hash(vec2 p) {
@@ -62,6 +63,12 @@ const FRAG = /* glsl */ `
     return fract(a.x / 2.0 + a.y * a.y * 0.75);
   }
 
+  float sdSeg(vec2 p, vec2 a, vec2 b) {
+    vec2 pa = p - a, ba = b - a;
+    float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+    return length(pa - ba * h);
+  }
+
   void main() {
     float aspect = uRes.x / uRes.y;
     vec2 p = vUv;
@@ -73,8 +80,21 @@ const FRAG = /* glsl */ `
     float d = distance(p, m);
     float inf = exp(-d * d * 6.5);
 
+    // the mark — the Vibestarter chevron as a landform. A ridge of elevation
+    // shaped like >_ rises out of the terrain; the contours wrap around it
+    // and the glyph emerges from the medium itself.
+    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect, 0.68) : vec2(0.72 * aspect, 0.52);
+    float gsc = aspect < 1.0 ? 0.4 : 0.56;
+    vec2 gq = (p - gc) / gsc;
+    float d1 = sdSeg(gq, vec2(-0.8125, 0.5), vec2(-0.1875, 0.0));
+    float d2 = sdSeg(gq, vec2(-0.1875, 0.0), vec2(-0.8125, -0.5));
+    float d3 = sdSeg(gq, vec2(-0.0625, -0.5), vec2(0.6875, -0.5));
+    float dm = min(min(d1, d2), d3);
+    float ridge = exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * sin(uTime * 0.4)) * uMark;
+    float calm = exp(-(dm * dm) / 0.09);
+
     vec2 q = p * 2.4 + vec2(uTime * 0.020, -uTime * 0.013);
-    float e = fbm(q) + inf * 0.42;
+    float e = fbm(q) * (1.0 - 0.6 * calm * uMark) + ridge + inf * 0.42;
 
     float bands = e * 15.0;
     float fw = fwidth(bands);
@@ -173,6 +193,7 @@ export function TopoField({ className = "" }: { className?: string }) {
         uRes: { value: new THREE.Vector2(host.clientWidth, host.clientHeight) },
         uMouse: { value: new THREE.Vector2(0.68, 0.55) },
         uTime: { value: 8 },
+        uMark: { value: 1 },
       },
       transparent: true,
       depthWrite: false,
@@ -191,7 +212,16 @@ export function TopoField({ className = "" }: { className?: string }) {
     window.addEventListener("pointermove", onPointer, { passive: true });
 
     // elevation at a uv point — the exact math the fragment shader runs:
-    // aspect-corrected p, gaussian cursor raise, drifting fbm domain
+    // aspect-corrected p, gaussian cursor raise, drifting fbm domain, and
+    // the chevron-mark ridge (kept in lockstep with the GLSL)
+    const segDist = (px: number, py: number, ax: number, ay: number, bx: number, by: number) => {
+      const pax = px - ax;
+      const pay = py - ay;
+      const bax = bx - ax;
+      const bay = by - ay;
+      const h = Math.max(0, Math.min(1, (pax * bax + pay * bay) / (bax * bax + bay * bay)));
+      return Math.hypot(pax - bax * h, pay - bay * h);
+    };
     const sampleElev = (u: number, v: number): number => {
       const res = material.uniforms.uRes.value as THREE.Vector2;
       const aspect = res.x / Math.max(1, res.y);
@@ -202,7 +232,20 @@ export function TopoField({ className = "" }: { className?: string }) {
       const dy = py - mouse.y;
       const inf = Math.exp(-(dx * dx + dy * dy) * 6.5);
       const t = material.uniforms.uTime.value as number;
-      return topoFbm(px * 2.4 + t * 0.02, py * 2.4 - t * 0.013) + inf * 0.42;
+      const gcx = aspect < 1 ? 0.5 * aspect : 0.72 * aspect;
+      const gcy = aspect < 1 ? 0.68 : 0.52;
+      const gsc = aspect < 1 ? 0.4 : 0.56;
+      const gx = (px - gcx) / gsc;
+      const gy = (py - gcy) / gsc;
+      const dm = Math.min(
+        segDist(gx, gy, -0.8125, 0.5, -0.1875, 0.0),
+        segDist(gx, gy, -0.1875, 0.0, -0.8125, -0.5),
+        segDist(gx, gy, -0.0625, -0.5, 0.6875, -0.5)
+      );
+      const mk = material.uniforms.uMark.value as number;
+      const ridge = Math.exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * Math.sin(t * 0.4)) * mk;
+      const calm = Math.exp(-(dm * dm) / 0.09);
+      return topoFbm(px * 2.4 + t * 0.02, py * 2.4 - t * 0.013) * (1 - 0.6 * calm * mk) + ridge + inf * 0.42;
     };
 
     // refs + textContent only — never setState from the step path
@@ -240,6 +283,9 @@ export function TopoField({ className = "" }: { className?: string }) {
     };
     // expose for the dev driver
     (host as unknown as Record<string, unknown>).__step = step;
+    (host as unknown as Record<string, unknown>).__mark = (v: number) => {
+      material.uniforms.uMark.value = v;
+    };
 
     // ambient loop pauses while the field is offscreen (the dev driver calls
     // step() directly, so this gate never blocks manual stepping)
