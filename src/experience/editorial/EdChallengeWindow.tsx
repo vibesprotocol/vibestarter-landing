@@ -215,6 +215,17 @@ function ChallengeFlow({
     (fibreGroups as SVGGElement[]).forEach((g, i) => gsap.set(g, { opacity: i === outcome ? 1 : 0 }));
 
     const cnt = { h: 72 };
+    // Quantize the readout to ~12Hz. Written every frame, the digit positions
+    // alias against the frame rate (72h compressed into a 2.6s sweep) and the
+    // minutes-tens slot lands on the worst rhythm — near-random values every
+    // frame that the eye reads as a blur. Held ~5 frames per value, every
+    // position flickers uniformly and legibly.
+    let cntTick = 0;
+    const writeCountQuantized = () => {
+      cntTick++;
+      if (cnt.h > 0.001 && cntTick % 5 !== 0) return;
+      count.textContent = fmtCountdown(cnt.h);
+    };
     const writeCount = () => {
       count.textContent = fmtCountdown(cnt.h);
     };
@@ -314,7 +325,7 @@ function ChallengeFlow({
     tl.set(arcTrail, { opacity: 0.16 }, WIN_START);
     tl.to([arc, arcTrail], { strokeDashoffset: 0, duration: WIN_DUR, ease: "none" }, WIN_START);
     tl.to(arcHead, { rotation: 360, duration: WIN_DUR, ease: "none", svgOrigin: `${WIN_CX} ${WIN_CY}` }, WIN_START);
-    tl.to(cnt, { h: 0, duration: WIN_DUR, ease: "none", onUpdate: writeCount }, WIN_START);
+    tl.to(cnt, { h: 0, duration: WIN_DUR, ease: "none", onUpdate: writeCountQuantized }, WIN_START);
     tl.to(fGlow, { strokeWidth: 11, opacity: 0.85, duration: 0.85, ease: "sine.inOut", yoyo: true, repeat: 1 }, WIN_START + 0.2);
     tl.fromTo(active, { opacity: 0.15 }, { opacity: 0.3, duration: WIN_DUR, ease: "none" }, WIN_START);
 
