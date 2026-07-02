@@ -617,9 +617,20 @@ const PIN_MS = 14000;
 export function EdChallengeWindow() {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const flowBandRef = useRef<HTMLDivElement>(null);
   const [outcome, setOutcome] = useState<Outcome>(0);
   const [cycleNonce, setCycleNonce] = useState(0);
   const pinnedUntilRef = useRef(0);
+
+  // phones open the pannable instrument centred on the 72h clock
+  useEffect(() => {
+    const band = flowBandRef.current;
+    if (!band || window.innerWidth >= 640) return;
+    const inner = band.firstElementChild as HTMLElement | null;
+    if (!inner) return;
+    const clockX = (WIN_CX / 1200) * inner.offsetWidth;
+    band.scrollLeft = Math.max(0, clockX - band.clientWidth / 2);
+  }, []);
 
   const handleCycleEnd = useCallback(() => {
     if (Date.now() < pinnedUntilRef.current) {
@@ -732,9 +743,18 @@ export function EdChallengeWindow() {
           </p>
         </div>
 
-        {/* the living mechanism */}
-        <div data-cw-in className="mt-14 hidden sm:block">
-          <ChallengeFlow outcome={outcome} cycleNonce={cycleNonce} onCycleEnd={handleCycleEnd} />
+        {/* the living mechanism — phones pan the full-size instrument, opening
+            centred on the 72h clock; ≥sm it fits the page */}
+        <div data-cw-in className="mt-10 sm:mt-14">
+          <div
+            ref={flowBandRef}
+            className="overflow-x-auto sm:overflow-visible -mx-5 px-5 sm:mx-0 sm:px-0"
+            style={{ scrollbarWidth: "none" }}
+          >
+            <div className="w-[900px] sm:w-auto">
+              <ChallengeFlow outcome={outcome} cycleNonce={cycleNonce} onCycleEnd={handleCycleEnd} />
+            </div>
+          </div>
         </div>
 
         {/* the rulebook — three columns, one reading line */}

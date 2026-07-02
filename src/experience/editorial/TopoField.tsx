@@ -86,7 +86,7 @@ const FRAG = /* glsl */ `
     // portrait: the claim sits at the top, so the landform owns the open
     // ground low in the frame — sized to the width, optically centred
     float gsc = aspect < 1.0 ? min(0.6 * aspect, 0.34) : 0.56;
-    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect + 0.0625 * gsc, 0.20) : vec2(0.72 * aspect, 0.52);
+    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect + 0.0625 * gsc, 0.24) : vec2(0.72 * aspect, 0.52);
     vec2 gq = (p - gc) / gsc;
     float d1 = sdSeg(gq, vec2(-0.8125, 0.5), vec2(-0.1875, 0.0));
     float d2 = sdSeg(gq, vec2(-0.1875, 0.0), vec2(-0.8125, -0.5));
@@ -95,7 +95,9 @@ const FRAG = /* glsl */ `
     float ridge = exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * sin(uTime * 0.4)) * uMark;
     float calm = exp(-(dm * dm) / 0.09);
 
-    vec2 q = p * 2.4 + vec2(uTime * 0.020, -uTime * 0.013);
+    // portrait terrain runs at a lower frequency so the ambient contours
+    // don't tangle the (smaller) landform
+    vec2 q = p * (aspect < 1.0 ? 1.9 : 2.4) + vec2(uTime * 0.020, -uTime * 0.013);
     float e = fbm(q) * (1.0 - 0.6 * calm * uMark) + ridge + inf * 0.42;
 
     float bands = e * 15.0;
@@ -188,12 +190,18 @@ export function TopoField({ className = "" }: { className?: string }) {
 
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    // touch devices have no cursor — a resting raise would sit mid-screen as
+    // a permanent bright bump whose contour rings read as stray dashed arcs.
+    // Park it far off-field so the terrain carries only the mark.
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const restX = coarse ? -3 : 0.68;
+    const restY = coarse ? -3 : 0.55;
     const material = new THREE.ShaderMaterial({
       vertexShader: VERT,
       fragmentShader: FRAG,
       uniforms: {
         uRes: { value: new THREE.Vector2(host.clientWidth, host.clientHeight) },
-        uMouse: { value: new THREE.Vector2(0.68, 0.55) },
+        uMouse: { value: new THREE.Vector2(restX, restY) },
         uTime: { value: 8 },
         uMark: { value: 1 },
       },
@@ -203,8 +211,9 @@ export function TopoField({ className = "" }: { className?: string }) {
     const geometry = new THREE.PlaneGeometry(2, 2);
     scene.add(new THREE.Mesh(geometry, material));
 
-    const target = new THREE.Vector2(0.68, 0.55);
+    const target = new THREE.Vector2(restX, restY);
     const onPointer = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return; // fingers aren't survey cursors
       const r = host.getBoundingClientRect();
       target.set(
         (e.clientX - r.left) / Math.max(1, r.width),
@@ -236,7 +245,7 @@ export function TopoField({ className = "" }: { className?: string }) {
       const t = material.uniforms.uTime.value as number;
       const gsc = aspect < 1 ? Math.min(0.6 * aspect, 0.34) : 0.56;
       const gcx = aspect < 1 ? 0.5 * aspect + 0.0625 * gsc : 0.72 * aspect;
-      const gcy = aspect < 1 ? 0.2 : 0.52;
+      const gcy = aspect < 1 ? 0.24 : 0.52;
       const gx = (px - gcx) / gsc;
       const gy = (py - gcy) / gsc;
       const dm = Math.min(
@@ -247,7 +256,8 @@ export function TopoField({ className = "" }: { className?: string }) {
       const mk = material.uniforms.uMark.value as number;
       const ridge = Math.exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * Math.sin(t * 0.4)) * mk;
       const calm = Math.exp(-(dm * dm) / 0.09);
-      return topoFbm(px * 2.4 + t * 0.02, py * 2.4 - t * 0.013) * (1 - 0.6 * calm * mk) + ridge + inf * 0.42;
+      const qf = aspect < 1 ? 1.9 : 2.4;
+      return topoFbm(px * qf + t * 0.02, py * qf - t * 0.013) * (1 - 0.6 * calm * mk) + ridge + inf * 0.42;
     };
 
     // refs + textContent only — never setState from the step path

@@ -43,7 +43,7 @@ export function EdHero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="ed-survey-cursor relative min-h-screen flex flex-col overflow-hidden">
+    <section ref={sectionRef} className="ed-survey-cursor relative min-h-[100svh] sm:min-h-screen flex flex-col overflow-hidden">
       {/* topographic field — the terrain follows the cursor; the section carries
           the survey crosshair (the topo host is pointer-events-none, so the
           cursor must live on the hit-tested ancestor — links keep their own) */}
