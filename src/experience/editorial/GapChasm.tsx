@@ -29,8 +29,8 @@ const GREEN = { r: 145, g: 217, b: 130 };
 /* geometry shared with EdGap's text columns — the tear is dead-centre */
 export const CHASM = {
   platformY: 0.46,
-  leftEdge: 0.325,
-  rightEdge: 0.675,
+  leftEdge: 0.29,
+  rightEdge: 0.71,
 };
 
 function vhash(x: number, y: number): number {
@@ -298,25 +298,25 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
       ditherPattern = ctx.createPattern(pc, "repeat");
     };
 
-    const drawCliff = (edgeX: number, left: boolean, par: number) => {
+    const drawCliff = (edgeX: number, left: boolean) => {
       const x0 = left ? 0 : edgeX;
       const x1 = left ? edgeX : W;
       const dirIn = left ? 1 : -1; // toward the void's centre
 
-      // THE SILHOUETTE — the single source of truth for where ground ends.
-      // A stepped rock profile: irregular beds shear off at different
-      // depths, leaving ledges and slight overhangs. Strata terminate on
-      // it, the face line strokes it — everything agrees on one wall.
+      // the face — sheer but not ruled: a gentle organic waver and the
+      // faintest inward lean with depth. Every stratum ends exactly on it;
+      // the wall is only the place where they stop.
       const wallX = (yy: number) => {
         const t = Math.max(0, (yy - py) / (H - py));
-        const wy = yy + Math.sin(yy * 0.011 + (left ? 2.1 : 5.3)) * 9; // irregular bed heights
-        const k = Math.floor((wy - py) / 34);
-        const off = (vhash(k * 17.3, left ? 1 : 2) - 0.4) * 16; // ledges in, overhangs out
-        const dev = Math.min(1, t * 30); // the lip itself stays pinned to the edge
-        return edgeX + dirIn * (t * t * 26 + off * dev + par * 3 * t);
+        return (
+          edgeX +
+          dirIn * t * t * 18 +
+          Math.sin(yy * 0.017 + (left ? 1.7 : 4.6)) * 6 +
+          Math.sin(yy * 0.045 + (left ? 5.9 : 2.2)) * 2.5
+        );
       };
 
-      // sediment — faded out before the edge so no rectangle boundary shows
+      // sediment — dissolved before the edge so no boundary ever shows
       if (ditherPattern) {
         ctx.save();
         ctx.fillStyle = ditherPattern;
@@ -324,113 +324,53 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
         ctx.fillRect(x0, py + 1, x1 - x0, 54);
         ctx.globalAlpha = 0.045;
         ctx.fillRect(x0, py + 55, x1 - x0, 80);
-        // dissolve the sediment's inner boundary toward the silhouette
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = "destination-out";
         const fadeW = 70;
-        const fx0 = left ? edgeX - fadeW : edgeX;
-        const grad = ctx.createLinearGradient(left ? fx0 : edgeX + fadeW, 0, left ? edgeX : edgeX, 0);
+        const grad = ctx.createLinearGradient(left ? edgeX - fadeW : edgeX + fadeW, 0, edgeX, 0);
         grad.addColorStop(0, "rgba(0,0,0,0)");
         grad.addColorStop(1, "rgba(0,0,0,1)");
         ctx.fillStyle = grad;
-        ctx.fillRect(left ? fx0 : edgeX, py, fadeW, 140);
+        ctx.fillRect(left ? edgeX - fadeW : edgeX, py, fadeW, 140);
         ctx.restore();
       }
 
-      // THE FACE — the wall itself, falling out of the light. Square-cut
-      // steps where beds sheared off; a shadow tucked under each ledge.
-      const faceSpan = (H - py) * 0.72;
-      const faceGrad = ctx.createLinearGradient(0, py, 0, py + faceSpan);
-      faceGrad.addColorStop(0, "rgba(255,255,255,0.5)");
-      faceGrad.addColorStop(0.35, "rgba(255,255,255,0.18)");
-      faceGrad.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.strokeStyle = faceGrad;
-      ctx.lineWidth = 1.3;
-      ctx.beginPath();
-      const ledges: Array<[number, number]> = [];
-      let fpx = wallX(py);
-      ctx.moveTo(fpx, py);
-      for (let yy = py + 3; yy <= py + faceSpan; yy += 3) {
-        const x = wallX(yy);
-        if (Math.abs(x - fpx) > 2.5) {
-          ctx.lineTo(fpx, yy); // square the corner — a ledge, not a slope
-          ledges.push([x, yy]);
-        }
-        ctx.lineTo(x, yy);
-        fpx = x;
-      }
-      ctx.stroke();
-      for (const [lxx, lyy] of ledges) {
-        const lt = (lyy - py) / faceSpan;
-        const la = 0.34 * (1 - lt);
-        if (la < 0.03) continue;
-        ctx.strokeStyle = `rgba(255,255,255,${la.toFixed(3)})`;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(lxx, lyy);
-        ctx.lineTo(lxx - dirIn * 5, lyy + 2); // the shadow under the ledge
-        ctx.stroke();
-      }
-
-      // strata terminate EXACTLY on the silhouette — each break catches a
-      // little light and droops over the edge; deeper bands fade to nothing
+      // topo strata — they simply STOP on the face, seamlessly.
+      // Nothing vertical is ever drawn.
       for (let i = 0; i < 17; i++) {
         const depth = 5 + i * i * 1.45;
         const y0 = py + depth;
         if (y0 > H - 8) break;
         const a = 0.3 * (1 - i / 18);
         const wob = 2 + i * 1.2;
-        const endX = wallX(y0);
+        const wave = (x: number) =>
+          y0 + Math.sin(x * 0.014 + i * 2.1 + time * 0.1) * wob * 0.4 + Math.sin(x * 0.043 + i * 4.7) * wob * 0.2;
+        // the ending sits on the face at the stratum's own final y
+        const ex = wallX(wave(edgeX));
+        const endY = wave(ex);
         ctx.strokeStyle = `rgba(255,255,255,${a.toFixed(3)})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
-        const bx0 = left ? 0 : endX;
-        const bx1 = left ? endX : W;
-        let lastY = y0;
         const step = 9;
-        let tickX = endX;
         if (left) {
-          for (let x = bx0; x < bx1 - step; x += step) {
-            const y = y0 + Math.sin(x * 0.014 + i * 2.1 + time * 0.1) * wob * 0.4 + Math.sin(x * 0.043 + i * 4.7) * wob * 0.2;
-            if (x === bx0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-            lastY = y;
-          }
-          // anchor the break on the face at the stratum's OWN final y —
-          // the wobble can land it in a different bed than y0
-          tickX = wallX(lastY);
-          ctx.lineTo(tickX, lastY);
-          ctx.lineTo(tickX + 2, lastY + 2.5); // the droop over the break
+          ctx.moveTo(0, wave(0));
+          for (let x = step; x < ex - step * 0.5; x += step) ctx.lineTo(x, wave(x));
+          ctx.lineTo(ex, endY);
         } else {
-          ctx.moveTo(endX - 2, y0 + 2.5);
-          ctx.lineTo(endX, y0);
-          lastY = y0;
-          for (let x = endX + step; x <= bx1; x += step) {
-            const y = y0 + Math.sin(x * 0.014 + i * 2.1 + time * 0.1) * wob * 0.4 + Math.sin(x * 0.043 + i * 4.7) * wob * 0.2;
-            ctx.lineTo(x, y);
-          }
+          ctx.moveTo(ex, endY);
+          for (let x = ex + step; x < W; x += step) ctx.lineTo(x, wave(x));
+          ctx.lineTo(W, wave(W));
         }
         ctx.stroke();
-        // the lit break — the cliff edge is made of these
-        ctx.fillStyle = `rgba(255,255,255,${Math.min(0.5, a * 1.7).toFixed(3)})`;
-        ctx.fillRect(tickX - 1.2, (left ? lastY : y0) - 1.2, 2.4, 2.4);
       }
 
-      // ground surface line, ending at the silhouette's lip
-      const lipX = wallX(py + 1);
+      // ground surface line, meeting the face at the lip
+      const lipX = wallX(py);
       ctx.strokeStyle = "rgba(255,255,255,0.45)";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(x0 === edgeX ? lipX : x0, py);
       ctx.lineTo(x1 === edgeX ? lipX : x1, py);
-      ctx.stroke();
-      // lip glint — a short bright turn following the silhouette down
-      ctx.strokeStyle = "rgba(255,255,255,0.7)";
-      ctx.lineWidth = 1.6;
-      ctx.beginPath();
-      ctx.moveTo(lipX, py - 3);
-      ctx.lineTo(wallX(py + 8), py + 8);
-      ctx.lineTo(wallX(py + 16), py + 16);
       ctx.stroke();
     };
 
@@ -503,8 +443,8 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
         ctx.globalAlpha = 1;
       }
 
-      drawCliff(lx, true, par);
-      drawCliff(rx, false, par);
+      drawCliff(lx, true);
+      drawCliff(rx, false);
 
       /* THE WATERFALL — hundreds pour over the edge and dissolve */
       spawnT -= dt;
