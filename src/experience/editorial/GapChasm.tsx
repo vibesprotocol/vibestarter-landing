@@ -301,7 +301,20 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
     const drawCliff = (edgeX: number, left: boolean, par: number) => {
       const x0 = left ? 0 : edgeX;
       const x1 = left ? edgeX : W;
+      const dirIn = left ? 1 : -1; // toward the void's centre
 
+      // THE SILHOUETTE — the single source of truth for where ground ends.
+      // No line is ever drawn along it: the wall exists only as the place
+      // where the strata stop.
+      const wallX = (yy: number) => {
+        const t = Math.max(0, (yy - py) / (H - py));
+        const wander =
+          Math.sin(yy * 0.021 + (left ? 1.3 : 4.1)) * 5 +
+          Math.sin(yy * 0.052 + (left ? 6.2 : 2.8)) * 2.5;
+        return edgeX + dirIn * t * t * 24 + wander * 0.7 + dirIn * par * 3 * t;
+      };
+
+      // sediment — faded out before the edge so no rectangle boundary shows
       if (ditherPattern) {
         ctx.save();
         ctx.fillStyle = ditherPattern;
@@ -309,83 +322,74 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
         ctx.fillRect(x0, py + 1, x1 - x0, 54);
         ctx.globalAlpha = 0.045;
         ctx.fillRect(x0, py + 55, x1 - x0, 80);
+        // dissolve the sediment's inner boundary toward the silhouette
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = "destination-out";
+        const fadeW = 70;
+        const fx0 = left ? edgeX - fadeW : edgeX;
+        const grad = ctx.createLinearGradient(left ? fx0 : edgeX + fadeW, 0, left ? edgeX : edgeX, 0);
+        grad.addColorStop(0, "rgba(0,0,0,0)");
+        grad.addColorStop(1, "rgba(0,0,0,1)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(left ? fx0 : edgeX, py, fadeW, 140);
         ctx.restore();
       }
 
-      for (let i = 0; i < 14; i++) {
-        const depth = 5 + i * i * 1.55;
+      // strata terminate EXACTLY on the silhouette — each break catches a
+      // little light and droops over the edge; deeper bands fade to nothing
+      for (let i = 0; i < 17; i++) {
+        const depth = 5 + i * i * 1.45;
         const y0 = py + depth;
         if (y0 > H - 8) break;
-        const a = 0.3 * (1 - i / 15.5);
-        const wob = 2 + i * 1.3;
-        const pull = vhash(i * 7.3, left ? 1 : 2) * 16 + par * (i + 1) * 1.6;
+        const a = 0.3 * (1 - i / 18);
+        const wob = 2 + i * 1.2;
+        const endX = wallX(y0);
         ctx.strokeStyle = `rgba(255,255,255,${a.toFixed(3)})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
-        const bx0 = left ? 0 : edgeX + pull;
-        const bx1 = left ? edgeX - pull : W;
-        for (let x = bx0; x <= bx1; x += 9) {
-          const y = y0 + Math.sin(x * 0.014 + i * 2.1 + time * 0.1) * wob * 0.4 + Math.sin(x * 0.043 + i * 4.7) * wob * 0.2;
-          if (x === bx0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+        const bx0 = left ? 0 : endX;
+        const bx1 = left ? endX : W;
+        let lastY = y0;
+        const step = 9;
+        if (left) {
+          for (let x = bx0; x < bx1 - step; x += step) {
+            const y = y0 + Math.sin(x * 0.014 + i * 2.1 + time * 0.1) * wob * 0.4 + Math.sin(x * 0.043 + i * 4.7) * wob * 0.2;
+            if (x === bx0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+            lastY = y;
+          }
+          ctx.lineTo(endX, lastY);
+          ctx.lineTo(endX + 2, lastY + 2.5); // the droop over the break
+        } else {
+          ctx.moveTo(endX - 2, y0 + 2.5);
+          ctx.lineTo(endX, y0);
+          lastY = y0;
+          for (let x = endX + step; x <= bx1; x += step) {
+            const y = y0 + Math.sin(x * 0.014 + i * 2.1 + time * 0.1) * wob * 0.4 + Math.sin(x * 0.043 + i * 4.7) * wob * 0.2;
+            ctx.lineTo(x, y);
+          }
         }
         ctx.stroke();
+        // the lit break — the cliff edge is made of these
+        ctx.fillStyle = `rgba(255,255,255,${Math.min(0.5, a * 1.7).toFixed(3)})`;
+        ctx.fillRect(endX - 1.2, (left ? lastY : y0) - 1.2, 2.4, 2.4);
       }
 
-      // the wall runs the FULL depth, tapering inward as it falls —
-      // perspective: the tear converges into the dark
-      ctx.beginPath();
-      ctx.moveTo(edgeX, py);
-      const wallSteps = 16;
-      for (let i = 1; i <= wallSteps; i++) {
-        const t = i / wallSteps;
-        const yy = py + (H - py) * t;
-        const taper = (left ? 1 : -1) * t * t * 26; // converges with depth
-        const jag = (left ? -1 : 1) * (vhash(i * 3.1, left ? 5 : 9) * 12) * (1 - t * 0.5);
-        ctx.lineTo(edgeX + taper + jag, yy);
-      }
-      const faceGrad = ctx.createLinearGradient(0, py, 0, H);
-      faceGrad.addColorStop(0, "rgba(255,255,255,0.5)");
-      faceGrad.addColorStop(0.55, "rgba(255,255,255,0.14)");
-      faceGrad.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.strokeStyle = faceGrad;
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-      // faint inner echo of the wall — a second face deeper in, parallax-shifted
-      ctx.beginPath();
-      ctx.moveTo(edgeX + (left ? 10 : -10) + par * 4, py + 30);
-      for (let i = 2; i <= wallSteps; i++) {
-        const t = i / wallSteps;
-        const yy = py + (H - py) * t;
-        const taper = (left ? 1 : -1) * t * t * 40;
-        const jag = (left ? -1 : 1) * (vhash(i * 7.9, left ? 11 : 13) * 9) * (1 - t * 0.5);
-        ctx.lineTo(edgeX + (left ? 10 : -10) + par * 4 + taper + jag, yy);
-      }
-      const echoGrad = ctx.createLinearGradient(0, py, 0, H);
-      echoGrad.addColorStop(0, "rgba(255,255,255,0.16)");
-      echoGrad.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.strokeStyle = echoGrad;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      // lip glint
-      ctx.strokeStyle = "rgba(255,255,255,0.7)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(edgeX, py);
-      ctx.lineTo(edgeX, py + 14);
-      ctx.stroke();
-
+      // ground surface line, ending at the silhouette's lip
+      const lipX = wallX(py + 1);
       ctx.strokeStyle = "rgba(255,255,255,0.45)";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(x0, py);
-      ctx.lineTo(x1, py);
+      ctx.moveTo(x0 === edgeX ? lipX : x0, py);
+      ctx.lineTo(x1 === edgeX ? lipX : x1, py);
       ctx.stroke();
-      ctx.strokeStyle = "rgba(255,255,255,0.65)";
+      // lip glint — a short bright turn following the silhouette down
+      ctx.strokeStyle = "rgba(255,255,255,0.7)";
+      ctx.lineWidth = 1.6;
       ctx.beginPath();
-      ctx.moveTo(edgeX, py - 4);
-      ctx.lineTo(edgeX, py + 8);
+      ctx.moveTo(lipX, py - 3);
+      ctx.lineTo(wallX(py + 8), py + 8);
+      ctx.lineTo(wallX(py + 16), py + 16);
       ctx.stroke();
     };
 
