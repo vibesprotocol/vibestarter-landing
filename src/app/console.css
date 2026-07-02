@@ -1,0 +1,511 @@
+/* ============================================
+   THE CONSOLE v2 — chassis, materials, components
+   ============================================ */
+
+/* chassis the modules mount into */
+.cs-chassis {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 3px),
+    radial-gradient(130% 90% at 50% 0%, #131418 0%, #0b0c0e 55%, #07080a 100%);
+}
+
+/* rack rail with bolt holes */
+.cs-rail {
+  background:
+    radial-gradient(circle 4.5px at 50% 18px, #040405 97%, transparent 100%) 0 0 / 100% 88px repeat-y,
+    radial-gradient(circle 5.5px at 50% 19.5px, rgba(255, 255, 255, 0.07) 96%, transparent 100%) 0 0 / 100% 88px repeat-y,
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 2px),
+    linear-gradient(90deg, #17181b, #232529 35%, #1b1c20 65%, #101114);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.06), inset -1px 0 0 rgba(0, 0, 0, 0.85);
+}
+
+/* module front panel — brushed, beveled, floating off the chassis */
+.cs-fascia {
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid #040405;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0) 9%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 2px),
+    linear-gradient(180deg, #212226 0%, #1a1b1f 50%, #16171b 100%);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.6),
+    inset 2px 0 3px -2px rgba(255, 255, 255, 0.05),
+    inset -2px 0 3px -2px rgba(0, 0, 0, 0.4),
+    0 3px 5px rgba(0, 0, 0, 0.55),
+    0 22px 60px rgba(0, 0, 0, 0.62);
+}
+
+/* raised island on a fascia (control group plinth) */
+.cs-island {
+  border-radius: 9px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 12%),
+    linear-gradient(180deg, #25262b 0%, #1d1e22 100%);
+  border: 1px solid #08090a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1.5px 0 rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* engraved zone outline with cut-in label */
+.cs-zone {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+
+.cs-zone__tag {
+  position: absolute;
+  top: -7px;
+  left: 14px;
+  padding: 0 7px;
+  background: #1d1e22;
+  line-height: 14px;
+}
+
+/* recessed display glass with scan lines */
+.cs-glass {
+  position: relative;
+  background: radial-gradient(120% 130% at 50% 0%, #0c100c 0%, #080b08 70%);
+  border-radius: 7px;
+  border: 1px solid #000;
+  box-shadow:
+    inset 0 4px 12px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.cs-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+
+/* recessed well (for LEDs, keycaps, switches) */
+.cs-well {
+  background: #0e0f11;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* engraved + silkscreen text */
+.cs-engr {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.cs-silk {
+  color: #ececea;
+}
+
+.cs-lcd {
+  font-family: var(--font-mono), monospace;
+  color: #a7e996;
+  text-shadow: 0 0 8px rgba(145, 217, 130, 0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-lcd--amber {
+  color: #f0a35e;
+  text-shadow: 0 0 8px rgba(236, 104, 0, 0.4);
+}
+
+/* indicator LEDs */
+.cs-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #c8f5bb, #91d982 55%, #4f8a44);
+  box-shadow: 0 0 8px rgba(145, 217, 130, 0.75), inset 0 -1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.cs-led--off {
+  background: radial-gradient(circle at 38% 32%, #34373a, #232527 70%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+
+.cs-led--warn {
+  background: radial-gradient(circle at 38% 32%, #ffd2a8, #ec6800 60%, #8a3d00);
+  box-shadow: 0 0 8px rgba(236, 104, 0, 0.75), inset 0 -1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.cs-led--blue {
+  background: radial-gradient(circle at 38% 32%, #a8dcf5, #0d8bca 60%, #07527a);
+  box-shadow: 0 0 8px rgba(13, 139, 202, 0.75), inset 0 -1px 1px rgba(0, 0, 0, 0.35);
+}
+
+/* hex bolt in a recessed well */
+.cs-bolt {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #0b0c0d;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+.cs-bolt::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: conic-gradient(#3e4045 0 60deg, #2a2c30 0 120deg, #383a3f 0 180deg, #26282c 0 240deg, #3a3c41 0 300deg, #2d2f33 0 360deg);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.22), 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.cs-bolt::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 1.5px;
+  background: rgba(0, 0, 0, 0.8);
+  transform: rotate(-28deg);
+}
+
+/* keycap on a recessed base */
+.cs-keywell {
+  display: inline-block;
+  padding: 4px;
+  border-radius: 11px;
+  background: #0d0e10;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.cs-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.5rem;
+  border-radius: 8px;
+  color: #0d150c;
+  background: linear-gradient(180deg, #b2eda3 0%, #8ed67f 55%, #76c266 100%);
+  border: 1px solid #3f6e37;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -4px 6px rgba(0, 0, 0, 0.18),
+    0 5px 0 #3c5f35,
+    0 8px 14px rgba(0, 0, 0, 0.5);
+  transition: transform 0.07s ease, box-shadow 0.07s ease, filter 0.2s ease;
+  transform: translateY(-3px);
+}
+
+.cs-key:hover {
+  filter: brightness(1.05);
+}
+
+.cs-key:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+    0 1px 0 #3c5f35,
+    0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.cs-key--metal {
+  color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(180deg, #3a3c42 0%, #2a2c31 55%, #222428 100%);
+  border: 1px solid #0a0b0c;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -4px 6px rgba(0, 0, 0, 0.35),
+    0 5px 0 #0f1012,
+    0 8px 14px rgba(0, 0, 0, 0.5);
+}
+
+.cs-key--metal:active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.35),
+    0 1px 0 #0f1012,
+    0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* knurled rotary knob */
+.cs-knob {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 36%, #33353a, #1a1b1e 68%, #121316);
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.65),
+    0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.cs-knob::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(255, 255, 255, 0.12) 0 2.5deg, rgba(0, 0, 0, 0.3) 2.5deg 6deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 58%, #000 60%);
+  mask: radial-gradient(circle, transparent 0 58%, #000 60%);
+}
+
+.cs-knob__dot {
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 4px;
+  height: 11px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: #d9f1fc;
+  box-shadow: 0 0 5px rgba(217, 241, 252, 0.5);
+}
+
+/* lever switch */
+.cs-lever {
+  position: relative;
+  width: 16px;
+  height: 40px;
+  border-radius: 8px;
+  background: #0c0d0f;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.cs-lever__stick {
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 22px;
+  margin-left: -4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #4a4d53, #2b2d31);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.cs-lever__stick::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: -3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 32%, #5b5e65, #2e3034 70%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* dymo embossed tape label */
+.cs-tape {
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #f2f2f0;
+  background: linear-gradient(180deg, #1a1a1c, #0e0e10);
+  padding: 4px 10px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9), 0 -1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* punched grille — pairs with an inline SVG dot pattern */
+.cs-grille {
+  border-radius: 8px;
+  background: #131417;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* VU meter wells */
+.cs-meter {
+  background: linear-gradient(180deg, #070907 0%, #0b0e0b 100%);
+  border-radius: 4px;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.95), 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.cs-meter__fill {
+  position: absolute;
+  inset: 2px;
+  top: auto;
+  border-radius: 2px;
+  background: repeating-linear-gradient(0deg, #8fdd80 0 4px, rgba(143, 221, 128, 0.22) 4px 6px);
+  box-shadow: 0 0 12px rgba(145, 217, 130, 0.35);
+  transform-origin: bottom;
+}
+
+.cs-meter__fill--blue {
+  background: repeating-linear-gradient(0deg, #3aa2d6 0 4px, rgba(58, 162, 214, 0.22) 4px 6px);
+  box-shadow: 0 0 12px rgba(13, 139, 202, 0.35);
+}
+
+/* odometer digit wheel */
+.cs-wheel {
+  width: 22px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #060707 0%, #151617 18%, #1d1e20 50%, #151617 82%, #060707 100%);
+  box-shadow: inset 0 0 0 1px #000, inset 0 3px 5px rgba(0, 0, 0, 0.8);
+}
+
+.cs-wheel__col {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.cs-wheel__col span {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono), monospace;
+  font-size: 16px;
+  color: #e8e8e4;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+/* hazard stripes */
+.cs-hazard {
+  background: repeating-linear-gradient(-45deg, #b88420 0 9px, #15161a 9px 18px);
+  opacity: 0.85;
+  border-radius: 2px;
+}
+
+/* vents */
+.cs-vents {
+  background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0 3px, transparent 3px 10px);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  height: 9px;
+  border-radius: 2px;
+}
+
+/* ticker */
+@keyframes cs-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.cs-ticker {
+  display: flex;
+  width: max-content;
+  animation: cs-ticker 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-ticker {
+    animation: none;
+  }
+}
+
+/* ============================================
+   EDITORIAL-KINETIC layer
+   ============================================ */
+
+.ed-accent {
+  font-family: var(--font-accent), serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.ed-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.16);
+}
+
+.ed-ghost--green {
+  -webkit-text-stroke: 1px rgba(145, 217, 130, 0.35);
+}
+
+/* kinetic strike-through for ruled-out items */
+.ed-strike {
+  position: relative;
+}
+
+.ed-strike::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 54%;
+  height: 0.08em;
+  min-height: 3px;
+  background: #ec6800;
+  transform: scaleX(var(--strike, 0));
+  transform-origin: left center;
+  transition: none;
+}
+
+/* static fine grain — texture at a whisper */
+.ed-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background-image: url("/noise.svg");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.04;
+  mix-blend-mode: soft-light;
+}
+
+/* marquee band */
+@keyframes ed-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.ed-marquee {
+  display: flex;
+  width: max-content;
+  animation: ed-marquee 42s linear infinite;
+}
+
+/* link hover: char flip handled in JS; underline sweep fallback */
+.ed-link {
+  position: relative;
+}
+
+.ed-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ed-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-marquee { animation: none; }
+}
+
+/* survey crosshair over the hero topo field — black hairlines underneath for visibility */
+.ed-survey-cursor {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M12%200V10M12%2014V24M0%2012H10M14%2012H24'%20stroke='%23000000'%20stroke-width='3'/%3E%3Cpath%20d='M12%200V10M12%2014V24M0%2012H10M14%2012H24'%20stroke='%2391D982'%20stroke-width='1.5'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='2'%20fill='%23000000'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'%20fill='%2391D982'/%3E%3C/svg%3E") 12 12, crosshair;
+}

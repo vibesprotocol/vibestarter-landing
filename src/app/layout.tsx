@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./console.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
 const inter = Inter({
@@ -23,9 +24,9 @@ const jetbrainsMonoMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vibestarter.xyz"),
-  title: "Vibestarter — Fund your vibecoded app",
+  title: "Vibestarter — Execution collapsed. Funding did not.",
   description:
-    "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
+    "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months — every release challengeable by backers for 72 hours. Provenance sealed on-chain.",
   keywords: [
     "vibecoins",
     "vibecoding",
@@ -42,9 +43,9 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: "Vibestarter — Fund your vibecoded app",
+    title: "Vibestarter — Execution collapsed. Funding did not.",
     description:
-      "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
+      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months — every release challengeable by backers for 72 hours. Provenance sealed on-chain.",
     url: "https://vibestarter.xyz",
     siteName: "Vibestarter",
     type: "website",
@@ -53,15 +54,15 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Vibestarter — Time-released crowdfunding for vibecoded apps on Base",
+        alt: "EXECUTION COLLAPSED. funding did not. — Vibestarter, time-released crowdfunding on Base",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vibestarter — Fund your vibecoded app",
+    title: "Vibestarter — Execution collapsed. Funding did not.",
     description:
-      "Time-released crowdfunding for vibecoded apps. Launch your Vibetoken with on-chain provenance.",
+      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months — every release challengeable by backers for 72 hours. Provenance sealed on-chain.",
     images: ["/og-image.jpg"],
   },
   other: {
@@ -76,9 +77,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${jetbrainsMonoMono.variable}`}>
-      <body className="font-sans antialiased bg-[#0A0A0A] text-white grid-bg">
+      <body className="font-sans antialiased bg-[#0A0A0A] text-white">
         <SmoothScroll>{children}</SmoothScroll>
-        <div className="noise-overlay" />
       </body>
     </html>
   );
