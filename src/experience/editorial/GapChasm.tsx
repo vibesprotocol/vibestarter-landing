@@ -304,14 +304,16 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
       const dirIn = left ? 1 : -1; // toward the void's centre
 
       // THE SILHOUETTE — the single source of truth for where ground ends.
-      // No line is ever drawn along it: the wall exists only as the place
-      // where the strata stop.
+      // A stepped rock profile: irregular beds shear off at different
+      // depths, leaving ledges and slight overhangs. Strata terminate on
+      // it, the face line strokes it — everything agrees on one wall.
       const wallX = (yy: number) => {
         const t = Math.max(0, (yy - py) / (H - py));
-        const wander =
-          Math.sin(yy * 0.021 + (left ? 1.3 : 4.1)) * 5 +
-          Math.sin(yy * 0.052 + (left ? 6.2 : 2.8)) * 2.5;
-        return edgeX + dirIn * t * t * 24 + wander * 0.7 + dirIn * par * 3 * t;
+        const wy = yy + Math.sin(yy * 0.011 + (left ? 2.1 : 5.3)) * 9; // irregular bed heights
+        const k = Math.floor((wy - py) / 34);
+        const off = (vhash(k * 17.3, left ? 1 : 2) - 0.4) * 16; // ledges in, overhangs out
+        const dev = Math.min(1, t * 30); // the lip itself stays pinned to the edge
+        return edgeX + dirIn * (t * t * 26 + off * dev + par * 3 * t);
       };
 
       // sediment — faded out before the edge so no rectangle boundary shows
@@ -335,6 +337,41 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
         ctx.restore();
       }
 
+      // THE FACE — the wall itself, falling out of the light. Square-cut
+      // steps where beds sheared off; a shadow tucked under each ledge.
+      const faceSpan = (H - py) * 0.72;
+      const faceGrad = ctx.createLinearGradient(0, py, 0, py + faceSpan);
+      faceGrad.addColorStop(0, "rgba(255,255,255,0.5)");
+      faceGrad.addColorStop(0.35, "rgba(255,255,255,0.18)");
+      faceGrad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.strokeStyle = faceGrad;
+      ctx.lineWidth = 1.3;
+      ctx.beginPath();
+      const ledges: Array<[number, number]> = [];
+      let fpx = wallX(py);
+      ctx.moveTo(fpx, py);
+      for (let yy = py + 3; yy <= py + faceSpan; yy += 3) {
+        const x = wallX(yy);
+        if (Math.abs(x - fpx) > 2.5) {
+          ctx.lineTo(fpx, yy); // square the corner — a ledge, not a slope
+          ledges.push([x, yy]);
+        }
+        ctx.lineTo(x, yy);
+        fpx = x;
+      }
+      ctx.stroke();
+      for (const [lxx, lyy] of ledges) {
+        const lt = (lyy - py) / faceSpan;
+        const la = 0.34 * (1 - lt);
+        if (la < 0.03) continue;
+        ctx.strokeStyle = `rgba(255,255,255,${la.toFixed(3)})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(lxx, lyy);
+        ctx.lineTo(lxx - dirIn * 5, lyy + 2); // the shadow under the ledge
+        ctx.stroke();
+      }
+
       // strata terminate EXACTLY on the silhouette — each break catches a
       // little light and droops over the edge; deeper bands fade to nothing
       for (let i = 0; i < 17; i++) {
@@ -351,6 +388,7 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
         const bx1 = left ? endX : W;
         let lastY = y0;
         const step = 9;
+        let tickX = endX;
         if (left) {
           for (let x = bx0; x < bx1 - step; x += step) {
             const y = y0 + Math.sin(x * 0.014 + i * 2.1 + time * 0.1) * wob * 0.4 + Math.sin(x * 0.043 + i * 4.7) * wob * 0.2;
@@ -358,8 +396,11 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
             else ctx.lineTo(x, y);
             lastY = y;
           }
-          ctx.lineTo(endX, lastY);
-          ctx.lineTo(endX + 2, lastY + 2.5); // the droop over the break
+          // anchor the break on the face at the stratum's OWN final y —
+          // the wobble can land it in a different bed than y0
+          tickX = wallX(lastY);
+          ctx.lineTo(tickX, lastY);
+          ctx.lineTo(tickX + 2, lastY + 2.5); // the droop over the break
         } else {
           ctx.moveTo(endX - 2, y0 + 2.5);
           ctx.lineTo(endX, y0);
@@ -372,7 +413,7 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
         ctx.stroke();
         // the lit break — the cliff edge is made of these
         ctx.fillStyle = `rgba(255,255,255,${Math.min(0.5, a * 1.7).toFixed(3)})`;
-        ctx.fillRect(endX - 1.2, (left ? lastY : y0) - 1.2, 2.4, 2.4);
+        ctx.fillRect(tickX - 1.2, (left ? lastY : y0) - 1.2, 2.4, 2.4);
       }
 
       // ground surface line, ending at the silhouette's lip
