@@ -40,7 +40,7 @@ export function EdLaunch() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-28 sm:py-40 px-5 sm:px-10 border-t border-white/[0.08] text-center">
+    <section ref={sectionRef} className="relative py-20 sm:py-40 px-5 sm:px-10 border-t border-white/[0.08] text-center">
       <div className="max-w-[1500px] mx-auto">
         <p data-launch-fade className="font-mono text-[11px] tracking-[0.32em] uppercase text-white/40 mb-8">
           <span className="text-accent">06</span> — Launch
@@ -58,11 +58,11 @@ export function EdLaunch() {
           </span>
         </h2>
 
-        <div data-launch-fade className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="https://app.vibestarter.xyz/launch" data-cursor="link" className="btn-mechanical px-8 py-4 text-[13px]">
+        <div data-launch-fade className="mt-8 sm:mt-12 flex flex-row flex-wrap sm:flex-nowrap gap-3 sm:gap-4 justify-center">
+          <Link href="https://app.vibestarter.xyz/launch" data-cursor="link" className="btn-mechanical px-5 sm:px-8 py-4 text-[12px] sm:text-[13px] whitespace-nowrap">
             Apply to Raise
           </Link>
-          <Link href="https://app.vibestarter.xyz/raises" data-cursor="link" className="btn-mechanical-outline px-8 py-4 text-[13px]">
+          <Link href="https://app.vibestarter.xyz/raises" data-cursor="link" className="btn-mechanical-outline px-5 sm:px-8 py-4 text-[12px] sm:text-[13px] whitespace-nowrap">
             Explore Live Raises
           </Link>
         </div>

@@ -30,7 +30,9 @@ export function EdGap() {
 
     if (reduced) {
       gsap.set("[data-gap-in]", { opacity: 1, y: 0 });
-      gsap.set("[data-gap-solution]", { opacity: 1 });
+      // the mobile payoff shares the problem copy's slot — at rest the
+      // problem stays; only the desktop plateau payoff paints in
+      gsap.set("[data-gap-solution]:not([data-gap-m])", { opacity: 1 });
       return;
     }
 
@@ -51,22 +53,28 @@ export function EdGap() {
       // problem first, then the solution: the section is TALL and the stage
       // is sticky — the scrub runs across the pinned distance so the story
       // has time to play out. The payoff copy only exists once the bridge
-      // is materialising.
-      const chasm = stage.querySelector("[data-gap-chasm]") as (HTMLElement & { __scroll?: (p: number) => void }) | null;
-      const solution = section.querySelector<HTMLElement>("[data-gap-solution]");
+      // is materialising. Both breakpoint stages exist in the DOM; the
+      // hidden one has zero size and ignores the feed.
+      const chasms = Array.from(
+        section.querySelectorAll<HTMLElement & { __scroll?: (p: number) => void }>("[data-gap-chasm]")
+      );
+      const solutions = Array.from(section.querySelectorAll<HTMLElement>("[data-gap-solution]"));
+      const problem = section.querySelector<HTMLElement>("[data-gap-problem]");
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
         end: "bottom bottom",
         scrub: true,
         onUpdate: (self) => {
-          chasm?.__scroll?.(self.progress);
-          if (solution) {
-            const fill = Math.min(1, Math.max(0, self.progress / 0.92));
-            const o = Math.min(1, Math.max(0, (fill - 0.48) / 0.22));
+          chasms.forEach((c) => c.__scroll?.(self.progress));
+          const fill = Math.min(1, Math.max(0, self.progress / 0.92));
+          const o = Math.min(1, Math.max(0, (fill - 0.48) / 0.22));
+          for (const solution of solutions) {
             solution.style.opacity = String(o);
             solution.style.transform = `translateY(${(1 - o) * 14}px)`;
           }
+          // on mobile the payoff takes the problem copy's slot — crossfade
+          if (problem) problem.style.opacity = String(1 - o);
         },
       });
     }, section);
@@ -82,32 +90,45 @@ export function EdGap() {
   return (
     // tall section + sticky stage: the visual holds while ~1.6 viewports of
     // scroll play the story — problem, materialise, the one that crosses.
-    // On mobile the terrain is absent, so the section collapses to a simple
-    // editorial stack with no pin.
-    <section ref={sectionRef} className="relative border-t border-white/[0.08] sm:h-[260vh]">
-      {/* mobile: the story as copy */}
-      <div className="sm:hidden px-5 py-24">
-        <p data-gap-in className="font-mono text-[11px] tracking-[0.32em] uppercase">
-          <span className="text-accent">01</span>
-          <span className="text-white/40"> — The gap</span>
-        </p>
-        <h2 className="mt-8 font-display font-bold tracking-[-0.04em] leading-[0.98] text-[40px] text-white">
-          THIS IS THE <span className="text-accent">gap.</span>
-        </h2>
-        <p className="mt-5 text-muted font-sans font-light text-[15px] leading-relaxed">
-          Anyone can ship an MVP in a weekend now. But between a working
-          product and a funded company there is a chasm — and most solo
-          builders fall into it. Not for lack of execution. For lack of a
-          route across.
-        </p>
-        <p className="mt-10 font-display font-bold tracking-[-0.03em] leading-[1.12] text-[26px] text-white">
-          LAUNCHPAD SPEED<span className="text-white/35">.</span>{" "}
-          <span className="text-accent">CONTRACT-ENFORCED ACCOUNTABILITY</span>
-          <span className="text-white/35">.</span>
-        </p>
-        <p className="mt-4 font-mono text-[10px] tracking-[0.24em] uppercase text-white/40">
-          The third rail — built for vibecoding founders
-        </p>
+    // Mobile runs the SAME pinned story: copy up top, the chasm below it,
+    // and the payoff takes the copy's slot once the bridge is materialising.
+    <section ref={sectionRef} className="relative border-t border-white/[0.08] h-[220vh] sm:h-[260vh]">
+      {/* mobile stage */}
+      <div className="sm:hidden sticky top-0 h-[100svh] overflow-hidden">
+        <GapChasm className="absolute inset-x-0 top-[270px] bottom-0" />
+
+        {/* the problem — fades out as the bridge takes over the story */}
+        <div data-gap-problem className="absolute inset-x-5 top-10">
+          <p className="font-mono text-[11px] tracking-[0.32em] uppercase">
+            <span className="text-accent">01</span>
+            <span className="text-white/40"> — The gap</span>
+          </p>
+          <h2 className="mt-5 font-display font-bold tracking-[-0.04em] leading-[0.98] text-[34px] text-white">
+            THIS IS THE <span className="text-accent">gap.</span>
+          </h2>
+          <p className="mt-4 text-muted font-sans font-light text-[14px] leading-relaxed">
+            Anyone can ship an MVP in a weekend now. But between a working
+            product and a funded company there is a chasm — and most solo
+            builders fall into it. Not for lack of execution. For lack of a
+            route across.
+          </p>
+        </div>
+
+        {/* the payoff — arrives WITH the bridge, in the same slot */}
+        <div data-gap-solution data-gap-m className="absolute inset-x-5 top-10" style={{ opacity: 0 }}>
+          <p className="font-mono text-[11px] tracking-[0.32em] uppercase">
+            <span className="text-accent">01</span>
+            <span className="text-white/40"> — The route across</span>
+          </p>
+          <p className="mt-5 font-display font-bold tracking-[-0.03em] leading-[1.12] text-[26px] text-white">
+            LAUNCHPAD SPEED<span className="text-white/35">.</span>{" "}
+            <span className="text-accent">CONTRACT-ENFORCED ACCOUNTABILITY</span>
+            <span className="text-white/35">.</span>
+          </p>
+          <p className="mt-4 font-mono text-[10px] tracking-[0.24em] uppercase text-white/40">
+            The third rail — for the builders no one else funds
+          </p>
+        </div>
       </div>
 
       <div className="hidden sm:block sticky top-0">

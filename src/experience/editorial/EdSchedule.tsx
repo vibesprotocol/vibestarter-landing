@@ -27,18 +27,23 @@ const TAPE = [
 export function EdSchedule() {
   const sectionRef = useRef<HTMLElement>(null);
   const bandRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
   const tapeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const band = bandRef.current;
+    const rail = railRef.current;
     const tape = tapeRef.current;
-    if (!section || !band || !tape) return;
+    if (!section || !band || !rail || !tape) return;
 
-    // the full tape always fits the viewport — the kickstart 10% and final
-    // tranche must never crop off the edges
+    // ≥sm the full tape always fits the viewport — the kickstart 10% and
+    // final tranche must never crop off the edges. Phones keep the tape at
+    // full size and pan it natively instead: a scaled-to-fit tape at 375px
+    // lands near 18% and the numerals die.
     const fit = () => {
       gsap.set(tape, { scale: 1, x: 0 });
+      if (window.innerWidth < 640) return;
       // the layout box ignores the absolutely-positioned station labels that
       // hang past the ends — measure the true ensemble (every descendant),
       // scale THAT to the viewport, then centre it exactly
@@ -73,7 +78,9 @@ export function EdSchedule() {
     const positionStations = () => {
       const stations = gsap.utils.toArray<HTMLElement>("[data-rail-station]", band);
       const blocks = gsap.utils.toArray<HTMLElement>("[data-tape-pct]", band);
-      const bandRect = band.getBoundingClientRect();
+      // the rail wrapper is the beds' coordinate space — on phones it is
+      // wider than the band, which pans it natively
+      const bandRect = rail.getBoundingClientRect();
       bandW = bandRect.width;
       // neutralize the parallax drift so stations sit where the tape rests
       // (the drift tween uses a % unit — convert to px before subtracting)
@@ -245,8 +252,8 @@ export function EdSchedule() {
   }, []);
 
   return (
-    <section id="schedule" ref={sectionRef} className="relative py-24 sm:py-32 overflow-hidden border-t border-white/[0.08]">
-      <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mb-12 sm:mb-16">
+    <section id="schedule" ref={sectionRef} className="relative py-16 sm:py-32 overflow-hidden border-t border-white/[0.08]">
+      <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mb-8 sm:mb-16">
         <p className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
           <span className="text-accent">02</span>
           <span className="text-white/40"> — The schedule</span>
@@ -263,8 +270,14 @@ export function EdSchedule() {
       </div>
 
       {/* the rail line: the band itself is the rail — its borders are the twin
-          rails, the rail bed runs its bottom edge, tranches are stations on it */}
-      <div ref={bandRef} className="relative border-y border-white/[0.16] py-10 sm:py-14">
+          rails, the rail bed runs its bottom edge, tranches are stations on it.
+          Phones pan the full-size tape natively; ≥sm it is scaled to fit. */}
+      <div
+        ref={bandRef}
+        className="relative border-y border-white/[0.16] overflow-x-auto sm:overflow-visible"
+        style={{ scrollbarWidth: "none" }}
+      >
+        <div ref={railRef} className="relative min-w-max sm:min-w-0 py-10 sm:py-14">
         {/* upper rail bed — the band reads as one piece of rail infrastructure */}
         <div
           aria-hidden
@@ -339,6 +352,7 @@ export function EdSchedule() {
             ))}
           </div>
         </div>
+        </div>
       </div>
 
       <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -351,7 +365,7 @@ export function EdSchedule() {
       </div>
 
       {/* the substance: how a claim works — one line */}
-      <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mt-16 sm:mt-20">
+      <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mt-10 sm:mt-20">
         <div className="grid sm:grid-cols-3 gap-x-10 gap-y-6 border-y border-white/[0.09] py-6">
           {[
             {

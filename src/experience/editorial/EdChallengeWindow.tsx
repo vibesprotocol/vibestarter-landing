@@ -673,7 +673,7 @@ export function EdChallengeWindow() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
+    <section ref={sectionRef} className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto">
         <p data-cw-in className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
           <span className="text-accent">03</span>
@@ -694,7 +694,7 @@ export function EdChallengeWindow() {
         </div>
 
         {/* the outcome index — the machine cycles it; clicking pins one */}
-        <div data-cw-in className="mt-14 sm:mt-16 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-white/[0.09] py-6">
+        <div data-cw-in className="mt-10 sm:mt-16 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-white/[0.09] py-6">
           {TABS.map((tab) => (
             <button
               key={tab.id}
@@ -716,7 +716,7 @@ export function EdChallengeWindow() {
         </div>
 
         {/* the statement */}
-        <div ref={stageRef} className="mt-12 sm:mt-14 min-h-[180px] sm:min-h-[230px]">
+        <div ref={stageRef} className="mt-8 sm:mt-14 min-h-[150px] sm:min-h-[230px]">
           {OUTCOMES[outcome].lines.map((line, i) => (
             <span key={`${outcome}-${i}`} className="block overflow-hidden pb-[0.1em] -mb-[0.1em]">
               <span
@@ -738,7 +738,7 @@ export function EdChallengeWindow() {
         </div>
 
         {/* the rulebook — three columns, one reading line */}
-        <div data-cw-in className="mt-14 grid sm:grid-cols-3 gap-x-10 gap-y-7 border-t border-white/[0.1] pt-7">
+        <div data-cw-in className="mt-10 sm:mt-14 grid sm:grid-cols-3 gap-x-10 gap-y-6 sm:gap-y-7 border-t border-white/[0.1] pt-7">
           {[
             {
               k: "Stake to challenge",

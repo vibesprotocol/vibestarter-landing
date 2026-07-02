@@ -647,9 +647,13 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
       if (w < 4 || h < 4 || (w === W && h === H)) return;
       W = w;
       H = h;
-      py = CHASM.platformY * h;
-      lx = CHASM.leftEdge * w;
-      rx = CHASM.rightEdge * w;
+      // phones: narrow plateaus, a wider tear — the copy lives ABOVE the
+      // canvas (EdGap), so the plateaus only need to carry the march
+      const mob = w < 640;
+      py = (mob ? 0.4 : CHASM.platformY) * h;
+      lx = (mob ? 0.18 : CHASM.leftEdge) * w;
+      rx = (mob ? 0.82 : CHASM.rightEdge) * w;
+      mark.style.top = `${py}px`;
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -686,15 +690,16 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
   return (
     <div ref={hostRef} data-gap-chasm aria-hidden className={`pointer-events-none ${className}`}>
       {/* map annotations */}
+      {/* the edge labels need plateau width — phones don't have it */}
       <div
-        className="absolute font-mono text-[10px] tracking-[0.22em] uppercase text-white/45"
+        className="absolute hidden sm:block font-mono text-[10px] tracking-[0.22em] uppercase text-white/45"
         style={{ left: "3%", top: `calc(${CHASM.platformY * 100}% + 14px)` }}
       >
         Solo builders →
       </div>
       <div
         ref={fundedRowRef}
-        className="absolute font-mono text-[10px] tracking-[0.22em] uppercase text-accent/70 text-right"
+        className="absolute hidden sm:block font-mono text-[10px] tracking-[0.22em] uppercase text-accent/70 text-right"
         style={{ right: "3%", top: `calc(${CHASM.platformY * 100}% + 14px)`, opacity: 0 }}
       >
         Funded · <span ref={fundedRef} className="text-accent">00</span>

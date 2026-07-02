@@ -86,7 +86,7 @@ export function EdProvenance() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
+    <section ref={sectionRef} className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto">
         {/* focal */}
         <p data-prov-in className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
@@ -110,7 +110,7 @@ export function EdProvenance() {
             resolve inside the scramble itself, so there are no DOM rows */}
         <div
           ref={visualRef}
-          className="relative mt-12 mb-4 h-[600px]"
+          className="relative mt-8 sm:mt-12 mb-4 h-[420px] sm:h-[600px]"
           role="img"
           aria-label="The Origin Capsule: a glass cylinder with its cryptographic record — founder, ERC-8004 agent, transcript hash, chain — engraved around the surface, its hash stamped beneath it. It sits at the centre of a living blockchain node network: nodes linked into a mesh with blocks pulsing along the edges toward the capsule, and the four record components wired in through the network. On entry the two halves slide shut, the shell hardens, and a pulse converges as it seals."
         >

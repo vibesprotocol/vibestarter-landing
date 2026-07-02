@@ -234,7 +234,7 @@ export function EdReputation() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
+    <section ref={sectionRef} className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto">
         {/* focal */}
         <p data-rep-in className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
@@ -258,13 +258,13 @@ export function EdReputation() {
             on-chain credential ledger on the right. The bust is a constantly-
             shifting glyph field — an alive on-chain presence — beside the record
             that verifies row by row. */}
-        <div className="mt-14 flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-16">
+        <div className="mt-10 sm:mt-14 flex flex-col items-center gap-8 sm:gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-16">
           {/* the founder, rendered as a living ASCII bust */}
           <div data-rep-in className="shrink-0">
             <FounderAscii
               resolution={0.2}
               sway={0.22}
-              className="block h-[400px] w-[336px] sm:h-[520px] sm:w-[440px] max-w-full overflow-hidden"
+              className="block h-[300px] w-[252px] sm:h-[520px] sm:w-[440px] max-w-full overflow-hidden"
             />
           </div>
 
@@ -305,7 +305,7 @@ export function EdReputation() {
                 <li
                   key={r.k}
                   data-rep-row
-                  className="grid grid-cols-1 gap-y-1.5 border-b border-white/[0.07] py-5 sm:grid-cols-[auto_168px_240px_minmax(0,1fr)_auto] sm:items-center sm:gap-x-4 sm:gap-y-0"
+                  className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-x-3 border-b border-white/[0.07] py-3.5 sm:grid-cols-[auto_168px_240px_minmax(0,1fr)_auto] sm:gap-x-4 sm:py-5"
                 >
                   {/* logo */}
                   <span className="shrink-0 w-5 h-5 inline-flex items-center justify-center">
@@ -335,8 +335,9 @@ export function EdReputation() {
                   )}
 
                   {/* note — flexible 1fr column, min-w-0 so it wraps inside its
-                      own track instead of pushing into the value column */}
-                  <span className="min-w-0 font-sans text-[12.5px] leading-snug text-white/45">
+                      own track instead of pushing into the value column. Phones
+                      run the row as a one-liner, so the note is desktop-only */}
+                  <span className="hidden sm:block min-w-0 font-sans text-[12.5px] leading-snug text-white/45">
                     {r.note}
                   </span>
 
@@ -344,7 +345,7 @@ export function EdReputation() {
                   <span
                     data-rep-tick
                     aria-hidden="true"
-                    className="shrink-0 justify-self-start sm:justify-self-end font-mono text-[12px] text-accent"
+                    className="shrink-0 justify-self-end font-mono text-[12px] text-accent"
                   >
                     ✓
                   </span>

@@ -76,10 +76,11 @@ export function EdHero() {
         </div>
       </header>
 
-      {/* the claim */}
-      <div className="relative z-10 flex-1 flex items-center px-5 sm:px-10">
+      {/* the claim — top-set on mobile so the chevron landform owns the open
+          ground below it; vertically centred from sm up */}
+      <div className="relative z-10 flex-1 flex items-start pt-4 sm:items-center sm:pt-0 px-5 sm:px-10">
         <div className="w-full max-w-[1500px] mx-auto">
-          <p data-fade className="font-mono text-[11px] tracking-[0.32em] uppercase text-accent mb-7">
+          <p data-fade className="font-mono text-[11px] tracking-[0.32em] uppercase text-accent mb-5 sm:mb-7">
             {"//"} Time-released crowdfunding — live on Base
           </p>
 
@@ -101,16 +102,16 @@ export function EdHero() {
             </span>
           </h1>
 
-          <p data-fade className="mt-8 max-w-[520px] text-muted font-sans font-light text-base sm:text-lg leading-relaxed">
+          <p data-fade className="mt-6 sm:mt-8 max-w-[520px] text-muted font-sans font-light text-[15px] sm:text-lg leading-relaxed">
             Agents ship MVPs in days — but shipping and scaling still takes capital.
             Vibestarter funds vibecoded apps with accountability built in: released over
             time, pausable by backers, proven on-chain.
           </p>
-          <div data-fade className="mt-9 flex flex-col sm:flex-row gap-4">
-            <Link href="https://app.vibestarter.xyz/launch" data-cursor="link" className="btn-mechanical px-7 py-3.5 text-[13px] text-center">
+          <div data-fade className="mt-7 sm:mt-9 flex flex-row gap-3 sm:gap-4">
+            <Link href="https://app.vibestarter.xyz/launch" data-cursor="link" className="btn-mechanical px-4 sm:px-7 py-3.5 text-[12px] sm:text-[13px] text-center whitespace-nowrap">
               Apply to Raise
             </Link>
-            <Link href="#schedule" data-cursor="link" className="btn-mechanical-outline px-7 py-3.5 text-[13px] text-center">
+            <Link href="#schedule" data-cursor="link" className="btn-mechanical-outline px-4 sm:px-7 py-3.5 text-[12px] sm:text-[13px] text-center whitespace-nowrap">
               How it works ↓
             </Link>
           </div>
