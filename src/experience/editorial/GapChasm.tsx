@@ -648,9 +648,10 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
       W = w;
       H = h;
       // phones: narrow plateaus, a wider tear — the copy lives ABOVE the
-      // canvas (EdGap), so the plateaus only need to carry the march
+      // canvas (EdGap), so the ground line hugs the top of the canvas and
+      // the void gets all the depth
       const mob = w < 640;
-      py = (mob ? 0.4 : CHASM.platformY) * h;
+      py = (mob ? 0.08 : CHASM.platformY) * h;
       lx = (mob ? 0.18 : CHASM.leftEdge) * w;
       rx = (mob ? 0.82 : CHASM.rightEdge) * w;
       mark.style.top = `${py}px`;

@@ -83,10 +83,10 @@ const FRAG = /* glsl */ `
     // the mark — the Vibestarter chevron as a landform. A ridge of elevation
     // shaped like >_ rises out of the terrain; the contours wrap around it
     // and the glyph emerges from the medium itself.
-    // portrait: the landform sits BEHIND the claim, watermark-height —
-    // width-fit, optically centred, mid-frame under the headline
-    float gsc = aspect < 1.0 ? min(0.5 * aspect, 0.28) : 0.56;
-    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect + 0.0625 * gsc, 0.58) : vec2(0.72 * aspect, 0.52);
+    // portrait: the landform sits in the open ground JUST BELOW the CTAs —
+    // sized to that zone, optically centred, nothing covering it
+    float gsc = aspect < 1.0 ? min(0.36 * aspect, 0.24) : 0.56;
+    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect + 0.0625 * gsc, 0.115) : vec2(0.72 * aspect, 0.52);
     vec2 gq = (p - gc) / gsc;
     float d1 = sdSeg(gq, vec2(-0.8125, 0.5), vec2(-0.1875, 0.0));
     float d2 = sdSeg(gq, vec2(-0.1875, 0.0), vec2(-0.8125, -0.5));
@@ -110,7 +110,9 @@ const FRAG = /* glsl */ `
     vec3 BLUE = vec3(0.051, 0.545, 0.792);
     float elev = smoothstep(0.2, 0.95, e);
     vec3 lineCol = mix(BLUE, GREEN, elev);
-    float lineA = line * (0.10 + 0.42 * elev + inf * 0.55);
+    // phones have no cursor raise and a veil over the claim — the ambient
+    // contours need more of their own light to read at all
+    float lineA = line * (0.10 + 0.42 * elev + inf * 0.55) * (aspect < 1.0 ? 1.55 : 1.0);
 
     // dither shading between contours, barely there
     float b = Bayer2(gl_FragCoord.xy / 4.0) * 0.25 + Bayer2(gl_FragCoord.xy / 2.0);
@@ -243,9 +245,9 @@ export function TopoField({ className = "" }: { className?: string }) {
       const dy = py - mouse.y;
       const inf = Math.exp(-(dx * dx + dy * dy) * 6.5);
       const t = material.uniforms.uTime.value as number;
-      const gsc = aspect < 1 ? Math.min(0.5 * aspect, 0.28) : 0.56;
+      const gsc = aspect < 1 ? Math.min(0.36 * aspect, 0.24) : 0.56;
       const gcx = aspect < 1 ? 0.5 * aspect + 0.0625 * gsc : 0.72 * aspect;
-      const gcy = aspect < 1 ? 0.58 : 0.52;
+      const gcy = aspect < 1 ? 0.115 : 0.52;
       const gx = (px - gcx) / gsc;
       const gy = (py - gcy) / gsc;
       const dm = Math.min(
@@ -360,7 +362,7 @@ export function TopoField({ className = "" }: { className?: string }) {
             x={`${cx}%`}
             y={20}
             textAnchor="middle"
-            className="font-mono"
+            className="font-mono hidden sm:block"
             fontSize={10}
             letterSpacing={2}
             fill="rgba(255,255,255,0.18)"
@@ -384,7 +386,7 @@ export function TopoField({ className = "" }: { className?: string }) {
         ))}
         {ROWS.map((ry, j) =>
           COLS.map((cx, i) => (
-            <svg key={`x${i}-${j}`} x={`${cx}%`} y={`${ry}%`} overflow="visible">
+            <svg key={`x${i}-${j}`} x={`${cx}%`} y={`${ry}%`} overflow="visible" className="hidden sm:block">
               <path d="M-5 0H5M0 -5V5" stroke="rgba(255,255,255,0.10)" strokeWidth={1} />
             </svg>
           ))
@@ -398,7 +400,7 @@ export function TopoField({ className = "" }: { className?: string }) {
           ref={(el) => {
             elevRefs.current[i] = el;
           }}
-          className="absolute font-mono text-[10px] tracking-[0.15em] text-accent/30 whitespace-nowrap"
+          className="absolute hidden sm:block font-mono text-[10px] tracking-[0.15em] text-accent/30 whitespace-nowrap"
           style={{ left: `${pt.leftPct}%`, top: `${pt.topPct}%`, transform: "translate(9px, -50%)" }}
         >
           · 000

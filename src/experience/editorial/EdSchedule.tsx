@@ -340,7 +340,19 @@ export function EdSchedule() {
           DOWN the page, station to station, everything readable at 1:1 */}
       <div className="sm:hidden px-5">
         <div data-vrail-body className="relative border-y border-white/[0.16] py-8">
-          <span aria-hidden className="absolute left-[25px] top-0 bottom-0 w-px bg-white/[0.14]" />
+          {/* the track — twin rails with sleeper ties, the rail bed rotated
+              vertical so the line still reads as RAIL infrastructure */}
+          <div
+            aria-hidden
+            className="absolute left-[16px] top-0 bottom-0 w-[18px] pointer-events-none"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(180deg, transparent 0 22px, rgba(255,255,255,0.09) 22px 23px)",
+            }}
+          >
+            <span className="absolute left-0 top-0 h-full w-px bg-white/[0.14]" />
+            <span className="absolute right-0 top-0 h-full w-px bg-white/[0.14]" />
+          </div>
           <span
             data-vrail-live
             aria-hidden
