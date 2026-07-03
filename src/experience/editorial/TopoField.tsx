@@ -83,17 +83,18 @@ const FRAG = /* glsl */ `
     // the mark — the Vibestarter chevron as a landform. A ridge of elevation
     // shaped like >_ rises out of the terrain; the contours wrap around it
     // and the glyph emerges from the medium itself.
-    // portrait: the landform sits in the open ground JUST BELOW the CTAs —
-    // sized to that zone, optically centred, nothing covering it
-    float gsc = aspect < 1.0 ? min(0.36 * aspect, 0.24) : 0.56;
-    vec2 gc = aspect < 1.0 ? vec2(0.5 * aspect + 0.0625 * gsc, 0.115) : vec2(0.72 * aspect, 0.52);
+    // the landform is a DESKTOP feature — on portrait the glyph never read
+    // at phone scale, so phones carry the pure field instead
+    float markOn = aspect < 1.0 ? 0.0 : 1.0;
+    float gsc = 0.56;
+    vec2 gc = vec2(0.72 * aspect, 0.52);
     vec2 gq = (p - gc) / gsc;
     float d1 = sdSeg(gq, vec2(-0.8125, 0.5), vec2(-0.1875, 0.0));
     float d2 = sdSeg(gq, vec2(-0.1875, 0.0), vec2(-0.8125, -0.5));
     float d3 = sdSeg(gq, vec2(-0.0625, -0.5), vec2(0.6875, -0.5));
     float dm = min(min(d1, d2), d3);
-    float ridge = exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * sin(uTime * 0.4)) * uMark;
-    float calm = exp(-(dm * dm) / 0.09);
+    float ridge = exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * sin(uTime * 0.4)) * uMark * markOn;
+    float calm = exp(-(dm * dm) / 0.09) * markOn;
 
     // portrait terrain runs at a lower frequency so the ambient contours
     // don't tangle the (smaller) landform
@@ -104,15 +105,18 @@ const FRAG = /* glsl */ `
     float fw = fwidth(bands);
     float c = fract(bands);
     float edge = min(c, 1.0 - c);
-    float line = 1.0 - smoothstep(0.0, fw * 1.5, edge);
+    // phones draw the contours heavier — hairlines vanish on small screens
+    float line = 1.0 - smoothstep(0.0, fw * (aspect < 1.0 ? 2.0 : 1.5), edge);
 
     vec3 GREEN = vec3(0.569, 0.851, 0.510);
     vec3 BLUE = vec3(0.051, 0.545, 0.792);
     float elev = smoothstep(0.2, 0.95, e);
     vec3 lineCol = mix(BLUE, GREEN, elev);
-    // phones have no cursor raise and a veil over the claim — the ambient
-    // contours need more of their own light to read at all
-    float lineA = line * (0.10 + 0.42 * elev + inf * 0.55) * (aspect < 1.0 ? 1.55 : 1.0);
+    // phones have no cursor raise and a veil over the claim, so the contours
+    // get a lift — CLAMPED below 1 so the colour never blows out toward
+    // white; the hue must stay true brand green/blue
+    float lineA = line * (0.10 + 0.42 * elev + inf * 0.55);
+    lineA = aspect < 1.0 ? min(lineA * 1.8, 0.85) : lineA;
 
     // dither shading between contours, barely there
     float b = Bayer2(gl_FragCoord.xy / 4.0) * 0.25 + Bayer2(gl_FragCoord.xy / 2.0);
@@ -245,9 +249,10 @@ export function TopoField({ className = "" }: { className?: string }) {
       const dy = py - mouse.y;
       const inf = Math.exp(-(dx * dx + dy * dy) * 6.5);
       const t = material.uniforms.uTime.value as number;
-      const gsc = aspect < 1 ? Math.min(0.36 * aspect, 0.24) : 0.56;
-      const gcx = aspect < 1 ? 0.5 * aspect + 0.0625 * gsc : 0.72 * aspect;
-      const gcy = aspect < 1 ? 0.115 : 0.52;
+      const markOn = aspect < 1 ? 0 : 1;
+      const gsc = 0.56;
+      const gcx = 0.72 * aspect;
+      const gcy = 0.52;
       const gx = (px - gcx) / gsc;
       const gy = (py - gcy) / gsc;
       const dm = Math.min(
@@ -256,8 +261,8 @@ export function TopoField({ className = "" }: { className?: string }) {
         segDist(gx, gy, -0.0625, -0.5, 0.6875, -0.5)
       );
       const mk = material.uniforms.uMark.value as number;
-      const ridge = Math.exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * Math.sin(t * 0.4)) * mk;
-      const calm = Math.exp(-(dm * dm) / 0.09);
+      const ridge = Math.exp(-(dm * dm) / 0.0056) * (0.85 + 0.06 * Math.sin(t * 0.4)) * mk * markOn;
+      const calm = Math.exp(-(dm * dm) / 0.09) * markOn;
       const qf = aspect < 1 ? 1.9 : 2.4;
       return topoFbm(px * qf + t * 0.02, py * qf - t * 0.013) * (1 - 0.6 * calm * mk) + ridge + inf * 0.42;
     };

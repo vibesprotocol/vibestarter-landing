@@ -52,7 +52,7 @@ export function EdHero() {
           terrain actually shows; it only needs to clear the claim's zone */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_120%_50%_at_50%_28%,rgba(0,0,0,0.5),rgba(0,0,0,0.14)_60%,transparent_85%)] sm:bg-[radial-gradient(ellipse_70%_60%_at_28%_45%,rgba(0,0,0,0.82),rgba(0,0,0,0.3)_55%,transparent_80%)]"
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_120%_50%_at_50%_28%,rgba(0,0,0,0.45),rgba(0,0,0,0.1)_60%,transparent_82%)] sm:bg-[radial-gradient(ellipse_70%_60%_at_28%_45%,rgba(0,0,0,0.82),rgba(0,0,0,0.3)_55%,transparent_80%)]"
       />
 
       {/* nav */}
