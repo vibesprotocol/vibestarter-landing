@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { VibesTelemetry } from "./VibesTelemetry";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,12 +63,20 @@ export function EdLaunch() {
           <Link href="https://app.vibestarter.xyz/launch" data-cursor="link" className="btn-mechanical px-5 sm:px-8 py-4 text-[12px] sm:text-[13px] whitespace-nowrap">
             Apply to Raise
           </Link>
-          <Link href="https://app.vibestarter.xyz/raises" data-cursor="link" className="btn-mechanical-outline px-5 sm:px-8 py-4 text-[12px] sm:text-[13px] whitespace-nowrap">
-            Explore Live Raises
-          </Link>
+          <a
+            href="https://aerodrome.finance/swap?from=ETH&to=0xefFC8815487084a97edfdfF968b56Ea123421Acb"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="link"
+            className="btn-mechanical-outline px-5 sm:px-8 py-4 text-[12px] sm:text-[13px] whitespace-nowrap"
+          >
+            Get $VIBES ↗
+          </a>
         </div>
 
-        <p data-launch-fade className="mt-12 font-mono text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-white/35">
+        <VibesTelemetry />
+
+        <p data-launch-fade className="mt-10 font-mono text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-white/35">
           Live on Base · chain 8453 · two audits complete
         </p>
       </div>
