@@ -24,7 +24,9 @@ const jetbrainsMonoMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vibestarter.xyz"),
-  title: "Vibestarter — Execution collapsed. Funding did not.",
+  // SEO title leads with what customers actually search; the brand tagline
+  // ("Execution collapsed. Funding did not.") stays on the OG/Twitter cards.
+  title: "Vibestarter — Crowdfunding for Vibe-Coded Apps on Base",
   description:
     "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months — every release challengeable by backers for 72 hours. Provenance sealed on-chain.",
   keywords: [
