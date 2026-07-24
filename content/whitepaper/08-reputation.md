@@ -1,16 +1,16 @@
 # 8. Reputation: Ethos and On-Chain Signals
 
-> Anyone can launch a raise and anyone can back one — Vibestarter does not gate participation on reputation. What it does instead is surface the reputation of the people involved, so backers and founders can judge who they are dealing with for themselves.
+> Anyone can back a raise, and reputation never decides who can: Vibestarter does not gate participation on reputation scores. (Launch admission is curated in the current phase against the published application rubric — Section 12.1 — not by Ethos or Starter scores.) What the platform does with reputation is surface it, so backers and founders can judge who they are dealing with for themselves.
 
-This section describes the reputation layer that sits beside the on-chain protocol. It is part of how Vibestarter delivers design goal G3 (*permissionless on both sides*) honestly: permissionless access is the default, and the answer to the trust and Sybil problems that come with it is *transparency*, not a gate. The protocol surfaces credibility signals on every participant rather than deciding who is allowed in.
+This section describes the reputation layer that sits beside the on-chain protocol. It is part of how Vibestarter delivers design goal G3 (*permissionless on both sides — end-state; launch side currently curated*) honestly: backing is permissionless, launch admission in the current phase is decided by the published application rubric (Section 12.1) rather than by reputation, and the answer to the trust and Sybil problems that openness brings is *transparency*, not a reputation gate. The reputation layer surfaces credibility signals on every participant; it does not grant or deny access.
 
 ---
 
 ## 8.1 Reputation is a signal, not a gate
 
-In a permissionless market the relevant question is rarely "is this person allowed to participate" — it is "who is this person." Vibestarter answers the second question and leaves the first one open:
+In an open market the relevant question is rarely "is this person allowed to participate" — it is "who is this person." The reputation layer answers the second question only (launch admission in the current phase is the application rubric's job — Section 12.1; backing has no admission step at all):
 
-- **Anyone can launch a raise**, regardless of reputation. A launch's success is determined by its own funding outcome, not by the founder's standing.
+- **Reputation does not decide launch admission.** In the current curated phase, launches are admitted by the published application rubric (Section 12.1), not by Ethos or Starter scores; an admitted launch's success is determined by its own funding outcome, not by the founder's standing.
 - **Anyone can back any raise**, regardless of reputation. There is no minimum score, no tier, and no allowlist requirement to contribute.
 - **Anyone can hold tokens, raise challenges, claim refunds, and call any contract function.** The contract layer does not read reputation at all.
 

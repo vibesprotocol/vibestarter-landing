@@ -10,8 +10,17 @@ A protocol that ships honest decentralization claims must distinguish between th
 
 The protocol layer is permissionless today. Without any operator action:
 
-- **Anyone can launch a raise** by calling `VibesLaunchRouterV2.launchWithCampaign()` with the required parameters and the founder deposit. There is no committee approval, no whitelist, no Vibestarter Labs sign-off in the launch path.
-- **Anyone can back a raise** by sending ETH to the escrow's `contribute()` function during the active window. No accreditation, no KYC at the contract level, no minimum reputation.
+- **Anyone can create a token** through the router's simple `launch()` path — no signature,
+  no approval, no whitelist at the contract level.
+- **Raise launches are gated during the current curated phase.**
+  `VibesLaunchRouterV2.launchWithCampaign()` requires a platform-issued EIP-712 launch
+  signature (`trustedLaunchSigner`), and the platform issues it only to wallets meeting the
+  published criteria — including, in the current phase, an approved founder application
+  reviewed against a published rubric (see the Launch Admission & Moderation Policy).
+  Permissionless raise admission remains the stated end-state of this document; until the
+  curated phase ends, describing the launch path as sign-off-free would be false, so we
+  don't. Backing, challenging, claiming, and refunds below are permissionless today.
+- **Anyone can back a raise** by sending ETH to the escrow's `contribute()` function during the active window (subject to the platform terms signature that enforces ToS acceptance and sanctions screening). No accreditation, no minimum reputation.
 - **Anyone can hold and transfer tokens** issued by raises. The tokens are standard fixed-supply ERC20s with no transfer restrictions.
 - **Anyone holding a tranche-challenge threshold can raise a challenge** during a challenge window. The threshold is graduated (Section 6.2) but the action is permissionless.
 - **Anyone can support a challenge** by calling `supportChallenge()` while holding any non-zero token balance.
@@ -19,17 +28,32 @@ The protocol layer is permissionless today. Without any operator action:
 - **Anyone can claim a refund** they are entitled to (contributor refund for failed raises, holder refund for frozen raises via merkle proof, excess refund for pro-rata oversubscription).
 - **Anyone can stake $VIBES** by calling `VibesStaking.stake()`. No allowlist.
 
-These are the on-chain interactions a backer or founder will typically have with the system. None require Vibestarter Labs' permission.
+These are the on-chain interactions a backer or founder will typically have with the system. Apart from the launch-signature gate named above (and the terms signature on gated actions), none require Vibestarter Labs' permission.
 
 ## 12.2 What is centralized today
 
 The centralized surfaces. Each is named with the reason it currently requires operator involvement.
 
+### Launch admission (curated phase)
+
+The backend launch signature is the enforcement point for sanctions screening, terms
+acceptance, and — in the current phase — the curated founder-application review. The review
+operates against the published rubric in the Launch Admission & Moderation Policy; every
+decision is logged with its reason.
+
+**Why centralized:** the platform launched invite-only as a trust-model control; the
+application review is the per-launcher screen against fraud and impersonation while
+reputation infrastructure matures.
+
+**Path:** the stated end-state is permissionless admission — the signature remains as a
+mechanical screen (sanctions, geo, terms) with no per-founder discretion. The curated phase
+ends on a published decision, not silently.
+
 ### Challenge adjudication
 
-The 72-hour challenge review (Section 6) is performed by the operations admin (the M-3 multi-sig). The admin decides whether to uphold, reject, or let expire each challenge.
+The challenge review (Section 6) is performed by the operations admin (M-3, a single-key hot EOA). The admin decides whether to uphold, reject, or let expire each challenge. Backers have 72 hours to file after a tranche request; once filed, the admin has a 7-day adjudication window before the challenge auto-expires in the founder's favor (raises launched before the PC-09 cut-over, including $VIBES, run both clocks at 72 hours — the constants are immutable per escrow).
 
-**Why centralized:** A contract cannot read the world. Determining whether a founder has actually abandoned a project, whether claimed progress is real, or whether a missed deadline reflects fraud or strategic pivot requires off-chain judgment. Until a decentralized adjudication mechanism (jury panels, prediction markets, community vote) has been built and stress-tested, the multi-sig is the practical answer.
+**Why centralized:** A contract cannot read the world. Determining whether a founder has actually abandoned a project, whether claimed progress is real, or whether a missed deadline reflects fraud or strategic pivot requires off-chain judgment. Until a decentralized adjudication mechanism (jury panels, prediction markets, community vote) has been built and stress-tested, the operations-admin key is the practical answer.
 
 **Constraints today:** The admin can only choose between contract-defined outcomes (uphold, reject, expire). The admin cannot move funds to arbitrary destinations, cannot adjust slash percentages, and cannot skip the commit-reveal delay on refund roots. The challenge standards (Section 6.6) define the criteria the admin uses, and deviations are publicly auditable.
 
@@ -47,7 +71,7 @@ The exclusion array passed to `upholdChallenge()` and `freezeCampaign()` is an a
 
 **Why centralized:** The set of legitimately non-redeemable addresses (vesting contracts, treasuries, the burn address itself) varies per raise and is not derivable on-chain without additional infrastructure.
 
-**Constraints today:** Governed by the challenge standards (Section 6.6). Visible on-chain in the transaction. Subject to multi-sig review.
+**Constraints today:** Governed by the challenge standards (Section 6.6). Visible on-chain in the transaction. Subject to operations-admin review (M-3, a single key) and the published challenge standards.
 
 ### Reputation display
 
@@ -63,7 +87,7 @@ Adjustments to platform fee configuration, founder deposit amounts, the escrow f
 
 **Why centralized:** Some of these require coordinated upgrades (a new escrow factory must be deployed and authorized in a specific sequence). Others reflect operating-cost considerations that change over time (fee structures, deposit amounts).
 
-**Constraints today:** All such changes require master admin (M-3 multi-sig) action. Each emits public events. A timelock layer is recommended for infrastructure changes and is on the roadmap (see 12.4).
+**Constraints today:** All such changes require master admin (the M-1 Safe) action. Each emits public events. A timelock layer is recommended for infrastructure changes and is on the roadmap (see 12.4).
 
 ### Operations admin appointment
 
@@ -90,7 +114,7 @@ For the surfaces in 12.2 that are on a decentralization path, the staged plan:
 
 ### Stage 1 — Multi-sig consolidation (current)
 
-The operations admin role is held by M-3, a Safe multi-sig with 2-of-3 (or 3-of-5) threshold. The founder is recused from M-3 votes on the protocol's own raise. Cosigner separation policy (Section 11.2) prevents single-person control across roles.
+The escrow/challenge admin role is held by M-3, a single-key hot EOA (kept hot for minute-level freeze response — **not a multisig**). The master + treasury admin is the M-1 Safe. For the protocol's own raise, the founder's adjudication conflict is mitigated by off-chain transparency (the published challenge standards), not by an on-chain cosigner; an on-chain guardian module to move M-3's non-freeze setters behind a multisig is planned, not yet deployed.
 
 **Status:** in place.
 
@@ -102,7 +126,7 @@ The criteria the operations admin uses to adjudicate challenges are published in
 
 ### Stage 3 — Adjudicator diversification
 
-The M-3 multi-sig expands to include community members beyond Vibestarter Labs. The cosigner set is rotated periodically. The criteria for cosigner inclusion are published.
+M-3 (currently a single-key hot EOA) is migrated to a multi-sig that includes community members beyond Vibestarter Labs. The cosigner set is rotated periodically. The criteria for cosigner inclusion are published.
 
 **Status:** roadmapped post-mainnet.
 

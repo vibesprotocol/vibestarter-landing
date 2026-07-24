@@ -21,8 +21,8 @@ Each primitive maps to a design goal introduced in Section 4 and is specified in
 | **Time-released funding.** Capital releases on a fixed schedule. No milestones, no approvals on the success path. | 10% at finalization + 15% every 30 days × 6 tranches = 6 months total | §5 |
 | **Challenge windows.** Each tranche request opens a 72-hour window during which token holders can pause the schedule. | 72-hour window; graduated holder thresholds (0.25 / 0.50 / 1.00% of supply); 20% slash on rejected challenges; 7-day cooldown | §6 |
 | **Indefinite LP lock.** 15% of every raise creates an Aerodrome liquidity pool; the LP receipt is locked forever in a per-campaign fee claimer with no withdraw function. | Permanent. No unlock event. Trading fees are captured, not burned. | §7 |
-| **Reputation as a signal, not a gate.** Anyone can launch or back any raise. Vibestarter surfaces each founder's and backer's reputation so participants can judge for themselves. | Ethos scores + on-chain history | §8 |
-| **Two-tier admin separation.** Master admin (Gnosis Safe multi-sig) controls infrastructure and rescue. Operations admin adjudicates challenges and cannot extract user funds. | Master = multi-sig (2-of-3 minimum). Operations = revocable EOA or smaller multi-sig. | §11 |
+| **Reputation as a signal, not a gate.** Anyone can back any raise — no reputation minimum. Launch admission is curated in the current phase against a published rubric (§12.1), not by reputation scores. Vibestarter surfaces each founder's and backer's reputation so participants can judge for themselves. | Ethos scores + on-chain history | §8 |
+| **Two-tier admin separation.** Master admin (Gnosis Safe multi-sig, M-1) controls infrastructure, fees, rescue, and treasury powers. Operations/escrow admin adjudicates challenges + freezes and cannot extract user funds. | Master = M-1 Safe (2-of-2 today, moving to 2-of-3). Operations = M-3, a revocable single-key hot EOA. | §11 |
 
 ## What the contract guarantees, and what it does not
 
@@ -50,7 +50,7 @@ The protocol does not claim:
 - That backers will profit. Tokens are exposed to standard market risk. (§13.3)
 - That fraud is impossible. A dishonest founder can claim early tranches before a challenge is upheld. The protocol minimizes this loss; it does not eliminate it. (§13.4)
 - That displayed reputation guarantees a founder is trustworthy. Ethos and on-chain signals inform judgment; they do not guarantee a founder will deliver. (§13.7)
-- That the audits guarantee bug-free contracts. Two audits have been completed and findings remediated. Unknown bugs may still exist. (§13.1)
+- That the audits guarantee bug-free contracts. One external audit (ZXVC LLC) plus internal review cycles have been completed; all High findings were remediated, while specific centralization findings (no admin timelocks on the treasury burn / infra setters) are accepted/deferred and disclosed as residual risk. Unknown bugs may still exist. (§13.1)
 - That the LP lock guarantees value. The pool exists permanently. Whether anyone trades against it depends on what the founder builds. (§7.5)
 
 ## Status

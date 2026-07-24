@@ -56,13 +56,15 @@
 | `MONTHLY_BPS` | 1500 (15%) | `VibesTranchEscrow` | No |
 | `NUM_MONTHLY_TRANCHES` | 6 | `VibesTranchEscrow` | No |
 | `TRANCHE_DURATION` | 30 days | `VibesTranchEscrow` | No |
-| `CHALLENGE_WINDOW` | 72 hours | `VibesTranchEscrow` | No |
+| `CHALLENGE_WINDOW` (filing + payout delay) | 72 hours | `VibesTranchEscrow` | No |
+| `ADJUDICATION_WINDOW` (filed challenge → auto-expiry; PC-09, post-cut-over raises — $VIBES remains 72h) | 7 days | `VibesTranchEscrow` | No |
+| `ADJUDICATION_WINDOW` — treasury (filed treasury-proposal challenge → auto-expiry; PC-10, treasuries created by a post-PC-10 router — $VIBES treasury remains 72h) | 7 days | `VibesTreasuryEscrow` | No |
 | `CHALLENGE_SLASH_BPS` | 2000 (20%) | `VibesTranchEscrow` | No |
 | `CHALLENGE_COOLDOWN` | 7 days | `VibesTranchEscrow` | No |
 | `CHALLENGE_THRESHOLD` (T0–T2) | 0.25% of supply | `VibesTranchEscrow.getChallengeThreshold()` | No |
 | `CHALLENGE_THRESHOLD` (T3–T4) | 0.50% of supply | `VibesTranchEscrow.getChallengeThreshold()` | No |
 | `CHALLENGE_THRESHOLD` (T5–T6) | 1.00% of supply | `VibesTranchEscrow.getChallengeThreshold()` | No |
-| `PLATFORM_FEE_BPS` | 250 (2.5%) | `VibesTranchEscrow` | Master admin (via `setFeeConfig`) |
+| `platformFeeBps` | 250 (2.5%), hard cap 1000 (10%) | `VibesTranchEscrow` | **No** — set once at raise creation, no setter; the factory default for *future* raises is adjustable by the master admin (`setPlatformFeeBps`, PC-07) |
 | `MIN_CONTRIBUTION` | 0.01 ETH | `VibesTranchEscrow` | No |
 | `MERKLE_ROOT_DELAY` | 24 hours | `VibesTranchEscrow` | No |
 | `MAX_TIME_DRIFT` | 1 hour | `VibesTranchEscrow` | No |
@@ -73,10 +75,10 @@
 | `UNSTAKE_COOLDOWN` ($VIBES) | 7 days | `VibesStaking` | No |
 | `MAX_RAISE_DURATION` | 30 days | `VibesTranchEscrowFactory` | No |
 | `MAX_SCHEDULE_WINDOW` | 30 days | `VibesTranchEscrowFactory` | No |
-| `Founder deposit` | 0.05 ETH (configurable) | Router | Master admin (via `setFounderDepositWei`) |
-| `Launch token fee` | 0.5% of supply | Router | Master admin (via `setFeeConfig`) |
+| `Founder deposit` | 0.01 ETH (configurable; refunded on successful finalization) | Router | Master admin (via `setFounderDepositWei`) |
+| `Launch fee (flat ETH, optional)` | 0 (off) | Router | Master admin (via `setFeeConfig`) |
 
-Parameters marked *No* are protocol-level constants and not adjustable per-raise or by any admin action without a contract upgrade.
+Parameters marked *No* are protocol-level constants and not adjustable per-raise or by any admin action without a contract upgrade. `setFeeConfig` controls only the router-level flat launch fee; the escrow's `platformFeeBps` is fixed per raise at creation, with `setPlatformFeeBps` adjusting the factory default for future raises only.
 
 ---
 
@@ -104,7 +106,7 @@ Canonical addresses are queryable on-chain from `VibesRegistry` events and are r
 
 ## 14.4 Audit reports
 
-The contracts have been audited twice (April 2026 and May 2026), with findings remediated and re-tested in both cycles. A remediation summary is published at app.vibestarter.xyz/audit.
+The contracts have had one external audit (ZXVC LLC, May 2026) plus internal review cycles (April and June 2026). All High findings were remediated and re-tested; certain centralization findings (no admin timelocks on the treasury burn / infrastructure setters) are accepted or deferred and disclosed as residual risk. A remediation summary is published at app.vibestarter.xyz/audit.
 
 ---
 

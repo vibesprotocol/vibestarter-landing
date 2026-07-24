@@ -36,9 +36,9 @@ The master admin is the only role that can extract ETH from the router. This is 
 
 ### Operations Admin (`VibesLaunchRouterV2.operationsAdmin`)
 
-The operations admin is a separately-held role, set by the master admin and revocable at any time. It is expected to be a **dedicated EOA or a smaller multi-sig** held by the operations team for fast, day-to-day response. The role is passed to every new escrow and treasury at creation time as their `admin` parameter.
+The operations/escrow admin is a separately-held role, revocable at any time. In the deployed configuration it is **M-3, a dedicated single-key hot EOA** (not a multisig), kept hot for minute-level freeze response. **NOTE (admin split, 2026-06-07):** the escrow/challenge admin is sourced from `factory.admin` = M-3 (single key) and is passed to every new escrow at creation time as its `admin`; the router `operationsAdmin` — which feeds the **treasury** admin, including the irreversible burn — is the **M-1 Safe**, not M-3.
 
-The operations admin's powers, exercised across all per-raise escrows and treasuries:
+The escrow/challenge admin's powers (M-3), exercised across all per-raise escrows (the two treasury-challenge functions below are exercised by the **M-1 treasury admin**, not M-3, since the 2026-06-07 split):
 
 - `upholdChallenge()` / `rejectChallenge()` — adjudicate challenges
 - `freezeCampaign()` — freeze a funded campaign for holder refunds
@@ -52,29 +52,29 @@ What the operations admin **cannot** do:
 
 - Move user funds to arbitrary addresses. Every action above either returns funds to identified holders, slashes to `0xdead`, or freezes funds in place.
 - Alter the tranche schedule. The schedule is hard-coded in the escrow.
-- Change the LP lock. The LP is permanently in the dead address.
+- Change the LP lock. The LP receipt is permanently held in a soulbound per-campaign fee claimer with no withdraw path.
 - Bypass the commit-reveal delay on refund merkle roots.
 - Adjust the slash percentage or the challenge window length.
 - Call any function on the master admin's surface (rescue, pause, infrastructure changes).
 
 If the operations admin is compromised, the worst-case scenario is bounded: an attacker can freeze campaigns and burn individual treasuries, but cannot exfiltrate ETH. The master admin can revoke a compromised operations admin in a single transaction via `setOperationsAdmin(newAddress)`. The operations admin is, by design, a *fast-revocable* role.
 
-## 11.2 Off-chain multi-sigs
+## 11.2 Off-chain key topology (Safes + EOAs)
 
-Beyond the on-chain `owner` and `operationsAdmin` roles, four operational multi-sigs sit at the organizational level. Each has a distinct purpose and cosigner set. They are deployed as Safe (Gnosis) instances on Base, with 2-of-3 threshold as a baseline.
+Beyond the on-chain `owner` and `operationsAdmin` roles, the operational roles sit at the organizational level across **two Gnosis Safes (M-1, M-4) plus two single-key EOAs (M-2 cold, M-3 hot)** on Base. The two Safes use a 2-of-2 threshold today (moving to 2-of-3); **M-2 and M-3 are single keys, not multisigs.**
 
 | Safe | Role | Purpose |
 |------|------|---------|
-| M-1 | Platform Operations | Receives 2.5% ETH tranche fees + 0.5% token launch fees. Pays platform infrastructure costs. |
+| M-1 | Platform Operations | Receives 2.5% ETH tranche fees (no token-side launch fee exists). Pays platform infrastructure costs. |
 | M-2 | $VIBES Raise Founder Wallet | Receives Vibestarter's own raise tranche payouts (pre-entity custody). |
-| M-3 | Protocol Admin Multisig | Holds the on-chain `operationsAdmin` role. Adjudicates challenges. |
+| M-3 | Ops/escrow admin (single-key hot EOA — not a multisig) | Holds the escrow/factory `admin` role (from `factory.admin`): adjudicates raise/tranche challenges, freezes, force-refunds. The router `operationsAdmin` (treasury admin) is M-1, not M-3, since the 2026-06-07 split. |
 | M-4 | Community Rewards | Administers the `VibesCommunityRewards` contract (post-cliff distribution batches). |
 
 **Separation of concerns** is enforced by cosigner policy:
 
-- No single cosigner may hold simultaneous authority across M-2 (founder wallet) and M-3 (admin adjudication).
-- No single cosigner may hold simultaneous authority across M-3 (admin) and M-4 (post-cliff community distribution).
-- For challenges against the $VIBES raise itself, the founder is recused from adjudication; a named non-founder cosigner on M-3 is the designated adjudicator.
+- M-2 (founder wallet) and M-3 (escrow/challenge admin) are **distinct single-key EOAs** — separate keys, no shared control.
+- The two Safes (M-1, M-4) limit cosigner overlap to at most one shared seat to avoid over-concentration.
+- For challenges against the $VIBES raise itself, the founder's adjudication conflict is mitigated by **off-chain transparency** (the published challenge standards), since M-3 is a single key with no on-chain cosigner; M-3 only executes the publicly-reasoned decision.
 
 The cosigner separation prevents the obvious failure modes — the founder adjudicating challenges against themselves, the same parties controlling both the platform fee wallet and the protocol admin — without requiring perfect role isolation, which is impractical at small operating scale.
 
@@ -92,14 +92,14 @@ The mitigations:
 
 - **Publication and review.** The `_excludeAddresses` array is part of the on-chain transaction. Any holder can verify which addresses were excluded.
 - **Challenge standards.** The challenge standards (Section 6.6) define the off-chain policy for which addresses are excluded under what circumstances. Deviations are publicly auditable.
-- **Multi-sig consent.** When M-3 is the operations admin, the exclusion array is part of the transaction the cosigners approve. The founder is recused from M-3 votes on the $VIBES raise's own challenges.
+- **On-chain publication (no cosigner consent).** M-3 is a single-key hot EOA, so the `_excludeAddresses` array is **not** gated by cosigner approval; the mitigations are its on-chain visibility, the 24-hour `MERKLE_ROOT_DELAY`, the published challenge standards, and — for the $VIBES raise — off-chain recused adjudication.
 - **24-hour `MERKLE_ROOT_DELAY`.** After the freeze, the admin must commit a refund merkle root and then wait 24 hours before claims open. Holders can verify the root during this window and surface complaints before any ETH moves.
 
 This is one of the surfaces where the protocol relies on transparency and review rather than pure on-chain enforcement. It is named here because pretending otherwise would be the kind of dishonesty Section 4.1 ruled out.
 
 ## 11.4 Audit history
 
-The contracts have been through two formal audit cycles, both with findings remediated and re-tested.
+The contracts have been through one external audit (ZXVC LLC, May 2026) plus internal review cycles (April and June 2026). All High findings were remediated and re-tested; certain centralization findings (no admin timelocks on the treasury burn / infrastructure setters) are accepted or deferred and disclosed as residual risk.
 
 ### April 2026 audit
 

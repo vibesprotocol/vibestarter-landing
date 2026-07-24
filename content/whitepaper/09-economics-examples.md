@@ -23,19 +23,20 @@ The 100 ETH raised splits immediately:
 
 | Slice | ETH | Notes |
 |-------|-----|-------|
-| LP (paired into Aerodrome, receipt locked in fee claimer) | 15 | Paired with 150,000,000 $LOOM (15% of supply) |
+| LP (paired into Aerodrome, receipt locked in fee claimer) | 15 | Paired against $LOOM to open the pool at the backer entry price −5%. Up to 150,000,000 $LOOM (15% of supply) is reserved; the locker pairs only what's needed at that price and returns the remainder to backers. |
 | Escrow (`VibesTranchEscrow`) | 85 | Released across seven tranches |
 
 The 1,000,000,000 $LOOM also distributes (assuming standard configuration with 5% founder, 15% treasury, 0% community rewards, 2.5% staker rewards):
 
 | Slice | Tokens | Destination |
 |-------|--------|-------------|
-| Backers | 650,000,000 | Token Distributor — claimed by backers pro-rata |
-| LP | 150,000,000 | Paired with 15 ETH; LP receipt locked in the fee claimer |
+| Backers | 625,000,000 (+ any unused LP reserve) | Token Distributor — claimed by backers pro-rata |
+| LP | up to 150,000,000 reserved | Paired with 15 ETH to open the pool at the backer entry price −5%; only the amount needed at that price is deposited (LP receipt locked in the fee claimer), and the remainder is returned to backers |
 | Treasury | 150,000,000 | `VibesTreasuryEscrow` — quarterly releases via challengeable proposals |
 | Founder | 50,000,000 | `VibesVesting` — 6-month cliff + 12-month linear |
 | Staker rewards | 25,000,000 | `VibesStakerRewards` — distributed to $VIBES stakers |
-| Platform fee (token-side) | 5,000,000 | Platform ops wallet — 0.5% launch fee |
+
+These five slices are the complete allocation — they sum to the full 1,000,000,000 supply, and the platform takes no share of token supply. The platform's only per-raise fee is the 2.5% ETH tranche fee shown in the schedule below.
 
 ### Tranche schedule (escrowed 85 ETH)
 

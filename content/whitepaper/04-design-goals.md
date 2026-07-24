@@ -111,12 +111,15 @@ token holders can pause the schedule. A founder who has abandoned a project
 does not collect the back half by waiting. The window is **72 hours** and
 opens when the founder requests a tranche. *(Section 6.)*
 
-### G3 — Permissionless on both sides
+### G3 — Permissionless on both sides (end-state; launch side currently curated)
 
-Anyone can launch a raise. Anyone can back one. There is no accredited-backer
-gate, no committee, and no whitelist controlling who participates. Reputation
-systems exist, and they gate features — they do not gate access.
-*(Section 8.)*
+Anyone can back a raise; there is no accredited-backer gate and no minimum
+reputation. Launching is the stated end-state of this goal but is **curated in
+the current phase**: mainnet raise launches require a founder application
+reviewed against the published rubric (Section 12.1 / the Launch Admission &
+Moderation Policy). Reputation systems gate features — they do not gate
+backing access.
+*(Sections 8, 12.)*
 
 ### G4 — Backer upside is a transferable claim
 

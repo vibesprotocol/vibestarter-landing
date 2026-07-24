@@ -169,9 +169,9 @@ export default function TermsPage() {
               <h2 className="text-xl font-semibold mb-4 text-white">9. Platform Fees</h2>
               <p className="text-muted leading-relaxed">
                 The platform deducts a 2.5% fee from each ETH tranche payout to a founder (so the founder receives 97.5% of
-                each tranche). The platform also receives a 0.5% token-side fee at raise launch on standard raises. These fees
-                accrue to a platform multisig wallet on Base and are used solely for platform operations until the successor
-                Luxembourg entity is formed.
+                each tranche). There is no token-side fee on token supply. An optional flat launch fee (denominated in ETH)
+                exists in the protocol and is currently disabled. These fees accrue to a platform multisig wallet on Base and
+                are used solely for platform operations until the successor Luxembourg entity is formed.
               </p>
             </section>
 

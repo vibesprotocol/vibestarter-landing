@@ -354,8 +354,8 @@ export function EdReputation() {
             </ul>
 
             <p data-rep-in className="mt-4 font-mono text-[10px] tracking-[0.16em] uppercase text-white/30">
-              A signal, not a gate — anyone can launch, anyone can back, and everyone can see
-              exactly who they&apos;re dealing with.
+              A signal, not a gate — anyone can back, launches are reviewed against a published
+              rubric, and everyone can see exactly who they&apos;re dealing with.
             </p>
           </div>
 

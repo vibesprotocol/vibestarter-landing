@@ -72,7 +72,7 @@ The admin reviews the challenge and finds it unwarranted. The contract action is
 
 ### Expire
 
-The admin takes no action within 72 hours. Anyone can then call `expireChallengeIfNeeded()`. The challenger's full stake is returned (no slash). The tranche releases to the founder.
+The admin takes no action within the adjudication window — 7 days from filing (`ADJUDICATION_WINDOW`) on raises launched after the PC-09 cut-over; 72 hours on earlier escrows, including $VIBES, whose constants are immutable. Anyone can then call `expireChallengeIfNeeded()`. The challenger's full stake is returned (no slash). The tranche releases to the founder.
 
 This is the *quiet failure* path: a challenge that the admin neither upholds nor explicitly rejects is treated as not warranting a slash, but also not warranting a freeze. In practice this should be rare — the admin is expected to respond to every challenge within the window — but the path exists so that a delinquent admin cannot indefinitely hold tranches hostage by simply not responding.
 
@@ -84,7 +84,7 @@ Support events are surfaced in the admin's review tooling and are part of the pu
 
 ## 6.6 The honest reality of admin review
 
-The 72-hour review is performed by the **operations admin**, an account separate from the platform's master multi-sig (described in detail in Section 11). The operations admin can uphold or reject a challenge, but cannot move user funds to arbitrary destinations and cannot release escrow ahead of schedule.
+The challenge review — up to 7 days from filing on post-PC-09 escrows (72 hours on earlier ones) — is performed by the **operations admin**, an account separate from the platform's master multi-sig (described in detail in Section 11). The operations admin can uphold or reject a challenge, but cannot move user funds to arbitrary destinations and cannot release escrow ahead of schedule.
 
 The set of decisions the admin is empowered to make is small and adversarially constrained:
 

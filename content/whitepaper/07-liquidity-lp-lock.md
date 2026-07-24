@@ -11,11 +11,11 @@ This section describes the liquidity primitive that pairs every Vibestarter rais
 At finalization, the protocol creates an **Aerodrome volatile-pair liquidity pool** on Base, pairing:
 
 - **15% of the raised ETH** (taken from the contributor pool before escrow)
-- **15% of the token supply** (taken from the project's token allocation)
+- **Project tokens sized to open the pool at the backer entry price minus 5%.** Up to 15% of supply is reserved for this (taken from the project's token allocation); the locker pairs only the amount needed to hit that opening price and **returns any unused portion to backers**. The token and ETH sides are therefore no longer a symmetric 15%/15%.
 
 The LP receipt token — the on-chain claim on that pool's liquidity — is transferred to a **per-campaign `VibesLPFeeClaimer`** clone. The claimer is *soulbound*: it has no transfer, withdraw, rescue, pause, or admin function, so the LP receipt can never leave it. No party, including Vibestarter, can move the position or reclaim the liquidity. The lock is irreversible and recorded on-chain.
 
-This is implemented in `VibesLPLocker.createAndLockLP()`. It is invoked exactly once per raise, at the moment of finalization.
+This is implemented in `VibesLPLockerV2.createAndLockLP()` (the discount-aware locker active on mainnet since the 2026-06-14 cut-over; `VibesLPLockerV2` is byte-identical to `VibesLPLocker` except for this discount-aware sizing). It is invoked exactly once per raise, at the moment of finalization.
 
 The pool itself remains active. Trades against it continue to happen. Unlike a burned LP — where the trading fees the position earns would be stranded forever — the claimer **captures those fees**: the ETH-side fees route to the platform, and the project-token-side fees to the project's treasury (or are burned if the raise has no treasury). Settlement is permissionless, so anyone can trigger it, and the principal liquidity never moves. The pool is a permanent secondary market that nobody controls.
 

@@ -8,7 +8,7 @@ A whitepaper that does not name the failure modes of the protocol it describes i
 
 ## 13.1 Smart contract risk
 
-The contracts have been through two audit cycles (April 2026 and May 2026) with findings remediated and re-tested. The audit reports are public.
+The contracts have been through one external audit (ZXVC LLC, May 2026) plus internal review cycles (April and June 2026). All High findings were remediated and re-tested; certain centralization findings (no admin timelocks on the treasury burn / infrastructure setters) are accepted or deferred and disclosed as residual risk. The external audit report is public.
 
 The unmitigated residual: **previously-unknown bugs may exist**. No audit guarantees the absence of bugs; it raises the probability that critical issues have been identified. The mitigation paths the protocol has in place:
 
@@ -20,7 +20,7 @@ What the mitigation does not address: a bug exploited *before* it is discovered 
 
 ## 13.2 Regulatory risk
 
-The protocol uses language and structures designed to position tokens issued via Vibestarter as **utility tokens**, not securities. The legal disclaimers shown on raise pages and at app.vibestarter.xyz/terms make this position explicit.
+Tokens issued via Vibestarter are intended to function as **utility tokens** within their respective project ecosystems: they confer no equity, ownership, dividend, profit-share, or revenue-share rights. Whether any specific token is a security is a legal determination that turns on its particular facts and the jurisdiction in question. The legal disclaimers shown on raise pages and at app.vibestarter.xyz/terms set out what the tokens do and do not confer.
 
 The unmitigated residual: **regulatory bodies in specific jurisdictions may reach different conclusions**. Possible outcomes include:
 
@@ -79,7 +79,7 @@ The reputation surfaced on the platform (Section 8) has its own caveats:
 - **Displayed reputation is not a guarantee of honesty.** A founder with a high Ethos score and a long on-chain history can still fail to deliver or act in bad faith. Reputation is a signal to inform judgment, not a substitute for it.
 - **Signals can be cultivated.** Ethos standing and on-chain history are expensive to fabricate at scale, but a determined actor can build a credible-looking profile over time. Treat reputation as one input among several.
 - **Third-party dependency.** Ethos and other reputation sources are external services that can change methodology, rate-limit, or become unavailable, which would degrade or interrupt the displayed signals.
-- **Reputation is not access.** Anyone can launch or back any raise regardless of reputation; the platform does not gate participation on these signals. Founder-configurable requirements may be offered in future but are not in place today.
+- **Reputation is not access.** The platform does not gate participation on these signals: anyone can back any raise regardless of reputation, and launch admission (curated in the current phase — Section 12.1) is decided by the published application rubric, not by Ethos or Starter scores. Founder-configurable requirements may be offered in future but are not in place today.
 
 ## 13.8 LP-specific risks
 
