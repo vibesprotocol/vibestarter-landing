@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { TopoField } from "./TopoField";
+import { WipeWordmark } from "../ui/WipeWordmark";
 
 /**
  * Hero — one focal element: the claim. The topographic field carries the
@@ -62,7 +63,7 @@ export function EdHero() {
             <path d="M4 8L14 16L4 24" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" />
             <path d="M16 24H28" stroke="currentColor" strokeWidth="3" strokeLinecap="square" />
           </svg>
-          <span className="font-display font-bold text-[17px] tracking-tight text-white">Vibestarter</span>
+          <WipeWordmark text="Vibestarter" trigger="load" delay={0.3} className="font-display font-bold text-[17px] tracking-tight text-white" />
         </Link>
         <div className="flex items-center gap-8">
           <Link href="/whitepaper" data-cursor="link" data-scramble className="ed-link hidden md:inline font-mono text-[11px] tracking-[0.22em] uppercase text-white/50 hover:text-white transition-colors">

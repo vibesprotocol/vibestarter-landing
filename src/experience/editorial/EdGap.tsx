@@ -88,11 +88,11 @@ export function EdGap() {
   }, []);
 
   return (
-    // tall section + sticky stage: the visual holds while ~1.6 viewports of
+    // tall section + sticky stage: the visual holds while ~0.8 viewports of
     // scroll play the story — problem, materialise, the one that crosses.
     // Mobile runs the SAME pinned story: copy up top, the chasm below it,
     // and the payoff takes the copy's slot once the bridge is materialising.
-    <section ref={sectionRef} className="relative border-t border-white/[0.08] h-[220vh] sm:h-[260vh]">
+    <section ref={sectionRef} data-chapter="01" data-chapter-name="The gap" className="relative border-t border-white/[0.08] h-[160vh] sm:h-[180vh]">
       {/* mobile stage */}
       <div className="sm:hidden sticky top-0 h-[100svh] overflow-hidden">
         <GapChasm className="absolute inset-x-0 top-[270px] bottom-0" />

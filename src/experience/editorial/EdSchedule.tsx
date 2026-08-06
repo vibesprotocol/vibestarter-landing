@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChapterHead } from "../ui/ChapterHead";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -319,12 +320,9 @@ export function EdSchedule() {
   }, []);
 
   return (
-    <section id="schedule" ref={sectionRef} className="relative py-16 sm:py-32 overflow-hidden border-t border-white/[0.08]">
+    <section id="schedule" ref={sectionRef} data-chapter="02" data-chapter-name="The schedule" className="relative py-16 sm:py-32 overflow-hidden border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mb-8 sm:mb-16">
-        <p className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
-          <span className="text-accent">02</span>
-          <span className="text-white/40"> — The schedule</span>
-        </p>
+        <ChapterHead index="02" name="The schedule" className="mb-6" />
         <h2 className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white">
           FUNDING ON{" "}
           <span className="text-accent">rails.</span>

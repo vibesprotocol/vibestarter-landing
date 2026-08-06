@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { VibesTelemetry } from "./VibesTelemetry";
+import { ChapterHead } from "../ui/ChapterHead";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,11 +42,9 @@ export function EdLaunch() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-20 sm:py-40 px-5 sm:px-10 border-t border-white/[0.08] text-center">
+    <section ref={sectionRef} data-chapter="06" data-chapter-name="Launch" className="relative py-20 sm:py-40 px-5 sm:px-10 border-t border-white/[0.08] text-center">
       <div className="max-w-[1500px] mx-auto">
-        <p data-launch-fade className="font-mono text-[11px] tracking-[0.32em] uppercase text-white/40 mb-8">
-          <span className="text-accent">06</span> — Launch
-        </p>
+        <ChapterHead index="06" name="Launch" center className="mb-8" />
         <h2 className="font-display font-bold leading-[0.95] text-white">
           <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
             <span data-launch-line data-skew className="block text-[clamp(44px,8.4vw,130px)] tracking-[-0.045em] will-change-transform">

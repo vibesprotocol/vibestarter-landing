@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { FounderAscii } from "./FounderAscii";
+import { ChapterHead } from "../ui/ChapterHead";
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
@@ -234,13 +235,10 @@ export function EdReputation() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
+    <section ref={sectionRef} data-chapter="05" data-chapter-name="Reputation" className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto">
         {/* focal */}
-        <p data-rep-in className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
-          <span className="text-accent">05</span>
-          <span className="text-white/40"> — Reputation</span>
-        </p>
+        <ChapterHead index="05" name="Reputation" className="mb-6" />
         <h2
           data-rep-in
           data-skew

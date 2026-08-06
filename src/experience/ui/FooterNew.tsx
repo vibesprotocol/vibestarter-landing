@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { WipeWordmark } from "./WipeWordmark";
 
 const LINK_GROUPS: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
   {
@@ -15,6 +16,7 @@ const LINK_GROUPS: { title: string; links: { label: string; href: string; extern
       { label: "Launch App", href: "https://app.vibestarter.xyz", external: true },
       { label: "Explore Raises", href: "https://app.vibestarter.xyz/raises", external: true },
       { label: "Docs", href: "https://app.vibestarter.xyz/docs", external: true },
+      { label: "Brand", href: "https://app.vibestarter.xyz/brand", external: true },
     ],
   },
   {
@@ -58,9 +60,11 @@ export function FooterNew() {
                 <path d="M4 8L14 16L4 24" stroke="black" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" />
                 <path d="M16 24H28" stroke="black" strokeWidth="3" strokeLinecap="square" />
               </svg>
-              <span className="font-display font-bold tracking-[-0.04em] text-[clamp(40px,9vw,120px)] leading-none">
-                Vibestarter
-              </span>
+              <WipeWordmark
+                text="Vibestarter"
+                trigger="scroll"
+                className="font-display font-bold tracking-[-0.04em] text-[clamp(40px,9vw,120px)] leading-none"
+              />
             </Link>
             <p className="hidden md:block font-mono text-[11px] tracking-[0.24em] uppercase text-black/55 text-right leading-relaxed">
               Capital releases over time.

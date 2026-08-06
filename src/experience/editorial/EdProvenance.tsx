@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CapsuleField } from "./CapsuleField";
+import { ChapterHead } from "../ui/ChapterHead";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,13 +87,10 @@ export function EdProvenance() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
+    <section ref={sectionRef} data-chapter="04" data-chapter-name="Provenance" className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto">
         {/* focal */}
-        <p data-prov-in className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
-          <span className="text-accent">04</span>
-          <span className="text-white/40"> — Provenance</span>
-        </p>
+        <ChapterHead index="04" name="Provenance" className="mb-6" />
         <h2
           data-prov-in
           data-skew

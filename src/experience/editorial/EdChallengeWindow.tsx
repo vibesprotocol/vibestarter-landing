@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChapterHead } from "../ui/ChapterHead";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -780,12 +781,9 @@ export function EdChallengeWindow() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
+    <section ref={sectionRef} data-chapter="03" data-chapter-name="The challenge window" className="relative py-16 sm:py-32 px-5 sm:px-10 border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto">
-        <p data-cw-in className="font-mono text-[11px] tracking-[0.32em] uppercase mb-6">
-          <span className="text-accent">03</span>
-          <span className="text-white/40"> — The challenge window</span>
-        </p>
+        <ChapterHead index="03" name="The challenge window" className="mb-6" />
 
         <div data-cw-in>
           <h2 className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white">

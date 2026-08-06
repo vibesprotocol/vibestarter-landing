@@ -8,6 +8,7 @@ import { EdReputation } from "@/experience/editorial/EdReputation";
 import { EdBuiltIn } from "@/experience/editorial/EdBuiltIn";
 import { EdLaunch } from "@/experience/editorial/EdLaunch";
 import { FooterNew } from "@/experience/ui/FooterNew";
+import { HudFrame } from "@/experience/ui/HudFrame";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <EdBuiltIn />
       <EdLaunch />
       <FooterNew />
+      <HudFrame />
     </main>
   );
 }
