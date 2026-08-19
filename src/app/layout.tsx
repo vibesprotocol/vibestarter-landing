@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import "./console.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -19,6 +19,15 @@ const jetbrainsMonoMono = JetBrains_Mono({
   weight: ["100", "200", "300", "400", "500"],
   subsets: ["latin"],
   variable: "--font-mono",
+});
+
+// The human voice: editorial serif for claims and statements, sentence case.
+// Single weight by design — hierarchy comes from size, italics and air, never bold.
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-serif",
 });
 
 
@@ -56,7 +65,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "EXECUTION COLLAPSED. funding did not. — Vibestarter, time-released crowdfunding on Base",
+        alt: "Execution collapsed. Funding did not. — Vibestarter, time-released crowdfunding on Base",
       },
     ],
   },
@@ -78,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${jetbrainsMonoMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${jetbrainsMonoMono.variable} ${instrumentSerif.variable}`}>
       <body className="font-sans antialiased bg-[#0A0A0A] text-white">
         <SmoothScroll>{children}</SmoothScroll>
       </body>

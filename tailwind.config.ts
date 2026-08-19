@@ -38,6 +38,7 @@ const config: Config = {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
         display: ["var(--font-display)", "monospace"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       animation: {
         "bounce-slow": "bounce-slow 2s infinite",

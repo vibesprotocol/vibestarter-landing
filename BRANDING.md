@@ -86,12 +86,13 @@ The `>_` terminal icon must always match the **cap-height** of the "V" in the wo
 
 ## Fonts
 
-Two font families are used, loaded via `next/font/google`:
+Three font families are used, loaded via `next/font/google`:
 
 | Role | Font | CSS Variable | Tailwind Class | Weights |
 |------|------|-------------|----------------|---------|
+| Statements / Headlines | Instrument Serif | `--font-serif` | `font-serif` | 400 + italic |
 | Body / UI | Inter | `--font-sans` | `font-sans` | Variable (all) |
-| Display / Headings | JetBrains Mono | `--font-display` | `font-display` | 100-700 |
+| Wordmark / Machine display | JetBrains Mono | `--font-display` | `font-display` | 100-700 |
 | Code / Labels | JetBrains Mono | `--font-mono` | `font-mono` | 100-500 |
 
 ### Loading (layout.tsx)
@@ -115,14 +116,34 @@ const jetbrainsMonoMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 });
+
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-serif",
+});
 ```
 
 All three variables are applied to `<html>`. The body defaults to `font-sans` (Inter).
 
-### Font Pairing Rationale
+### Font Pairing Rationale — the two voices
 
-- **Inter** — Clean, highly legible proportional sans-serif for body text. Default 16px size.
-- **JetBrains Mono** — Monospace font used for display headings and code, reinforcing the developer/terminal aesthetic of the brand. Creates visual contrast against Inter body text.
+The type system is built on a deliberate contrast between two voices:
+
+- **The human voice — Instrument Serif.** Every claim, headline, and statement is set
+  in the editorial serif, **sentence case**, single weight. Emphasis comes from
+  *italics*, size, and air — never from bold, never from ALL CAPS, and never from
+  coloring a word. This is the voice of founders and backers.
+- **The machine voice — JetBrains Mono.** Everything operational stays monospace and
+  small: kickers, chapter heads, buttons, data readouts, timestamps, telemetry. Caps
+  and wide tracking live here, at label size only. This is the voice of the contract.
+- **Inter** — neutral connective tissue for body copy at 14-16px.
+
+The friction between the two voices *is* the brand story: human ambition running on
+machine rails. Hard rules: no bold-caps display headlines; no accent-colored words
+inside headlines (accent green belongs to the machine layer — labels, rules, UI
+states, visuals); at most one italic emphasis per statement.
 
 ---
 
@@ -130,10 +151,14 @@ All three variables are applied to `<html>`. The body defaults to `font-sans` (I
 
 ### Display Headings
 
-Used for hero h1 and section headings. Always JetBrains Mono via `font-display`.
+Used for hero h1 and section statements. Always Instrument Serif via `font-serif`,
+sentence case, weight 400.
 
-- **Hero h1**: `font-display font-bold text-[clamp(40px,7vw,72px)] leading-[1.05] tracking-tight`
-- **Section headings** (`.section-heading`): `font-display text-3xl md:text-4xl font-bold tracking-tight`
+- **Hero h1**: `font-serif font-normal text-[clamp(50px,8.6vw,132px)] leading-[1.0] tracking-[-0.015em]` — pivotal line in `italic`
+- **Section statements**: `font-serif font-normal text-[clamp(36px,5vw,86px)] leading-[1.04] tracking-[-0.015em]`
+- Emphasis: one `<em>` (italic) phrase max; never bold, never caps, never a colored word
+- JetBrains Mono (`font-display`) remains for the wordmark and machine display moments
+  (telemetry numbers, outcome tabs) — not for editorial headlines
 
 ### Section Labels
 

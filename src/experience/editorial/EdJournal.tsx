@@ -20,10 +20,10 @@ function stripTags(s: string): string {
 
 /**
  * The blog ships no feed, so the index is read straight off its homepage
- * HTML: every post card is an <a href="/slug"> holding an h2/h3 title, a
- * y/m/d date, and a description paragraph. The parse is deliberately loose —
- * any card it can't read is skipped, and an unreadable page yields [] (the
- * section simply doesn't render rather than ever breaking the landing).
+ * HTML: every post card is an <a href="/slug"> holding a cover image, an
+ * h2/h3 title and a y/m/d date. The parse is deliberately loose — any card
+ * it can't read is skipped, and an unreachable page yields [] (the section
+ * simply doesn't render rather than ever breaking the landing).
  */
 async function fetchPosts(): Promise<JournalPost[]> {
   try {
@@ -45,21 +45,20 @@ async function fetchPosts(): Promise<JournalPost[]> {
       const title = stripTags(titleMatch[1]);
       if (!title) continue;
 
-      // description: the longest remaining text run that isn't the title
-      const description =
-        inner
-          .replace(/<h[23][^>]*>[\s\S]*?<\/h[23]>/gi, "|")
-          .split(/<[^>]+>/)
-          .map((t) => stripTags(t))
-          .filter((t) => t.length > 40 && t !== title)
-          .sort((a, b) => b.length - a.length)[0] ?? "";
+      const coverMatch = inner.match(/<img[^>]*src="([^"]+)"/i);
+      const coverSrc = coverMatch?.[1] ?? "";
+      const cover = coverSrc
+        ? coverSrc.startsWith("http")
+          ? coverSrc
+          : `${BLOG_URL}${coverSrc}`
+        : undefined;
 
       const [, y, m, d] = dateMatch;
       seen.add(slug);
       posts.push({
         href: `${BLOG_URL}${slug}`,
         title,
-        description,
+        cover,
         date: `${y}.${m.padStart(2, "0")}.${d.padStart(2, "0")}`,
       });
       if (posts.length >= MAX_POSTS) break;

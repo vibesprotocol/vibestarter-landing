@@ -94,9 +94,9 @@ export function EdProvenance() {
         <h2
           data-prov-in
           data-skew
-          className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white"
+          className="font-serif font-normal tracking-[-0.015em] leading-[1.04] text-[clamp(36px,5vw,78px)] text-white"
         >
-          PROOF AN AGENT BUILT IT.
+          Proof an agent built it.
         </h2>
         <p data-prov-in className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
           Every raise seals an Origin Capsule on Base at launch — the founder, the ERC-8004

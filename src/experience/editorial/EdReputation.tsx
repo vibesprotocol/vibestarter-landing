@@ -242,9 +242,9 @@ export function EdReputation() {
         <h2
           data-rep-in
           data-skew
-          className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white"
+          className="font-serif font-normal tracking-[-0.015em] leading-[1.04] text-[clamp(36px,5vw,78px)] text-white"
         >
-          KNOW WHO YOU&apos;RE BACKING.
+          Know who you&apos;re backing.
         </h2>
         <p data-rep-in className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
           Speculative platforms run on anonymous promises. Every Vibestarter raise page

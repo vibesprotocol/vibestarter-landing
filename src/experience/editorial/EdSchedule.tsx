@@ -323,8 +323,8 @@ export function EdSchedule() {
     <section id="schedule" ref={sectionRef} data-chapter="02" data-chapter-name="The schedule" className="relative py-16 sm:py-32 overflow-hidden border-t border-white/[0.08]">
       <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mb-8 sm:mb-16">
         <ChapterHead index="02" name="The schedule" className="mb-6" />
-        <h2 className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white">
-          FUNDING ON RAILS.
+        <h2 className="font-serif font-normal tracking-[-0.015em] leading-[1.02] text-[clamp(38px,5.6vw,86px)] text-white">
+          Funding on rails.
         </h2>
         <p className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
           The raise funds the founder on a fixed clock — 10% the moment it closes, then 15%

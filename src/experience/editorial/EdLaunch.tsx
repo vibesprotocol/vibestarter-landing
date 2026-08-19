@@ -45,15 +45,15 @@ export function EdLaunch() {
     <section ref={sectionRef} data-chapter="06" data-chapter-name="Launch" className="relative py-20 sm:py-40 px-5 sm:px-10 border-t border-white/[0.08] text-center">
       <div className="max-w-[1500px] mx-auto">
         <ChapterHead index="06" name="Launch" center className="mb-8" />
-        <h2 className="font-display font-bold leading-[0.95] text-white">
-          <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
-            <span data-launch-line data-skew className="block text-[clamp(44px,8.4vw,130px)] tracking-[-0.045em] will-change-transform">
-              LAUNCH IN MINUTES.
+        <h2 className="font-serif font-normal leading-[1.0] text-white">
+          <span className="block overflow-hidden pb-[0.12em] -mb-[0.12em]">
+            <span data-launch-line data-skew className="block text-[clamp(42px,7.2vw,112px)] tracking-[-0.015em] will-change-transform">
+              Launch in minutes.
             </span>
           </span>
-          <span className="block overflow-hidden pb-[0.16em] -mb-[0.1em]">
-            <span data-launch-line data-skew className="block font-extralight text-white text-[clamp(34px,5.8vw,90px)] will-change-transform">
-              funded over six months.
+          <span className="block overflow-hidden pb-[0.16em] -mb-[0.12em]">
+            <span data-launch-line data-skew className="block italic text-white/90 text-[clamp(42px,7.2vw,112px)] tracking-[-0.015em] will-change-transform">
+              Funded over six months.
             </span>
           </span>
         </h2>

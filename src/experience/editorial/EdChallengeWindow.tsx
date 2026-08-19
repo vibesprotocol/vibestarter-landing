@@ -786,10 +786,9 @@ export function EdChallengeWindow() {
         <ChapterHead index="03" name="The challenge window" className="mb-6" />
 
         <div data-cw-in>
-          <h2 className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white">
-            EVERY RELEASE
-            <br />
-            <span className="text-white/45">CAN BE</span> CHALLENGED.
+          <h2 className="font-serif font-normal tracking-[-0.015em] leading-[1.04] text-[clamp(38px,5.6vw,86px)] text-white">
+            Every release can be{" "}
+            <em className="italic">challenged.</em>
           </h2>
           <p className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
             Before any tranche after the kickstart can be claimed, a 72-hour window opens.

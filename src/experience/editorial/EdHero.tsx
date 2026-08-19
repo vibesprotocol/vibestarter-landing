@@ -22,8 +22,8 @@ export function EdHero() {
       const tl = gsap.timeline({ delay: 0.2, defaults: { ease: "power4.out" } });
       tl.fromTo(
         "[data-line]",
-        { yPercent: 112, letterSpacing: "0.02em" },
-        { yPercent: 0, letterSpacing: "-0.045em", duration: 1.0, stagger: 0.1 },
+        { yPercent: 112, letterSpacing: "0.015em" },
+        { yPercent: 0, letterSpacing: "-0.015em", duration: 1.0, stagger: 0.1 },
         0
       );
       tl.fromTo(
@@ -86,20 +86,15 @@ export function EdHero() {
             {"//"} Time-released crowdfunding — live on Base
           </p>
 
-          <h1 className="font-display font-bold leading-[0.95] text-white select-none">
-            <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
-              <span data-line data-skew className="block text-[clamp(52px,9.6vw,150px)] tracking-[-0.045em] will-change-transform">
-                EXECUTION
+          <h1 className="font-serif font-normal leading-[1.0] text-white select-none">
+            <span className="block overflow-hidden pb-[0.12em] -mb-[0.12em]">
+              <span data-line data-skew className="block text-[clamp(50px,8.6vw,132px)] tracking-[-0.015em] will-change-transform">
+                Execution collapsed.
               </span>
             </span>
-            <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
-              <span data-line data-skew className="block text-[clamp(52px,9.6vw,150px)] tracking-[-0.045em] will-change-transform">
-                COLLAPSED.
-              </span>
-            </span>
-            <span className="block overflow-hidden pb-[0.18em] -mb-[0.1em] mt-[0.04em]">
-              <span data-accent-line data-skew className="block text-[clamp(36px,6.6vw,102px)] font-extralight text-white will-change-transform">
-                funding did not.
+            <span className="block overflow-hidden pb-[0.16em] -mb-[0.12em]">
+              <span data-accent-line data-skew className="block italic text-[clamp(50px,8.6vw,132px)] tracking-[-0.015em] text-white/90 will-change-transform">
+                Funding did not.
               </span>
             </span>
           </h1>
