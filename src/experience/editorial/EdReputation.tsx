@@ -62,7 +62,7 @@ function HexMark() {
       aria-hidden="true"
       className="w-5 h-5 shrink-0 rounded-full border border-white/30 inline-flex items-center justify-center"
     >
-      <span className="font-mono text-[10px] leading-none text-white/70">0x</span>
+      <span className="font-mono text-[10px] leading-none text-white/75">0x</span>
     </span>
   );
 }
@@ -98,7 +98,7 @@ const ROWS: readonly SignalRow[] = [
   {
     k: "ethos",
     mark: (
-      <span className="text-white/70">
+      <span className="text-white/75">
         <EthosMark />
       </span>
     ),
@@ -110,7 +110,7 @@ const ROWS: readonly SignalRow[] = [
   {
     k: "ens",
     mark: (
-      <span className="text-white/70">
+      <span className="text-white/75">
         <EnsMark />
       </span>
     ),
@@ -121,7 +121,7 @@ const ROWS: readonly SignalRow[] = [
   {
     k: "x",
     mark: (
-      <span className="text-white/70">
+      <span className="text-white/75">
         <XMark />
       </span>
     ),
@@ -282,7 +282,7 @@ export function EdReputation() {
                 <p className="font-display font-bold leading-[0.95] text-[clamp(22px,2.6vw,34px)] text-white">
                   loomwright.eth
                 </p>
-                <p className="mt-1.5 font-mono text-[11px] text-white/40">0x7F3A…E4B2</p>
+                <p className="mt-1.5 font-mono text-[11px] text-white/55">0x7F3A…E4B2</p>
               </div>
               <p className="shrink-0 flex items-center gap-1.5 font-mono text-[10px] tracking-[0.24em] uppercase text-accent whitespace-nowrap">
                 <span aria-hidden="true">✓</span>
@@ -311,7 +311,7 @@ export function EdReputation() {
                   </span>
 
                   {/* label — fixed 168px column */}
-                  <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-white/40 whitespace-nowrap overflow-hidden text-ellipsis">
+                  <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-white/55 whitespace-nowrap overflow-hidden text-ellipsis">
                     {r.label}
                   </span>
 
@@ -335,7 +335,7 @@ export function EdReputation() {
                   {/* note — flexible 1fr column, min-w-0 so it wraps inside its
                       own track instead of pushing into the value column. Phones
                       run the row as a one-liner, so the note is desktop-only */}
-                  <span className="hidden sm:block min-w-0 font-sans text-[12.5px] leading-snug text-white/45">
+                  <span className="hidden sm:block min-w-0 font-sans text-[12.5px] leading-snug text-white/60">
                     {r.note}
                   </span>
 
@@ -351,7 +351,7 @@ export function EdReputation() {
               ))}
             </ul>
 
-            <p data-rep-in className="mt-4 font-mono text-[10px] tracking-[0.16em] uppercase text-white/30">
+            <p data-rep-in className="mt-4 font-mono text-[10px] tracking-[0.16em] uppercase text-white/45">
               A signal, not a gate — anyone can back, launches are reviewed against a published
               rubric, and everyone can see exactly who they&apos;re dealing with.
             </p>

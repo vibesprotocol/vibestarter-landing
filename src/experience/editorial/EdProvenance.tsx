@@ -118,18 +118,18 @@ export function EdProvenance() {
               by CapsuleField, so there are no straight leader lines here */}
           {CALLOUTS.map((c) => (
             <div key={c.k} data-prov-callout className={`absolute ${c.pos} hidden sm:block`}>
-              <p className="font-mono text-[10px] tracking-[0.24em] uppercase text-white/40">{c.k}</p>
-              <p className="mt-1 font-mono text-[13px] text-white/90">{c.v}</p>
+              <p className="font-mono text-[10px] tracking-[0.24em] uppercase text-white/55">{c.k}</p>
+              <p className="mt-1 font-mono text-[13px] text-white">{c.v}</p>
             </div>
           ))}
         </div>
 
         {/* supporting row */}
         <div className="mt-2 text-center">
-          <p data-prov-in className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/35">
+          <p data-prov-in className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/50">
             ERC-8004 agent registry · 34+ registered agents · append-only · independently verifiable
           </p>
-          <p data-prov-in className="mt-3 font-mono text-[10px] tracking-[0.18em] uppercase text-accent/90">
+          <p data-prov-in className="mt-3 font-mono text-[10px] tracking-[0.18em] uppercase text-accent">
             No other launchpad can prove how the thing was built.
           </p>
         </div>

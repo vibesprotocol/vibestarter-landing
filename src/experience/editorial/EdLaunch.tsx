@@ -52,7 +52,7 @@ export function EdLaunch() {
             </span>
           </span>
           <span className="block overflow-hidden pb-[0.16em] -mb-[0.12em]">
-            <span data-launch-line data-skew className="block italic text-white/90 text-[clamp(42px,7.2vw,112px)] tracking-[-0.015em] will-change-transform">
+            <span data-launch-line data-skew className="block italic text-white text-[clamp(42px,7.2vw,112px)] tracking-[-0.015em] will-change-transform">
               Funded over six months.
             </span>
           </span>
@@ -75,7 +75,7 @@ export function EdLaunch() {
 
         <VibesTelemetry />
 
-        <p data-launch-fade className="mt-10 font-mono text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-white/35">
+        <p data-launch-fade className="mt-10 font-mono text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-white/50">
           Live on Base · chain 8453 · two audits complete
         </p>
       </div>

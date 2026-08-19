@@ -66,10 +66,10 @@ export function EdHero() {
           <WipeWordmark text="Vibestarter" trigger="load" delay={0.3} className="font-display font-bold text-[17px] tracking-tight text-white" />
         </Link>
         <div className="flex items-center gap-8">
-          <Link href="/whitepaper" data-cursor="link" data-scramble className="ed-link hidden md:inline font-mono text-[11px] tracking-[0.22em] uppercase text-white/50 hover:text-white transition-colors">
+          <Link href="/whitepaper" data-cursor="link" data-scramble className="ed-link hidden md:inline font-mono text-[11px] tracking-[0.22em] uppercase text-white/60 hover:text-white transition-colors">
             Whitepaper
           </Link>
-          <Link href="/thesis" data-cursor="link" data-scramble className="ed-link hidden md:inline font-mono text-[11px] tracking-[0.22em] uppercase text-white/50 hover:text-white transition-colors">
+          <Link href="/thesis" data-cursor="link" data-scramble className="ed-link hidden md:inline font-mono text-[11px] tracking-[0.22em] uppercase text-white/60 hover:text-white transition-colors">
             Thesis
           </Link>
           <Link href="https://app.vibestarter.xyz" data-cursor="link" className="btn-mechanical px-5 py-2.5 text-[12px]">
@@ -93,7 +93,7 @@ export function EdHero() {
               </span>
             </span>
             <span className="block overflow-hidden pb-[0.16em] -mb-[0.12em]">
-              <span data-accent-line data-skew className="block italic text-[clamp(50px,8.6vw,132px)] tracking-[-0.015em] text-white/90 will-change-transform">
+              <span data-accent-line data-skew className="block italic text-[clamp(50px,8.6vw,132px)] tracking-[-0.015em] text-white will-change-transform">
                 Funding did not.
               </span>
             </span>
@@ -117,7 +117,7 @@ export function EdHero() {
 
       {/* scroll hint */}
       <div data-fade className="relative z-10 px-5 sm:px-10 pb-7">
-        <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/30">
+        <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/45">
           Scroll — how the machine holds everyone accountable
         </p>
       </div>

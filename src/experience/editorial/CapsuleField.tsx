@@ -28,11 +28,11 @@ import { gsap } from "gsap";
 const ROW_GAP = 760;
 const ROW_LEN = 744;
 const ROWS = [
-  { text: "FOUNDER: 0x7f3a99d2e4b2 · SIG VALID · NONCE 0441 · FOUNDER: 0x7f3a99d2e4b2 · SIG VALID", y: 164, size: 10.5, fill: "rgba(255,255,255,0.28)", speed: 30 },
-  { text: "AGENT: CLAUDE CODE · ERC-8004 #1 · REGISTERED · VALIDATED · AGENT: CLAUDE CODE · ERC-8004 #1", y: 196, size: 11.5, fill: "rgba(145,217,130,0.42)", speed: 22 },
-  { text: "TRANSCRIPT SHA-256 · 0xd4c3b2a1f0e9d8c7 · 0x8a4f2e09c91d44ab · 0x3b7c9f4e8d21aa07 · 0x5e1fc2b7a9d3e604", y: 232, size: 13, fill: "rgba(145,217,130,0.6)", speed: 16 },
-  { text: "ARTIFACT: 0x4cd91a2e88f0 · 0x12aa34bc · 0x90ef · BUILD 2025-11-30T09:21:44Z · 0x4cd91a2e88f0", y: 268, size: 11.5, fill: "rgba(145,217,130,0.42)", speed: 23 },
-  { text: "CHAIN: BASE · 8453 · APPEND-ONLY · IMMUTABLE · CHAIN: BASE · 8453 · APPEND-ONLY · IMMUTABLE", y: 300, size: 10.5, fill: "rgba(255,255,255,0.28)", speed: 29 },
+  { text: "FOUNDER: 0x7f3a99d2e4b2 · SIG VALID · NONCE 0441 · FOUNDER: 0x7f3a99d2e4b2 · SIG VALID", y: 164, size: 10.5, fill: "rgba(255,255,255,0.45)", speed: 30 },
+  { text: "AGENT: CLAUDE CODE · ERC-8004 #1 · REGISTERED · VALIDATED · AGENT: CLAUDE CODE · ERC-8004 #1", y: 196, size: 11.5, fill: "rgba(145,217,130,0.6)", speed: 22 },
+  { text: "TRANSCRIPT SHA-256 · 0xd4c3b2a1f0e9d8c7 · 0x8a4f2e09c91d44ab · 0x3b7c9f4e8d21aa07 · 0x5e1fc2b7a9d3e604", y: 232, size: 13, fill: "rgba(145,217,130,0.78)", speed: 16 },
+  { text: "ARTIFACT: 0x4cd91a2e88f0 · 0x12aa34bc · 0x90ef · BUILD 2025-11-30T09:21:44Z · 0x4cd91a2e88f0", y: 268, size: 11.5, fill: "rgba(145,217,130,0.6)", speed: 23 },
+  { text: "CHAIN: BASE · 8453 · APPEND-ONLY · IMMUTABLE · CHAIN: BASE · 8453 · APPEND-ONLY · IMMUTABLE", y: 300, size: 10.5, fill: "rgba(255,255,255,0.45)", speed: 29 },
 ] as const;
 
 const MERIDIANS = [
@@ -470,7 +470,7 @@ export function CapsuleField() {
             <text x="550" y="390" textAnchor="middle" className="font-mono font-bold" fontSize={18} letterSpacing="1.5" fill="rgba(255,255,255,0.95)">
               0x3b7c9f4e8d21aa07…a2e8
             </text>
-            <text x="550" y="414" textAnchor="middle" className="font-mono" fontSize={11} letterSpacing="3" fill="rgba(255,255,255,0.5)">
+            <text x="550" y="414" textAnchor="middle" className="font-mono" fontSize={11} letterSpacing="3" fill="rgba(255,255,255,0.68)">
               ORIGIN CAPSULE · SEALED AT LAUNCH · BASE 8453
             </text>
           </g>

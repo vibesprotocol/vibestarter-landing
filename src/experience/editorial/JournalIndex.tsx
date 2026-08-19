@@ -73,14 +73,14 @@ export function JournalIndex({ posts, blogUrl }: { posts: JournalPost[]; blogUrl
                   <span aria-hidden className="w-full aspect-[16/9] border border-white/[0.08] bg-white/[0.02]" />
                 )}
                 <span className="min-w-0">
-                  <span className="block font-serif font-normal tracking-[-0.01em] leading-[1.12] text-[clamp(20px,2.4vw,32px)] text-white/90 group-hover:text-white group-hover:underline decoration-1 underline-offset-[6px] decoration-white/35 transition-colors duration-300">
+                  <span className="block font-serif font-normal tracking-[-0.01em] leading-[1.12] text-[clamp(20px,2.4vw,32px)] text-white group-hover:text-white group-hover:underline decoration-1 underline-offset-[6px] decoration-white/35 transition-colors duration-300">
                     {post.title}
                   </span>
-                  <span className="mt-1.5 block sm:hidden font-mono text-[10px] tracking-[0.2em] text-white/35">
+                  <span className="mt-1.5 block sm:hidden font-mono text-[10px] tracking-[0.2em] text-white/50">
                     {post.date}
                   </span>
                 </span>
-                <span className="hidden sm:block font-mono text-[11px] tracking-[0.2em] text-white/35 group-hover:text-white/60 transition-colors whitespace-nowrap">
+                <span className="hidden sm:block font-mono text-[11px] tracking-[0.2em] text-white/50 group-hover:text-white/70 transition-colors whitespace-nowrap">
                   {post.date}
                 </span>
               </a>
@@ -95,7 +95,7 @@ export function JournalIndex({ posts, blogUrl }: { posts: JournalPost[]; blogUrl
           rel="noopener noreferrer"
           data-cursor="link"
           data-scramble
-          className="mt-6 sm:mt-8 flex items-center justify-center border border-white/[0.16] py-4 sm:py-5 font-mono text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/70 hover:text-white hover:bg-white/[0.04] transition-colors duration-300"
+          className="mt-6 sm:mt-8 flex items-center justify-center border border-white/[0.16] py-4 sm:py-5 font-mono text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/75 hover:text-white hover:bg-white/[0.04] transition-colors duration-300"
         >
           {">"} All dispatches
         </a>

@@ -50,12 +50,12 @@ export function ChapterHead({ index, name, total = 6, center, className }: Chapt
         <span className="block overflow-hidden">
           <span data-ch-label className="block font-mono text-[11px] tracking-[0.32em] uppercase will-change-transform">
             <span className="text-accent">{index}</span>
-            <span className="text-white/40"> — {name}</span>
+            <span className="text-white/55"> — {name}</span>
           </span>
         </span>
         {!center && (
           <span className="block overflow-hidden">
-            <span data-ch-pos className="block font-mono text-[10px] tracking-[0.28em] text-white/25 will-change-transform">
+            <span data-ch-pos className="block font-mono text-[10px] tracking-[0.28em] text-white/40 will-change-transform">
               {index} / {String(total).padStart(2, "0")}
             </span>
           </span>

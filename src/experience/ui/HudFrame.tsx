@@ -127,8 +127,8 @@ export function HudFrame() {
       </div>
 
       {/* top-right — chain tag + registration mark */}
-      <div className="absolute top-6 right-5 sm:right-10 flex items-center gap-3 text-white/25">
-        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/30">Base · 8453</span>
+      <div className="absolute top-6 right-5 sm:right-10 flex items-center gap-3 text-white/40">
+        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/45">Base · 8453</span>
         <Crosshair />
       </div>
 
@@ -136,12 +136,12 @@ export function HudFrame() {
       <div className="absolute bottom-6 left-5 sm:left-10 overflow-hidden">
         <p className="font-mono text-[10px] tracking-[0.3em] uppercase leading-none">
           <span ref={readoutIndexRef} className="inline-block text-accent will-change-transform" />
-          <span ref={readoutNameRef} className="inline-block text-white/45 will-change-transform" />
+          <span ref={readoutNameRef} className="inline-block text-white/60 will-change-transform" />
         </p>
       </div>
 
       {/* bottom-right — registration mark + document progress */}
-      <div className="absolute bottom-6 right-5 sm:right-10 flex items-center gap-3 text-white/25">
+      <div className="absolute bottom-6 right-5 sm:right-10 flex items-center gap-3 text-white/40">
         <Crosshair />
         <span className="relative block h-px w-7 bg-white/15">
           <span

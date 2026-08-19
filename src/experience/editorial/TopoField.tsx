@@ -405,7 +405,7 @@ export function TopoField({ className = "" }: { className?: string }) {
           ref={(el) => {
             elevRefs.current[i] = el;
           }}
-          className="absolute hidden sm:block font-mono text-[10px] tracking-[0.15em] text-accent/30 whitespace-nowrap"
+          className="absolute hidden sm:block font-mono text-[10px] tracking-[0.15em] text-accent/50 whitespace-nowrap"
           style={{ left: `${pt.leftPct}%`, top: `${pt.topPct}%`, transform: "translate(9px, -50%)" }}
         >
           · 000
@@ -414,10 +414,10 @@ export function TopoField({ className = "" }: { className?: string }) {
 
       {/* corner readout — cursor position on the survey grid */}
       <div className="absolute bottom-7 right-5 sm:right-10 hidden sm:block text-right">
-        <p className="font-mono text-[11px] tracking-[0.22em] text-white/45">
+        <p className="font-mono text-[11px] tracking-[0.22em] text-white/60">
           <span ref={readoutRef}>X 0000 · Y 0000 · ELEV 0.000</span>
         </p>
-        <p className="mt-1.5 font-mono text-[10px] tracking-[0.28em] uppercase text-accent/60">
+        <p className="mt-1.5 font-mono text-[10px] tracking-[0.28em] uppercase text-accent/80">
           survey grid — base 8453
         </p>
       </div>

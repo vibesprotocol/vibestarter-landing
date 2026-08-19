@@ -432,7 +432,7 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
 
       /* ghost type — integer placement so the dither never resamples soft */
       if (textW > 2) {
-        ctx.globalAlpha = 0.2;
+        ctx.globalAlpha = 0.38;
         ctx.drawImage(
           textCanvas,
           Math.round((lx + rx) / 2 - textW / dpr / 2),
@@ -693,14 +693,14 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
       {/* map annotations */}
       {/* the edge labels need plateau width — phones don't have it */}
       <div
-        className="absolute hidden sm:block font-mono text-[10px] tracking-[0.22em] uppercase text-white/45"
+        className="absolute hidden sm:block font-mono text-[10px] tracking-[0.22em] uppercase text-white/60"
         style={{ left: "3%", top: `calc(${CHASM.platformY * 100}% + 14px)` }}
       >
         Solo builders →
       </div>
       <div
         ref={fundedRowRef}
-        className="absolute hidden sm:block font-mono text-[10px] tracking-[0.22em] uppercase text-accent/70 text-right"
+        className="absolute hidden sm:block font-mono text-[10px] tracking-[0.22em] uppercase text-accent/85 text-right"
         style={{ right: "3%", top: `calc(${CHASM.platformY * 100}% + 14px)`, opacity: 0 }}
       >
         Funded · <span ref={fundedRef} className="text-accent">00</span>
@@ -720,8 +720,8 @@ export function GapChasm({ className = "" }: { className?: string } = {}) {
         className="absolute font-mono text-[10px] tracking-[0.22em] uppercase text-center whitespace-nowrap"
         style={{ left: `${((CHASM.leftEdge + CHASM.rightEdge) / 2) * 100}%`, bottom: "5%", transform: "translateX(-50%)" }}
       >
-        <span className="text-white/40">Lost to the gap · </span>
-        <span ref={lostRef} className="text-white/75">0</span>
+        <span className="text-white/55">Lost to the gap · </span>
+        <span ref={lostRef} className="text-white/80">0</span>
       </div>
     </div>
   );

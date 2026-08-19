@@ -378,9 +378,9 @@ export function EdSchedule() {
                     <span data-vpct className="font-display font-bold text-[44px] leading-[0.9] tracking-[-0.04em] text-white">
                       {t.pct}
                     </span>
-                    <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-white/40 leading-relaxed">
-                      {t.label} <span className="text-white/25">·</span>{" "}
-                      <span className="text-white/60">{t.eth}</span>
+                    <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-white/55 leading-relaxed">
+                      {t.label} <span className="text-white/40">·</span>{" "}
+                      <span className="text-white/70">{t.eth}</span>
                     </p>
                   </div>
                 </div>
@@ -458,9 +458,9 @@ export function EdSchedule() {
                       {t.pct}
                     </span>
                   </span>
-                  <p data-tape-meta className="mt-3 font-mono text-[12px] sm:text-[13px] tracking-[0.2em] uppercase text-white/40 whitespace-nowrap">
-                    {t.label} <span className="text-white/25">·</span>{" "}
-                    <span className="text-white/60">{t.eth}</span>
+                  <p data-tape-meta className="mt-3 font-mono text-[12px] sm:text-[13px] tracking-[0.2em] uppercase text-white/55 whitespace-nowrap">
+                    {t.label} <span className="text-white/40">·</span>{" "}
+                    <span className="text-white/70">{t.eth}</span>
                   </p>
                   {/* the ignition underline — fills as the release arrives */}
                 </div>
@@ -472,10 +472,10 @@ export function EdSchedule() {
       </div>
 
       <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/35">
+        <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/50">
           Example 100 ETH raise · 2.5% platform fee per tranche · a 72h challenge window before every release after the kickstart
         </p>
-        <a href="/whitepaper" data-cursor="link" className="ed-link font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/55 hover:text-white transition-colors whitespace-nowrap">
+        <a href="/whitepaper" data-cursor="link" className="ed-link font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/65 hover:text-white transition-colors whitespace-nowrap">
           Read §5 of the whitepaper ↗
         </a>
       </div>
@@ -504,7 +504,7 @@ export function EdSchedule() {
               <span className="font-mono text-[11px] text-accent pt-0.5">{s.n}</span>
               <div>
                 <p className="font-display font-bold text-[14px] text-white tracking-tight uppercase">{s.t}</p>
-                <p className="mt-1 text-white/55 font-sans font-light text-[13px] leading-relaxed">{s.d}</p>
+                <p className="mt-1 text-white/65 font-sans font-light text-[13px] leading-relaxed">{s.d}</p>
               </div>
             </div>
           ))}

@@ -44,14 +44,14 @@ export function EdBuiltIn() {
   return (
     <section ref={rootRef} className="relative border-t border-white/[0.08] px-5 sm:px-10 py-12">
       <div className="max-w-[1500px] mx-auto">
-        <p data-bi className="font-mono text-[10px] tracking-[0.26em] uppercase text-white/35 mb-7">
+        <p data-bi className="font-mono text-[10px] tracking-[0.26em] uppercase text-white/50 mb-7">
           Also built into every raise
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-7">
           {ITEMS.map((item) => (
             <div key={item.v} data-bi>
-              <p className="font-mono text-[12px] tracking-[0.18em] text-white/85">{item.v}</p>
-              <p className="mt-2 text-white/50 font-sans font-light text-[13px] leading-relaxed">{item.d}</p>
+              <p className="font-mono text-[12px] tracking-[0.18em] text-white/90">{item.v}</p>
+              <p className="mt-2 text-white/60 font-sans font-light text-[13px] leading-relaxed">{item.d}</p>
             </div>
           ))}
         </div>

@@ -101,7 +101,7 @@ export function EdGap() {
         <div data-gap-problem className="absolute inset-x-5 top-10">
           <p className="font-mono text-[11px] tracking-[0.32em] uppercase">
             <span className="text-accent">01</span>
-            <span className="text-white/40"> — The gap</span>
+            <span className="text-white/55"> — The gap</span>
           </p>
           <h2 className="mt-5 font-serif font-normal tracking-[-0.01em] leading-[1.05] text-[38px] text-white">
             This is the gap.
@@ -118,13 +118,13 @@ export function EdGap() {
         <div data-gap-solution data-gap-m className="absolute inset-x-5 top-10" style={{ opacity: 0 }}>
           <p className="font-mono text-[11px] tracking-[0.32em] uppercase">
             <span className="text-accent">01</span>
-            <span className="text-white/40"> — The route across</span>
+            <span className="text-white/55"> — The route across</span>
           </p>
           <p className="mt-5 font-serif font-normal tracking-[-0.01em] leading-[1.12] text-[30px] text-white">
             Launchpad speed.{" "}
             <em className="italic">Contract-enforced accountability.</em>
           </p>
-          <p className="mt-4 font-mono text-[10px] tracking-[0.24em] uppercase text-white/40">
+          <p className="mt-4 font-mono text-[10px] tracking-[0.24em] uppercase text-white/55">
             The third rail — for the builders no one else funds
           </p>
         </div>
@@ -138,7 +138,7 @@ export function EdGap() {
         {/* kicker */}
         <p data-gap-in className="absolute left-0 top-10 font-mono text-[11px] tracking-[0.32em] uppercase">
           <span className="text-accent">01</span>
-          <span className="text-white/40"> — The gap</span>
+          <span className="text-white/55"> — The gap</span>
         </p>
 
         {/* the copy stands on the LEFT PLATEAU */}
@@ -172,7 +172,7 @@ export function EdGap() {
             <br />
             <em className="italic">Contract-enforced accountability.</em>
           </p>
-          <p className="mt-4 font-mono text-[9px] lg:text-[10px] tracking-[0.24em] uppercase text-white/40">
+          <p className="mt-4 font-mono text-[9px] lg:text-[10px] tracking-[0.24em] uppercase text-white/55">
             The third rail — for the builders no one else funds
           </p>
         </div>

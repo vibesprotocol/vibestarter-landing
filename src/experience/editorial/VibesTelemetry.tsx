@@ -38,7 +38,7 @@ const GAUGE_RANGE = 20;
 
 const UP = "#91D982";
 const DOWN = "#EC6800";
-const IDLE = "rgba(255,255,255,0.25)";
+const IDLE = "rgba(255,255,255,0.42)";
 
 function fmtPrice(p: number): string {
   if (!(p > 0)) return "—";
@@ -92,7 +92,7 @@ function ScrambleLink({ href, label, external }: { href: string; label: string; 
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       data-cursor="link"
-      className="ed-link font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-white/50 hover:text-white transition-colors"
+      className="ed-link font-mono text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-white/60 hover:text-white transition-colors"
     >
       <span className="relative inline-block whitespace-nowrap">
         <span aria-hidden className="invisible">{label}</span>
@@ -108,11 +108,11 @@ function ScrambleLink({ href, label, external }: { href: string; label: string; 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <span className="flex flex-col items-center gap-1.5">
-      <span className="font-mono text-[9px] tracking-[0.28em] uppercase text-white/35">{label}</span>
+      <span className="font-mono text-[9px] tracking-[0.28em] uppercase text-white/50">{label}</span>
       {/* fixed 7ch slot (mono) — values swapping in must never reflow the row */}
       <span
         className={`inline-block min-w-[7ch] text-center font-mono text-[13px] tabular-nums ${
-          value === "—" ? "text-white/25" : "text-white/80"
+          value === "—" ? "text-white/40" : "text-white/85"
         }`}
       >
         {value}
@@ -203,7 +203,7 @@ export function VibesTelemetry() {
       <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 px-2">
         {/* feed identity + price — one cluster so phones keep them together */}
         <span className="flex items-center gap-5">
-          <span className="flex items-center gap-2.5 font-mono text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-white/50">
+          <span className="flex items-center gap-2.5 font-mono text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-white/60">
             <span aria-hidden className="inline-block w-[7px] h-[13px] bg-accent animate-terminal-blink" />
             $VIBES · Live
           </span>
@@ -213,7 +213,7 @@ export function VibesTelemetry() {
           <span
             ref={priceRef}
             className={`inline-block min-w-[10ch] text-center font-display font-bold text-[22px] sm:text-[26px] tracking-tight tabular-nums transition-colors duration-500 ${
-              live ? "text-white" : "text-white/25"
+              live ? "text-white" : "text-white/40"
             }`}
           >
             $0.0000000
@@ -261,11 +261,11 @@ export function VibesTelemetry() {
           <span className="font-mono text-[10px] tracking-[0.22em] uppercase">
             <span
               ref={changeRef}
-              className={live ? (up ? "text-accent" : "text-persimmon-500") : "text-white/25"}
+              className={live ? (up ? "text-accent" : "text-persimmon-500") : "text-white/40"}
             >
               ——
             </span>
-            <span className="text-white/35"> · 24h</span>
+            <span className="text-white/50"> · 24h</span>
           </span>
         </span>
 

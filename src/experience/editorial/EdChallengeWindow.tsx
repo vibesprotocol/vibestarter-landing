@@ -661,15 +661,15 @@ function ChallengeFlow({
         <div className="mt-3 space-y-1.5">
           <div data-cw-label="pass" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
             <span className="text-accent">No challenge</span>
-            <span className="text-white/55"> — 97.5% → founder · schedule continues</span>
+            <span className="text-white/65"> — 97.5% → founder · schedule continues</span>
           </div>
           <div data-cw-label="reject" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
             <span className="text-persimmon-400">Rejected</span>
-            <span className="text-white/55"> — 20% of stake burns · tranche releases</span>
+            <span className="text-white/65"> — 20% of stake burns · tranche releases</span>
           </div>
           <div data-cw-label="uphold" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
             <span className="text-accent-bright">Upheld — frozen</span>
-            <span className="text-white/55"> — escrow reopens to holders pro-rata</span>
+            <span className="text-white/65"> — escrow reopens to holders pro-rata</span>
           </div>
         </div>
       ) : (
@@ -681,7 +681,7 @@ function ChallengeFlow({
           >
             <span className="inline-block bg-black/80 px-1 -ml-1 text-accent">No challenge</span>
             <br />
-            <span className="text-white/55">97.5% → founder · schedule continues</span>
+            <span className="text-white/65">97.5% → founder · schedule continues</span>
           </div>
           <div
             data-cw-label="reject"
@@ -689,7 +689,7 @@ function ChallengeFlow({
           >
             <span className="inline-block bg-black/80 px-1 -ml-1 text-persimmon-400">Rejected</span>
             <br />
-            <span className="text-white/55">20% of stake burns · tranche releases</span>
+            <span className="text-white/65">20% of stake burns · tranche releases</span>
           </div>
           <div
             data-cw-label="uphold"
@@ -697,7 +697,7 @@ function ChallengeFlow({
           >
             <span className="inline-block bg-black/80 px-1 -ml-1 text-accent-bright">Upheld — frozen</span>
             <br />
-            <span className="text-white/55">Escrow reopens to holders pro-rata</span>
+            <span className="text-white/65">Escrow reopens to holders pro-rata</span>
           </div>
         </>
       )}
@@ -806,7 +806,7 @@ export function EdChallengeWindow() {
               onClick={() => pick(tab.id)}
               aria-pressed={outcome === tab.id}
               className={`relative font-display font-bold tracking-[-0.02em] text-[clamp(18px,2.4vw,36px)] transition-colors duration-300 ${
-                outcome === tab.id ? "text-white" : "text-white/25 hover:text-white/60"
+                outcome === tab.id ? "text-white" : "text-white/40 hover:text-white/70"
               }`}
             >
               {tab.label}
@@ -831,7 +831,7 @@ export function EdChallengeWindow() {
               </span>
             </span>
           ))}
-          <p data-out-sub key={`sub-${outcome}`} className="mt-6 font-mono text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-white/40">
+          <p data-out-sub key={`sub-${outcome}`} className="mt-6 font-mono text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-white/55">
             {OUTCOMES[outcome].sub}
           </p>
         </div>
@@ -865,8 +865,8 @@ export function EdChallengeWindow() {
             },
           ].map((r) => (
             <div key={r.k}>
-              <p className="font-mono text-[9px] tracking-[0.22em] uppercase text-white/40">{r.k}</p>
-              <p className="mt-2 text-white/60 font-sans font-light text-[13.5px] leading-relaxed">{r.v}</p>
+              <p className="font-mono text-[9px] tracking-[0.22em] uppercase text-white/55">{r.k}</p>
+              <p className="mt-2 text-white/70 font-sans font-light text-[13.5px] leading-relaxed">{r.v}</p>
             </div>
           ))}
         </div>
