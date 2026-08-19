@@ -104,7 +104,7 @@ export function EdGap() {
             <span className="text-white/40"> — The gap</span>
           </p>
           <h2 className="mt-5 font-display font-bold tracking-[-0.04em] leading-[0.98] text-[34px] text-white">
-            THIS IS THE <span className="text-accent">gap.</span>
+            <span className="text-white/45">THIS IS</span> THE GAP.
           </h2>
           <p className="mt-4 text-muted font-sans font-light text-[14px] leading-relaxed">
             Anyone can ship an MVP in a weekend now. But between a working
@@ -121,9 +121,8 @@ export function EdGap() {
             <span className="text-white/40"> — The route across</span>
           </p>
           <p className="mt-5 font-display font-bold tracking-[-0.03em] leading-[1.12] text-[26px] text-white">
-            LAUNCHPAD SPEED<span className="text-white/35">.</span>{" "}
-            <span className="text-accent">CONTRACT-ENFORCED ACCOUNTABILITY</span>
-            <span className="text-white/35">.</span>
+            <span className="text-white/45">LAUNCHPAD SPEED.</span>{" "}
+            CONTRACT-ENFORCED ACCOUNTABILITY.
           </p>
           <p className="mt-4 font-mono text-[10px] tracking-[0.24em] uppercase text-white/40">
             The third rail — for the builders no one else funds
@@ -152,7 +151,7 @@ export function EdGap() {
             data-skew
             className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(30px,3.4vw,58px)] text-white will-change-transform"
           >
-            THIS IS THE <span className="text-accent">gap.</span>
+            <span className="text-white/45">THIS IS</span> THE GAP.
           </h2>
           <p className="mt-5 max-w-[480px] text-muted font-sans font-light text-[14px] sm:text-[15px] leading-relaxed">
             Anyone can ship an MVP in a weekend now. But between a working
@@ -169,10 +168,9 @@ export function EdGap() {
           style={{ bottom: `calc(${(1 - CHASM.platformY) * 100}% + 48px)`, width: `${(1 - CHASM.rightEdge) * 100 - 3}%`, opacity: 0 }}
         >
           <p className="font-display font-bold tracking-[-0.03em] leading-[1.1] text-[clamp(18px,1.9vw,30px)] text-white">
-            LAUNCHPAD SPEED<span className="text-white/35">.</span>
+            <span className="text-white/45">LAUNCHPAD SPEED.</span>
             <br />
-            <span className="text-accent">CONTRACT-ENFORCED ACCOUNTABILITY</span>
-            <span className="text-white/35">.</span>
+            CONTRACT-ENFORCED ACCOUNTABILITY.
           </p>
           <p className="mt-4 font-mono text-[9px] lg:text-[10px] tracking-[0.24em] uppercase text-white/40">
             The third rail — for the builders no one else funds

@@ -94,11 +94,11 @@ export function EdHero() {
             </span>
             <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
               <span data-line data-skew className="block text-[clamp(52px,9.6vw,150px)] tracking-[-0.045em] will-change-transform">
-                COLLAPSED<span className="text-accent">.</span>
+                COLLAPSED.
               </span>
             </span>
             <span className="block overflow-hidden pb-[0.18em] -mb-[0.1em] mt-[0.04em]">
-              <span data-accent-line data-skew className="block text-[clamp(36px,6.6vw,102px)] text-accent will-change-transform">
+              <span data-accent-line data-skew className="block text-[clamp(36px,6.6vw,102px)] font-extralight text-white will-change-transform">
                 funding did not.
               </span>
             </span>

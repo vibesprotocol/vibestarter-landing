@@ -324,8 +324,7 @@ export function EdSchedule() {
       <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mb-8 sm:mb-16">
         <ChapterHead index="02" name="The schedule" className="mb-6" />
         <h2 className="font-display font-bold tracking-[-0.04em] leading-[0.98] text-[clamp(40px,6.4vw,96px)] text-white">
-          FUNDING ON{" "}
-          <span className="text-accent">rails.</span>
+          FUNDING ON RAILS.
         </h2>
         <p className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
           The raise funds the founder on a fixed clock — 10% the moment it closes, then 15%

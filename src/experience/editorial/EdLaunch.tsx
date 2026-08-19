@@ -48,11 +48,11 @@ export function EdLaunch() {
         <h2 className="font-display font-bold leading-[0.95] text-white">
           <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
             <span data-launch-line data-skew className="block text-[clamp(44px,8.4vw,130px)] tracking-[-0.045em] will-change-transform">
-              LAUNCH IN MINUTES<span className="text-accent">.</span>
+              LAUNCH IN MINUTES.
             </span>
           </span>
           <span className="block overflow-hidden pb-[0.16em] -mb-[0.1em]">
-            <span data-launch-line data-skew className="block text-accent text-[clamp(34px,5.8vw,90px)] will-change-transform">
+            <span data-launch-line data-skew className="block font-extralight text-white text-[clamp(34px,5.8vw,90px)] will-change-transform">
               funded over six months.
             </span>
           </span>
