@@ -76,7 +76,7 @@ export function EdLaunch() {
         <VibesTelemetry />
 
         <p data-launch-fade className="mt-10 font-mono text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-white/50">
-          Live on Base · chain 8453 · two audits complete
+          Live on Base · chain 8453 · two audit cycles complete
         </p>
       </div>
     </section>

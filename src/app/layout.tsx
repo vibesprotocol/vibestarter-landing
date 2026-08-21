@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   // ("Execution collapsed. Funding did not.") stays on the OG/Twitter cards.
   title: "Vibestarter · Crowdfunding for Vibe-Coded Apps on Base",
   description:
-    "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, and every release can be challenged by backers for 72 hours. Provenance sealed on-chain.",
+    "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, each monthly release challengeable by backers for 72 hours. Provenance sealed on-chain.",
   keywords: [
     "vibecoins",
     "vibecoding",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vibestarter · Execution collapsed. Funding did not.",
     description:
-      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, and every release can be challenged by backers for 72 hours. Provenance sealed on-chain.",
+      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, each monthly release challengeable by backers for 72 hours. Provenance sealed on-chain.",
     url: "https://vibestarter.xyz",
     siteName: "Vibestarter",
     type: "website",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Vibestarter · Execution collapsed. Funding did not.",
     description:
-      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, and every release can be challenged by backers for 72 hours. Provenance sealed on-chain.",
+      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, each monthly release challengeable by backers for 72 hours. Provenance sealed on-chain.",
     images: ["/og-image.jpg"],
   },
   other: {

@@ -14,7 +14,7 @@ The protocol distinguishes between two privileged roles. The separation is enfor
 
 ### Master Admin (`VibesLaunchRouterV2.owner`)
 
-The master admin is the holder of the router's `owner` role. It is expected to be a **Gnosis Safe multi-signature wallet** with at least a 2-of-3 threshold (3-of-5 recommended at scale).
+The master admin is the holder of the router's `owner` role. It is held by a **Gnosis Safe multi-signature wallet**, the M-1 Safe (2-of-2 today, moving to 2-of-3; 3-of-5 recommended at scale).
 
 Its powers, the ones that can move user funds or alter infrastructure, include:
 

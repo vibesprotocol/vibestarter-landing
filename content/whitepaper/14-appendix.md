@@ -96,7 +96,7 @@ The deployed contract set on Base mainnet (chain ID 8453) at v0.1 of this paper:
 | VibesIdentityRegistry | [TBD] | ERC-8004 agent identity |
 | VibesStaking | [TBD] | $VIBES staking |
 | VibesStakerRewards | [TBD] | Staker reward distribution |
-| VibesToken ($VIBES) | [TBD — TGE address] | Protocol token |
+| VibesToken ($VIBES) | `0xefFC8815487084a97edfdfF968b56Ea123421Acb` | Protocol token |
 
 Per-raise contracts (`VibesTranchEscrow` clones, `VibesVesting` clones, `VibesTreasuryEscrow` instances, `VibesTokenDistributorV2` instances) have one deployment per raise. The full list is queryable from `VibesRegistry` events.
 

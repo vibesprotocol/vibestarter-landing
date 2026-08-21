@@ -1,17 +1,17 @@
-# VibeFounder Landing Page
+# Vibestarter Landing Page
 
-The trust layer for vibe-coded token launches. Built with Next.js 14, Tailwind CSS, and TypeScript.
+Marketing site for [Vibestarter](https://vibestarter.xyz): time-released crowdfunding for vibecoded apps on Base. Built with Next.js 16, Tailwind CSS, and TypeScript.
 
 ## Design
 
-Inspired by [LayerZero](https://layerzero.network/) — minimal, monochromatic, infrastructure-grade aesthetic.
+Editorial dark theme. `BRANDING.md` is the definitive reference for fonts, colors, logo usage, and typographic rules.
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Fonts**: Inter, JetBrains Mono (via next/font)
+- **Animation**: GSAP + Lenis smooth scroll
+- **Fonts**: Instrument Serif, Inter, JetBrains Mono (via next/font)
 - **Language**: TypeScript
 
 ## Getting Started
@@ -36,47 +36,15 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ```
 src/
-├── app/
-│   ├── layout.tsx      # Root layout with fonts & metadata
-│   ├── page.tsx        # Home page
-│   └── globals.css     # Global styles & Tailwind
-├── components/
-│   ├── Navigation.tsx  # Header with mobile menu
-│   ├── Hero.tsx        # Hero section
-│   ├── FounderCard.tsx # Founder profile card preview
-│   ├── Positioning.tsx # Positioning section
-│   ├── Principles.tsx  # 4-column principles grid
-│   ├── Stats.tsx       # Stats/numbers section
-│   ├── HowItWorks.tsx  # Two-column how it works
-│   ├── CodeExample.tsx # Code snippet showcase
-│   ├── Footer.tsx      # Footer with links
-│   ├── Divider.tsx     # Gradient line divider
-│   └── index.ts        # Component exports
+├── app/                  # Routes: /, /thesis, /whitepaper, /privacy, /terms, /risk-disclosure
+├── experience/           # The live landing page (editorial sections + ui chrome)
+├── components/           # Legacy sections (no longer routed) + shared utilities
+└── hooks/
+content/whitepaper/       # Whitepaper markdown, synced from the app repo (do not edit here)
 ```
-
-## Features
-
-- ✅ Fully responsive (mobile-first)
-- ✅ Mobile hamburger menu
-- ✅ Smooth scroll navigation
-- ✅ LayerZero-inspired design language
-- ✅ Section numbering (01 / 05)
-- ✅ Syntax-highlighted code blocks
-- ✅ SEO metadata configured
-- ✅ TypeScript strict mode
 
 ## Deployment
 
-Deploy to Vercel:
-
 ```bash
-npx vercel
+npm run build && vercel --prod
 ```
-
-Or enable static export in `next.config.js` and deploy to any static host.
-
-## Related
-
-- [VibeFounder App](../vibefounder-app) — Main application
-- [PRD](../docs/VibeFounder_PRD.md) — Product requirements
-- [Architecture](../docs/VibeFounder_ARCHITECTURE.md) — Technical architecture

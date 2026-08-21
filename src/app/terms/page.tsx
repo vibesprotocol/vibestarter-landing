@@ -146,7 +146,7 @@ export default function TermsPage() {
               </p>
               <ul className="list-disc list-inside text-muted space-y-2">
                 <li>Your contribution is held in a smart-contract escrow on Base. No operator holds a withdrawal key.</li>
-                <li>If the raise succeeds, 15% of raised ETH and 15% of the token supply are added to an Aerodrome liquidity pool, and the LP tokens are permanently burned (sent to <code className="text-xs">0x000&hellip;dEaD</code>) &mdash; irrecoverable by any party.</li>
+                <li>If the raise succeeds, 15% of raised ETH is paired with project tokens (up to 15% of the token supply) in an Aerodrome liquidity pool, and the LP tokens are permanently locked in a per-campaign fee-claimer contract with no withdraw function, irrecoverable by any party.</li>
                 <li>The remaining 85% of raised ETH is released to the founder over 6 months: 10% immediately, then 15% monthly, each tranche subject to a 72-hour challenge window during which backers holding sufficient supply may file a challenge.</li>
                 <li>Project tokens allocated to backers are claimable immediately after raise finalisation via merkle proof.</li>
                 <li>If the raise fails (does not reach its goal), you may claim a refund of your ETH contribution.</li>
@@ -170,7 +170,9 @@ export default function TermsPage() {
               <p className="text-muted leading-relaxed">
                 The platform deducts a 2.5% fee from each ETH tranche payout to a founder (so the founder receives 97.5% of
                 each tranche). There is no token-side fee on token supply. An optional flat launch fee (denominated in ETH)
-                exists in the protocol and is currently disabled. These fees accrue to a platform multisig wallet on Base and
+                exists in the protocol and is currently disabled. The platform also receives the ETH-side trading fees
+                captured by each raise&apos;s permanently locked liquidity position; token-side trading fees route to the
+                project&apos;s treasury (or are burned if the raise has none). These fees accrue to a platform multisig wallet on Base and
                 are used solely for platform operations until the successor Luxembourg entity is formed.
               </p>
             </section>

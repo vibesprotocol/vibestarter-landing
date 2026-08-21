@@ -13,7 +13,7 @@ The contracts have been through one external audit (ZXVC LLC, May 2026) plus int
 The unmitigated residual: **previously-unknown bugs may exist**. No audit guarantees the absence of bugs; it raises the probability that critical issues have been identified. The mitigation paths the protocol has in place:
 
 - **Pause capability.** A discovered exploit can be contained by halting new launches and new claims while a fix is prepared.
-- **Bounty program.** The bug bounty (Section 8.2) provides material incentive for responsible disclosure.
+- **Bounty program.** The bug bounty provides material incentive for responsible disclosure.
 - **Open-source code.** The contracts are public, and the audit reports are public. Third parties can and should review the source independently.
 
 What the mitigation does not address: a bug exploited *before* it is discovered may result in irreversible loss of funds. This is a category of risk that no protocol has eliminated.
@@ -59,7 +59,7 @@ The operator surfaces described in Sections 11 and 12 introduce specific risks:
 - **Operations admin compromise.** A compromised operations admin can freeze campaigns and burn individual treasuries before the master admin revokes the role. Funds cannot be exfiltrated, but in-flight campaigns can be disrupted.
 - **Master admin compromise.** A compromised master admin holding the multi-sig threshold can pause the platform, alter infrastructure, or extract ETH above deposit reserves. The multi-sig configuration is the primary mitigation.
 - **Operator disappearance.** If Vibestarter Labs ceases operating without transferring the operations admin role, the protocol enters a degraded mode: tranches continue to release on schedule, but challenges cannot be adjudicated and refund roots cannot be published.
-- **Operator capture.** If the operations admin multi-sig becomes captured by interests aligned with founders against backers, challenges may be systematically rejected or never adjudicated. The cosigner separation policy and the published challenge standards are the mitigations.
+- **Operator capture.** If the operations admin role becomes captured by interests aligned with founders against backers, challenges may be systematically rejected or never adjudicated. The published challenge standards and the master admin's ability to revoke the role in a single transaction are the mitigations.
 
 These risks are the trade-off the protocol makes by having an operator layer at all. Section 12 covers the path on which they decrease over time.
 
@@ -96,7 +96,7 @@ Risks at the level of the platform rather than individual raises:
 
 - **Chain risk.** The protocol deploys on Base. Risks to Base (sequencer downtime, L2 finality issues, bridge security) affect all activity on the platform.
 - **External dependency risk.** Aerodrome (LP creation), Ethos and other reputation signals (reputation display), and third-party services (X for identity linkage) are dependencies that could change behavior or become unavailable.
-- **Founder deposit erosion.** The founder deposit (0.05 ETH at baseline) is intended to deter spam launches. As ETH prices change, the real cost of the deposit varies. The deposit amount is operator-adjustable, but adjustments lag.
+- **Founder deposit erosion.** The founder deposit (see the parameter table in Section 14.2 for the current baseline) is intended to deter spam launches. As ETH prices change, the real cost of the deposit varies. The deposit amount is operator-adjustable, but adjustments lag.
 - **Fee structure changes.** Platform fees are configurable by the master admin. The protocol does not commit to a maximum fee.
 
 ## 13.10 What the disclosures do not cover

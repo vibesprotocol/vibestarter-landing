@@ -77,8 +77,9 @@ export default function RiskDisclosurePage() {
               <h2 className="text-xl font-semibold mb-4 text-white">3. Illiquidity</h2>
               <p className="text-muted leading-relaxed">
                 Tokens may be difficult or impossible to sell. The liquidity pool created at raise finalisation is
-                <strong className="text-white"> permanently burned</strong> &mdash; it cannot be withdrawn or migrated.
-                Trading volume may be nil. Depth may be insufficient to exit without significant slippage.
+                <strong className="text-white"> permanently locked</strong> in a contract with no withdraw function; it
+                cannot be withdrawn or migrated by any party. Trading volume may be nil. Depth may be insufficient to exit
+                without significant slippage.
               </p>
             </section>
 
@@ -119,7 +120,7 @@ export default function RiskDisclosurePage() {
               <ul className="list-disc list-inside text-muted space-y-2">
                 <li>Only backers holding a minimum supply threshold (0.25&ndash;1.00%, graduated) can file a challenge.</li>
                 <li>A challenge requires a slashable stake; if rejected, a portion (20%) of the challenger&apos;s stake is burned.</li>
-                <li>Outcomes are adjudicated by the operations admin multisig using operational judgement, not automated rules.</li>
+                <li>Outcomes are adjudicated by the operations admin, a platform-controlled key, using operational judgement, not automated rules.</li>
                 <li>An upheld-malicious challenge freezes remaining tranches but does not retroactively recover previously released tranches.</li>
                 <li>There is no appeals process.</li>
               </ul>
