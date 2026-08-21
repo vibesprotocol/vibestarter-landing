@@ -10,7 +10,7 @@ The examples below trace capital flow through three representative outcomes: a s
 
 **Setup:**
 
-- Project: "Loomwright" — a vibecoded design tool.
+- Project: "Loomwright," a vibecoded design tool.
 - Token: `$LOOM`, total supply 1,000,000,000.
 - Raise target: 100 ETH, fixed-goal.
 - Backers: 240, contributing amounts from 0.01 to 5 ETH.
@@ -30,13 +30,13 @@ The 1,000,000,000 $LOOM also distributes (assuming standard configuration with 5
 
 | Slice | Tokens | Destination |
 |-------|--------|-------------|
-| Backers | 625,000,000 (+ any unused LP reserve) | Token Distributor — claimed by backers pro-rata |
+| Backers | 625,000,000 (+ any unused LP reserve) | Token Distributor: claimed by backers pro-rata |
 | LP | up to 150,000,000 reserved | Paired with 15 ETH to open the pool at the backer entry price −5%; only the amount needed at that price is deposited (LP receipt locked in the fee claimer), and the remainder is returned to backers |
-| Treasury | 150,000,000 | `VibesTreasuryEscrow` — quarterly releases via challengeable proposals |
-| Founder | 50,000,000 | `VibesVesting` — 6-month cliff + 12-month linear |
-| Staker rewards | 25,000,000 | `VibesStakerRewards` — distributed to $VIBES stakers |
+| Treasury | 150,000,000 | `VibesTreasuryEscrow`: quarterly releases via challengeable proposals |
+| Founder | 50,000,000 | `VibesVesting`: 6-month cliff + 12-month linear |
+| Staker rewards | 25,000,000 | `VibesStakerRewards`: distributed to $VIBES stakers |
 
-These five slices are the complete allocation — they sum to the full 1,000,000,000 supply, and the platform takes no share of token supply. The platform's only per-raise fee is the 2.5% ETH tranche fee shown in the schedule below.
+These five slices are the complete allocation: they sum to the full 1,000,000,000 supply, and the platform takes no share of token supply. The platform's only per-raise fee is the 2.5% ETH tranche fee shown in the schedule below.
 
 ### Tranche schedule (escrowed 85 ETH)
 
@@ -57,7 +57,7 @@ No challenges are raised during the six months. Each tranche requests through th
 
 ### What backers hold at the end
 
-Each backer holds their pro-rata share of 650,000,000 $LOOM. The LP at month six contains whatever the trading activity has accumulated to — the initial 15 ETH paired with 150M $LOOM, plus or minus the net of all trades. Backers can sell into this pool at any time. The pool will exist as long as Aerodrome does.
+Each backer holds their pro-rata share of 650,000,000 $LOOM. The LP at month six contains whatever the trading activity has accumulated to: the initial 15 ETH paired with 150M $LOOM, plus or minus the net of all trades. Backers can sell into this pool at any time. The pool will exist as long as Aerodrome does.
 
 ---
 
@@ -72,7 +72,7 @@ On day 90, the founder calls `requestTranche(3)`. The 72-hour challenge window o
 - Tranches paid: T0 + T1 + T2 = 8.5 + 12.75 + 12.75 = **34 ETH** out of escrow.
 - Escrow remaining: 85 − 34 = **51 ETH**.
 
-A backer holding 0.6% of supply (6,000,000 $LOOM — they cleared the T3–T4 threshold of 0.50%) raises a challenge, staking their 6,000,000 $LOOM in the escrow contract. Other holders representing 8% of supply call `supportChallenge()` to add their voice.
+A backer holding 0.6% of supply (6,000,000 $LOOM; they cleared the T3–T4 threshold of 0.50%) raises a challenge, staking their 6,000,000 $LOOM in the escrow contract. Other holders representing 8% of supply call `supportChallenge()` to add their voice.
 
 ### Admin review and uphold
 
@@ -101,10 +101,10 @@ The holder's contributed 0.1 ETH split into three legs: ~0.015 ETH to the perman
 ### What this scenario does *not* recover
 
 - The 34 ETH already paid to the founder across T0, T1, and T2 is gone. The protocol does not claw back tranches that have been claimed.
-- The 15 ETH in the permanent LP is still there but is not refunded — it remains as trading liquidity against whatever the token now trades for.
+- The 15 ETH in the permanent LP is still there but is not refunded; it remains as trading liquidity against whatever the token now trades for.
 - Holders who do not burn for refund retain their tokens and their share of the LP-backed market, which post-freeze will reflect the residual value of the project.
 
-The honest summary: a successful challenge protects future capital. It does not undo past capital. This is the mathematical reality of any time-based release with a halt mechanism, and it is the reason the early-tranche challenge threshold (0.25%) is deliberately lower than the late-tranche threshold (1.00%) — the cost of being slow to catch a bad founder is highest at the start of the schedule when the most capital is still in escrow.
+The honest summary: a successful challenge protects future capital. It does not undo past capital. This is the mathematical reality of any time-based release with a halt mechanism, and it is the reason the early-tranche challenge threshold (0.25%) is deliberately lower than the late-tranche threshold (1.00%): the cost of being slow to catch a bad founder is highest at the start of the schedule, when the most capital is still in escrow.
 
 ---
 
@@ -112,7 +112,7 @@ The honest summary: a successful challenge protects future capital. It does not 
 
 **Setup:** Same Loomwright raise, alternate timeline. The founder is executing on schedule. Public commits are regular; community communication is active; the project has shipped its claimed features.
 
-On day 60, an actor holding 0.30% of supply (3,000,000 $LOOM — just over the T0–T2 threshold of 0.25%) raises a challenge against T2. The actor has a history of speculative short positions in related tokens and stands to profit from a freeze.
+On day 60, an actor holding 0.30% of supply (3,000,000 $LOOM, just over the T0–T2 threshold of 0.25%) raises a challenge against T2. The actor has a history of speculative short positions in related tokens and stands to profit from a freeze.
 
 ### The challenge stake
 
@@ -124,15 +124,15 @@ The operations admin reviews. The evidence is overwhelmingly positive: continuou
 
 The action:
 
-- 20% of the challenger's stake — **600,000 $LOOM** — is burned to `0xdead`.
-- The remaining 80% — **2,400,000 $LOOM** — is returned to the challenger.
+- 20% of the challenger's stake (**600,000 $LOOM**) is burned to `0xdead`.
+- The remaining 80% (**2,400,000 $LOOM**) is returned to the challenger.
 - Tranche T2 releases as normal: 12.75 ETH out of escrow, 12.43125 ETH to founder, 0.31875 ETH to platform.
 
 ### The challenger's loss
 
 The actor loses 600,000 $LOOM permanently. At the prevailing market price, this is a real cost. The actor is also now subject to a 7-day `CHALLENGE_COOLDOWN`, so they cannot immediately re-challenge T3.
 
-For the actor's strategy to have been worthwhile, the expected value of the challenge — the probability of being upheld times the gain from a freeze, minus the probability of being rejected times the slash — would have needed to be positive. With the actor's evidence base, that calculation is negative. The slash mechanism is the contract-level enforcement of that disincentive.
+For the actor's strategy to have been worthwhile, the expected value of the challenge (the probability of being upheld times the gain from a freeze, minus the probability of being rejected times the slash) would have needed to be positive. With the actor's evidence base, that calculation is negative. The slash mechanism is the contract-level enforcement of that disincentive.
 
 ---
 

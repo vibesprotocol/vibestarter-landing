@@ -327,7 +327,7 @@ export function EdSchedule() {
           Funding on rails.
         </h2>
         <p className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
-          The raise funds the founder on a fixed clock — 10% the moment it closes, then 15%
+          The raise funds the founder on a fixed clock: 10% the moment it closes, then 15%
           every thirty days for six months. No milestones to perform, no committee to
           convince. <span className="text-white">Time is the only variable a founder cannot perform around.</span>
         </p>
@@ -497,7 +497,7 @@ export function EdSchedule() {
             {
               n: "03",
               t: "Claim",
-              d: "If unchallenged, the founder claims — 97.5% to the founder, 2.5% to the platform.",
+              d: "If unchallenged, the founder claims: 97.5% to the founder, 2.5% to the platform.",
             },
           ].map((s) => (
             <div key={s.n} className="flex gap-4">

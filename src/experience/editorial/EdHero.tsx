@@ -83,7 +83,7 @@ export function EdHero() {
       <div className="relative z-10 flex-1 flex items-start pt-4 sm:items-center sm:pt-0 px-5 sm:px-10">
         <div className="w-full max-w-[1500px] mx-auto">
           <p data-fade className="font-mono text-[11px] tracking-[0.32em] uppercase text-accent mb-5 sm:mb-7">
-            {"//"} Time-released crowdfunding — live on Base
+            {"//"} Time-released crowdfunding · live on Base
           </p>
 
           <h1 className="font-serif font-normal leading-[1.0] text-white select-none">
@@ -100,7 +100,7 @@ export function EdHero() {
           </h1>
 
           <p data-fade className="mt-6 sm:mt-8 max-w-[520px] text-muted font-sans font-light text-[15px] sm:text-lg leading-relaxed">
-            Agents ship MVPs in days — but shipping and scaling still takes capital.
+            Agents ship MVPs in days, but shipping and scaling still take capital.
             Vibestarter funds vibecoded apps with accountability built in: released over
             time, pausable by backers, proven on-chain.
           </p>
@@ -118,7 +118,7 @@ export function EdHero() {
       {/* scroll hint */}
       <div data-fade className="relative z-10 px-5 sm:px-10 pb-7">
         <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/45">
-          Scroll — how the machine holds everyone accountable
+          Scroll · how the machine holds everyone accountable
         </p>
       </div>
     </section>

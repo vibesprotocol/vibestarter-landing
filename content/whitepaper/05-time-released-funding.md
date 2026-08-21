@@ -12,8 +12,8 @@ At the moment a raise finalizes, the raised capital splits:
 
 | Slice | Destination | Released when |
 |------|------------|---------------|
-| **15%** | Liquidity pool — paired against tokens, LP receipt locked in a per-campaign fee claimer | At finalization, permanent (Section 7) |
-| **85%** | Escrow — `VibesTranchEscrow` clone for this raise | In seven tranches over six months |
+| **15%** | Liquidity pool: paired against tokens, LP receipt locked in a per-campaign fee claimer | At finalization, permanent (Section 7) |
+| **85%** | Escrow: `VibesTranchEscrow` clone for this raise | In seven tranches over six months |
 
 The escrowed 85% releases on the following schedule:
 
@@ -37,7 +37,7 @@ The schedule constants are encoded in `VibesTranchEscrow`:
 - `TRANCHE_DURATION = 30 days`
 - `PLATFORM_FEE_BPS = 250` (2.5%)
 
-These are protocol-level constants. They are not configurable per-raise. A founder who wants different terms cannot get them on Vibestarter — they would have to build on a different platform.
+These are protocol-level constants. They are not configurable per-raise. A founder who wants different terms cannot get them on Vibestarter; they would have to build on a different platform.
 
 ## 5.2 Why these specific numbers
 
@@ -49,7 +49,7 @@ The 10/15/6 schedule is the answer to three constraints solved simultaneously.
 
 **Six months is the longest schedule that does not become its own problem.** Long schedules create stale-token problems (backers forget the project exists, secondary market liquidity dries up before final release), founder cash-flow problems (paying contractors who expect payment in fiat from a tranche schedule denominated in ETH), and operator-attention problems (challenge windows that span a year are harder to monitor than ones that span six months). Six months is empirically the point at which all three of these begin to bite.
 
-The platform fee at 2.5% per tranche compounds to a total platform take of 2.5% of the escrowed amount — equivalent to **2.125% of the total raise** after the LP split. This is deliberately lower than ICO-era platform fees (commonly 5–10%) and lower than centralized crowdfunding (Kickstarter is ~5% + payment processing). The fee is taken at each tranche, not upfront, which keeps the platform's incentives aligned with the founder's continued performance.
+The platform fee at 2.5% per tranche compounds to a total platform take of 2.5% of the escrowed amount, equivalent to **2.125% of the total raise** after the LP split. This is deliberately lower than ICO-era platform fees (commonly 5–10%) and lower than centralized crowdfunding (Kickstarter is ~5% + payment processing). The fee is taken at each tranche, not upfront, which keeps the platform's incentives aligned with the founder's continued performance.
 
 ## 5.3 The tranche request lifecycle
 
@@ -69,11 +69,11 @@ The founder cannot batch tranches. Each tranche is requested, challenged-or-not,
 
 It is worth being explicit about what time-based release does not solve.
 
-**It does not protect against founders who are dishonest from the start.** A founder who launches a raise with no intention of building can still receive the kickstart and the first tranche or two before challenges accumulate. The protocol minimizes the size of this loss — it does not eliminate it. The reputation system (Section 8) and the founder deposit (refunded only on successful finalization) are the complementary defenses.
+**It does not protect against founders who are dishonest from the start.** A founder who launches a raise with no intention of building can still receive the kickstart and the first tranche or two before challenges accumulate. The protocol minimizes the size of this loss; it does not eliminate it. The reputation system (Section 8) and the founder deposit (refunded only on successful finalization) are the complementary defenses.
 
 **It does not enforce that the founder is actually building.** No contract can. The challenge window is a *recall mechanism*, not a *progress oracle*. If holders are inattentive, a non-building founder will collect their full schedule. This is the price of refusing to gate capital behind centralized milestone judgment.
 
-**It does not adjust for project-type variance.** A research project that needs 70% of capital in month one for compute reservations is poorly served by 10% kickstart + monthly tranches. The protocol's answer is that those projects should raise differently — through grants, through traditional venture, through pre-commit campaigns. Vibestarter is built for a specific shape of project (early-stage software, sustained burn, six-month build horizon to first meaningful milestone). The schedule is opinionated on that basis.
+**It does not adjust for project-type variance.** A research project that needs 70% of capital in month one for compute reservations is poorly served by 10% kickstart + monthly tranches. The protocol's answer is that those projects should raise differently: through grants, through traditional venture, through pre-commit campaigns. Vibestarter is built for a specific shape of project (early-stage software, sustained burn, six-month build horizon to first meaningful milestone). The schedule is opinionated on that basis.
 
 ## 5.5 Pausing, force-refund, and the limits of automation
 
@@ -81,8 +81,8 @@ Two operator-controlled escape hatches exist, both restricted to the operations 
 
 **`pauseCampaign()` / `resumeCampaign()`** halt tranche releases during the active raise window. This is intended for cases where a known issue (a contract advisory, a suspected exploit) needs to be triaged before further capital flow.
 
-**`forceRefundDuringRaise()`** kills an active raise before finalization and returns all contributed ETH to backers. This is the escape hatch for raises that need to be terminated before they finalize — for example, a discovered fraud pattern, a smart contract issue requiring redeployment, or a fundamental compliance problem.
+**`forceRefundDuringRaise()`** kills an active raise before finalization and returns all contributed ETH to backers. This is the escape hatch for raises that need to be terminated before they finalize: a discovered fraud pattern, a smart contract issue requiring redeployment, or a fundamental compliance problem.
 
-Both functions affect contributors only during the active raise window. After finalization, neither is available — at that point the only path that returns capital to holders is a successful challenge followed by a holder refund (Section 6.4). This boundary is intentional: once capital has been routed to escrow and the LP has been created, the protocol treats the raise as committed, and any unwinding requires the adversarial challenge path rather than an operator action.
+Both functions affect contributors only during the active raise window. After finalization, neither is available; at that point the only path that returns capital to holders is a successful challenge followed by a holder refund (Section 6.4). This boundary is intentional: once capital has been routed to escrow and the LP has been created, the protocol treats the raise as committed, and any unwinding requires the adversarial challenge path rather than an operator action.
 
 The honest framing: these are operator powers, not contract-level guarantees. They exist because no realistic launch protocol can ship without them, and because pretending otherwise would be the kind of dishonesty Section 4 rules out. Section 12 covers how each of them decentralizes over time.

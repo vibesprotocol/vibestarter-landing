@@ -1,6 +1,6 @@
 # 10. Contract Architecture
 
-> A short tour of the contract topology that implements the mechanism described in Sections 5 through 8. This is an overview, not a specification — the deployed contracts are the authoritative technical reference.
+> A short tour of the contract topology that implements the mechanism described in Sections 5 through 8. This is an overview, not a specification; the deployed contracts are the authoritative technical reference.
 
 The implementation comprises fourteen Solidity contracts deployed on Base (chain ID 8453), of which twelve are core protocol and infrastructure and two are testnet-only variants. All contracts target Solidity ^0.8.20 and use OpenZeppelin v5 primitives (ReentrancyGuard, SafeERC20, two-step Ownable patterns).
 
@@ -29,9 +29,9 @@ VibesStaking                   (independent — $VIBES staking with 7-day cooldo
 VibesIdentityRegistry          (independent — ERC-8004 agent identity registry)
 ```
 
-The **router** is the single point of contact for a launch. A founder calling `launchWithCampaign()` triggers, in one transaction, the deployment of a fresh token, the cloning of a fresh escrow, the cloning of a fresh vesting contract, the LP creation and lock, the treasury setup, and the registration of the project's Origin Capsule. After the launch transaction completes, the per-raise contracts operate autonomously according to their encoded rules — the router is not consulted again except for the final tranche-completion gate.
+The **router** is the single point of contact for a launch. A founder calling `launchWithCampaign()` triggers, in one transaction, the deployment of a fresh token, the cloning of a fresh escrow, the cloning of a fresh vesting contract, the LP creation and lock, the treasury setup, and the registration of the project's Origin Capsule. After the launch transaction completes, the per-raise contracts operate autonomously according to their encoded rules; the router is not consulted again except for the final tranche-completion gate.
 
-This shape — *single entry, per-raise clones* — is the result of two constraints. First, the per-raise state (escrow balance, tranche schedule, challenge history) is the kind of thing that must not be commingled across projects, so each raise needs its own contract instance. Second, deploying a full new contract per raise would be gas-prohibitive, so the per-raise contracts are EIP-1167 minimal proxies pointing to a shared implementation. The implementation logic is shared; the storage is isolated.
+This shape (*single entry, per-raise clones*) is the result of two constraints. First, the per-raise state (escrow balance, tranche schedule, challenge history) is the kind of thing that must not be commingled across projects, so each raise needs its own contract instance. Second, deploying a full new contract per raise would be gas-prohibitive, so the per-raise contracts are EIP-1167 minimal proxies pointing to a shared implementation. The implementation logic is shared; the storage is isolated.
 
 ## 10.2 The core protocol contracts
 
@@ -49,7 +49,7 @@ The escrow is the contract that most directly implements the design goals from S
 
 ### VibesLPLocker (256 lines)
 
-Creates the Aerodrome volatile-pair pool at finalization, transfers the resulting LP receipt to a per-campaign `VibesLPFeeClaimer` (soulbound — it captures Aerodrome trading fees while the principal liquidity stays locked), and records the lock on-chain. Includes the `resolveRescuedFunds` / `recordManualLPLock` path (Section 7.4) for handling LP creation failures.
+Creates the Aerodrome volatile-pair pool at finalization, transfers the resulting LP receipt to a per-campaign `VibesLPFeeClaimer` (soulbound: it captures Aerodrome trading fees while the principal liquidity stays locked), and records the lock on-chain. Includes the `resolveRescuedFunds` / `recordManualLPLock` path (Section 7.4) for handling LP creation failures.
 
 ### VibesVesting (256 lines)
 
@@ -57,7 +57,7 @@ Per-raise. Implements the founder's 18-month vesting schedule: 180-day cliff (0%
 
 ### VibesTreasuryEscrow (459 lines)
 
-Per-raise. Holds the treasury portion of the token allocation. Operates a proposal-based withdrawal model: the treasury admin proposes a withdrawal, the proposal is challengeable on the same general pattern as tranche challenges, and upheld challenges can either block the proposal (rework) or burn the entire treasury (malicious — the nuclear option that also freezes founder vesting).
+Per-raise. Holds the treasury portion of the token allocation. Operates a proposal-based withdrawal model: the treasury admin proposes a withdrawal, the proposal is challengeable on the same general pattern as tranche challenges, and upheld challenges can either block the proposal (rework) or burn the entire treasury (malicious: the nuclear option that also freezes founder vesting).
 
 ### VibesTokenDistributorV2 (401 lines)
 
@@ -71,7 +71,7 @@ Deploys escrow clones using EIP-1167. Holds the maximum-raise-duration constant 
 
 ### VibesTokenFactory (50 lines)
 
-Deploys fixed-supply ERC20 tokens. No access controls — anyone can call it. The minimalism is intentional: the factory has no authority, makes no claims about the deployed tokens, and is interchangeable with any other token factory.
+Deploys fixed-supply ERC20 tokens. No access controls: anyone can call it. The minimalism is intentional: the factory has no authority, makes no claims about the deployed tokens, and is interchangeable with any other token factory.
 
 ### VibesRegistry (213 lines)
 
@@ -93,7 +93,7 @@ Distributes Vibetokens (the per-raise tokens) to $VIBES stakers on a snapshot-an
 
 ## 10.5 Security patterns
 
-The contracts use a small, opinionated set of security primitives. The list is not exhaustive — it is the set that recurs across multiple contracts:
+The contracts use a small, opinionated set of security primitives. The list is not exhaustive; it is the set that recurs across multiple contracts:
 
 - **OpenZeppelin ReentrancyGuard** on every ETH-handling contract (eight contracts).
 - **OpenZeppelin SafeERC20** for all token transfers (seven contracts).

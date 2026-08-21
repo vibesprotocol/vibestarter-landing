@@ -418,7 +418,7 @@ export function TopoField({ className = "" }: { className?: string }) {
           <span ref={readoutRef}>X 0000 · Y 0000 · ELEV 0.000</span>
         </p>
         <p className="mt-1.5 font-mono text-[10px] tracking-[0.28em] uppercase text-accent/80">
-          survey grid — base 8453
+          survey grid · base 8453
         </p>
       </div>
     </div>

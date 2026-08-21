@@ -45,7 +45,7 @@ const OUTCOMES: Record<
     lines: [
       <>The project is dead or dishonest.</>,
       <>
-        <span className="text-accent-bright">The campaign freezes</span> — permanently.
+        <span className="text-accent-bright">The campaign freezes.</span> Permanently.
       </>,
     ],
     sub: "EVERY REMAINING TRANCHE BLOCKED · HOLDERS RECLAIM ESCROW PRO-RATA",
@@ -661,15 +661,15 @@ function ChallengeFlow({
         <div className="mt-3 space-y-1.5">
           <div data-cw-label="pass" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
             <span className="text-accent">No challenge</span>
-            <span className="text-white/65"> — 97.5% → founder · schedule continues</span>
+            <span className="text-white/65"> · 97.5% → founder · schedule continues</span>
           </div>
           <div data-cw-label="reject" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
             <span className="text-persimmon-400">Rejected</span>
-            <span className="text-white/65"> — 20% of stake burns · tranche releases</span>
+            <span className="text-white/65"> · 20% of stake burns · tranche releases</span>
           </div>
           <div data-cw-label="uphold" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
-            <span className="text-accent-bright">Upheld — frozen</span>
-            <span className="text-white/65"> — escrow reopens to holders pro-rata</span>
+            <span className="text-accent-bright">Upheld · frozen</span>
+            <span className="text-white/65"> · escrow reopens to holders pro-rata</span>
           </div>
         </div>
       ) : (
@@ -695,7 +695,7 @@ function ChallengeFlow({
             data-cw-label="uphold"
             className="absolute left-[84%] top-[calc(76%-9px)] w-[16%] font-mono text-[10px] lg:text-[11px] tracking-[0.14em] uppercase leading-relaxed"
           >
-            <span className="inline-block bg-black/80 px-1 -ml-1 text-accent-bright">Upheld — frozen</span>
+            <span className="inline-block bg-black/80 px-1 -ml-1 text-accent-bright">Upheld · frozen</span>
             <br />
             <span className="text-white/65">Escrow reopens to holders pro-rata</span>
           </div>
@@ -792,7 +792,7 @@ export function EdChallengeWindow() {
           </h2>
           <p className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
             Before any tranche after the kickstart can be claimed, a 72-hour window opens.
-            Holders with enough stake can challenge — and the contract, not the platform,
+            Holders with enough stake can challenge. The contract, not the platform,
             enforces what happens next.
           </p>
         </div>
@@ -853,7 +853,7 @@ export function EdChallengeWindow() {
           {[
             {
               k: "Stake to challenge",
-              v: "Graduated by tranche: 0.25% of supply early, 0.50% mid, 1.00% late — rising as the founder earns a track record.",
+              v: "Graduated by tranche: 0.25% of supply early, 0.50% mid, 1.00% late, rising as the founder earns a track record.",
             },
             {
               k: "While under review",

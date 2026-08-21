@@ -2,7 +2,7 @@
 
 > Everything that can go wrong, named.
 
-A whitepaper that does not name the failure modes of the protocol it describes is, at best, marketing. This section lists the categories of risk that participants — backers, founders, and operators — should understand before interacting with Vibestarter. None of these are theoretical. All of them have analogs in prior systems.
+A whitepaper that does not name the failure modes of the protocol it describes is, at best, marketing. This section lists the categories of risk that participants (backers, founders, and operators) should understand before interacting with Vibestarter. None of these are theoretical. All of them have analogs in prior systems.
 
 ---
 
@@ -45,7 +45,7 @@ The protocol does not promise that backers will profit. The legal disclaimers ex
 
 Even with the mechanisms described in Sections 5 through 8, founder-related failure modes remain:
 
-- **Founder may capture early tranches before being caught.** The kickstart (10%) and one or two monthly tranches (15% each) may be claimed before a successful challenge halts the schedule. In Example B (Section 9.2), a successful challenge at day 90 leaves 40% of escrow already claimed — that capital is not recoverable.
+- **Founder may capture early tranches before being caught.** The kickstart (10%) and one or two monthly tranches (15% each) may be claimed before a successful challenge halts the schedule. In Example B (Section 9.2), a successful challenge at day 90 leaves 40% of escrow already claimed; that capital is not recoverable.
 - **Founder may game challenges.** A founder with reputational standing may successfully argue against legitimate concerns, prolonging the schedule despite underperformance.
 - **Founder may execute poorly but not fraudulently.** A founder who is genuinely trying to ship but making poor product decisions is not actionable through the challenge mechanism. Holders bear the cost of poor execution as a market outcome.
 - **Founder may abandon post-tranche.** A founder who completes the tranche schedule and then stops working on the project has fulfilled their contract obligation. Vesting on the 5% founder allocation provides some incentive to continue (the cliff is at 6 months, full vesting at 18 months), but does not enforce continued shipping.
@@ -79,16 +79,16 @@ The reputation surfaced on the platform (Section 8) has its own caveats:
 - **Displayed reputation is not a guarantee of honesty.** A founder with a high Ethos score and a long on-chain history can still fail to deliver or act in bad faith. Reputation is a signal to inform judgment, not a substitute for it.
 - **Signals can be cultivated.** Ethos standing and on-chain history are expensive to fabricate at scale, but a determined actor can build a credible-looking profile over time. Treat reputation as one input among several.
 - **Third-party dependency.** Ethos and other reputation sources are external services that can change methodology, rate-limit, or become unavailable, which would degrade or interrupt the displayed signals.
-- **Reputation is not access.** The platform does not gate participation on these signals: anyone can back any raise regardless of reputation, and launch admission (curated in the current phase — Section 12.1) is decided by the published application rubric, not by Ethos or Starter scores. Founder-configurable requirements may be offered in future but are not in place today.
+- **Reputation is not access.** The platform does not gate participation on these signals: anyone can back any raise regardless of reputation, and launch admission (curated in the current phase, Section 12.1) is decided by the published application rubric, not by Ethos or Starter scores. Founder-configurable requirements may be offered in future but are not in place today.
 
 ## 13.8 LP-specific risks
 
 The permanent LP introduces specific dynamics:
 
-- **Impermanent loss is permanent.** A normal LP holder can withdraw their position when divergence has reverted. The permanent LP cannot — the position is locked in whatever state divergence has produced.
-- **Trading fees go to the protocol, not to holders.** Aerodrome routes a portion of trading fees to the LP position. For the locked LP, the fee claimer captures those fees — the ETH side to the platform, the token side to the project treasury (or burned if there is no treasury) — so token holders do not receive them.
+- **Impermanent loss is permanent.** A normal LP holder can withdraw their position when divergence has reverted. The permanent LP cannot: the position is locked in whatever state divergence has produced.
+- **Trading fees go to the protocol, not to holders.** Aerodrome routes a portion of trading fees to the LP position. For the locked LP, the fee claimer captures those fees, routing the ETH side to the platform and the token side to the project treasury (or burning it if there is no treasury), so token holders do not receive them.
 - **No rebalancing.** A liquidity pool that becomes too imbalanced (e.g., one side fully drained) cannot be rebalanced. The pool may end up effectively non-functional even though it nominally exists.
-- **AMM contract risk.** The pool is on Aerodrome. Risks to the Aerodrome protocol — including its own contract risk, governance changes, or fee structure changes — affect the permanent LP.
+- **AMM contract risk.** The pool is on Aerodrome. Risks to the Aerodrome protocol (including its own contract risk, governance changes, or fee structure changes) affect the permanent LP.
 
 ## 13.9 Platform-level risks
 

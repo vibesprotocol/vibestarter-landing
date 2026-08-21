@@ -111,7 +111,7 @@ export function FooterNew() {
             </p>
             <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-[10px] sm:text-[11px] text-black/50">
               <span>© 2026 Vibestarter. All rights reserved.</span>
-              <span>Built on Base — the on-chain home of AI agents.</span>
+              <span>Built on Base, the on-chain home of AI agents.</span>
             </div>
           </div>
         </div>

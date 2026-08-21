@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://vibestarter.xyz"),
   // SEO title leads with what customers actually search; the brand tagline
   // ("Execution collapsed. Funding did not.") stays on the OG/Twitter cards.
-  title: "Vibestarter — Crowdfunding for Vibe-Coded Apps on Base",
+  title: "Vibestarter · Crowdfunding for Vibe-Coded Apps on Base",
   description:
-    "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months — every release challengeable by backers for 72 hours. Provenance sealed on-chain.",
+    "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, and every release can be challenged by backers for 72 hours. Provenance sealed on-chain.",
   keywords: [
     "vibecoins",
     "vibecoding",
@@ -54,9 +54,9 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: "Vibestarter — Execution collapsed. Funding did not.",
+    title: "Vibestarter · Execution collapsed. Funding did not.",
     description:
-      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months — every release challengeable by backers for 72 hours. Provenance sealed on-chain.",
+      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, and every release can be challenged by backers for 72 hours. Provenance sealed on-chain.",
     url: "https://vibestarter.xyz",
     siteName: "Vibestarter",
     type: "website",
@@ -65,15 +65,15 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Execution collapsed. Funding did not. — Vibestarter, time-released crowdfunding on Base",
+        alt: "Vibestarter: Execution collapsed. Funding did not. Time-released crowdfunding on Base.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vibestarter — Execution collapsed. Funding did not.",
+    title: "Vibestarter · Execution collapsed. Funding did not.",
     description:
-      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months — every release challengeable by backers for 72 hours. Provenance sealed on-chain.",
+      "Time-released crowdfunding on Base. Founders get 10% at close, then 15% monthly over six months, and every release can be challenged by backers for 72 hours. Provenance sealed on-chain.",
     images: ["/og-image.jpg"],
   },
   other: {

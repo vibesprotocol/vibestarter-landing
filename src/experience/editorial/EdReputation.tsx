@@ -104,7 +104,7 @@ const ROWS: readonly SignalRow[] = [
     ),
     label: "Ethos score",
     value: "1,624",
-    note: "vouches, reviews & slashes — expensive to fake",
+    note: "vouches, reviews & slashes: expensive to fake",
     scramble: true,
   },
   {
@@ -127,7 +127,7 @@ const ROWS: readonly SignalRow[] = [
     ),
     label: "Social identity",
     value: "@loom · 4.1k",
-    note: "public voice — receipts, not promises",
+    note: "public voice: receipts, not promises",
   },
   {
     k: "history",
@@ -248,7 +248,7 @@ export function EdReputation() {
         </h2>
         <p data-rep-in className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
           Speculative platforms run on anonymous promises. Every Vibestarter raise page
-          surfaces the founder behind it — their history and their standing — before a
+          surfaces the founder behind it, history and standing included, before a
           single wei moves.
         </p>
 
@@ -352,7 +352,7 @@ export function EdReputation() {
             </ul>
 
             <p data-rep-in className="mt-4 font-mono text-[10px] tracking-[0.16em] uppercase text-white/45">
-              A signal, not a gate — anyone can back, launches are reviewed against a published
+              A signal, not a gate: anyone can back, launches are reviewed against a published
               rubric, and everyone can see exactly who they&apos;re dealing with.
             </p>
           </div>

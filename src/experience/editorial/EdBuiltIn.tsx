@@ -7,9 +7,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const ITEMS = [
-  { v: "LP LOCKED ∞", d: "15% of every raise seeds a permanent Aerodrome pool — no withdraw function." },
+  { v: "LP LOCKED ∞", d: "15% of every raise seeds a permanent Aerodrome pool with no withdraw function." },
   { v: "ONE FLAT PRICE", d: "No bonding curve. First and last backer pay exactly the same." },
-  { v: "STANDARD ERC-20", d: "No wrappers, no transfer restrictions — tradeable anywhere from day one." },
+  { v: "STANDARD ERC-20", d: "No wrappers, no transfer restrictions. Tradeable anywhere from day one." },
   { v: "REFUND IF UNFUNDED", d: "Misses its goal? Every contribution is fully refundable in ETH." },
 ] as const;
 

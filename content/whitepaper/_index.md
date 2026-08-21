@@ -5,11 +5,11 @@
 > treatment of the funding primitive, its mechanism design, and the contract
 > system that implements it.
 
-**Audience:** mixed. Layered structure — executive summary for skimmers, mechanism and economics sections for technical readers, appendices for spec-level detail.
+**Audience:** mixed. Layered structure: executive summary for skimmers, mechanism and economics sections for technical readers, appendices for spec-level detail.
 
-**Scope:** the funding primitive itself, treated as protocol design. Vibestarter is the reference implementation, but the design choices are presented as portable. Per-raise parameters — token supply, targets, and allocation — are set by each individual raise and are out of scope here.
+**Scope:** the funding primitive itself, treated as protocol design. Vibestarter is the reference implementation, but the design choices are presented as portable. Per-raise parameters (token supply, targets, and allocation) are set by each individual raise and are out of scope here.
 
-**Language:** US-cautious throughout. "Backer," "contribution," "tranche release," "secondary liquidity" — not "investor," "yield," or "returns."
+**Language:** US-cautious throughout. "Backer," "contribution," "tranche release," "secondary liquidity" (not "investor," "yield," or "returns").
 
 ---
 

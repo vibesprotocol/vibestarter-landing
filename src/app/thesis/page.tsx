@@ -48,7 +48,7 @@ export default function ThesisPage() {
               <div className="border-l-2 border-accent/40 bg-white/[0.02] rounded-r-lg px-5 py-4 mb-6">
                 <p className="text-white/80 text-sm font-mono mb-1">vi·be·cod·ing | noun</p>
                 <p className="text-muted text-sm leading-relaxed">
-                  The practice of building software by prompting AI agents — providing goals, examples, and feedback in natural language. You provide the vision. It provides the implementation.
+                  The practice of building software by prompting AI agents with goals, examples, and feedback in natural language. You provide the vision. It provides the implementation.
                 </p>
               </div>
 
@@ -57,11 +57,11 @@ export default function ThesisPage() {
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                So what changed? Two things mainly. Context windows got massive — an agent can now hold your entire app in memory. And logical reasoning improved enough that agents don&apos;t need you to manually stitch everything together. They can maintain architectural consistency on their own.
+                So what changed? Two things mainly. Context windows got massive: an agent can now hold your entire app in memory. And logical reasoning improved enough that agents don&apos;t need you to manually stitch everything together. They can maintain architectural consistency on their own.
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                In practice, that means you can go from idea to working MVP in a matter of days. Not a prototype or clickable mock-up, but an app that runs. It handles edge cases, has real features — some you wouldn&apos;t have thought up yourself. The kind of thing that used to take a technical founder three months to build.
+                In practice, that means you can go from idea to working MVP in a matter of days. Not a prototype or clickable mock-up, but an app that runs. It handles edge cases and has real features, some you wouldn&apos;t have thought up yourself. The kind of thing that used to take a technical founder three months to build.
               </p>
 
               <p className="text-muted leading-relaxed">
@@ -82,11 +82,11 @@ export default function ThesisPage() {
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                Then agents got good enough to act as your first technical lead. A non-technical founder with a clear product vision can ship real, functional software — not perfect, not production-scale, but software that exists, gets tested, generates feedback.
+                Then agents got good enough to act as your first technical lead. A non-technical founder with a clear product vision can ship real, functional software. Not perfect, not production-scale, but software that exists, gets tested, generates feedback.
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                Does this kill engineering? No. Deep technical expertise still matters enormously. But when you need it has shifted. You don&apos;t need a technical co-founder on day zero to prove your idea works — you need technical excellence when you&apos;re scaling, optimizing, and building moats.
+                Does this kill engineering? No. Deep technical expertise still matters enormously. But when you need it has shifted. You don&apos;t need a technical co-founder on day zero to prove your idea works; you need technical excellence when you&apos;re scaling, optimizing, and building moats.
               </p>
 
               <p className="text-muted leading-relaxed">
@@ -107,7 +107,7 @@ export default function ThesisPage() {
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                This isn&apos;t a capital scarcity problem. Capital exists. Look at memecoins — millions of dollars coalesce around pure vibes and community momentum every single day. Capital flows readily into narratives, speculation, belief.
+                This isn&apos;t a capital scarcity problem. Capital exists. Look at memecoins: millions of dollars coalesce around pure vibes and community momentum every single day. Capital flows readily into narratives, speculation, belief.
               </p>
 
               <p className="text-muted leading-relaxed">
@@ -120,11 +120,11 @@ export default function ThesisPage() {
               <h2 className="text-xl font-semibold mb-4 text-white">What are vibecoins?</h2>
 
               <p className="text-muted leading-relaxed mb-4">
-                Vibecoins (or vibetokens) are tokens associated with a vibecoded app or agent. They&apos;re not AI vapourware tokens shoehorned into existing projects, nor are they memecoins with arbitrary roadmaps. They also differ from what platforms like pump.fun or bags.fm currently enable. These platforms let anyone launch a token, but the tokens aren&apos;t tied to actual building — they&apos;re speculation vehicles first, products maybe later (but usually never).
+                Vibecoins (or vibetokens) are tokens associated with a vibecoded app or agent. They&apos;re not AI vapourware tokens shoehorned into existing projects, nor are they memecoins with arbitrary roadmaps. They also differ from what platforms like pump.fun or bags.fm currently enable. These platforms let anyone launch a token, but the tokens aren&apos;t tied to actual building: they&apos;re speculation vehicles first, products maybe later (but usually never).
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                Right now, AI tokens are mostly speculative — their hype has no direct correlation to actual product development. When crypto funding does reach builders, it comes after heavy execution and a working protocol. Projects build first, get funding, and tokenize later — typically to provide an exit for VCs and angel investors.
+                Right now, AI tokens are mostly speculative; their hype has no direct correlation to actual product development. When crypto funding does reach builders, it comes after heavy execution and a working protocol. Projects build first, get funding, and tokenize later, typically to provide an exit for VCs and angel investors.
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
@@ -132,7 +132,7 @@ export default function ThesisPage() {
               </p>
 
               <p className="text-muted leading-relaxed">
-                Speculation doesn&apos;t disappear. It gets redirected — away from narratives disconnected from reality and toward live experiments: builders testing ideas in public. The token becomes the funding rail that matches vibecoded development speed.
+                Speculation doesn&apos;t disappear. It moves from narratives disconnected from reality to live experiments: builders testing ideas in public. The token becomes the funding rail that matches vibecoded development speed.
               </p>
             </section>
 
@@ -145,11 +145,11 @@ export default function ThesisPage() {
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                Traditional funding is binary. You get the grant or you don&apos;t. The VC invests or passes. Even on-chain fundraising platforms still operate with this VC mindset — curated deals, accredited investors, traditional round structures. It&apos;s just VC mechanics on a blockchain.
+                Traditional funding is binary. You get the grant or you don&apos;t. The VC invests or passes. Even on-chain fundraising platforms still operate with this VC mindset: curated deals, accredited investors, traditional round structures. It&apos;s just VC mechanics on a blockchain.
               </p>
 
               <p className="text-muted leading-relaxed">
-                The thesis: vibecoins will become the native funding mechanism for a world where ideas can ship in days. You can vibecode an MVP in a weekend — but your funding mechanism requires six months of pitch meetings and cap table negotiations? That makes no sense. Funding should be as fast, permissionless, and experimental as building.
+                The thesis: vibecoins will become the native funding mechanism for a world where ideas can ship in days. You can vibecode an MVP in a weekend. But your funding mechanism requires six months of pitch meetings and cap table negotiations? That makes no sense. Funding should be as fast, permissionless, and experimental as building.
               </p>
             </section>
 
@@ -162,7 +162,7 @@ export default function ThesisPage() {
               </p>
 
               <p className="text-muted leading-relaxed mb-4">
-                This doesn&apos;t lower the quality bar — it increases the surface area. More experiments mean more discoveries, and the long tail gets thicker.
+                This doesn&apos;t lower the quality bar; it increases the surface area. More experiments mean more discoveries, and the long tail gets thicker.
               </p>
 
               <p className="text-muted leading-relaxed">

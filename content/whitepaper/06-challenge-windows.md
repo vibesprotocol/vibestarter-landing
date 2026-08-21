@@ -12,7 +12,7 @@ Each tranche request opens a **72-hour challenge window** before the tranche bec
 
 72 hours is a deliberate choice. Shorter windows (24 hours) systematically advantage the founder: holders in different timezones, with day jobs, or simply not watching their notifications may miss the window. Longer windows (one week) systematically advantage griefers and stall projects by accumulating a stale-data risk during slow review. Three days covers a full weekend and a working day on either side, which empirically captures the long tail of holder attention without indefinitely deferring the schedule.
 
-The kickstart tranche (T0) does not have a challenge window. It releases immediately on finalization. This is a concession to the *kickstart* design constraint described in Section 5.2 — a founder cannot start work if their first capital is gated by a 72-hour delay. The trade-off is that T0 is 10% of escrow, the smallest tranche.
+The kickstart tranche (T0) does not have a challenge window. It releases immediately on finalization. This is a concession to the *kickstart* design constraint described in Section 5.2: a founder cannot start work if their first capital is gated by a 72-hour delay. The trade-off is that T0 is 10% of escrow, the smallest tranche.
 
 Every subsequent tranche (T1 through T6) is gated by a fresh challenge window.
 
@@ -38,12 +38,12 @@ When a challenge is rejected, the challenger loses **20% of their staked tokens*
 
 The slash exists to make challenges costly. Without it, an actor with a small balance could raise repeated challenges (across many wallets) to grief a founder at zero cost. With it, raising a frivolous challenge has a real, calculable token cost. The 20% number is the result of two constraints:
 
-- It must be large enough to make griefing uneconomic. At 20%, a griefer with 0.25% of supply burns 0.05% of supply on each rejected challenge. Five rejected challenges costs 0.25% of total supply — a meaningful position. This is enough to deter sustained griefing campaigns.
+- It must be large enough to make griefing uneconomic. At 20%, a griefer with 0.25% of supply burns 0.05% of supply on each rejected challenge. Five rejected challenges costs 0.25% of total supply, a meaningful position. This is enough to deter sustained griefing campaigns.
 - It must be small enough that a *good-faith but ultimately wrong* challenge is recoverable. A 100% slash would prevent honest holders from ever raising a concern unless they were sure they would be upheld, which defeats the purpose of having a recall mechanism for ambiguous cases.
 
 20% threads this: griefers can't afford to be systematically wrong, but honest concerns aren't punished out of existence.
 
-A *successful* challenge — one that is upheld by the admin review described in Section 6.4 — returns the challenger's full stake. No slash, no reward. Vibestarter does not pay challengers for being correct. Paying for successful challenges would create a meta-game in which prolific challengers (correctly identifying issues, but also farming the bounty) drive up the rate of challenge requests. Returning stake at par keeps the incentive purely defensive: you challenge to protect the value of your remaining position, not to earn a fee.
+A *successful* challenge (one that is upheld by the admin review described in Section 6.4) returns the challenger's full stake. No slash, no reward. Vibestarter does not pay challengers for being correct. Paying for successful challenges would create a meta-game in which prolific challengers (correctly identifying issues, but also farming the bounty) drive up the rate of challenge requests. Returning stake at par keeps the incentive purely defensive: you challenge to protect the value of your remaining position, not to earn a fee.
 
 ## 6.4 Outcomes
 
@@ -72,19 +72,19 @@ The admin reviews the challenge and finds it unwarranted. The contract action is
 
 ### Expire
 
-The admin takes no action within the adjudication window — 7 days from filing (`ADJUDICATION_WINDOW`) on raises launched after the PC-09 cut-over; 72 hours on earlier escrows, including $VIBES, whose constants are immutable. Anyone can then call `expireChallengeIfNeeded()`. The challenger's full stake is returned (no slash). The tranche releases to the founder.
+The admin takes no action within the adjudication window: 7 days from filing (`ADJUDICATION_WINDOW`) on raises launched after the PC-09 cut-over; 72 hours on earlier escrows, including $VIBES, whose constants are immutable. Anyone can then call `expireChallengeIfNeeded()`. The challenger's full stake is returned (no slash). The tranche releases to the founder.
 
-This is the *quiet failure* path: a challenge that the admin neither upholds nor explicitly rejects is treated as not warranting a slash, but also not warranting a freeze. In practice this should be rare — the admin is expected to respond to every challenge within the window — but the path exists so that a delinquent admin cannot indefinitely hold tranches hostage by simply not responding.
+This is the *quiet failure* path: a challenge that the admin neither upholds nor explicitly rejects is treated as not warranting a slash, but also not warranting a freeze. In practice this should be rare (the admin is expected to respond to every challenge within the window), but the path exists so that a delinquent admin cannot indefinitely hold tranches hostage by simply not responding.
 
 ## 6.5 Challenge support
 
-Other token holders can call `supportChallenge()` to add their voice to a pending challenge. This is **event-only** — no state change, no stake required beyond holding some non-zero balance of the token. It exists so that the admin reviewing a challenge has signal beyond the one challenger's claim. If twenty holders representing a meaningful fraction of supply support a challenge, that is informationally distinct from a single 0.25% holder acting alone.
+Other token holders can call `supportChallenge()` to add their voice to a pending challenge. This is **event-only**: no state change, no stake required beyond holding some non-zero balance of the token. It exists so that the admin reviewing a challenge has signal beyond the one challenger's claim. If twenty holders representing a meaningful fraction of supply support a challenge, that is informationally distinct from a single 0.25% holder acting alone.
 
 Support events are surfaced in the admin's review tooling and are part of the public record of the challenge.
 
 ## 6.6 The honest reality of admin review
 
-The challenge review — up to 7 days from filing on post-PC-09 escrows (72 hours on earlier ones) — is performed by the **operations admin**, an account separate from the platform's master multi-sig (described in detail in Section 11). The operations admin can uphold or reject a challenge, but cannot move user funds to arbitrary destinations and cannot release escrow ahead of schedule.
+The challenge review (up to 7 days from filing on post-PC-09 escrows; 72 hours on earlier ones) is performed by the **operations admin**, an account separate from the platform's master multi-sig (described in detail in Section 11). The operations admin can uphold or reject a challenge, but cannot move user funds to arbitrary destinations and cannot release escrow ahead of schedule.
 
 The set of decisions the admin is empowered to make is small and adversarially constrained:
 
@@ -92,8 +92,8 @@ The set of decisions the admin is empowered to make is small and adversarially c
 - Reject: triggers contract-defined slash. The admin cannot adjust the slash percentage.
 - Take no action: tranche releases automatically after window expiry.
 
-What the admin cannot do: extract escrow, alter the schedule, change a tranche size, exclude themselves from a refund denominator without that exclusion being publicly visible. The `_excludeAddresses` parameter on `upholdChallenge` is the highest-trust surface — it controls which addresses are excluded from the refund denominator, and a malicious admin could in principle manipulate it to over-pay specific holders. The challenge standards (Section 6.6) define how this parameter is used, and Section 11 covers the cosigner separation that constrains it on the production multi-sig.
+What the admin cannot do: extract escrow, alter the schedule, change a tranche size, exclude themselves from a refund denominator without that exclusion being publicly visible. The `_excludeAddresses` parameter on `upholdChallenge` is the highest-trust surface: it controls which addresses are excluded from the refund denominator, and a malicious admin could in principle manipulate it to over-pay specific holders. The challenge standards (Section 6.6) define how this parameter is used, and Section 11 covers the cosigner separation that constrains it on the production multi-sig.
 
-This is the centralized surface that *we will not pretend is not centralized*. It exists because contract code cannot read the world: a contract cannot determine whether a founder has actually disappeared, whether claimed progress is real, whether a "missed milestone" is a missed deadline or a strategic pivot. A human (or a multi-sig) has to make that call, in the same way that arbitration exists in every other contractual system humans have built. Section 12 covers the path on which this surface decentralizes — challenge standards documents, multi-sig adjudication panels, and eventually community-elected reviewers.
+This is the centralized surface that *we will not pretend is not centralized*. It exists because contract code cannot read the world: a contract cannot determine whether a founder has actually disappeared, whether claimed progress is real, whether a "missed milestone" is a missed deadline or a strategic pivot. A human (or a multi-sig) has to make that call, in the same way that arbitration exists in every other contractual system humans have built. Section 12 covers the path on which this surface decentralizes: challenge standards documents, multi-sig adjudication panels, and eventually community-elected reviewers.
 
 The contract guarantees the *consequences* of the admin's decision (slash percentages, freeze mechanics, refund proportionality). It does not guarantee the decision itself. That is the boundary, and we mark it clearly rather than hiding it.

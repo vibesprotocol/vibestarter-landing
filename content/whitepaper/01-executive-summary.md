@@ -7,8 +7,8 @@
 ## The thesis, in five claims
 
 1. **The cost of building software has collapsed.** AI coding agents have crossed a threshold where a non-technical founder with clear product vision can ship a working MVP in days. The original thesis at [vibestarter.xyz/thesis](https://www.vibestarter.xyz/thesis) makes the full argument.
-2. **The cost of funding software has not collapsed.** Venture capital, ICOs, grant programs, and reward-based crowdfunding all fail for distinct reasons — gatekeeping, lack of accountability, illiquidity, or absence of upside for backers. None are adequate for the population of builders who can now ship.
-3. **Vibecoins — tokens issued at the moment a vibecoded project launches — are the funding primitive that matches the new execution speed.** The token launch and the project launch are the same event.
+2. **The cost of funding software has not collapsed.** Venture capital, ICOs, grant programs, and reward-based crowdfunding all fail for distinct reasons: gatekeeping, lack of accountability, illiquidity, or absence of upside for backers. None are adequate for the population of builders who can now ship.
+3. **Vibecoins, tokens issued at the moment a vibecoded project launches, are the funding primitive that matches the new execution speed.** The token launch and the project launch are the same event.
 4. **A vibecoin is only useful if the funding mechanism enforces continued accountability.** A token issued at launch with no recall mechanism degenerates into an ICO. The mechanism this paper describes is the minimum structure required to prevent that degeneration.
 5. **Vibestarter is one implementation of that mechanism.** The design principles are intended to be portable. The implementation runs on Base.
 
@@ -21,7 +21,7 @@ Each primitive maps to a design goal introduced in Section 4 and is specified in
 | **Time-released funding.** Capital releases on a fixed schedule. No milestones, no approvals on the success path. | 10% at finalization + 15% every 30 days × 6 tranches = 6 months total | §5 |
 | **Challenge windows.** Each tranche request opens a 72-hour window during which token holders can pause the schedule. | 72-hour window; graduated holder thresholds (0.25 / 0.50 / 1.00% of supply); 20% slash on rejected challenges; 7-day cooldown | §6 |
 | **Indefinite LP lock.** 15% of every raise creates an Aerodrome liquidity pool; the LP receipt is locked forever in a per-campaign fee claimer with no withdraw function. | Permanent. No unlock event. Trading fees are captured, not burned. | §7 |
-| **Reputation as a signal, not a gate.** Anyone can back any raise — no reputation minimum. Launch admission is curated in the current phase against a published rubric (§12.1), not by reputation scores. Vibestarter surfaces each founder's and backer's reputation so participants can judge for themselves. | Ethos scores + on-chain history | §8 |
+| **Reputation as a signal, not a gate.** Anyone can back any raise; there is no reputation minimum. Launch admission is curated in the current phase against a published rubric (§12.1), not by reputation scores. Vibestarter surfaces each founder's and backer's reputation so participants can judge for themselves. | Ethos scores + on-chain history | §8 |
 | **Two-tier admin separation.** Master admin (Gnosis Safe multi-sig, M-1) controls infrastructure, fees, rescue, and treasury powers. Operations/escrow admin adjudicates challenges + freezes and cannot extract user funds. | Master = M-1 Safe (2-of-2 today, moving to 2-of-3). Operations = M-3, a revocable single-key hot EOA. | §11 |
 
 ## What the contract guarantees, and what it does not
@@ -34,7 +34,7 @@ The protocol's contract guarantees are:
 - Refund paths (contributor refund, holder refund, excess refund) are encoded. The operator cannot redirect them.
 - The master admin's rescue capability is bounded by deposit reserves and active-claim checks. The operator cannot drain user escrow.
 
-The protocol's centralized surfaces — surfaces that require continued operator involvement — are:
+The protocol's centralized surfaces (the surfaces that require continued operator involvement) are:
 
 - **Challenge adjudication.** The operations admin decides whether to uphold, reject, or let expire each challenge. The published challenge standards constrain how. (§6.6, §11, §12.2)
 - **Refund merkle root publication.** After a campaign is frozen, the admin publishes the snapshot root. The 24-hour commit-reveal delay lets holders verify the root before claims open. (§6.4, §11.3)

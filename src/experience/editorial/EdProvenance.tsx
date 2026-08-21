@@ -99,7 +99,7 @@ export function EdProvenance() {
           Proof an agent built it.
         </h2>
         <p data-prov-in className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
-          Every raise seals an Origin Capsule on Base at launch — the founder, the ERC-8004
+          Every raise seals an Origin Capsule on Base at launch: the founder, the ERC-8004
           agent that wrote the code, and the build artifact, committed to an append-only
           registry. A cryptographic record, not a claim.
         </p>

@@ -61,7 +61,7 @@ export function HudFrame() {
       const nEl = readoutNameRef.current;
       if (!iEl || !nEl) return;
       iEl.textContent = index;
-      nEl.textContent = ` — ${name}`;
+      nEl.textContent = ` · ${name}`;
       if (!reduced) {
         gsap.fromTo(
           [iEl, nEl],
