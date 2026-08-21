@@ -38,7 +38,7 @@ export default function TermsPage() {
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-semibold mb-4">Terms of Use</h1>
-          <p className="text-muted text-sm mb-2">Version 2 &mdash; Last updated: April 2026</p>
+          <p className="text-muted text-sm mb-2">Version 2 · Last updated: April 2026</p>
           <p className="text-muted mb-8 leading-relaxed">
             These Terms of Use (&ldquo;Terms&rdquo;) govern your use of the Vibestarter platform. By connecting a wallet or
             otherwise using the platform you accept these Terms. Read them in conjunction with the{" "}

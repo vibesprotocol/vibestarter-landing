@@ -123,5 +123,6 @@ The whitepaper synthesizes; the referenced documents are authoritative for speci
 | Version | Date | Notes |
 |---------|------|-------|
 | v0.1 | 2026-05-24 | Initial draft. Mechanism sections (4–9), system sections (10–13), and this appendix complete. Part 1 (sections 1–3) compressed from the original thesis. |
+| v1.0 | 2026-08-21 | Live release. Copy-editing pass across all sections (phrasing and punctuation only); no mechanism or parameter changes. |
 
 Future revisions will be tracked here. Material changes that affect the mechanism (parameter changes, decentralization-path stage transitions, new failure modes identified) will be reflected in version bumps.

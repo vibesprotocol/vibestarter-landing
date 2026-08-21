@@ -15,22 +15,22 @@
 
 ## Sections
 
-| # | File | Section | Status |
-|---|------|---------|--------|
-| 1 | `01-executive-summary.md` | Executive summary | **Draft v1** |
-| 2 | `02-funding-mismatch.md` | The funding mismatch | **Draft v1** |
-| 3 | `03-vibecoins-as-primitive.md` | Vibecoins as a funding primitive | **Draft v1** |
-| 4 | `04-design-goals.md` | Design goals & failure modes we're avoiding | **Draft v1** |
-| 5 | `05-time-released-funding.md` | Time-released funding | **Draft v1** |
-| 6 | `06-challenge-windows.md` | Challenge windows | **Draft v1** |
-| 7 | `07-liquidity-lp-lock.md` | Liquidity and the indefinite LP lock | **Draft v1** |
-| 8 | `08-reputation.md` | Reputation: Ethos and on-chain signals | **Draft v1** |
-| 9 | `09-economics-examples.md` | Economics: worked examples | **Draft v1** |
-| 10 | `10-contract-architecture.md` | Contract architecture overview | **Draft v1** |
-| 11 | `11-trust-safety.md` | Trust and safety | **Draft v1** |
-| 12 | `12-governance.md` | Governance and decentralization roadmap | **Draft v1** |
-| 13 | `13-risks-disclosures.md` | Risks and disclosures | **Draft v1** |
-| 14 | `14-appendix.md` | Appendix: glossary, parameters, references | **Draft v1** |
+| # | File | Section |
+|---|------|---------|
+| 1 | `01-executive-summary.md` | Executive summary |
+| 2 | `02-funding-mismatch.md` | The funding mismatch |
+| 3 | `03-vibecoins-as-primitive.md` | Vibecoins as a funding primitive |
+| 4 | `04-design-goals.md` | Design goals & failure modes we're avoiding |
+| 5 | `05-time-released-funding.md` | Time-released funding |
+| 6 | `06-challenge-windows.md` | Challenge windows |
+| 7 | `07-liquidity-lp-lock.md` | Liquidity and the indefinite LP lock |
+| 8 | `08-reputation.md` | Reputation: Ethos and on-chain signals |
+| 9 | `09-economics-examples.md` | Economics: worked examples |
+| 10 | `10-contract-architecture.md` | Contract architecture overview |
+| 11 | `11-trust-safety.md` | Trust and safety |
+| 12 | `12-governance.md` | Governance and decentralization roadmap |
+| 13 | `13-risks-disclosures.md` | Risks and disclosures |
+| 14 | `14-appendix.md` | Appendix: glossary, parameters, references |
 
 ---
 
@@ -45,5 +45,5 @@ The paper is structured for both linear reading and section-by-section reference
 
 ---
 
-**Current version:** v1.0 draft (all 14 sections drafted)
-**Last updated:** 2026-05-24
+**Current version:** v1.0 (live)
+**Last updated:** 2026-08-21
