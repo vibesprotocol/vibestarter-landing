@@ -130,7 +130,7 @@ The action:
 
 ### The challenger's loss
 
-The actor loses 600,000 $LOOM permanently. At the prevailing market price, this is a real cost. Additionally, the actor is now subject to a 7-day `CHALLENGE_COOLDOWN`, so they cannot immediately re-challenge T3.
+The actor loses 600,000 $LOOM permanently. At the prevailing market price, this is a real cost. The actor is also now subject to a 7-day `CHALLENGE_COOLDOWN`, so they cannot immediately re-challenge T3.
 
 For the actor's strategy to have been worthwhile, the expected value of the challenge — the probability of being upheld times the gain from a freeze, minus the probability of being rejected times the slash — would have needed to be positive. With the actor's evidence base, that calculation is negative. The slash mechanism is the contract-level enforcement of that disincentive.
 

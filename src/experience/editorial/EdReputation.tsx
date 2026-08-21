@@ -248,8 +248,8 @@ export function EdReputation() {
         </h2>
         <p data-rep-in className="mt-6 max-w-[560px] text-muted font-sans font-light text-[15px] sm:text-base leading-relaxed">
           Speculative platforms run on anonymous promises. Every Vibestarter raise page
-          surfaces the founder behind it — their history, their record, their standing —
-          before a single wei moves.
+          surfaces the founder behind it — their history and their standing — before a
+          single wei moves.
         </p>
 
         {/* Focal pairing: the founder's living ASCII/dither bust on the left, the

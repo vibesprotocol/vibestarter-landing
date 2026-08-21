@@ -25,7 +25,7 @@ const OUTCOMES: Record<
 > = {
   0: {
     lines: [
-      <>The window passes quietly.</>,
+      <>The window passes untouched.</>,
       <>
         <span className="text-accent">97.5% releases</span> to the founder.
       </>,

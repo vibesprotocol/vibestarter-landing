@@ -66,7 +66,7 @@ anyone can hold, and clear in days — not quarters.
 ### Kickstarter and the no-upside backer
 
 Reward-based crowdfunding solved permissionless access but left backers with no
-claim on success, no governance, and no recourse if the project quietly dies
+claim on success, no governance, and no recourse when a project goes dark
 after the funding window. The most a backer can do is post a comment. This is
 fine for board games. It is not adequate for software intended to compound.
 
