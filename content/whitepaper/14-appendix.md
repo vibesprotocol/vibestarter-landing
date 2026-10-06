@@ -84,21 +84,26 @@ Parameters marked *No* are protocol-level constants and not adjustable per-raise
 
 ## 14.3 Contract inventory
 
-The deployed contract set on Base mainnet (chain ID 8453) at v0.1 of this paper:
+The deployed contract set on Base mainnet (chain ID 8453) at v1.0 of this paper:
 
 | Contract | Address | Role |
 |----------|---------|------|
-| VibesLaunchRouterV2 | [TBD] | Main entry point |
-| VibesTranchEscrowFactory | [TBD] | Escrow factory |
-| VibesTokenFactory | [TBD] | Token factory |
-| VibesLPLocker | [TBD] | LP creation and lock |
-| VibesRegistry | [TBD] | Origin Capsule registry |
-| VibesIdentityRegistry | [TBD] | ERC-8004 agent identity |
-| VibesStaking | [TBD] | $VIBES staking |
-| VibesStakerRewards | [TBD] | Staker reward distribution |
+| VibesLaunchRouterV2 | `0x783a7DB4113DC35A87dA43319af3cA7E6428f4BC` | Main entry point |
+| VibesRouterExtension | `0x2bF527A8e8EE070D7b68d92728e171338AA95602` | Router delegate logic |
+| VibesTranchEscrowFactory | `0x36C7e2d87F4E2d33b70304EbaA81eE88CB04Bf86` | Escrow factory (PC-11 generation, active since the 2026-08-27 cut-over) |
+| VibesTranchEscrow (implementation) | `0xcBe7e9E13576838eb4B55d0793Fd1CFFC1Dea43d` | Escrow clone target (PC-11 generation, active since the 2026-08-27 cut-over) |
+| VibesTokenFactory | `0x3671DBD5CFaF1D0D5c15a18b65F2CC7AcC7faE29` | Token factory |
+| VibesLPLockerV2 | `0x728D954fC216396B2b5a272D12562E8A557E35b2` | LP creation and lock (discount-aware V2, active since the 2026-06-14 cut-over) |
+| VibesLPFeeClaimer (implementation) | `0x3697f4eBa88bF657569553Ec6EC3178c74D10109` | Per-campaign fee-claimer clone target |
+| VibesRegistry | `0x66b74176F53d3081a87F75e10aD6cF554174Aef9` | Origin Capsule registry |
+| VibesCommunityRewardsFactory | `0x2f176b0bcAA34f153BDA9C70C34736A427eAa0a7` | Deploys per-raise community-rewards distributors |
+| VibesGenesisNFT | `0xC7eF2436e5AEc99bB55cC31B73bE2680634118e0` | Soulbound backer commemorative NFT |
 | VibesToken ($VIBES) | `0xefFC8815487084a97edfdfF968b56Ea123421Acb` | Protocol token |
+| VibesStaking | `0xF3c0113d79FF68c3b3A7A533f8C4F2a240517292` | $VIBES staking (deployed 2026-08-27 in its own ceremony) |
+| VibesStakerAllocations | `0x8a6d46cB0f56DFCd0CfBBfb985e27fC3398F898a` | Staker allocation distribution (formerly VibesStakerRewards); allocations active since 2026-08-27 |
+| VibesIdentityRegistry | Not yet deployed | ERC-8004 agent identity |
 
-Per-raise contracts (`VibesTranchEscrow` clones, `VibesVesting` clones, `VibesTreasuryEscrow` instances, `VibesTokenDistributorV2` instances) have one deployment per raise. The full list is queryable from `VibesRegistry` events.
+Per-raise contracts (`VibesTranchEscrow` clones, `VibesVesting` clones, `VibesTreasuryEscrow` instances, `VibesTokenDistributorV2` instances, `VibesLPFeeClaimer` clones, and `VibesCommunityRewards` instances for raises that carry a community allocation) have one deployment per raise. The full list is queryable from `VibesRegistry` events.
 
 Canonical addresses are queryable on-chain from `VibesRegistry` events and are recorded at each deployment.
 
