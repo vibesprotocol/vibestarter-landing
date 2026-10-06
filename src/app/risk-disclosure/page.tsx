@@ -38,7 +38,7 @@ export default function RiskDisclosurePage() {
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-semibold mb-4">Risk Disclosure</h1>
-          <p className="text-muted mb-8">Version 1 · Last updated: April 2026</p>
+          <p className="text-muted mb-8">Version 2 · Last updated: October 2026</p>
 
           <div className="prose prose-invert prose-gray max-w-none space-y-8">
             <section>
@@ -129,8 +129,12 @@ export default function RiskDisclosurePage() {
             <section>
               <h2 className="text-xl font-semibold mb-4 text-white">8. Operator Conflict of Interest</h2>
               <p className="text-muted leading-relaxed">
-                The operator moderates campaigns, adjudicates challenges, and receives platform fees from all raises.
-                These roles create inherent conflicts of interest.
+                The operator moderates campaigns, adjudicates challenges, and receives the ETH-side share of trading fees
+                earned by each raise&apos;s permanently locked liquidity position. It does not currently take a fee on raises
+                or on tranche payouts: the escrow&apos;s platform fee is set to zero. The one exception is the operator&apos;s
+                own $VIBES raise, which carries a fixed 2.5% fee on each tranche that the operator pays to itself (see{" "}
+                <Link href="/terms" className="text-accent hover:underline">Terms &sect;9</Link>). These roles create
+                inherent conflicts of interest.
               </p>
             </section>
 

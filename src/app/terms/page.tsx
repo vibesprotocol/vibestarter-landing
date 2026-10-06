@@ -38,7 +38,7 @@ export default function TermsPage() {
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-semibold mb-4">Terms of Use</h1>
-          <p className="text-muted text-sm mb-2">Version 2 · Last updated: April 2026</p>
+          <p className="text-muted text-sm mb-2">Version 3 · Last updated: October 2026</p>
           <p className="text-muted mb-8 leading-relaxed">
             These Terms of Use (&ldquo;Terms&rdquo;) govern your use of the Vibestarter platform. By connecting a wallet or
             otherwise using the platform you accept these Terms. Read them in conjunction with the{" "}
@@ -168,12 +168,16 @@ export default function TermsPage() {
             <section>
               <h2 className="text-xl font-semibold mb-4 text-white">9. Platform Fees</h2>
               <p className="text-muted leading-relaxed">
-                The platform deducts a 2.5% fee from each ETH tranche payout to a founder (so the founder receives 97.5% of
-                each tranche). There is no token-side fee on token supply. An optional flat launch fee (denominated in ETH)
-                exists in the protocol and is currently disabled. The platform also receives the ETH-side trading fees
-                captured by each raise&apos;s permanently locked liquidity position; token-side trading fees route to the
-                project&apos;s treasury (or are burned if the raise has none). These fees accrue to a platform multisig wallet on Base and
-                are used solely for platform operations until the successor Luxembourg entity is formed.
+                The platform does not currently take a fee from tranche payouts: a founder receives 100% of each ETH
+                tranche. The escrow contracts support a per-raise platform fee of up to 10%, fixed for each raise when it
+                launches; it is currently set to zero, and any change would apply only to raises launched after it. The
+                operator&apos;s own $VIBES raise is the one exception: it launched on an earlier escrow generation with a fixed
+                2.5% fee on each tranche, which the operator pays to itself. There is no token-side fee on token supply. An
+                optional flat launch fee (denominated in ETH) exists in the protocol and is currently disabled. The platform
+                also receives the ETH-side share of trading fees earned by each raise&apos;s permanently locked liquidity
+                position; the token-side share goes to the project&apos;s treasury, or is burned if the raise has none. These
+                fees accrue to a platform multisig wallet on the raise&apos;s network and are used solely for platform
+                operations until the successor Luxembourg entity is formed.
               </p>
             </section>
 

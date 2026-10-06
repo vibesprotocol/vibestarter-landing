@@ -27,10 +27,10 @@ const OUTCOMES: Record<
     lines: [
       <>The window passes untouched.</>,
       <>
-        <span className="text-accent">97.5% releases</span> to the founder.
+        <span className="text-accent">100% releases</span> to the founder.
       </>,
     ],
-    sub: "2.5% PLATFORM FEE · THE SCHEDULE CONTINUES",
+    sub: "NO PLATFORM FEE · THE SCHEDULE CONTINUES",
   },
   1: {
     lines: [
@@ -661,7 +661,7 @@ function ChallengeFlow({
         <div className="mt-3 space-y-1.5">
           <div data-cw-label="pass" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
             <span className="text-accent">No challenge</span>
-            <span className="text-white/65"> · 97.5% → founder · schedule continues</span>
+            <span className="text-white/65"> · 100% → founder · schedule continues</span>
           </div>
           <div data-cw-label="reject" className="font-mono text-[10px] tracking-[0.12em] uppercase leading-relaxed">
             <span className="text-persimmon-400">Rejected</span>
@@ -681,7 +681,7 @@ function ChallengeFlow({
           >
             <span className="inline-block bg-black/80 px-1 -ml-1 text-accent">No challenge</span>
             <br />
-            <span className="text-white/65">97.5% → founder · schedule continues</span>
+            <span className="text-white/65">100% → founder · schedule continues</span>
           </div>
           <div
             data-cw-label="reject"

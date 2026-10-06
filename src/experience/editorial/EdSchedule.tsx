@@ -473,7 +473,7 @@ export function EdSchedule() {
 
       <div className="max-w-[1500px] mx-auto px-5 sm:px-10 mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/50">
-          Example 100 ETH raise · 2.5% platform fee per tranche · a 72h challenge window before every release after the kickstart
+          Example 100 ETH raise · no platform fee · a 72h challenge window before every release after the kickstart
         </p>
         <a href="/whitepaper" data-cursor="link" className="ed-link font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/65 hover:text-white transition-colors whitespace-nowrap">
           Read §5 of the whitepaper ↗
@@ -497,7 +497,7 @@ export function EdSchedule() {
             {
               n: "03",
               t: "Claim",
-              d: "If unchallenged, the founder claims: 97.5% to the founder, 2.5% to the platform.",
+              d: "If unchallenged, the founder claims the tranche in full. No platform fee is deducted.",
             },
           ].map((s) => (
             <div key={s.n} className="flex gap-4">
