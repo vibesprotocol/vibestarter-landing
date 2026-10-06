@@ -45,7 +45,7 @@ The router is the only contract with `pause`/`unpause` capability. A paused rout
 
 Per-raise. Holds the 85% of raised ETH that is not paired against the LP. Implements the tranche schedule (`requestTranche`, `claimTranche`, `expireChallengeIfNeeded`), the challenge mechanism (`raiseChallenge`, `upholdChallenge`, `rejectChallenge`, `supportChallenge`), the refund paths (contributor refund for failed raises, holder refund for frozen raises, excess refund for pro-rata oversubscription), and the operator escape hatches (`pauseCampaign`, `forceRefundDuringRaise`, `emergencyRefundFunded`).
 
-The escrow is the contract that most directly implements the design goals from Section 4. Its constants (`KICKSTART_BPS = 1000`, `MONTHLY_BPS = 1500`, `PLATFORM_FEE_BPS = 250`, `CHALLENGE_WINDOW = 72 hours`, `CHALLENGE_SLASH_BPS = 2000`, `CHALLENGE_COOLDOWN = 7 days`, `MAX_TIME_DRIFT = 1 hours`, `MERKLE_ROOT_DELAY = 24 hours`) are protocol-level and not adjustable per-raise.
+The escrow is the contract that most directly implements the design goals from Section 4. Its constants (`KICKSTART_BPS = 1000`, `MONTHLY_BPS = 1500`, `CHALLENGE_WINDOW = 72 hours`, `CHALLENGE_SLASH_BPS = 2000`, `CHALLENGE_COOLDOWN = 7 days`, `MAX_TIME_DRIFT = 1 hours`, `MERKLE_ROOT_DELAY = 24 hours`) are protocol-level and not adjustable per-raise. The platform fee rate is set per escrow at launch instead (`platformFeeBps`, Section 5.1).
 
 ### VibesLPLocker (256 lines)
 

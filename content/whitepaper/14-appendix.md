@@ -64,7 +64,7 @@
 | `CHALLENGE_THRESHOLD` (T0–T2) | 0.25% of supply | `VibesTranchEscrow.getChallengeThreshold()` | No |
 | `CHALLENGE_THRESHOLD` (T3–T4) | 0.50% of supply | `VibesTranchEscrow.getChallengeThreshold()` | No |
 | `CHALLENGE_THRESHOLD` (T5–T6) | 1.00% of supply | `VibesTranchEscrow.getChallengeThreshold()` | No |
-| `platformFeeBps` | 250 (2.5%), hard cap 1000 (10%) | `VibesTranchEscrow` | **No** — set once at raise creation, no setter; the factory default for *future* raises is adjustable by the master admin (`setPlatformFeeBps`, PC-07) |
+| `platformFeeBps` | 0 (no fee) on Base and Robinhood Chain, hard cap 1000 (10%); the $VIBES escrow predates the factory setting and carries a fixed 250 (2.5%, `PLATFORM_FEE_BPS`) | `VibesTranchEscrow`, stamped at launch from the factory setting | **No** — fixed for the life of each raise, no setter; the factory setting for *future* raises is adjustable by the master admin (`setPlatformFeeBps`) |
 | `MIN_CONTRIBUTION` | 0.01 ETH | `VibesTranchEscrow` | No |
 | `MERKLE_ROOT_DELAY` | 24 hours | `VibesTranchEscrow` | No |
 | `MAX_TIME_DRIFT` | 1 hour | `VibesTranchEscrow` | No |
@@ -78,7 +78,7 @@
 | `Founder deposit` | 0.01 ETH (configurable; refunded on successful finalization) | Router | Master admin (via `setFounderDepositWei`) |
 | `Launch fee (flat ETH, optional)` | 0 (off) | Router | Master admin (via `setFeeConfig`) |
 
-Parameters marked *No* are protocol-level constants and not adjustable per-raise or by any admin action without a contract upgrade. `setFeeConfig` controls only the router-level flat launch fee; the escrow's `platformFeeBps` is fixed per raise at creation, with `setPlatformFeeBps` adjusting the factory default for future raises only.
+Parameters marked *No* are protocol-level constants and not adjustable per-raise or by any admin action without a contract upgrade. `setFeeConfig` controls only the router-level flat launch fee; the escrow's `platformFeeBps` is fixed per raise at creation, with `setPlatformFeeBps` adjusting the factory setting for future raises only.
 
 ---
 
@@ -124,5 +124,6 @@ The whitepaper synthesizes; the referenced documents are authoritative for speci
 |---------|------|-------|
 | v0.1 | 2026-05-24 | Initial draft. Mechanism sections (4–9), system sections (10–13), and this appendix complete. Part 1 (sections 1–3) compressed from the original thesis. |
 | v1.0 | 2026-08-21 | Live release. Copy-editing pass across all sections (phrasing and punctuation only); no mechanism or parameter changes. |
+| v1.1 | 2026-10-06 | Platform fee stated as configured on Base and Robinhood Chain: no fee on tranche releases, with the $VIBES escrow's fixed 2.5% as the one exception (5, 9, 10, 11, 14.2). Worked examples (9) use a 5% founder and 12.5% treasury allocation. |
 
 Future revisions will be tracked here. Material changes that affect the mechanism (parameter changes, decentralization-path stage transitions, new failure modes identified) will be reflected in version bumps.

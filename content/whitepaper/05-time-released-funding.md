@@ -27,7 +27,7 @@ The escrowed 85% releases on the following schedule:
 | T5 | +150 days | 15% of escrow | 85% |
 | T6 | +180 days | 15% of escrow | 100% |
 
-Each tranche is subject to a **2.5% platform fee**, deducted from the tranche at claim time. The founder receives 97.5% of each tranche; the platform receives 2.5%.
+There is no platform fee on tranche releases: the founder receives 100% of each tranche. Each escrow fixes its fee rate (`platformFeeBps`) at launch from the escrow factory's setting and keeps it for the life of the raise. The master admin controls that setting, the contracts cap it at 10%, and it is 0 on Base and Robinhood Chain; a change would bind only raises launched after it. The one exception is Vibestarter's own $VIBES raise, whose escrow predates the setting and carries a fixed 2.5% (`PLATFORM_FEE_BPS = 250`) payable to the platform's multisig.
 
 The schedule constants are encoded in `VibesTranchEscrow`:
 
@@ -35,7 +35,6 @@ The schedule constants are encoded in `VibesTranchEscrow`:
 - `MONTHLY_BPS = 1500` (15%)
 - `NUM_MONTHLY_TRANCHES = 6`
 - `TRANCHE_DURATION = 30 days`
-- `PLATFORM_FEE_BPS = 250` (2.5%)
 
 These are protocol-level constants. They are not configurable per-raise. A founder who wants different terms cannot get them on Vibestarter; they would have to build on a different platform.
 
@@ -49,7 +48,7 @@ The 10/15/6 schedule is the answer to three constraints solved simultaneously.
 
 **Six months is the longest schedule that does not become its own problem.** Long schedules create stale-token problems (backers forget the project exists, secondary market liquidity dries up before final release), founder cash-flow problems (paying contractors who expect payment in fiat from a tranche schedule denominated in ETH), and operator-attention problems (challenge windows that span a year are harder to monitor than ones that span six months). Six months is empirically the point at which all three of these begin to bite.
 
-The platform fee at 2.5% per tranche compounds to a total platform take of 2.5% of the escrowed amount, equivalent to **2.125% of the total raise** after the LP split. This is deliberately lower than ICO-era platform fees (commonly 5–10%) and lower than centralized crowdfunding (Kickstarter is ~5% + payment processing). The fee is taken at each tranche, not upfront, which keeps the platform's incentives aligned with the founder's continued performance.
+With no platform fee on tranche releases, the founder receives the full escrowed amount: **85% of the total raise** after the LP split.
 
 ## 5.3 The tranche request lifecycle
 
@@ -61,7 +60,7 @@ A tranche does not release automatically when its time arrives. The founder must
    - *No challenge raised:* after 72 hours, anyone can advance the state and the founder can claim.
    - *Challenge raised and rejected:* challenger is slashed, founder can claim.
    - *Challenge raised and upheld:* campaign is frozen, this tranche and all subsequent tranches are blocked, refund path opens (Section 6.4).
-4. **Founder calls `claimTranche(trancheIndex)`.** The contract transfers `trancheAmount × 97.5%` to the founder's address and `trancheAmount × 2.5%` to the platform wallet.
+4. **Founder calls `claimTranche(trancheIndex)`.** The contract transfers `trancheAmount` to the founder's address, less any fee at the escrow's `platformFeeBps` rate (0 on every raise except $VIBES; Section 5.1).
 
 The founder cannot batch tranches. Each tranche is requested, challenged-or-not, and claimed individually. This is deliberate: each tranche is a fresh opportunity for backers to act on new information.
 

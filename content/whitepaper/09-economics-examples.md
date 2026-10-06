@@ -26,32 +26,32 @@ The 100 ETH raised splits immediately:
 | LP (paired into Aerodrome, receipt locked in fee claimer) | 15 | Paired against $LOOM to open the pool at the backer entry price −5%. Up to 150,000,000 $LOOM (15% of supply) is reserved; the locker pairs only what's needed at that price and returns the remainder to backers. |
 | Escrow (`VibesTranchEscrow`) | 85 | Released across seven tranches |
 
-The 1,000,000,000 $LOOM also distributes (assuming standard configuration with 5% founder, 15% treasury, 0% community rewards, 2.5% staker rewards):
+The 1,000,000,000 $LOOM also distributes (assuming a configuration with 5% founder, 12.5% treasury, 0% community rewards, 2.5% staker rewards):
 
 | Slice | Tokens | Destination |
 |-------|--------|-------------|
-| Backers | 625,000,000 (+ any unused LP reserve) | Token Distributor: claimed by backers pro-rata |
+| Backers | 650,000,000 (+ any unused LP reserve) | Token Distributor: claimed by backers pro-rata |
 | LP | up to 150,000,000 reserved | Paired with 15 ETH to open the pool at the backer entry price −5%; only the amount needed at that price is deposited (LP receipt locked in the fee claimer), and the remainder is returned to backers |
-| Treasury | 150,000,000 | `VibesTreasuryEscrow`: quarterly releases via challengeable proposals |
+| Treasury | 125,000,000 | `VibesTreasuryEscrow`: quarterly releases via challengeable proposals |
 | Founder | 50,000,000 | `VibesVesting`: 6-month cliff + 12-month linear |
 | Staker rewards | 25,000,000 | `VibesStakerRewards`: distributed to $VIBES stakers |
 
-These five slices are the complete allocation: they sum to the full 1,000,000,000 supply, and the platform takes no share of token supply. The platform's only per-raise fee is the 2.5% ETH tranche fee shown in the schedule below.
+These five slices are the complete allocation: they sum to the full 1,000,000,000 supply, and the platform takes no share of token supply. It takes no fee on tranche releases either: the founder receives each tranche in the schedule below in full.
 
 ### Tranche schedule (escrowed 85 ETH)
 
-| Tranche | Day | Tranche size (ETH) | Platform fee (2.5%) | To founder (97.5%) |
-|---------|-----|--------------------|--------------------|--------------------|
-| T0 (kickstart) | 0 | 8.5 | 0.2125 | 8.2875 |
-| T1 | 30 | 12.75 | 0.31875 | 12.43125 |
-| T2 | 60 | 12.75 | 0.31875 | 12.43125 |
-| T3 | 90 | 12.75 | 0.31875 | 12.43125 |
-| T4 | 120 | 12.75 | 0.31875 | 12.43125 |
-| T5 | 150 | 12.75 | 0.31875 | 12.43125 |
-| T6 | 180 | 12.75 | 0.31875 | 12.43125 |
-| **Total** | | **85** | **2.125** | **82.875** |
+| Tranche | Day | Tranche size (ETH) | To founder (100%) |
+|---------|-----|--------------------|-------------------|
+| T0 (kickstart) | 0 | 8.5 | 8.5 |
+| T1 | 30 | 12.75 | 12.75 |
+| T2 | 60 | 12.75 | 12.75 |
+| T3 | 90 | 12.75 | 12.75 |
+| T4 | 120 | 12.75 | 12.75 |
+| T5 | 150 | 12.75 | 12.75 |
+| T6 | 180 | 12.75 | 12.75 |
+| **Total** | | **85** | **85** |
 
-The founder receives **82.875 ETH** across six months, in increments. The platform receives **2.125 ETH** in tranche fees. The remaining 15 ETH is permanently in the LP, where it backs secondary market trading for the lifetime of the project.
+The founder receives the full **85 ETH** across six months, in increments. The remaining 15 ETH is permanently in the LP, where it backs secondary market trading for the lifetime of the project.
 
 No challenges are raised during the six months. Each tranche requests through the standard path: `requestTranche()` → 72-hour window expires → `claimTranche()`.
 
@@ -93,8 +93,8 @@ Holders then burn tokens for refunds. The formula: `refund = (frozenEthBalance �
 
 For a holder with 1,000,000 $LOOM (0.1% of supply, having contributed roughly 0.1 ETH originally):
 
-- If `frozenTotalSupply` is 800,000,000 (assuming founder + treasury exclusions): refund = (51 × 1,000,000) / 800,000,000 = **0.0637 ETH**.
-- They burn their 1,000,000 $LOOM. They receive 0.0637 ETH.
+- If `frozenTotalSupply` is 825,000,000 (assuming founder + treasury exclusions): refund = (51 × 1,000,000) / 825,000,000 = **0.0618 ETH**.
+- They burn their 1,000,000 $LOOM. They receive 0.0618 ETH.
 
 The holder's contributed 0.1 ETH split into three legs: ~0.015 ETH to the permanent LP (still in the pool; not refunded), ~0.034 ETH already paid to the founder across T0–T2 (not recoverable), and ~0.051 ETH that was in escrow at freeze (now refunded pro-rata).
 
@@ -126,7 +126,7 @@ The action:
 
 - 20% of the challenger's stake (**600,000 $LOOM**) is burned to `0xdead`.
 - The remaining 80% (**2,400,000 $LOOM**) is returned to the challenger.
-- Tranche T2 releases as normal: 12.75 ETH out of escrow, 12.43125 ETH to founder, 0.31875 ETH to platform.
+- Tranche T2 releases as normal: 12.75 ETH out of escrow, all of it to the founder.
 
 ### The challenger's loss
 
@@ -140,7 +140,7 @@ For the actor's strategy to have been worthwhile, the expected value of the chal
 
 The three scenarios trace the protocol's core asymmetry:
 
-- **Honest path:** the founder receives 82.875 ETH across six months, plus a vesting allocation of 50M $LOOM after the 18-month cliff/linear schedule. Backers hold tokens against an executing project and a permanent LP.
+- **Honest path:** the founder receives 85 ETH across six months, plus a vesting allocation of 50M $LOOM after the 18-month cliff/linear schedule. Backers hold tokens against an executing project and a permanent LP.
 - **Caught dishonesty:** the founder captures at most 34 ETH before a successful challenge halts the schedule and opens holder refunds. The cost to backers is bounded by *when* the dishonesty is caught.
 - **Failed griefing:** the challenger pays a 20% token cost for being wrong. The founder is not delayed beyond the 72-hour window.
 

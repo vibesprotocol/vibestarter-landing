@@ -75,7 +75,7 @@ export default async function WhitepaperPage() {
         <div className="max-w-[1400px] mx-auto">
           {/* Title block */}
           <div className="max-w-3xl lg:ml-[288px] mb-12">
-            <span className="text-accent text-sm font-mono mb-4 block">// WHITEPAPER · v1.0</span>
+            <span className="text-accent text-sm font-mono mb-4 block">// WHITEPAPER · v1.1</span>
             <h1 className="text-3xl sm:text-4xl font-semibold mb-3">Vibestarter Whitepaper</h1>
             <p className="text-muted text-lg">
               Design treatment of the vibecoin funding primitive: mechanism, contract system, trust model.

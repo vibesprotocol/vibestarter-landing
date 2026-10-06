@@ -20,7 +20,7 @@ Its powers, the ones that can move user funds or alter infrastructure, include:
 
 - `pause()` / `unpause()`: global emergency stop
 - `setEscrowFactory()` / `setLPLocker()`: replace infrastructure contracts
-- `setFeeConfig()`: adjust platform fee parameters
+- `setFeeConfig()`: configure the optional flat-ETH launch fee (enable/amount/recipient). Router-level only: the per-raise escrow platform fee is fixed at creation and has no setter (Section 14.2)
 - `setOperationsAdmin()`: appoint or revoke the operations admin
 - `rescueETH()`: withdraw ETH from the router contract above deposit reserves
 - `rescueERC20()`: rescue stuck ERC20 tokens, guarded by active-claim/escrow/LP checks
@@ -65,7 +65,7 @@ Beyond the on-chain `owner` and `operationsAdmin` roles, the operational roles s
 
 | Safe | Role | Purpose |
 |------|------|---------|
-| M-1 | Platform Operations | Receives 2.5% ETH tranche fees (no token-side launch fee exists). Pays platform infrastructure costs. |
+| M-1 | Platform Operations | Receives the ETH-side trading fees from locked LPs and the fixed 2.5% tranche fee on Vibestarter's own $VIBES raise (no other raise pays a tranche fee; no token-side launch fee exists). Pays platform infrastructure costs. |
 | M-2 | $VIBES Raise Founder Wallet | Receives Vibestarter's own raise tranche payouts (pre-entity custody). |
 | M-3 | Ops/escrow admin (single-key hot EOA, not a multisig) | Holds the escrow/factory `admin` role (from `factory.admin`): adjudicates raise/tranche challenges, freezes, force-refunds. The router `operationsAdmin` (treasury admin) is M-1, not M-3, since the 2026-06-07 split. |
 | M-4 | Community Rewards | Administers the `VibesCommunityRewards` contract (post-cliff distribution batches). |
