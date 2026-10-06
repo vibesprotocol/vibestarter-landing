@@ -5,7 +5,7 @@ import Link from "next/link";
 const sitemapLinks = [
   { label: "Home", href: "/" },
   { label: "Thesis", href: "/thesis" },
-  { label: "Terms", href: "/terms" },
+  { label: "Terms", href: "https://app.vibestarter.xyz/terms" },
   { label: "Privacy", href: "/privacy" },
 ];
 

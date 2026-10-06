@@ -31,9 +31,9 @@ const LINK_GROUPS: { title: string; links: { label: string; href: string; extern
   {
     title: "LEGAL",
     links: [
-      { label: "Terms", href: "/terms" },
+      { label: "Terms", href: "https://app.vibestarter.xyz/terms", external: true },
       { label: "Privacy", href: "/privacy" },
-      { label: "Risk Disclosure", href: "/risk-disclosure" },
+      { label: "Risk Disclosure", href: "https://app.vibestarter.xyz/risk-disclosure", external: true },
     ],
   },
 ];
