@@ -61,7 +61,7 @@ If the operations admin is compromised, the worst-case scenario is bounded: an a
 
 ## 11.2 Off-chain key topology (Safes + EOAs)
 
-Beyond the on-chain `owner` and `operationsAdmin` roles, the operational roles sit at the organizational level across **two Gnosis Safes (M-1, M-4) plus two single-key EOAs (M-2 cold, M-3 hot)** on Base. The two Safes use a 2-of-2 threshold today (moving to 2-of-3); **M-2 and M-3 are single keys, not multisigs.**
+Beyond the on-chain `owner` and `operationsAdmin` roles, the operational roles sit at the organizational level across **two Gnosis Safes (M-1, M-4) plus two single-key EOAs (M-2 cold, M-3 hot)**. The two Safes use a 2-of-2 threshold today (moving to 2-of-3); **M-2 and M-3 are single keys, not multisigs.**
 
 | Safe | Role | Purpose |
 |------|------|---------|
@@ -136,7 +136,7 @@ A short list of risks that the trust and safety model explicitly does not addres
 - **Founder choices that are within their rights.** A founder who claims all tranches on schedule and then ships nothing valuable is not committing a contract violation. The protocol releases the schedule; the market values the result.
 - **Off-chain regulatory action.** A jurisdiction may determine that a token was issued in violation of local law. The protocol cannot prevent that determination. Section 13 covers regulatory risk.
 - **Smart contract bugs.** Audits reduce the probability of unknown bugs; they do not eliminate it. A previously-unknown bug could result in loss of funds. The audit history is the relevant disclosure.
-- **Bridge or chain-level risk.** The contracts deploy on Base. Risks to Base itself (sequencer downtime, L2 finality issues, or systemic problems in the Ethereum L1 settlement layer) are outside the protocol's control.
+- **Bridge or chain-level risk.** The contracts deploy on Base and Robinhood Chain. Risks to either chain itself (sequencer downtime, L2 finality issues, or systemic problems in the Ethereum L1 settlement layer) are outside the protocol's control.
 - **Wallet compromise.** A backer whose wallet is compromised has lost their tokens via the standard ERC20 transfer path. The protocol has no recovery mechanism for individual user compromise.
 
 These limits are the boundary of what an honest trust-and-safety section can claim. Everything else (the contract guarantees, the operator constraints, the audit findings) is on-chain or in the public audit record.

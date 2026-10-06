@@ -112,7 +112,7 @@ The contracts have had one external audit (ZXVC LLC, May 2026) plus internal rev
 
 ## 14.5 Source and verification
 
-The deployed contracts are verifiable on-chain on Base. Contract addresses are queryable from `VibesRegistry` events; the protocol token and per-raise contracts can be inspected on a Base block explorer.
+The deployed contracts are verifiable on-chain on Base and Robinhood Chain. Contract addresses are queryable from `VibesRegistry` events; the protocol token and per-raise contracts can be inspected on either chain's block explorer.
 
 The whitepaper synthesizes; the referenced documents are authoritative for specific details.
 

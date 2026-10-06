@@ -91,12 +91,12 @@ The admin publishes a refund merkle root after the 24-hour `MERKLE_ROOT_DELAY` c
 
 Holders then burn tokens for refunds. The formula: `refund = (frozenEthBalance × burnedTokens) / frozenTotalSupply`.
 
-For a holder with 1,000,000 $LOOM (0.1% of supply, having contributed roughly 0.1 ETH originally):
+For a holder with 1,000,000 $LOOM (0.1% of supply, having contributed roughly 0.154 ETH originally):
 
 - If `frozenTotalSupply` is 825,000,000 (assuming founder + treasury exclusions): refund = (51 × 1,000,000) / 825,000,000 = **0.0618 ETH**.
 - They burn their 1,000,000 $LOOM. They receive 0.0618 ETH.
 
-The holder's contributed 0.1 ETH split into three legs: ~0.015 ETH to the permanent LP (still in the pool; not refunded), ~0.034 ETH already paid to the founder across T0–T2 (not recoverable), and ~0.051 ETH that was in escrow at freeze (now refunded pro-rata).
+The holder's contributed ~0.154 ETH split into three legs: ~0.023 ETH to the permanent LP (still in the pool; not refunded), ~0.052 ETH already paid to the founder across T0–T2 (not recoverable), and ~0.078 ETH that was in escrow at freeze. The refund divides the frozen escrow pro-rata across all of `frozenTotalSupply`, which also counts the LP and staker tokens, so this holder receives 0.0618 ETH.
 
 ### What this scenario does *not* recover
 
