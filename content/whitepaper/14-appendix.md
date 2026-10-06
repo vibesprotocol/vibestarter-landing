@@ -125,5 +125,6 @@ The whitepaper synthesizes; the referenced documents are authoritative for speci
 | v0.1 | 2026-05-24 | Initial draft. Mechanism sections (4–9), system sections (10–13), and this appendix complete. Part 1 (sections 1–3) compressed from the original thesis. |
 | v1.0 | 2026-08-21 | Live release. Copy-editing pass across all sections (phrasing and punctuation only); no mechanism or parameter changes. |
 | v1.1 | 2026-10-06 | Platform fee stated as configured on Base and Robinhood Chain: no fee on tranche releases, with the $VIBES escrow's fixed 2.5% as the one exception (5, 9, 10, 11, 14.2). Worked examples (9) use a 5% founder and 12.5% treasury allocation. |
+| v1.1.1 | 2026-10-06 | Safe thresholds as read on-chain (1, 11): M-1 2-of-3 on Base and Robinhood Chain, M-4 2-of-2. The 9.1 example pairs the LP at the backer entry price −5% (about 102.6M $LOOM), and the 9.1–9.2 holder figures follow from it. Contract overview (10) states no file count. No mechanism or parameter changes. |
 
 Future revisions will be tracked here. Material changes that affect the mechanism (parameter changes, decentralization-path stage transitions, new failure modes identified) will be reflected in version bumps.

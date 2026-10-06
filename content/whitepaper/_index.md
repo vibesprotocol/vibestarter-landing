@@ -45,5 +45,5 @@ The paper is structured for both linear reading and section-by-section reference
 
 ---
 
-**Current version:** v1.1 (live)
+**Current version:** v1.1.1 (live)
 **Last updated:** 2026-10-06

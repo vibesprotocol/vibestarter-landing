@@ -57,7 +57,7 @@ No challenges are raised during the six months. Each tranche requests through th
 
 ### What backers hold at the end
 
-Each backer holds their pro-rata share of 650,000,000 $LOOM. The LP at month six contains whatever the trading activity has accumulated to: the initial 15 ETH paired with 150M $LOOM, plus or minus the net of all trades. Backers can sell into this pool at any time. The pool will exist as long as Aerodrome does.
+The pool opens at the backer entry price −5%, so the 15 ETH pairs with about 102.6M $LOOM (15% of the 650,000,000 backer allocation, divided by 0.95) and the other ~47.4M $LOOM of the 150,000,000 reserve go to backers. Each backer holds their pro-rata share of about 697.4M $LOOM. The LP at month six contains whatever the trading activity has accumulated to: the initial 15 ETH paired with ~102.6M $LOOM, plus or minus the net of all trades. Backers can sell into this pool at any time. The pool will exist as long as Aerodrome does.
 
 ---
 
@@ -91,12 +91,12 @@ The admin publishes a refund merkle root after the 24-hour `MERKLE_ROOT_DELAY` c
 
 Holders then burn tokens for refunds. The formula: `refund = (frozenEthBalance × burnedTokens) / frozenTotalSupply`.
 
-For a holder with 1,000,000 $LOOM (0.1% of supply, having contributed roughly 0.154 ETH originally):
+For a holder with 1,000,000 $LOOM (0.1% of supply, having contributed roughly 0.143 ETH originally):
 
 - If `frozenTotalSupply` is 825,000,000 (assuming founder + treasury exclusions): refund = (51 × 1,000,000) / 825,000,000 = **0.0618 ETH**.
 - They burn their 1,000,000 $LOOM. They receive 0.0618 ETH.
 
-The holder's contributed ~0.154 ETH split into three legs: ~0.023 ETH to the permanent LP (still in the pool; not refunded), ~0.052 ETH already paid to the founder across T0–T2 (not recoverable), and ~0.078 ETH that was in escrow at freeze. The refund divides the frozen escrow pro-rata across all of `frozenTotalSupply`, which also counts the LP and staker tokens, so this holder receives 0.0618 ETH.
+The holder's contributed ~0.143 ETH split into three legs: ~0.022 ETH to the permanent LP (still in the pool; not refunded), ~0.049 ETH already paid to the founder across T0–T2 (not recoverable), and ~0.073 ETH that was in escrow at freeze. The refund divides the frozen escrow pro-rata across all of `frozenTotalSupply`, which also counts the LP and staker tokens, so this holder receives 0.0618 ETH.
 
 ### What this scenario does *not* recover
 

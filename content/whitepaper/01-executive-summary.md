@@ -22,7 +22,7 @@ Each primitive maps to a design goal introduced in Section 4 and is specified in
 | **Challenge windows.** Each tranche request opens a 72-hour window during which token holders can pause the schedule. | 72-hour window; graduated holder thresholds (0.25 / 0.50 / 1.00% of supply); 20% slash on rejected challenges; 7-day cooldown | §6 |
 | **Indefinite LP lock.** 15% of every raise creates an Aerodrome liquidity pool; the LP receipt is locked forever in a per-campaign fee claimer with no withdraw function. | Permanent. No unlock event. Trading fees are captured, not burned. | §7 |
 | **Reputation as a signal, not a gate.** Anyone can back any raise; there is no reputation minimum. Launch admission is curated in the current phase against a published rubric (§12.1), not by reputation scores. Vibestarter surfaces each founder's and backer's reputation so participants can judge for themselves. | Ethos scores + on-chain history | §8 |
-| **Two-tier admin separation.** Master admin (Gnosis Safe multi-sig, M-1) controls infrastructure, fees, rescue, and treasury powers. Operations/escrow admin adjudicates challenges + freezes and cannot extract user funds. | Master = M-1 Safe (2-of-2 today, moving to 2-of-3). Operations = M-3, a revocable single-key hot EOA. | §11 |
+| **Two-tier admin separation.** Master admin (Gnosis Safe multi-sig, M-1) controls infrastructure, fees, rescue, and treasury powers. Operations/escrow admin adjudicates challenges + freezes and cannot extract user funds. | Master = M-1 Safe (2-of-3). Operations = M-3, a revocable single-key hot EOA. | §11 |
 
 ## What the contract guarantees, and what it does not
 

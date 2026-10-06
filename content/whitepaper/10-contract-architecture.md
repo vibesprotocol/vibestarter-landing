@@ -2,7 +2,7 @@
 
 > A short tour of the contract topology that implements the mechanism described in Sections 5 through 8. This is an overview, not a specification; the deployed contracts are the authoritative technical reference.
 
-The implementation comprises fourteen Solidity contracts deployed on Base (chain ID 8453) and Robinhood Chain (chain ID 4663), of which twelve are core protocol and infrastructure and two are testnet-only variants. All contracts target Solidity ^0.8.20 and use OpenZeppelin v5 primitives (ReentrancyGuard, SafeERC20, two-step Ownable patterns).
+The implementation is a family of Solidity contracts on Base (chain ID 8453) and Robinhood Chain (chain ID 4663). This section tours the contracts that implement the mechanism described in this paper; the deployed inventory, with addresses and deployment status, is Section 14.3. All contracts target Solidity ^0.8.20 and use OpenZeppelin v5 primitives (ReentrancyGuard, SafeERC20, two-step Ownable patterns).
 
 ---
 

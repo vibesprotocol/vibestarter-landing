@@ -14,7 +14,7 @@ The protocol distinguishes between two privileged roles. The separation is enfor
 
 ### Master Admin (`VibesLaunchRouterV2.owner`)
 
-The master admin is the holder of the router's `owner` role. It is held by a **Gnosis Safe multi-signature wallet**, the M-1 Safe (2-of-2 today, moving to 2-of-3; 3-of-5 recommended at scale).
+The master admin is the holder of the router's `owner` role. It is held by a **Gnosis Safe multi-signature wallet**, the M-1 Safe (2-of-3, with the same cosigners at the same address on Robinhood Chain; 3-of-5 recommended at scale).
 
 Its powers, the ones that can move user funds or alter infrastructure, include:
 
@@ -61,7 +61,7 @@ If the operations admin is compromised, the worst-case scenario is bounded: an a
 
 ## 11.2 Off-chain key topology (Safes + EOAs)
 
-Beyond the on-chain `owner` and `operationsAdmin` roles, the operational roles sit at the organizational level across **two Gnosis Safes (M-1, M-4) plus two single-key EOAs (M-2 cold, M-3 hot)**. The two Safes use a 2-of-2 threshold today (moving to 2-of-3); **M-2 and M-3 are single keys, not multisigs.**
+Beyond the on-chain `owner` and `operationsAdmin` roles, the operational roles sit at the organizational level across **two Gnosis Safes (M-1, M-4) plus two single-key EOAs (M-2 cold, M-3 hot)**. M-1 is 2-of-3 and is mirrored at the same address, with the same cosigners, on Robinhood Chain; M-4 is 2-of-2. **M-2 and M-3 are single keys, not multisigs.**
 
 | Safe | Role | Purpose |
 |------|------|---------|
